@@ -21,7 +21,7 @@ public interface JarUtils {
             String path = clazz.getResource(clazz.getSimpleName() + ".class").toString();
             return new Manifest(new URL(path.substring(0, path.lastIndexOf("!") + 1) + "/META-INF/MANIFEST.MF").openStream()).getMainAttributes();
         } catch (Exception e) {
-            LOGGER.warn(MARKER, "MANIFEST.MF could not be read. If this is a development environment you can ignore this message.");
+            LOGGER.warn(MARKER, "MANIFEST.MF of mod " + clazz.getSimpleName() + " could not be read. If this is a development environment you can ignore this message.");
             throw e;
         }
     }
