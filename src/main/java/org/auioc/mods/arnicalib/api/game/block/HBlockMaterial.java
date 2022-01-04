@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.block;
+package org.auioc.mods.arnicalib.api.game.block;
 
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;

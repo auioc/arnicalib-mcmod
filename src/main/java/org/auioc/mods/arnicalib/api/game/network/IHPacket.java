@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.network;
+package org.auioc.mods.arnicalib.api.game.network;
 
 import java.util.function.Supplier;
 import net.minecraft.network.FriendlyByteBuf;
