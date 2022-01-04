@@ -27,11 +27,12 @@ public interface JarUtils {
     }
 
     static Tuple<String, String> getModVersion(final Attributes attrs, String modName) {
-        try {
-            return new Tuple<String, String>(attrs.getValue("Implementation-Version"), attrs.getValue(modName + "-Version"));
-        } catch (Exception e) {
-            return DEFAULT_VERSION;
+        String fullVersion = attrs.getValue(modName + "-Version");
+        String[] p = fullVersion.split("-");
+        if (p.length > 0 && p[p.length - 1].equals("null")) {
+            LOGGER.warn(MARKER, "The revision number of mod " + modName + " is null. If this is a manually built version you can ignore this message.");
         }
+        return new Tuple<String, String>(attrs.getValue("Implementation-Version"), fullVersion);
     }
 
     static Tuple<String, String> getModVersion(Class<?> clazz, String modName) {
