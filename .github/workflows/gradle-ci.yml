@@ -1,0 +1,78 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: gradle-ci
+
+on:
+    push:
+        tags:
+            - 'v*'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            packages: write
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set vars
+              run: |
+                  echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+                  echo "CI_VERSION=`echo rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
+                  config='gradle.properties'
+                  function prop {
+                    [ -f "$config" ] && grep -P "^\s*[^#]?${1}=.*$" $config | cut -d'=' -f2
+                  }
+                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
+                  echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
+
+            - name: Check tag
+              run: |
+                  if [ "${{env.GIT_TAG}}" != "v${{env.ARNICALIB_VERSION}}" ];then exit 1;fi
+
+            - name: Set up JDK 17
+              uses: actions/setup-java@v2
+              with:
+                  java-version: '17'
+                  distribution: 'temurin'
+                  architecture: x64
+
+            - name: Set up Gradlew and clean
+              run: |
+                  chmod +x ./gradlew
+                  ./gradlew clean
+                  rm -rf tmp
+                  mkdir tmp
+
+            - name: Build and publish
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+              run: |
+                  ./gradlew build
+                  ./gradlew publish
+                  ./gradlew genUpdateJson
+
+            - name: Update update JSON
+              uses: JamesIves/github-pages-deploy-action@4.1.5
+              with:
+                  clean: false
+                  target-folder: update
+                  branch: gh-pages
+                  folder: tmp
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v1
+              with:
+                  name: arnicalib-${{env.MINECRAFT_VERSION}}-${{env.ARNICALIB_VERSION}}-${{env.CI_VERSION}}
+                  path: build/libs
+
+            - name: Github release
+              uses: marvinpinto/action-automatic-releases@latest
+              with:
+                  repo_token: ${{secrets.GITHUB_TOKEN}}
+                  prerelease: false
+                  files: |
+                      build/libs/*.jar
