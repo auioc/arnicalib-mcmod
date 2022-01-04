@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.data;
+package org.auioc.mods.arnicalib.api.java.data;
 
 public class Tuple<A, B> {
 

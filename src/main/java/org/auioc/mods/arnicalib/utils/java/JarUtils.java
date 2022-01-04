@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mods.arnicalib.api.data.Tuple;
+import org.auioc.mods.arnicalib.api.java.data.Tuple;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public interface JarUtils {

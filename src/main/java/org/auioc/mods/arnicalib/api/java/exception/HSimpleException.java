@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.exception;
+package org.auioc.mods.arnicalib.api.java.exception;
 
 public class HSimpleException extends Exception {
 

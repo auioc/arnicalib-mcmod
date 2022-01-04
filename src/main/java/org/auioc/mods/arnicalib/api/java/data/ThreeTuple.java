@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.data;
+package org.auioc.mods.arnicalib.api.java.data;
 
 public class ThreeTuple<A, B, C> extends Tuple<A, B> {
 
