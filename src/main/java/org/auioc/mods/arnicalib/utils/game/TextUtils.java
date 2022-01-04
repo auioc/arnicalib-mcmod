@@ -24,7 +24,15 @@ public interface TextUtils {
         return new TextComponent("");
     }
 
+    static TextComponent EmptyText() {
+        return new TextComponent("");
+    }
+
     static TextComponent getStringText(String text) {
+        return new TextComponent(text);
+    }
+
+    static TextComponent StringText(String text) {
         return new TextComponent(text);
     }
 
@@ -32,7 +40,15 @@ public interface TextUtils {
         return new TranslatableComponent(key);
     }
 
+    static TranslatableComponent I18nText(String key) {
+        return new TranslatableComponent(key);
+    }
+
     static TranslatableComponent getI18nText(String key, Object... arguments) {
+        return new TranslatableComponent(key, arguments);
+    }
+
+    static TranslatableComponent I18nText(String key, Object... arguments) {
         return new TranslatableComponent(key, arguments);
     }
 

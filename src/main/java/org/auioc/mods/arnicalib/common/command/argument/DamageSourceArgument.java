@@ -35,7 +35,7 @@ public class DamageSourceArgument implements ArgumentType<DamageSource> {
         }
 
         throw (new SimpleCommandExceptionType(
-            TextUtils.getI18nText(ArnicaLib.MOD_ID + ".argument.damage_source.invalid", sourceName)
+            TextUtils.I18nText(ArnicaLib.MOD_ID + ".argument.damage_source.invalid", sourceName)
         )).create();
     }
 
