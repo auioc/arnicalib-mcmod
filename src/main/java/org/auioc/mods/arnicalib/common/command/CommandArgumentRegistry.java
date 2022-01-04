@@ -1,7 +1,7 @@
 package org.auioc.mods.arnicalib.common.command;
 
 import com.mojang.brigadier.arguments.ArgumentType;
-import org.auioc.mods.arnicalib.ArnicaLib;
+import org.auioc.mods.arnicalib.Reference;
 import org.auioc.mods.arnicalib.common.command.argument.DamageSourceArgument;
 import org.auioc.mods.arnicalib.common.command.argument.EntityDamageSourceArgument;
 import org.auioc.mods.arnicalib.common.command.argument.IndirectEntityDamageSourceArgument;
@@ -12,7 +12,7 @@ import net.minecraft.commands.synchronization.EmptyArgumentSerializer;
 public class CommandArgumentRegistry {
 
     private static <T extends ArgumentType<?>> void register(String id, Class<T> clazz, ArgumentSerializer<T> serializer) {
-        ArgumentTypes.register(ArnicaLib.MOD_ID + ":" + id, clazz, serializer);
+        ArgumentTypes.register(Reference.ResourceId(id).toString(), clazz, serializer);
     }
 
     public static void register() {

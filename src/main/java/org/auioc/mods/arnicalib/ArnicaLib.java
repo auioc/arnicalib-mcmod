@@ -23,14 +23,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(ArnicaLib.MOD_ID)
 @SuppressWarnings("unused")
-public class ArnicaLib {
+public final class ArnicaLib {
 
     public static final String MOD_ID = "arnicalib";
     public static final String MOD_NAME = "ArnicaLib";
     public static String MAIN_VERSION;
     public static String FULL_VERSION;
 
-    public static final Logger LOGGER = LogUtil.getNamedLogger("ArnicaLib");
+    public static final Logger LOGGER = LogUtil.getNamedLogger(MOD_NAME);
     private static final Marker CORE = LogUtil.getMarker("CORE");
 
     public ArnicaLib() {

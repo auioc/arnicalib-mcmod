@@ -2,7 +2,7 @@ package org.auioc.mods.arnicalib.server.command.impl;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import org.auioc.mods.arnicalib.ArnicaLib;
+import org.auioc.mods.arnicalib.Reference;
 import org.auioc.mods.arnicalib.utils.game.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -16,9 +16,9 @@ public class VersionCommand {
         message.append(TextUtils.StringText("[" + modName + "] ").withStyle(ChatFormatting.AQUA));
 
         if (mainVersion.equals("0") && fullVersion.equals("0")) {
-            message.append(TextUtils.I18nText(ArnicaLib.MOD_ID + ".command.version.failure"));
+            message.append(TextUtils.I18nText(Reference.I18nKey("command.version.failure")));
         } else {
-            message.append(TextUtils.I18nText(ArnicaLib.MOD_ID + ".command.version.success", mainVersion, fullVersion));
+            message.append(TextUtils.I18nText(Reference.I18nKey("command.version.success"), mainVersion, fullVersion));
         }
 
         ctx.getSource().sendSuccess(message, false);
