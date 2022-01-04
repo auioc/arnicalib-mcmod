@@ -34,7 +34,7 @@ public class ArnicaLib {
     private static final Marker CORE = LogUtil.getMarker("CORE");
 
     public ArnicaLib() {
-        Tuple<String, String> version = JarUtils.getModVersion(getClass(), MOD_NAME);
+        Tuple<String, String> version = JarUtils.getModVersion(getClass());
         MAIN_VERSION = version.getA();
         FULL_VERSION = version.getB();
         LOGGER.info(CORE, "Version: " + MAIN_VERSION + " (" + FULL_VERSION + ")");

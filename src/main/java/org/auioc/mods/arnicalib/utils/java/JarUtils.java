@@ -42,4 +42,8 @@ public interface JarUtils {
         }
     }
 
+    static Tuple<String, String> getModVersion(Class<?> clazz) {
+        return getModVersion(clazz, clazz.getSimpleName());
+    }
+
 }
