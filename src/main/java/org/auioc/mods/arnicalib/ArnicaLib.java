@@ -2,7 +2,7 @@ package org.auioc.mods.arnicalib;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mods.arnicalib.api.data.Tuple;
+import org.auioc.mods.arnicalib.api.java.data.Tuple;
 import org.auioc.mods.arnicalib.client.config.ClientConfig;
 import org.auioc.mods.arnicalib.client.event.ClientEventHandler;
 import org.auioc.mods.arnicalib.common.command.CommandArgumentRegistry;

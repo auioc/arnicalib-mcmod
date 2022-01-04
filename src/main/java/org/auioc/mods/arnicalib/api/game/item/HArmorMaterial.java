@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.item;
+package org.auioc.mods.arnicalib.api.game.item;
 
 import java.util.function.Supplier;
 import net.minecraft.sounds.SoundEvent;

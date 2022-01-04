@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.api.item;
+package org.auioc.mods.arnicalib.api.game.item;
 
 import javax.annotation.Nullable;
 import net.minecraft.world.effect.MobEffect;
