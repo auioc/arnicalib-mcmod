@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="GNU GPLv3"
+issueTrackerURL="https://github.com/WakelessSloth56/arnicalib-mcmod/issues"
+
+[[mods]]
+modId="arnicalib"
+version="${file.jarVersion}"
+updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.18.1.json"
+displayName="ArnicaLib"
+displayURL="https://github.com/WakelessSloth56/arnicalib-mcmod"
+credits="AUIOC"
+authors="WakelssSloth56"
+description='''
+Shared library for AH's Minecraft mods.
+'''
+
+[[dependencies.arnicalib]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.arnicalib]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"

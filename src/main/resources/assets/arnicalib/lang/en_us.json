@@ -1,0 +1,13 @@
+{
+    "arnicalib.title": "ArnicaLib",
+
+    "itemGroup.arnicalib_group": "ArnicaLib",
+    "itemGroup.mc_hidden_items_group": "Vanilla Hidden Items",
+
+    "arnicalib.command.failed.internal": "An internal error occurred trying to execute that command",
+    "arnicalib.command.failed.not_server": "This command must be executed by the server",
+    "arnicalib.command.failed.not_dedicated_server": "This command must be executed by the dedicated server",
+    "arnicalib.command.failed.reflection": "Failed while using reflection to get private source",
+
+    "arnicalib.argument.damage_source.invalid": "Invalid damage source %s"
+}

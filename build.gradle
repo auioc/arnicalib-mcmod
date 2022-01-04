@@ -1,0 +1,164 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+
+println("CI: ${getVar('CI')}")
+
+version = "${arnicalib_version}"
+group = 'org.auioc.mods.arnicalib'
+archivesBaseName = "arnicalib-${minecraft_version}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
+    mappings channel: "${mappings_channel}", version: "${mappings_version}"
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'log4j.configurationFile', 'log4j2.xml'
+            property 'mixin.debug', 'true'
+            arg '-mixin.config=arnicalib.mixin.json'
+            mods {
+                arnicalib {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'log4j.configurationFile', 'log4j2.xml'
+            property 'mixin.debug', 'true'
+            arg '-mixin.config=arnicalib.mixin.json'
+            mods {
+                arnicalib {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    testAnnotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+}
+
+mixin {
+    add sourceSets.main, 'arnicalib.mixin-refmap.json'
+}
+
+ext {
+    manifest_attributes = [
+        "Specification-Title": 'arnicalib',
+        "Specification-Vendor": 'AUIOC',
+        "Specification-Version": '1',
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor" :'AUIOC',
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
+        "TweakOrder": 0,
+        "MixinConfigs": 'arnicalib.mixin.json',
+        "ArnicaLib-Version": "${archivesBaseName}-${version}-${getVar('CI_VERSION')}"
+    ]
+}
+
+jar {
+    manifest {attributes(manifest_attributes)}
+}
+jar.finalizedBy('reobfJar')
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    manifest {attributes(manifest_attributes)}
+}
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+    manifest {attributes(manifest_attributes)}
+}
+task forgelibJar(type: Jar) {
+    from sourceSets.main.output
+    from sourceSets.main.allJava
+    classifier = 'forgelib'
+    manifest {attributes(manifest_attributes)}
+}
+artifacts {
+    archives sourcesJar
+    archives deobfJar
+    archives forgelibJar
+}
+
+tasks.build.dependsOn('sourcesJar', 'deobfJar', 'forgelibJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+            artifact deobfJar {
+                classifier 'deobf'
+            }
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+            artifact forgelibJar {
+                classifier 'forgelib'
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/wakelesssloth56/arnicalib-mcmod')
+            credentials {
+                username = getVar('GITHUB_ACTOR')
+                password = getVar('GITHUB_TOKEN')
+            }
+        }
+        maven {
+            name = 'McmodsRepo'
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+task genUpdateJson() {
+    doFirst {
+        def j = [
+            'homepage': 'https://github.com/WakelessSloth56/arnicalib-mcmod/releases',
+            'promos': [
+                    "${minecraft_version}-latest": "${arnicalib_version}",
+                    "${minecraft_version}-recommended": "${arnicalib_version}",
+            ]
+        ]
+        println(groovy.json.JsonOutput.toJson(j))
+        File file = file("tmp/${minecraft_version}.json")
+        file.write(groovy.json.JsonOutput.toJson(j))
+    }
+}
+
+
+def getVar(String var_name) {
+    return System.getenv(var_name)
+}

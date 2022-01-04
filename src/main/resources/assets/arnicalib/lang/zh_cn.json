@@ -1,0 +1,13 @@
+{
+    "arnicalib.title": "ArnicaLib",
+
+    "itemGroup.arnicalib_group": "ArnicaLib",
+    "itemGroup.mc_hidden_items_group": "原版隐藏物品",
+
+    "arnicalib.command.failed.internal": "试图执行该命令时出现内部错误",
+    "arnicalib.command.failed.not_server": "此命令必须由服务器执行",
+    "arnicalib.command.failed.not_dedicated_server": "此命令必须由专用服务器执行",
+    "arnicalib.command.failed.reflection": "使用反射获取命令源失败",
+
+    "arnicalib.argument.damage_source.invalid": "无效的伤害类型%s"
+}
