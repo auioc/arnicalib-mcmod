@@ -8,7 +8,7 @@ Shared library for AH's Minecraft mods.
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/gradle-ci?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions)
 &nbsp;
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.18.1&color=00aa00&style=flat-square)
-[![Forge](https://img.shields.io/static/v1?label=Forge&message=39%2B&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
+[![Forge](https://img.shields.io/static/v1?label=Forge&message=39.0.10&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
 [![AdoptiumOpenJDK](https://img.shields.io/static/v1?label=AdoptiumOpenJDK&message=17.0.1%2B12&color=brightgreen&logo=java&style=flat-square)](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot)
 [![Gradle](https://img.shields.io/static/v1?label=Gradle&message=7.3&color=brightgreen&logo=gradle&style=flat-square)](https://docs.gradle.org/7.3/release-notes.html)
 
@@ -34,8 +34,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.auioc.mods.arnicalib:arnicalib-<MINECRAFT_VERSION>:<ARNICALIB_VERSION>:forgelib"
-    runtimeOnly "org.auioc.mods.arnicalib:arnicalib-<MINECRAFT_VERSION>:<ARNICALIB_VERSION>:deobf"
+    implementation "org.auioc.mods.arnicalib:arnicalib-<MINECRAFT_VERSION>:<ARNICALIB_VERSION>:forgelib"
 }
 ```
 
@@ -49,14 +48,13 @@ dependencies {
 
 If you do not want to or can not use the GitHub Packages:
 
-1. Download the mod jar and forgelib jar of the version you want from [Releases](https://github.com/WakelessSloth56/arnicalib-mcmod/releases), then put them into `libs` folder.
+1. Download the forgelib jar of the version you want from [Releases](https://github.com/WakelessSloth56/arnicalib-mcmod/releases), then put them into `libs` folder.
 
 2. Add the following to your `build.gradle`:
 
     ```groovy
     dependencies {
-        compileOnly files("libs/arnicalib-<VERSION>-forgelib.jar")
-        runtimeOnly files("libs/arnicalib-<VERSION>-deobf.jar")
+        implementation files("libs/arnicalib-<VERSION>-forgelib.jar")
     }
     ```
 
@@ -84,4 +82,4 @@ Any type of contribution is welcome, here are some examples of how you may contr
 ## License
 
 ArnicaLib is licensed under the **GNU General Public License v3.0**.
-Full license is in [LICENSE](/LICENSE) file.
+The full license is in the [LICENSE](/LICENSE) file.
