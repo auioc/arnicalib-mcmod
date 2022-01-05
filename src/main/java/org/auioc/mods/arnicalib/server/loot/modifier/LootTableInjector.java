@@ -17,7 +17,7 @@ import net.minecraftforge.common.loot.LootModifier;
 
 public class LootTableInjector extends LootModifier {
 
-    private HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>();
+    private HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>(); // targetTableId, sourceTableId
     private boolean strictParameter;
 
     protected LootTableInjector(LootItemCondition[] conditionsIn, HashMap<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
@@ -26,25 +26,25 @@ public class LootTableInjector extends LootModifier {
         this.strictParameter = strictParameter;
     }
 
-    private List<ItemStack> getItemStacks(LootContext context, ResourceLocation target) {
-        ResourceLocation id = this.injectors.get(target);
-        LootTable lootTable = context.getLootTable(id);
-        LootContext context2 = new LootContext.Builder(context)
-            .create((this.strictParameter) ? lootTable.getParamSet() : LootContextParamSets.CHEST);
-        context2.setQueriedLootTableId(id); // mixin LootContext#setQueriedLootTableId
-        List<ItemStack> list = lootTable.getRandomItems(context2);
-        return list;
+    private List<ItemStack> getItemStacks(LootContext ctx, ResourceLocation targetId) {
+        ResourceLocation sourceId = this.injectors.get(targetId);
+        LootTable sourceTable = ctx.getLootTable(sourceId);
+
+        LootContext newCtx = new LootContext.Builder(ctx).create((this.strictParameter) ? sourceTable.getParamSet() : LootContextParamSets.CHEST);
+        newCtx.setQueriedLootTableId(sourceId); // mixin LootContext#setQueriedLootTableId
+
+        return sourceTable.getRandomItems(newCtx);
     }
 
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        ResourceLocation id = context.getQueriedLootTableId();
+    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext ctx) {
+        ResourceLocation id = ctx.getQueriedLootTableId();
 
         if (!this.injectors.containsKey(id)) {
             return generatedLoot;
         }
 
-        generatedLoot.addAll(getItemStacks(context, id));
+        generatedLoot.addAll(getItemStacks(ctx, id));
         return generatedLoot;
     }
 
