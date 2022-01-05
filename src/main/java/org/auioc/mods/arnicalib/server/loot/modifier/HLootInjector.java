@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.server.loot.impl;
+package org.auioc.mods.arnicalib.server.loot.modifier;
 
 import java.util.HashMap;
 import java.util.List;

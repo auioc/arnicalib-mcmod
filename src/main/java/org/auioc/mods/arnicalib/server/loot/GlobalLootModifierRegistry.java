@@ -1,7 +1,7 @@
 package org.auioc.mods.arnicalib.server.loot;
 
 import org.auioc.mods.arnicalib.Reference;
-import org.auioc.mods.arnicalib.server.loot.impl.HLootInjector;
+import org.auioc.mods.arnicalib.server.loot.modifier.HLootInjector;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
