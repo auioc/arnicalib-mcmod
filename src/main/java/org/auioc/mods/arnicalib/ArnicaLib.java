@@ -10,6 +10,7 @@ import org.auioc.mods.arnicalib.common.itemgroup.ItemGroupRegistry;
 import org.auioc.mods.arnicalib.common.network.PacketHandler;
 import org.auioc.mods.arnicalib.server.event.ServerEventHandler;
 import org.auioc.mods.arnicalib.server.loot.GlobalLootModifierRegistry;
+import org.auioc.mods.arnicalib.server.loot.LootConditionTypeRegistry;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 import org.auioc.mods.arnicalib.utils.java.JarUtils;
 import net.minecraftforge.api.distmarker.Dist;
@@ -56,6 +57,7 @@ public final class ArnicaLib {
     private void modSetup(final IEventBus modEventBus) {
         CommandArgumentRegistry.init();
         modEventBus.register(PacketHandler.class);
+        LootConditionTypeRegistry.init();
         modEventBus.register(GlobalLootModifierRegistry.class);
     }
 
