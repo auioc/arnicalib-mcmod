@@ -62,7 +62,7 @@ public final class ArnicaLib {
     }
 
     private void forgeSetup(final IEventBus forgeEventBus) {
-        ItemGroupRegistry.register();
+        ItemGroupRegistry.init();
         forgeEventBus.register(ServerEventHandler.class);
     }
 

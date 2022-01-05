@@ -2,14 +2,16 @@ package org.auioc.mods.arnicalib.common.itemgroup.impl;
 
 import java.util.List;
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class McHiddenItemsGroup extends CreativeModeTab {
-    List<String> hiddenItems = List.of(
+public class VanillaHiddenItemGroup extends CreativeModeTab {
+
+    private static final List<String> HIDDEN_ITEMS = List.of(
         "debug_stick",
         "barrier",
         "command_block",
@@ -23,8 +25,8 @@ public class McHiddenItemsGroup extends CreativeModeTab {
         "dragon_egg"
     );
 
-    public McHiddenItemsGroup() {
-        super("mc_hidden_items_group");
+    public VanillaHiddenItemGroup() {
+        super("vanilla_hidden_item");
     }
 
     @Override
@@ -33,15 +35,13 @@ public class McHiddenItemsGroup extends CreativeModeTab {
     }
 
     @Override
-    public void fillItemList(NonNullList<ItemStack> itemsToShowInGroup) {
-        for (Item item : ForgeRegistries.ITEMS) {
-
-            if (item != null && hiddenItems.contains(item.getRegistryName().getPath())) {
-                itemsToShowInGroup.add(new ItemStack(item));
-                // item.fillItemCategory(ItemGroup.TAB_SEARCH, itemsToShowInGroup);
-                // item.fillItemCategory(this, itemsToShowInGroup);
+    public void fillItemList(NonNullList<ItemStack> list) {
+        for (String itemID : HIDDEN_ITEMS) {
+            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemID));
+            if (item != null) {
+                list.add(new ItemStack(item));
             }
-
         }
     }
+
 }

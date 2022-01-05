@@ -1,8 +1,8 @@
 {
     "arnicalib.title": "ArnicaLib",
 
-    "itemGroup.arnicalib_group": "ArnicaLib",
-    "itemGroup.mc_hidden_items_group": "Vanilla Hidden Items",
+    "itemGroup.arnicalib": "ArnicaLib",
+    "itemGroup.vanilla_hidden_item": "Vanilla Hidden Items",
 
     "arnicalib.command.failure.internal": "An internal error occurred trying to execute that command",
     "arnicalib.command.failure.not_server": "This command must be executed by the server",
