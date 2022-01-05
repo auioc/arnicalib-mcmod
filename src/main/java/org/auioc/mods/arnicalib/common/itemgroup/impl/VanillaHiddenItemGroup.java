@@ -12,17 +12,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class VanillaHiddenItemGroup extends CreativeModeTab {
 
     private static final List<String> HIDDEN_ITEMS = List.of(
-        "debug_stick",
         "barrier",
-        "command_block",
-        "repeating_command_block",
         "chain_command_block",
+        "command_block",
         "command_block_minecart",
+        "debug_stick",
+        "dragon_egg",
+        "jigsaw",
+        "repeating_command_block",
         "spawner",
         "structure_block",
-        "structure_void",
-        "jigsaw",
-        "dragon_egg"
+        "structure_void"
     );
 
     public VanillaHiddenItemGroup() {
