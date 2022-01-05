@@ -1,6 +1,5 @@
 package org.auioc.mods.arnicalib.utils;
 
-import static org.auioc.mods.arnicalib.ArnicaLib.LOGGER;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -32,10 +31,6 @@ public class LogUtil {
 
     public static Logger getNamedLogger(String name) {
         return LogManager.getLogger(name);
-    }
-
-    public static Logger getModLogger() {
-        return LOGGER;
     }
 
     public static Marker getMarker(String marker) {
