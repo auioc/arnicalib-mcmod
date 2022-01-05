@@ -54,8 +54,8 @@ public final class ArnicaLib {
     }
 
     private void modSetup(final IEventBus modEventBus) {
+        CommandArgumentRegistry.init();
         modEventBus.register(PacketHandler.class);
-        CommandArgumentRegistry.register();
         modEventBus.register(GlobalLootModifierRegistry.class);
     }
 

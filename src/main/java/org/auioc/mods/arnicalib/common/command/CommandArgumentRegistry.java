@@ -15,7 +15,7 @@ public class CommandArgumentRegistry {
         ArgumentTypes.register(Reference.ResourceId(id).toString(), clazz, serializer);
     }
 
-    public static void register() {
+    public static void init() {
         register("damage_source", DamageSourceArgument.class, new EmptyArgumentSerializer<>(DamageSourceArgument::damageSource));
         register("entity_damage_source", EntityDamageSourceArgument.class, new EmptyArgumentSerializer<>(EntityDamageSourceArgument::damageSource));
         register("indirect_entity_damage_source", IndirectEntityDamageSourceArgument.class, new EmptyArgumentSerializer<>(IndirectEntityDamageSourceArgument::damageSource));
