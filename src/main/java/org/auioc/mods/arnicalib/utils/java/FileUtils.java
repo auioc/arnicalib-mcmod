@@ -13,7 +13,7 @@ import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public interface FileUtils {
 
-    static Marker marker = LogUtil.getMarker("FileUtils");
+    static Marker marker = LogUtil.getMarker(FileUtils.class);
 
     static Path getOrCreateDirectory(String directoryName) throws Exception {
         Path path = Paths.get(directoryName);

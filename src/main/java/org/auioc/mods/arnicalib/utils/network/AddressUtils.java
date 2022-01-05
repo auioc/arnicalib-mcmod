@@ -5,9 +5,12 @@ import java.net.InetAddress;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import javax.annotation.Nullable;
+import org.apache.logging.log4j.Marker;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public interface AddressUtils {
+
+    static Marker MARKER = LogUtil.getMarker(AddressUtils.class);
 
     @Deprecated
     static String ipv4toString(SocketAddress addr) {
@@ -21,7 +24,7 @@ public interface AddressUtils {
         try {
             return InetAddress.getByName(addr);
         } catch (UnknownHostException e) {
-            LOGGER.error(LogUtil.getMarker("AddressUtils"), "", e);
+            LOGGER.error(MARKER, "", e);
             return null;
         }
     }

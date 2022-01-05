@@ -29,7 +29,7 @@ public class LogUtil {
         return LogManager.getLogger(getCaller().getClassName());
     }
 
-    public static Logger getNamedLogger(String name) {
+    public static Logger getLogger(String name) {
         return LogManager.getLogger(name);
     }
 
@@ -37,6 +37,9 @@ public class LogUtil {
         return MarkerManager.getMarker(marker);
     }
 
+    public static Marker getMarker(Class<?> clazz) {
+        return MarkerManager.getMarker(clazz.getSimpleName());
+    }
 
 
     public static void trace(Object msg) {

@@ -12,7 +12,7 @@ import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public interface JarUtils {
 
-    static Marker MARKER = LogUtil.getMarker("JarUtils");
+    static Marker MARKER = LogUtil.getMarker(JarUtils.class);
 
     static Tuple<String, String> DEFAULT_VERSION = new Tuple<String, String>("0", "0");
 

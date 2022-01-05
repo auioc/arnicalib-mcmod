@@ -31,7 +31,7 @@ public final class ArnicaLib {
     public static String MAIN_VERSION;
     public static String FULL_VERSION;
 
-    public static final Logger LOGGER = LogUtil.getNamedLogger(MOD_NAME);
+    public static final Logger LOGGER = LogUtil.getLogger(MOD_NAME);
     private static final Marker CORE = LogUtil.getMarker("CORE");
 
     public ArnicaLib() {
