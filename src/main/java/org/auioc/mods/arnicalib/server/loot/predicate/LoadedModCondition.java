@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import org.auioc.mods.arnicalib.server.loot.LootConditionTypeRegistry;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -34,7 +35,7 @@ public class LoadedModCondition implements LootItemCondition {
 
         @Override
         public LoadedModCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {
-            return new LoadedModCondition(json.get("loaded_mod").getAsString());
+            return new LoadedModCondition(GsonHelper.getAsString(json, "loaded_mod"));
         }
     }
 
