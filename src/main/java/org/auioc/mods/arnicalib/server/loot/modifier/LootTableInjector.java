@@ -15,12 +15,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
-public class HLootInjector extends LootModifier {
+public class LootTableInjector extends LootModifier {
 
     private HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>();
     private boolean strictParameter;
 
-    protected HLootInjector(LootItemCondition[] conditionsIn, HashMap<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
+    protected LootTableInjector(LootItemCondition[] conditionsIn, HashMap<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
         super(conditionsIn);
         this.injectors = injectors;
         this.strictParameter = strictParameter;
@@ -31,7 +31,7 @@ public class HLootInjector extends LootModifier {
         LootTable lootTable = context.getLootTable(id);
         LootContext context2 = new LootContext.Builder(context)
             .create((this.strictParameter) ? lootTable.getParamSet() : LootContextParamSets.CHEST);
-        context2.setQueriedLootTableId(id); // coremod LootContext#setQueriedLootTableId
+        context2.setQueriedLootTableId(id); // mixin LootContext#setQueriedLootTableId
         List<ItemStack> list = lootTable.getRandomItems(context2);
         return list;
     }
@@ -49,10 +49,10 @@ public class HLootInjector extends LootModifier {
     }
 
 
-    public static class Serializer extends GlobalLootModifierSerializer<HLootInjector> {
+    public static class Serializer extends GlobalLootModifierSerializer<LootTableInjector> {
 
         @Override
-        public HLootInjector read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
+        public LootTableInjector read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
             HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>();
             boolean strictParameter;
 
@@ -64,11 +64,11 @@ public class HLootInjector extends LootModifier {
 
             strictParameter = GsonHelper.getAsBoolean(json, "strict_parameter", true);
 
-            return new HLootInjector(conditions, injectors, strictParameter);
+            return new LootTableInjector(conditions, injectors, strictParameter);
         }
 
         @Override
-        public JsonObject write(HLootInjector instance) {
+        public JsonObject write(LootTableInjector instance) {
             return null;
         }
 
