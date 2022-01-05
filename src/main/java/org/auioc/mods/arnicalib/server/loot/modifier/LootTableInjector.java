@@ -57,9 +57,12 @@ public class LootTableInjector extends LootModifier {
             boolean strictParameter;
 
             JsonArray injectorsJson = GsonHelper.getAsJsonArray(json, "injectors");
-            for (JsonElement injectorJsonElement : injectorsJson) {
-                JsonArray injectorJson = injectorJsonElement.getAsJsonArray();
-                injectors.put(new ResourceLocation(injectorJson.get(0).getAsString()), new ResourceLocation(injectorJson.get(1).getAsString()));
+            for (JsonElement element : injectorsJson) {
+                JsonObject injectorJson = GsonHelper.convertToJsonObject(element, "injector");
+                injectors.put(
+                    new ResourceLocation(GsonHelper.getAsString(injectorJson, "target")),
+                    new ResourceLocation(GsonHelper.getAsString(injectorJson, "source"))
+                );
             }
 
             strictParameter = GsonHelper.getAsBoolean(json, "strict_parameter", true);

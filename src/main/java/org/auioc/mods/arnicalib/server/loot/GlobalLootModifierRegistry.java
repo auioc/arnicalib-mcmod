@@ -13,9 +13,7 @@ public class GlobalLootModifierRegistry {
     public static void registerModifierSerializer(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
         IForgeRegistry<GlobalLootModifierSerializer<?>> registry = event.getRegistry();
 
-        registry.register(
-            (new LootTableInjector.Serializer()).setRegistryName(Reference.ResourceId("loot_table_injector"))
-        );
+        registry.register((new LootTableInjector.Serializer()).setRegistryName(Reference.ResourceId("loot_table_injector")));
     }
 
 }
