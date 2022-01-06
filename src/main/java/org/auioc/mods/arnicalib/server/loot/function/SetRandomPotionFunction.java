@@ -24,10 +24,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SetRandomPotionFunction extends LootItemConditionalFunction {
 
     final List<Potion> potions;
+    final boolean isBlacklist;
 
-    protected SetRandomPotionFunction(LootItemCondition[] conditions, List<Potion> potions) {
+    protected SetRandomPotionFunction(LootItemCondition[] conditions, List<Potion> potions, boolean isBlacklist) {
         super(conditions);
         this.potions = potions;
+        this.isBlacklist = isBlacklist;
     }
 
     @Override
@@ -38,33 +40,52 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
     @Override
     protected ItemStack run(ItemStack stack, LootContext ctx) {
         if (this.potions.isEmpty()) {
-            return PotionUtils.setPotion(stack, RandomUtils.pickOneFromCollection(ForgeRegistries.POTIONS.getValues()));
+            return PotionUtils.setPotion(stack, getRandomPotion());
         } else {
+            if (this.isBlacklist) {
+                Potion potion;
+                while (true) {
+                    potion = getRandomPotion();
+                    if (!this.potions.contains(potion)) {
+                        break;
+                    }
+                }
+                return PotionUtils.setPotion(stack, potion);
+            }
             return PotionUtils.setPotion(stack, RandomUtils.pickOneFromList(this.potions));
         }
+    }
+
+    private static Potion getRandomPotion() {
+        return RandomUtils.pickOneFromCollection(ForgeRegistries.POTIONS.getValues());
     }
 
 
     public static class SerializerX extends Serializer<SetRandomPotionFunction> {
 
-        public void serialize(JsonObject json, SetRandomPotionFunction function, JsonSerializationContext ctx) {}
+        public void serialize(JsonObject json, SetRandomPotionFunction instance, JsonSerializationContext ctx) {}
 
         public SetRandomPotionFunction deserialize(JsonObject json, JsonDeserializationContext ctx, LootItemCondition[] conditions) {
             List<Potion> potions = new ArrayList<Potion>();
+            boolean isBlacklist = false;
 
             if (json.has("potions")) {
                 JsonArray potionsJson = GsonHelper.getAsJsonArray(json, "potions");
-                for (JsonElement element : potionsJson) {
-                    String potionId = GsonHelper.convertToString(element, "potionId");
-                    Potion potion = ForgeRegistries.POTIONS.getValue(new ResourceLocation(potionId));
-                    if (potion == null) {
-                        throw new JsonSyntaxException("Unknown potion '" + potionId + "'");
+                if (!potionsJson.isEmpty()) {
+                    for (JsonElement element : potionsJson) {
+                        String potionId = GsonHelper.convertToString(element, "potionId");
+                        Potion potion = ForgeRegistries.POTIONS.getValue(new ResourceLocation(potionId));
+                        if (potion == null) {
+                            throw new JsonSyntaxException("Unknown potion '" + potionId + "'");
+                        }
+                        potions.add(potion);
                     }
-                    potions.add(potion);
+
+                    isBlacklist = GsonHelper.getAsBoolean(json, "blacklist", false);
                 }
             }
 
-            return new SetRandomPotionFunction(conditions, potions);
+            return new SetRandomPotionFunction(conditions, potions, isBlacklist);
         }
 
     }
