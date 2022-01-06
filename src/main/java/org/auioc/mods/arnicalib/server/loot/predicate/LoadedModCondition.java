@@ -29,7 +29,9 @@ public class LoadedModCondition implements LootItemCondition {
         return LootItemConditionRegistry.LOADED_MOD;
     }
 
+
     public static class SerializerX implements Serializer<LoadedModCondition> {
+
         @Override
         public void serialize(JsonObject json, LoadedModCondition instance, JsonSerializationContext ctx) {}
 
@@ -37,6 +39,7 @@ public class LoadedModCondition implements LootItemCondition {
         public LoadedModCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {
             return new LoadedModCondition(GsonHelper.getAsString(json, "loaded_mod"));
         }
+
     }
 
 }
