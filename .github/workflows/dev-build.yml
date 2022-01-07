@@ -1,0 +1,44 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: dev-build
+
+on:
+    push:
+        branches:
+            - 1.18-forge
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set vars
+              run: |
+                  echo "CI_VERSION=`echo dev-rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
+                  config='gradle.properties'
+                  function prop {
+                    [ -f "$config" ] && grep -P "^\s*[^#]?${1}=.*$" $config | cut -d'=' -f2
+                  }
+                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
+                  echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
+
+            - name: Set up JDK 17
+              uses: actions/setup-java@v2
+              with:
+                  java-version: '17'
+                  distribution: 'temurin'
+                  architecture: x64
+
+            - name: Set up Gradlew and build
+              run: |
+                  chmod +x ./gradlew
+                  ./gradlew clean build
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v1
+              with:
+                  name: arnicalib-${{env.MINECRAFT_VERSION}}-${{env.ARNICALIB_VERSION}}-${{env.CI_VERSION}}
+                  path: build/libs
