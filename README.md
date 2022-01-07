@@ -5,7 +5,7 @@
 Shared library for AH's Minecraft mods.
 
 [![GitHub license](https://img.shields.io/github/license/WakelessSloth56/arnicalib-mcmod?style=flat-square)](/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/gradle-ci?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/auto-release?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions)
 &nbsp;
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.18.1&color=00aa00&style=flat-square)
 [![Forge](https://img.shields.io/static/v1?label=Forge&message=39.0.10&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
