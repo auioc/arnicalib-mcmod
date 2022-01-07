@@ -27,7 +27,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         int size = list.size();
 
         Validate.isTrue(size > 0, "The list must be not empty.");
-        Validate.isTrue(N > 0, "The number of needed elements must be non-negative.");
+        Validate.isTrue(N > 0, "The number of needed elements must be positive.");
         Validate.isTrue(size > N, "The number of needed elements must be smaller or equal to the list size.");
 
         if (size == N) {
