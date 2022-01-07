@@ -23,8 +23,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class SetRandomPotionFunction extends LootItemConditionalFunction {
 
-    final List<Potion> potions;
-    final boolean isBlacklist;
+    private final List<Potion> potions;
+    private final boolean isBlacklist;
 
     protected SetRandomPotionFunction(LootItemCondition[] conditions, List<Potion> potions, boolean isBlacklist) {
         super(conditions);
