@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.Validate;
 
 public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     public static <T> T pickOneFromCollection(Collection<T> collection) {
+        Validate.notEmpty(collection, "The collection must be not empty");
+
         int size = collection.size();
-
-        Validate.isTrue(size > 0, "The collection must be not empty.");
-
         int target = nextInt(0, size);
         Iterator<T> iterator = collection.iterator();
         for (int i = 0; i < target; i++) {
@@ -24,11 +22,12 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
     }
 
     public static <T> List<T> pickFromList(List<T> list, int N) {
+        Validate.notEmpty(list, "The list must be not empty");
+
         int size = list.size();
 
-        Validate.isTrue(size > 0, "The list must be not empty.");
-        Validate.isTrue(N > 0, "The number of needed elements must be positive.");
-        Validate.isTrue(size > N, "The number of needed elements must be smaller or equal to the list size.");
+        Validate.isPositive(N, "The number of needed elements must be positive");
+        Validate.isTrue(size > N, "The number of needed elements must be smaller or equal to the list size");
 
         if (size == N) {
             return list;
