@@ -4,6 +4,10 @@ import com.google.common.collect.Range;
 
 public class Validate extends org.apache.commons.lang3.Validate {
 
+    private static final String NOT_POSITIVE_MESSAGE = "The value must be positive: %s";
+    private static final String NOT_NEGATIVE_MESSAGE = "The value must be negative: %s";
+    private static final String NOT_NON_NEGATIVE_MESSAGE = "The value must be non-negative: %s";
+    private static final String NOT_NON_POSITIVE_MESSAGE = "The value must be non-positive: %s";
     private static final String INVALID_INTERVAL_MESSAGE = "The left bound must be less than the right bound";
     private static final String NOT_IN_INTERVAL_MESSAGE = "The value %s is not in the interval %s";
     private static final String NOT_IN_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, %s)";
@@ -14,6 +18,78 @@ public class Validate extends org.apache.commons.lang3.Validate {
     private static final String NOT_IN_LEFT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, +∞)";
     private static final String NOT_IN_RIGHT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s)";
     private static final String NOT_IN_RIGHT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s]";
+
+    /*================================================================================================================*/
+
+    public static void isPositive(long value, String message) {
+        isTrue(value > 0, message);
+    }
+
+    public static void isNonNegative(long value, String message) {
+        isTrue(value >= 0, message);
+    }
+
+    public static void isNegative(long value, String message) {
+        isTrue(value < 0, message);
+    }
+
+    public static void isNonPositive(long value, String message) {
+        isTrue(value <= 0, message);
+    }
+
+    /*========================================================================*/
+
+    public static void isPositive(double value, String message) {
+        isTrue(value > 0, message);
+    }
+
+    public static void isNonNegative(double value, String message) {
+        isTrue(value >= 0, message);
+    }
+
+    public static void isNegative(double value, String message) {
+        isTrue(value < 0, message);
+    }
+
+    public static void isNonPositive(double value, String message) {
+        isTrue(value <= 0, message);
+    }
+
+    /*========================================================================*/
+
+    public static void isPositive(long value) {
+        isTrue(value > 0, NOT_POSITIVE_MESSAGE, value);
+    }
+
+    public static void isNonNegative(long value) {
+        isTrue(value >= 0, NOT_NON_NEGATIVE_MESSAGE, value);
+    }
+
+    public static void isNegative(long value) {
+        isTrue(value < 0, NOT_NEGATIVE_MESSAGE, value);
+    }
+
+    public static void isNonPositive(long value) {
+        isTrue(value <= 0, NOT_NON_POSITIVE_MESSAGE, value);
+    }
+
+    /*========================================================================*/
+
+    public static void isPositive(double value) {
+        isTrue(value > 0, NOT_POSITIVE_MESSAGE, value);
+    }
+
+    public static void isNonNegative(double value) {
+        isTrue(value >= 0, NOT_NON_NEGATIVE_MESSAGE, value);
+    }
+
+    public static void isNegative(double value) {
+        isTrue(value < 0, NOT_NEGATIVE_MESSAGE, value);
+    }
+
+    public static void isNonPositive(double value) {
+        isTrue(value <= 0, NOT_NON_POSITIVE_MESSAGE, value);
+    }
 
     /*================================================================================================================*/
 
@@ -37,7 +113,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
         isTrue(interval.contains(value), message + String.format(NOT_IN_INTERVAL_MESSAGE, value, interval.toString()));
     }
 
-    /*================================================================================================================*/
+    /*========================================================================*/
 
     /**
      * Validate that the specified bounds are valid the interval bounds; otherwise, throws an exception.
@@ -58,7 +134,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     }
 
 
-    /*================================================================================================================*/
+    /*========================================================================*/
 
     /**
      * Validate that the specified primitive value is in the interval <b>(left, right)</b>; otherwise, throws an exception.
@@ -199,7 +275,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
      */
     public static void isInUnboundedInterval(long value) {}
 
-    /*================================================================================================================*/
+    /*========================================================================*/
 
     /**
      * @see #isInOpenInterval(long, long, long)
