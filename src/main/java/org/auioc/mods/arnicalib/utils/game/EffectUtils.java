@@ -5,8 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
+import com.google.gson.JsonObject;
+import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -59,47 +62,41 @@ public interface EffectUtils {
     }
 
 
-
-    static MobEffectInstance getMobEffectInstance(MobEffect effect, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon) {
-        return new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon);
-    }
-
     @Nullable
-    static MobEffectInstance getMobEffectInstance(ResourceLocation id, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon) {
-        MobEffect effect = getEffect(id);
-        if (effect != null) {
-            return getMobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon);
-        }
-        return null;
-    }
-
-    @Nullable
-    static MobEffectInstance getMobEffectInstance(String id, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon) {
-        return getMobEffectInstance(new ResourceLocation(id), duration, amplifier, ambient, visible, showIcon);
-    }
-
-
-    @Nullable
-    static MobEffectInstance getMobEffectInstance(CompoundTag effect_nbt) {
+    static MobEffectInstance createInstance(CompoundTag effect_nbt) {
         if (effect_nbt.contains("id", 8) && effect_nbt.contains("duration", 3) && effect_nbt.contains("amplifier", 3)) {
-            return getMobEffectInstance(effect_nbt.getString("id"), effect_nbt.getInt("duration"), effect_nbt.getInt("amplifier"), true, true, true);
+            return new MobEffectInstance(getEffect(effect_nbt.getString("id")), effect_nbt.getInt("duration"), effect_nbt.getInt("amplifier"));
         }
         return null;
     }
 
-
-
-    static void addEffect(LivingEntity entity, int id, int duration, int amplifier) {
-        entity.addEffect(new MobEffectInstance(getEffect(id), duration, amplifier, true, true, true));
-    }
-
-    static boolean addEffect(LivingEntity entity, String id, int duration, int amplifier) {
-        MobEffectInstance effect = getMobEffectInstance(id, duration, amplifier, true, true, true);
-        if (effect != null) {
-            return entity.addEffect(effect);
+    static MobEffectInstance createInstance(@Nullable JsonObject json) {
+        if (json == null) {
+            return (MobEffectInstance) null;
         }
-        return false;
+
+        ResourceLocation effectId = new ResourceLocation(GsonHelper.getAsString(json, "id"));
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
+        Validate.notNull(effect, "Unknown mob effect '" + effectId + "'");
+
+        int duration = GsonHelper.getAsInt(json, "duration", 1);
+        Validate.isInCloseInterval(1, 1000000, duration);
+        if (!effect.isInstantenous()) {
+            duration *= 20;
+        }
+
+        int amplifier = GsonHelper.getAsInt(json, "amplifier", 0);
+        Validate.isInCloseInterval(0, 255, amplifier);
+
+        boolean ambient = GsonHelper.getAsBoolean(json, "ambient", false);
+        boolean visible = GsonHelper.getAsBoolean(json, "visible", true);
+        boolean showIcon = GsonHelper.getAsBoolean(json, "showIcon", true);
+
+        MobEffectInstance hiddenEffect = createInstance(GsonHelper.getAsJsonObject(json, "hiddenEffect", null));
+
+        return new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
     }
+
 
     static void removeEffect(LivingEntity entity, Predicate<MobEffectInstance> condition) {
         List<MobEffect> toRemove = new ArrayList<>();
@@ -117,6 +114,7 @@ public interface EffectUtils {
     static Predicate<MobEffectInstance> IS_NOT_BENEFICIAL = (e) -> !e.getEffect().isBeneficial();
     static Predicate<MobEffectInstance> IS_HARMFUL = (e) -> e.getEffect().getCategory() == MobEffectCategory.HARMFUL;
     static Predicate<MobEffectInstance> IS_NEUTRAL = (e) -> e.getEffect().getCategory() == MobEffectCategory.NEUTRAL;
+
 
     static int getEffectLevel(LivingEntity entity, MobEffect effect) {
         MobEffectInstance instance = entity.getEffect(effect);
