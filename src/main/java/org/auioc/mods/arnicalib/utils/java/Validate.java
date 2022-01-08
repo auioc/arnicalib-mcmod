@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 
 public class Validate extends org.apache.commons.lang3.Validate {
 
+    // #region Messages
     private static final String NOT_POSITIVE_MESSAGE = "The value must be positive: %s";
     private static final String NOT_NEGATIVE_MESSAGE = "The value must be negative: %s";
     private static final String NOT_NON_NEGATIVE_MESSAGE = "The value must be non-negative: %s";
@@ -18,8 +19,10 @@ public class Validate extends org.apache.commons.lang3.Validate {
     private static final String NOT_IN_LEFT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, +∞)";
     private static final String NOT_IN_RIGHT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s)";
     private static final String NOT_IN_RIGHT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s]";
+    // #endregion Messages
 
     /*================================================================================================================*/
+    // #region CompareToZero
 
     public static void isPositive(long value, String message) {
         isTrue(value > 0, message);
@@ -91,7 +94,10 @@ public class Validate extends org.apache.commons.lang3.Validate {
         isTrue(value <= 0, NOT_NON_POSITIVE_MESSAGE, value);
     }
 
+    // #endregion CompareToZero
+
     /*================================================================================================================*/
+    // #region Interval
 
     /**
      * Validate that the specified primitive value is in the specified interval; otherwise, throws an exception.
@@ -357,5 +363,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
      * @see #isInUnboundedInterval(long)
      */
     public static void isInUnboundedInterval(double value) {}
+
+    // #endregion Interval
 
 }
