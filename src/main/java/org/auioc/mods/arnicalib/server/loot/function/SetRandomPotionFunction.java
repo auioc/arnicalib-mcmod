@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSyntaxException;
+import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
 import org.auioc.mods.arnicalib.server.loot.LootItemFunctionRegistry;
 import org.auioc.mods.arnicalib.utils.java.RandomUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +58,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
     }
 
     private static Potion getRandomPotion() {
-        return RandomUtils.pickOneFromCollection(ForgeRegistries.POTIONS.getValues());
+        return RandomUtils.pickOneFromList(OrderedForgeRegistries.Potions.ENTRIES).getValue();
     }
 
 
