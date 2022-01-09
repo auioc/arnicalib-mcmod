@@ -26,7 +26,7 @@ public abstract class MixinLootContext {
     }
 
 
-    @Shadow
+    @Shadow(remap = false)
     private ResourceLocation queriedLootTableId;
 
 }
