@@ -9,6 +9,12 @@ import net.minecraft.world.level.storage.loot.LootContext;
 @Mixin(value = LootContext.class)
 public abstract class MixinLootContext {
 
+
+    /**
+     * @author WakelessSloth56
+     * @reason LootTableInjector
+     * @see org.auioc.mods.arnicalib.server.loot.modifier.LootTableInjector#getItemStacks
+     */
     // @org.spongepowered.asm.mixin.Debug(export = true, print = true)
     @Overwrite(remap = false)
     public void setQueriedLootTableId(ResourceLocation queriedLootTableId) {

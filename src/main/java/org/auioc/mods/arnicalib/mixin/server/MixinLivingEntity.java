@@ -14,6 +14,13 @@ import net.minecraft.world.level.Level;
 @Mixin(value = LivingEntity.class)
 public class MixinLivingEntity {
 
+
+    /**
+     * @author WakelessSloth56
+     * @reason LivingEatAddEffectEvent
+     * @see org.auioc.mods.arnicalib.server.event.ServerEventFactory#fireLivingEatAddEffectEvent
+     * @see org.auioc.mods.arnicalib.server.event.impl.LivingEatAddEffectEvent
+     */
     // @org.spongepowered.asm.mixin.Debug(export = true, print = true)
     @Overwrite()
     private void addEatEffect(ItemStack stack, Level level, LivingEntity entity) {
