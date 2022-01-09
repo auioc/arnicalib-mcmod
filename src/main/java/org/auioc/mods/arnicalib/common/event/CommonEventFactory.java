@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-public class CommonEventFactory {
+public final class CommonEventFactory {
 
     private static final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 

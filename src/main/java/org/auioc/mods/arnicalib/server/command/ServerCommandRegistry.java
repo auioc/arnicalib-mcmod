@@ -8,7 +8,7 @@ import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.server.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
 
-public class ServerCommandRegistry {
+public final class ServerCommandRegistry {
 
     public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
         CommandNode<CommandSourceStack> node = dispatcher.findNode(List.of("ah"));

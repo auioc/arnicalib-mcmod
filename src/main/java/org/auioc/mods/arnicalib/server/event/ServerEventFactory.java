@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-public class ServerEventFactory {
+public final class ServerEventFactory {
 
     private static final Marker marker = LogUtil.getMarker("ServerHooks");
     private static final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;

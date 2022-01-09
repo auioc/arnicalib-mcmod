@@ -18,7 +18,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @SuppressWarnings("unused")
-public class Initialization {
+public final class Initialization {
 
     public static void init() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -36,7 +36,7 @@ public class Initialization {
     }
 
 
-    private static class CommonSetup {
+    private final static class CommonSetup {
 
         private final IEventBus modEventBus;
         private final IEventBus forgeEventBus;
@@ -64,7 +64,7 @@ public class Initialization {
     }
 
 
-    private static class ClientSideOnlySetup {
+    private final static class ClientSideOnlySetup {
 
         private final IEventBus modEventBus;
         private final IEventBus forgeEventBus;

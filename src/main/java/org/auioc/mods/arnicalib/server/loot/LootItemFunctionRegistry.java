@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
-public class LootItemFunctionRegistry {
+public final class LootItemFunctionRegistry {
 
     public static void init() {}
 

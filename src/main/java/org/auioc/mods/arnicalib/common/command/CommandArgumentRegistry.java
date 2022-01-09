@@ -9,7 +9,7 @@ import net.minecraft.commands.synchronization.ArgumentSerializer;
 import net.minecraft.commands.synchronization.ArgumentTypes;
 import net.minecraft.commands.synchronization.EmptyArgumentSerializer;
 
-public class CommandArgumentRegistry {
+public final class CommandArgumentRegistry {
 
     private static <T extends ArgumentType<?>> void register(String id, Class<T> clazz, ArgumentSerializer<T> serializer) {
         ArgumentTypes.register(ArnicaLib.id(id).toString(), clazz, serializer);
