@@ -56,7 +56,8 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
     }
 
     public static <T> T pickOneFromList(List<T> list) {
-        return pickFromList(list, 1).get(0);
+        Validate.notEmpty(list, "The list must be not empty");
+        return list.get(nextInt(0, list.size()));
     }
 
 }
