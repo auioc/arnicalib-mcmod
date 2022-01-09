@@ -9,7 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import org.auioc.mods.arnicalib.Reference;
+import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.utils.game.TextUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -35,7 +35,7 @@ public class DamageSourceArgument implements ArgumentType<DamageSource> {
         }
 
         throw (new SimpleCommandExceptionType(
-            TextUtils.I18nText(Reference.I18nKey("argument.damage_source.invalid"), sourceName)
+            TextUtils.I18nText(ArnicaLib.i18n("argument.damage_source.invalid"), sourceName)
         )).create();
     }
 

@@ -3,7 +3,6 @@ package org.auioc.mods.arnicalib.common.network;
 import java.util.Optional;
 import java.util.function.Function;
 import org.auioc.mods.arnicalib.ArnicaLib;
-import org.auioc.mods.arnicalib.Reference;
 import org.auioc.mods.arnicalib.api.game.network.IHPacket;
 import org.auioc.mods.arnicalib.api.game.network.IHPacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,7 +24,7 @@ public final class PacketHandler implements IHPacketHandler {
 
     private static final String PROTOCOL_VERSION = ArnicaLib.MAIN_VERSION;
     private static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-        Reference.ResourceId("network"),
+        ArnicaLib.id("network"),
         () -> PROTOCOL_VERSION,
         PROTOCOL_VERSION::equals,
         PROTOCOL_VERSION::equals

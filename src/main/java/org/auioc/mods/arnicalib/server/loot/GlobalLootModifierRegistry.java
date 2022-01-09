@@ -1,6 +1,6 @@
 package org.auioc.mods.arnicalib.server.loot;
 
-import org.auioc.mods.arnicalib.Reference;
+import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.server.loot.modifier.LootTableInjector;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,7 +13,7 @@ public class GlobalLootModifierRegistry {
     public static void registerModifierSerializer(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
         IForgeRegistry<GlobalLootModifierSerializer<?>> registry = event.getRegistry();
 
-        registry.register((new LootTableInjector.Serializer()).setRegistryName(Reference.ResourceId("loot_table_injector")));
+        registry.register((new LootTableInjector.Serializer()).setRegistryName(ArnicaLib.id("loot_table_injector")));
     }
 
 }

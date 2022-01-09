@@ -1,6 +1,6 @@
 package org.auioc.mods.arnicalib.server.loot;
 
-import org.auioc.mods.arnicalib.Reference;
+import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.server.loot.function.SetCustomEffectsFunction;
 import org.auioc.mods.arnicalib.server.loot.function.SetRandomPotionFunction;
 import net.minecraft.core.Registry;
@@ -16,7 +16,7 @@ public class LootItemFunctionRegistry {
     public static final LootItemFunctionType SET_CUSTOM_EFFECTS = register("set_custom_effects", new SetCustomEffectsFunction.SerializerX());
 
     private static LootItemFunctionType register(String id, Serializer<? extends LootItemFunction> serializer) {
-        return Registry.register(Registry.LOOT_FUNCTION_TYPE, Reference.ResourceId(id), new LootItemFunctionType(serializer));
+        return Registry.register(Registry.LOOT_FUNCTION_TYPE, ArnicaLib.id(id), new LootItemFunctionType(serializer));
     }
 
 }
