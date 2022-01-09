@@ -29,6 +29,8 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            property 'file.encoding', 'UTF-8'
+            property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
             arg '-mixin.config=arnicalib.mixin.json'
@@ -41,6 +43,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+            property 'file.encoding', 'UTF-8'
+            property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
             arg '-mixin.config=arnicalib.mixin.json'
