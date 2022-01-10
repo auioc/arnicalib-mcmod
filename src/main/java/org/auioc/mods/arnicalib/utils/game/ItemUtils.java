@@ -1,12 +1,24 @@
 package org.auioc.mods.arnicalib.utils.game;
 
 import javax.annotation.Nullable;
+import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public interface ItemUtils {
+
+    static Item getItem(ResourceLocation id) {
+        Validate.isTrue(ForgeRegistries.ITEMS.containsKey(id), "Unknown item '" + id + "'");
+        return ForgeRegistries.ITEMS.getValue(id);
+    }
+
+    static Item getItem(String id) {
+        return getItem(new ResourceLocation(id));
+    }
 
     static String getRegistryName(Item item) {
         return item.getRegistryName().toString();
