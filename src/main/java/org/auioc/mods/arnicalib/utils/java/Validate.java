@@ -22,6 +22,19 @@ public class Validate extends org.apache.commons.lang3.Validate {
     // #endregion Messages
 
     /*================================================================================================================*/
+    // #region ThrowException
+
+    public static void throwException(String message) {
+        throw new IllegalArgumentException(message);
+    }
+
+    public static void throwException(String message, Object... objects) {
+        throw new IllegalArgumentException(String.format(message, objects));
+    }
+
+    // #endregion ThrowException
+
+    /*================================================================================================================*/
     // #region CompareToZero
 
     public static void isPositive(long value, String message) {
