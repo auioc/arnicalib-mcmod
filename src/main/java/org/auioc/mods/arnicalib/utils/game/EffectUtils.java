@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
 import org.auioc.mods.arnicalib.utils.java.RandomUtils;
@@ -16,6 +18,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EffectUtils {
@@ -103,7 +106,18 @@ public interface EffectUtils {
 
         MobEffectInstance hiddenEffect = createInstance(GsonHelper.getAsJsonObject(json, "hiddenEffect", null));
 
-        return new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
+        MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
+
+        JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curativeItems", null);
+        if (curativeItemsJson != null) {
+            List<ItemStack> curativeItems = new ArrayList<ItemStack>();
+            for (JsonElement element : curativeItemsJson) {
+                curativeItems.add(new ItemStack(ItemUtils.getItem(GsonHelper.convertToString(element, "curativeItem"))));
+            }
+            instance.setCurativeItems(curativeItems);
+        }
+
+        return instance;
     }
 
 
