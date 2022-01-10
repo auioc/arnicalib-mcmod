@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
+import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
+import org.auioc.mods.arnicalib.utils.java.RandomUtils;
 import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +61,13 @@ public interface EffectUtils {
 
     static List<MobEffect> getAllEffects() {
         return getEffects(null);
+    }
+
+    static MobEffect getRandomEffect(boolean useOrderedRegestry) {
+        if (useOrderedRegestry) {
+            return RandomUtils.pickOneFromList(OrderedForgeRegistries.MobEffects.ENTRIES).getValue();
+        }
+        return RandomUtils.pickOneFromCollection(ForgeRegistries.MOB_EFFECTS.getValues());
     }
 
 
