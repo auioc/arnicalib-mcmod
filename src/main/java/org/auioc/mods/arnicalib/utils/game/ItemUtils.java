@@ -1,9 +1,13 @@
 package org.auioc.mods.arnicalib.utils.game;
 
 import javax.annotation.Nullable;
+import com.google.gson.JsonObject;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -59,6 +63,26 @@ public interface ItemUtils {
             itemStack.setTag(nbt);
         }
         return itemStack;
+    }
+
+    static ItemStack createItemStack(JsonObject json) {
+        Item item = getItem(GsonHelper.getAsString(json, "id"));
+
+        int count = GsonHelper.getAsInt(json, "count", 1);
+        Validate.isPositive(count, "The item count must be positive: " + count);
+        Validate.isTrue(count <= getMaxStackSize(item), "The specified count " + count + " is too large, the max stack size of item '" + getRegistryName(item) + "' is " + getMaxStackSize(item));
+
+        CompoundTag nbt = null;
+        String snbt = GsonHelper.getAsString(json, "tag", null);
+        if (snbt != null) {
+            try {
+                nbt = TagParser.parseTag(snbt);
+            } catch (CommandSyntaxException e) {
+                Validate.throwException("Invalid NBT: " + e.getMessage());
+            }
+        }
+
+        return createItemStack(item, count, nbt);
     }
 
 }
