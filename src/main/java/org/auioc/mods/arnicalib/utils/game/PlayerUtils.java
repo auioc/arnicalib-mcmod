@@ -11,13 +11,12 @@ import net.minecraftforge.common.ForgeMod;
 
 public interface PlayerUtils {
 
-    @SuppressWarnings("deprecation")
-    static void giveItem(ServerPlayer player, Item item, @Nullable CompoundTag nbt, int count) {
+    static void giveItem(ServerPlayer player, Item item, int count, @Nullable CompoundTag nbt) {
         int i = count;
         while (i > 0) {
-            int j = Math.min(item.getMaxStackSize(), i);
+            int j = Math.min(ItemUtils.getMaxStackSize(item), i);
             i -= j;
-            ItemStack itemStack = ItemUtils.createItemStack(item, nbt, j);
+            ItemStack itemStack = ItemUtils.createItemStack(item, j, nbt);
             boolean flag = player.getInventory().add(itemStack);
             ItemEntity itementity = player.drop(itemStack, false);
             if (flag && itemStack.isEmpty()) {
@@ -35,8 +34,12 @@ public interface PlayerUtils {
         }
     }
 
+    static void giveItem(ServerPlayer player, Item item) {
+        giveItem(player, item, 1, null);
+    }
+
     static void giveItem(ServerPlayer player, ItemStack itemStack) {
-        giveItem(player, itemStack.getItem(), itemStack.getTag(), itemStack.getCount());
+        giveItem(player, itemStack.getItem(), itemStack.getCount(), itemStack.getTag());
     }
 
     static String toString(Player player) {

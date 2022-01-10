@@ -20,6 +20,7 @@ public interface ItemUtils {
         return getItem(new ResourceLocation(id));
     }
 
+
     static String getRegistryName(Item item) {
         return item.getRegistryName().toString();
     }
@@ -28,22 +29,36 @@ public interface ItemUtils {
         return getRegistryName(itemStack.getItem());
     }
 
+
+    @SuppressWarnings("deprecation")
+    static int getMaxStackSize(Item item) {
+        return item.getMaxStackSize();
+    }
+
+    @SuppressWarnings("deprecation")
+    static int getMaxDamage(Item item) {
+        return item.getMaxDamage();
+    }
+
+
     static String toString(ItemStack itemStack) {
         return String.format("%s%s * %d", getRegistryName(itemStack), (itemStack.hasTag()) ? itemStack.getTag() : "{}", itemStack.getCount());
     }
 
-    static ItemStack createItemStack(Item item, @Nullable CompoundTag nbt, int count) {
-        ItemStack itemStack = new ItemStack(item, count);
-        if (nbt != null) {
-            itemStack.setTag(nbt);
-        }
-        return itemStack;
-    }
 
     static void damageItem(Player player, ItemStack itemStack) {
         itemStack.hurtAndBreak(1, player, (p) -> {
             p.broadcastBreakEvent(player.getUsedItemHand());
         });
+    }
+
+
+    static ItemStack createItemStack(Item item, int count, @Nullable CompoundTag nbt) {
+        ItemStack itemStack = new ItemStack(item, count);
+        if (nbt != null) {
+            itemStack.setTag(nbt);
+        }
+        return itemStack;
     }
 
 }
