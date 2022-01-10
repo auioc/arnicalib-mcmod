@@ -84,9 +84,9 @@ public interface EffectUtils {
             return (MobEffectInstance) null;
         }
 
-        ResourceLocation effectId = new ResourceLocation(GsonHelper.getAsString(json, "id"));
-        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectId);
-        Validate.notNull(effect, "Unknown mob effect '" + effectId + "'");
+        ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "id"));
+        Validate.isTrue(ForgeRegistries.MOB_EFFECTS.containsKey(id), "Unknown mob effect '" + id + "'");
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(id);
 
         int duration = GsonHelper.getAsInt(json, "duration", 1);
         Validate.isInCloseInterval(1, 1000000, duration);

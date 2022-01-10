@@ -7,10 +7,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSyntaxException;
 import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
 import org.auioc.mods.arnicalib.server.loot.LootItemFunctionRegistry;
 import org.auioc.mods.arnicalib.utils.java.RandomUtils;
+import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -74,11 +74,10 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
                 JsonArray potionsJson = GsonHelper.getAsJsonArray(json, "potions");
                 if (!potionsJson.isEmpty()) {
                     for (JsonElement element : potionsJson) {
-                        String potionId = GsonHelper.convertToString(element, "potionId");
-                        Potion potion = ForgeRegistries.POTIONS.getValue(new ResourceLocation(potionId));
-                        if (potion == null) {
-                            throw new JsonSyntaxException("Unknown potion '" + potionId + "'");
-                        }
+                        ResourceLocation id = new ResourceLocation(GsonHelper.convertToString(element, "potionId"));
+                        Validate.isTrue(ForgeRegistries.POTIONS.containsKey(id), "Unknown potion '" + id + "'");
+
+                        Potion potion = ForgeRegistries.POTIONS.getValue(id);
                         potions.add(potion);
                     }
 
