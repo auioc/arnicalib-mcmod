@@ -82,37 +82,43 @@ public interface EffectUtils {
         return null;
     }
 
-    static MobEffectInstance createInstance(@Nullable JsonObject json) {
-        if (json == null) {
-            return (MobEffectInstance) null;
-        }
-
+    static MobEffectInstance createInstance(JsonObject json) {
         ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "id"));
         Validate.isTrue(ForgeRegistries.MOB_EFFECTS.containsKey(id), "Unknown mob effect '" + id + "'");
         MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(id);
 
         int duration = GsonHelper.getAsInt(json, "duration", 1);
         Validate.isInCloseInterval(1, 1000000, duration);
-        if (!effect.isInstantenous()) {
-            duration *= 20;
-        }
 
         int amplifier = GsonHelper.getAsInt(json, "amplifier", 0);
         Validate.isInCloseInterval(0, 255, amplifier);
 
         boolean ambient = GsonHelper.getAsBoolean(json, "ambient", false);
         boolean visible = GsonHelper.getAsBoolean(json, "visible", true);
-        boolean showIcon = GsonHelper.getAsBoolean(json, "showIcon", true);
+        boolean showIcon = GsonHelper.getAsBoolean(json, "show_icon", true);
 
-        MobEffectInstance hiddenEffect = createInstance(GsonHelper.getAsJsonObject(json, "hiddenEffect", null));
+        MobEffectInstance hiddenEffect = (MobEffectInstance) null;
+        if (json.has("hidden_effect")) {
+            JsonObject hiddenEffectJson = GsonHelper.getAsJsonObject(json, "hidden_effect");
+            if (hiddenEffectJson.has("id")) {
+                Validate.isTrue(GsonHelper.getAsString(hiddenEffectJson, "id").equals(id.toString()), "The id of the hidden effect must be unset or equal to the parent effect");
+            } else {
+                hiddenEffectJson.addProperty("id", id.toString());
+            }
+            Validate.isTrue(GsonHelper.getAsInt(hiddenEffectJson, "duration", 1) > duration, "The duration of the hidden effect must be greater than the parent effect");
+            hiddenEffect = createInstance(hiddenEffectJson);
+        }
 
+        if (!effect.isInstantenous()) {
+            duration *= 20;
+        }
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
 
-        JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curativeItems", null);
+        JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items", null);
         if (curativeItemsJson != null) {
             List<ItemStack> curativeItems = new ArrayList<ItemStack>();
             for (JsonElement element : curativeItemsJson) {
-                curativeItems.add(new ItemStack(ItemUtils.getItem(GsonHelper.convertToString(element, "curativeItem"))));
+                curativeItems.add(new ItemStack(ItemUtils.getItem(GsonHelper.convertToString(element, "curative_items"))));
             }
             instance.setCurativeItems(curativeItems);
         }
