@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
+import org.auioc.mods.arnicalib.api.mixin.common.IMixinMobEffectInstance;
 import org.auioc.mods.arnicalib.utils.java.RandomUtils;
 import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
@@ -114,8 +115,8 @@ public interface EffectUtils {
         }
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
 
-        JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items", null);
-        if (curativeItemsJson != null) {
+        if (json.has("curative_items")) {
+            JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items");
             List<ItemStack> curativeItems = new ArrayList<ItemStack>();
             for (JsonElement element : curativeItemsJson) {
                 curativeItems.add(new ItemStack(ItemUtils.getItem(GsonHelper.convertToString(element, "curative_items"))));
@@ -124,6 +125,33 @@ public interface EffectUtils {
         }
 
         return instance;
+    }
+
+    static void saveInstance(MobEffectInstance instance, JsonObject json) {
+        json.addProperty("id", instance.getEffect().getRegistryName().toString());
+        json.addProperty("duration", instance.getDuration());
+        json.addProperty("amplifier", instance.getAmplifier());
+        json.addProperty("ambient", instance.isAmbient());
+        json.addProperty("visible", instance.isVisible());
+        json.addProperty("show_icon", instance.showIcon());
+
+        JsonArray curativeItems = new JsonArray();
+        for (ItemStack itemStack : instance.getCurativeItems()) {
+            curativeItems.add(itemStack.getItem().getRegistryName().toString());
+        }
+        json.add("curative_items", curativeItems);
+
+        if (((IMixinMobEffectInstance) instance).getHiddenEffect() != null) {
+            JsonObject hiddenEffect = new JsonObject();
+            saveInstance(((IMixinMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
+            json.add("hidden_effect", hiddenEffect);
+        }
+    }
+
+    static JsonObject instanceToJson(MobEffectInstance instance) {
+        JsonObject json = new JsonObject();
+        saveInstance(instance, json);
+        return json;
     }
 
 
