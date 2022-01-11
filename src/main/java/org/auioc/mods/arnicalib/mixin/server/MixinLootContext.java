@@ -9,6 +9,8 @@ import net.minecraft.world.level.storage.loot.LootContext;
 @Mixin(value = LootContext.class)
 public abstract class MixinLootContext {
 
+    @Shadow(remap = false)
+    private ResourceLocation queriedLootTableId;
 
     /**
      * @author WakelessSloth56
@@ -20,9 +22,5 @@ public abstract class MixinLootContext {
     public void setQueriedLootTableId(ResourceLocation queriedLootTableId) {
         this.queriedLootTableId = queriedLootTableId;
     }
-
-
-    @Shadow(remap = false)
-    private ResourceLocation queriedLootTableId;
 
 }

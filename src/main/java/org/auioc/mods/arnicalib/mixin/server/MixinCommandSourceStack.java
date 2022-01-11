@@ -8,7 +8,7 @@ import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 
 @Mixin(value = CommandSourceStack.class)
-public class MixinCommandSourceStack implements IMixinCommandSourceStack {
+public abstract class MixinCommandSourceStack implements IMixinCommandSourceStack {
 
     @Shadow
     @Final

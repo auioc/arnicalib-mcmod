@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 @Mixin(value = LivingEntity.class)
-public class MixinLivingEntity {
+public abstract class MixinLivingEntity {
 
 
     /**

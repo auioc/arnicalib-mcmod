@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import net.minecraft.world.effect.MobEffectInstance;
 
 @Mixin(value = MobEffectInstance.class)
-public class MixinMobEffectInstance implements IMixinMobEffectInstance {
+public abstract class MixinMobEffectInstance implements IMixinMobEffectInstance {
 
     @Shadow
     @Nullable
