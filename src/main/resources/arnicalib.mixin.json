@@ -2,7 +2,15 @@
     "required": true,
     "package": "org.auioc.mods.arnicalib.mixin",
     "compatibilityLevel": "JAVA_17",
-    "mixins": ["server.MixinServerLifecycleHooks", "server.MixinLootContext", "server.MixinServerPlayerEntity", "common.MixinPistonBaseBlock", "server.MixinLivingEntity", "common.MixinMobEffectInstance"],
+    "mixins": [
+        "common.MixinPistonBaseBlock",
+        "common.MixinMobEffectInstance",
+        "server.MixinServerLifecycleHooks",
+        "server.MixinLootContext",
+        "server.MixinServerPlayerEntity",
+        "server.MixinLivingEntity",
+        "server.MixinCommandSourceStack"
+    ],
     "client": [],
     "server": [],
     "injectors": {
