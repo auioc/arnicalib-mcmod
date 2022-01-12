@@ -14,16 +14,20 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class HPotion extends Potion {
 
+    public HPotion(@Nullable String name, MobEffectInstance... effects) {
+        super(name, effects);
+    }
+
+    public HPotion(@Nullable String name, Supplier<MobEffectInstance[]> effects) {
+        super(name, effects.get());
+    }
+
     public HPotion(String name, MobEffect effect, int duration, int amplifier) {
         super(name, new MobEffectInstance(effect, duration, amplifier));
     }
 
     public HPotion(String name, MobEffect effect, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon) {
         super(name, new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon));
-    }
-
-    public HPotion(@Nullable String name, MobEffectInstance... effects) {
-        super(name, effects);
     }
 
 
