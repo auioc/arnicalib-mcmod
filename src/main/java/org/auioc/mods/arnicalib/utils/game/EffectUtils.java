@@ -89,7 +89,6 @@ public interface EffectUtils {
         MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(id);
 
         int duration = GsonHelper.getAsInt(json, "duration", 1);
-        Validate.isInCloseInterval(1, 1000000, duration);
 
         int amplifier = GsonHelper.getAsInt(json, "amplifier", 0);
         Validate.isInCloseInterval(0, 255, amplifier);
@@ -110,9 +109,6 @@ public interface EffectUtils {
             hiddenEffect = createInstance(hiddenEffectJson);
         }
 
-        if (!effect.isInstantenous()) {
-            duration *= 20;
-        }
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
 
         if (json.has("curative_items")) {
