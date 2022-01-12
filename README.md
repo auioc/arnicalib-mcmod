@@ -5,10 +5,12 @@
 Shared library for AH's Minecraft mods.
 
 [![GitHub license](https://img.shields.io/github/license/WakelessSloth56/arnicalib-mcmod?style=flat-square)](/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/auto-release?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions)
-&nbsp;
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/WakelessSloth56/arnicalib-mcmod?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/releases/latest)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/auto-release?label=release%20build&style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions/workflows/auto-release.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/dev-build?label=dev%20build&style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions/workflows/dev-build.yml)
+<br/>
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.18.1&color=00aa00&style=flat-square)
-[![Forge](https://img.shields.io/static/v1?label=Forge&message=39.0.10&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
+[![Forge](https://img.shields.io/static/v1?label=Forge&message=39.0.19&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
 [![AdoptiumOpenJDK](https://img.shields.io/static/v1?label=AdoptiumOpenJDK&message=17.0.1%2B12&color=brightgreen&logo=java&style=flat-square)](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot)
 [![Gradle](https://img.shields.io/static/v1?label=Gradle&message=7.3&color=brightgreen&logo=gradle&style=flat-square)](https://docs.gradle.org/7.3/release-notes.html)
 
