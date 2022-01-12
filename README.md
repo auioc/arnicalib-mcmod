@@ -4,10 +4,10 @@
 
 Shared library for AH's Minecraft mods.
 
-[![GitHub license](https://img.shields.io/github/license/WakelessSloth56/arnicalib-mcmod?style=flat-square)](/LICENSE)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/WakelessSloth56/arnicalib-mcmod?style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/releases/latest)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/auto-release?label=release%20build&style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions/workflows/auto-release.yml)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/WakelessSloth56/arnicalib-mcmod/dev-build?label=dev%20build&style=flat-square)](https://github.com/WakelessSloth56/arnicalib-mcmod/actions/workflows/dev-build.yml)
+[![GitHub license](https://img.shields.io/github/license/auioc/arnicalib-mcmod?style=flat-square)](/LICENSE)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/auioc/arnicalib-mcmod?style=flat-square)](https://github.com/auioc/arnicalib-mcmod/releases/latest)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/auioc/arnicalib-mcmod/auto-release?label=release%20build&style=flat-square)](https://github.com/auioc/arnicalib-mcmod/actions/workflows/auto-release.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/auioc/arnicalib-mcmod/dev-build?label=dev%20build&style=flat-square)](https://github.com/auioc/arnicalib-mcmod/actions/workflows/dev-build.yml)
 <br/>
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.18.1&color=00aa00&style=flat-square)
 [![Forge](https://img.shields.io/static/v1?label=Forge&message=39.0.19&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.1.html)
@@ -27,7 +27,7 @@ Add the following to your `build.gradle`:
 ```groovy
 repositories {
     maven {
-        url "https://maven.pkg.github.com/wakelesssloth56/arnicalib-mcmod"
+        url "https://maven.pkg.github.com/auioc/arnicalib-mcmod"
         credentials {
             username = "<GITHUB_USERNAME>"
             password = "<GITHUB_TOKEN>"
@@ -42,7 +42,7 @@ dependencies {
 
 #### Notices
 
-1. Mod version can be found in the [Packages](https://github.com/WakelessSloth56/arnicalib-mcmod/packages/) of this repository.
+1. Mod version can be found in the [Packages](https://github.com/auioc/arnicalib-mcmod/packages/) of this repository.
 2. You must provide a valid GitHub username and token to access the GitHub Packages.
     - See [official documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#using-a-published-package) for more information.
 
@@ -50,7 +50,7 @@ dependencies {
 
 If you do not want to or can not use the GitHub Packages:
 
-1. Download the forgelib jar of the version you want from [Releases](https://github.com/WakelessSloth56/arnicalib-mcmod/releases), then put them into `libs` folder.
+1. Download the forgelib jar of the version you want from [Releases](https://github.com/auioc/arnicalib-mcmod/releases), then put them into `libs` folder.
 
 2. Add the following to your `build.gradle`:
 
@@ -78,8 +78,8 @@ If you do not want to or can not use the GitHub Packages:
 
 Any type of contribution is welcome, here are some examples of how you may contribute to this project:
 
-- Submit [issues](https://github.com/WakelessSloth56/arnicalib-mcmod/issues) to report bugs or ask questions.
-- Propose [pull requests](https://github.com/WakelessSloth56/arnicalib-mcmod/pulls) to improve our code.
+- Submit [issues](https://github.com/auioc/arnicalib-mcmod/issues) to report bugs or ask questions.
+- Propose [pull requests](https://github.com/auioc/arnicalib-mcmod/pulls) to improve our code.
 
 ## License
 

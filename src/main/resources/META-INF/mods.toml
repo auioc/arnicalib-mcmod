@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[39,)"
 license="GNU GPLv3"
-issueTrackerURL="https://github.com/WakelessSloth56/arnicalib-mcmod/issues"
+issueTrackerURL="https://github.com/auioc/arnicalib-mcmod/issues"
 
 [[mods]]
 modId="arnicalib"

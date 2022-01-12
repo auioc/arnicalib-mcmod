@@ -132,7 +132,7 @@ publishing {
     repositories {
         maven {
             name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/wakelesssloth56/arnicalib-mcmod')
+            url = uri('https://maven.pkg.github.com/auioc/arnicalib-mcmod')
             credentials {
                 username = getVar('GITHUB_ACTOR')
                 password = getVar('GITHUB_TOKEN')
@@ -148,7 +148,7 @@ publishing {
 task genUpdateJson() {
     doFirst {
         def j = [
-            'homepage': 'https://github.com/WakelessSloth56/arnicalib-mcmod/releases',
+            'homepage': 'https://github.com/auioc/arnicalib-mcmod/releases',
             'promos': [
                     "${minecraft_version}-latest": "${arnicalib_version}",
                     "${minecraft_version}-recommended": "${arnicalib_version}",
