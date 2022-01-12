@@ -15,8 +15,6 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-println("CI: ${getVar('CI')}")
-
 version = "${arnicalib_version}"
 group = 'org.auioc.mods.arnicalib'
 archivesBaseName = "arnicalib-${minecraft_version}"
