@@ -1,5 +1,7 @@
 package org.auioc.mods.arnicalib.api.game.alchemy;
 
+import java.util.ArrayList;
+import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,6 +26,18 @@ public class HPotion extends Potion {
 
     public HPotion(String name, MobEffect effect, int duration, int amplifier) {
         super(name, new MobEffectInstance(effect, duration, amplifier));
+    }
+
+    public HPotion(String name, MobEffect effect, int duration, int amplifier, boolean incurable) {
+        this(name, () -> {
+            MobEffectInstance[] effects = new MobEffectInstance[1];
+            MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
+            if (incurable) {
+                instance.setCurativeItems(new ArrayList<ItemStack>());
+            }
+            effects[0] = instance;
+            return effects;
+        });
     }
 
     public HPotion(String name, MobEffect effect, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon) {
