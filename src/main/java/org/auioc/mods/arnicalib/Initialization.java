@@ -49,8 +49,8 @@ public final class Initialization {
         public void registerConfig() {}
 
         private void modSetup() {
+            PacketHandler.init();
             CommandArgumentRegistry.init();
-            modEventBus.register(PacketHandler.class);
             LootItemConditionRegistry.init();
             LootItemFunctionRegistry.init();
             modEventBus.register(GlobalLootModifierRegistry.class);
