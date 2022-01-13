@@ -1,8 +1,8 @@
 package org.auioc.mods.arnicalib;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mods.arnicalib.api.java.data.Tuple;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 import org.auioc.mods.arnicalib.utils.java.VersionUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -24,9 +24,9 @@ public final class ArnicaLib {
     }
 
     static {
-        Tuple<String, String> version = VersionUtils.getModVersion(ArnicaLib.class);
-        MAIN_VERSION = version.getA();
-        FULL_VERSION = version.getB();
+        Pair<String, String> version = VersionUtils.getModVersion(ArnicaLib.class);
+        MAIN_VERSION = version.getLeft();
+        FULL_VERSION = version.getRight();
         LOGGER.info(CORE, "Version: " + MAIN_VERSION + " (" + FULL_VERSION + ")");
     }
 

@@ -2,15 +2,15 @@ package org.auioc.mods.arnicalib.utils.java;
 
 import static org.auioc.mods.arnicalib.ArnicaLib.LOGGER;
 import java.util.jar.Attributes;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mods.arnicalib.api.java.data.Tuple;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public class VersionUtils {
 
     private static final Marker MARKER = LogUtil.getMarker(VersionUtils.class);
 
-    private static final Tuple<String, String> DEFAULT_VERSION_TUPLE = new Tuple<String, String>("0", "0");
+    private static final Pair<String, String> DEFAULT_VERSION_TUPLE = Pair.of("0", "0");
 
     public static String getMainVersion(Attributes attrs) {
         return attrs.getValue("Implementation-Version");
@@ -25,11 +25,11 @@ public class VersionUtils {
         return version;
     }
 
-    public static Tuple<String, String> getModVersion(Attributes attrs, String modName) {
-        return new Tuple<String, String>(getMainVersion(attrs), getFullVersion(attrs, modName));
+    public static Pair<String, String> getModVersion(Attributes attrs, String modName) {
+        return Pair.of(getMainVersion(attrs), getFullVersion(attrs, modName));
     }
 
-    public static Tuple<String, String> getModVersion(Class<?> clazz, String modName) {
+    public static Pair<String, String> getModVersion(Class<?> clazz, String modName) {
         try {
             return getModVersion(JarUtils.getManifest(clazz), modName);
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class VersionUtils {
         }
     }
 
-    public static Tuple<String, String> getModVersion(Class<?> clazz) {
+    public static Pair<String, String> getModVersion(Class<?> clazz) {
         return getModVersion(clazz, clazz.getSimpleName());
     }
 
