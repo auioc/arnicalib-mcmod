@@ -7,8 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public final class PacketHandler {
 
-    private static final String PROTOCOL_VERSION = ArnicaLib.MAIN_VERSION;
-
+    private static final String PROTOCOL_VERSION = Integer.toString(1);
     private static HPacketHandler HANDLER;
 
     public static void init() {
