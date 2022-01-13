@@ -2,6 +2,9 @@ package org.auioc.mods.arnicalib.utils.java;
 
 import static org.auioc.mods.arnicalib.ArnicaLib.LOGGER;
 import java.util.jar.Attributes;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mods.arnicalib.utils.LogUtil;
@@ -11,6 +14,7 @@ public class VersionUtils {
     private static final Marker MARKER = LogUtil.getMarker(VersionUtils.class);
 
     private static final Pair<String, String> DEFAULT_VERSION_TUPLE = Pair.of("0", "0");
+    private static final Pattern REVISION_NUMBER_PATTERN = Pattern.compile("(?<=rev\\.)[0-9a-fA-F]{7}");
 
     public static String getMainVersion(Attributes attrs) {
         return attrs.getValue("Implementation-Version");
@@ -18,8 +22,7 @@ public class VersionUtils {
 
     public static String getFullVersion(Attributes attrs, String modName) {
         String version = attrs.getValue(modName + "-Version");
-        String[] p = version.split("-");
-        if (p.length > 0 && p[p.length - 1].equals("null")) {
+        if (getRevisionNumber(version) == null) {
             LOGGER.warn(MARKER, "The revision number of mod " + modName + " is null. If this is a manually built version you can ignore this message.");
         }
         return version;
@@ -39,6 +42,15 @@ public class VersionUtils {
 
     public static Pair<String, String> getModVersion(Class<?> clazz) {
         return getModVersion(clazz, clazz.getSimpleName());
+    }
+
+    @Nullable
+    public static String getRevisionNumber(String fullVersion) {
+        Matcher matcher = REVISION_NUMBER_PATTERN.matcher(fullVersion);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return null;
     }
 
 }
