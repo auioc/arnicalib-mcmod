@@ -10,7 +10,7 @@ public interface IHPacket {
 
     void encode(FriendlyByteBuf buffer);
 
-    static <PACKET extends IHPacket> void handle(final PACKET message, Supplier<Context> context) {
+    static <MSG extends IHPacket> void handle(final MSG message, Supplier<Context> context) {
         Context ctx = context.get();
         ctx.enqueueWork(() -> message.handle(ctx));
         ctx.setPacketHandled(true);
