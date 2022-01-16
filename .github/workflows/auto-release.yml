@@ -51,9 +51,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
               run: |
-                  ./gradlew build
-                  ./gradlew publish
-                  ./gradlew genUpdateJson
+                  ./gradlew build publish genUpdateJson
 
             - name: Update update JSON
               uses: JamesIves/github-pages-deploy-action@4.1.5
