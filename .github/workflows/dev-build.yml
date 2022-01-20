@@ -55,10 +55,10 @@ jobs:
                   distribution: 'temurin'
                   architecture: x64
 
-            - name: Set up Gradlew
+            - name: Set up Gradle
               run: chmod +x ./gradlew
 
-            - name: Build with Gradlew
+            - name: Build with Gradle
               env:
                   CI_VERSION: ${{needs.first.outputs.ci_version}}
               run: ./gradlew clean build

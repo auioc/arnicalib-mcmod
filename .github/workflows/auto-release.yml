@@ -9,8 +9,48 @@ on:
             - 'v*'
 
 jobs:
-    build:
+    first:
+        name: Set variables
         runs-on: ubuntu-latest
+        outputs:
+            ci_version: ${{ steps.set_outputs.outputs.ci_version }}
+            full_version: ${{ steps.set_outputs.outputs.full_version }}
+            release_tag: ${{ steps.set_outputs.outputs.release_tag }}
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - id: set_envs
+              name: Set environment variables
+              run: |
+                  prop() { grep -P "^\s*[^#]?${1}=.*$" './gradle.properties' | cut -d'=' -f2; }
+                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
+                  echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
+                  echo "CI_VERSION=`echo rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
+
+            - id: set_outputs
+              name: Set outputs
+              run: |
+                  echo "::set-output name=ci_version::${{env.CI_VERSION}}"
+                  echo "::set-output name=full_version::arnicalib-${{env.MINECRAFT_VERSION}}-${{env.ARNICALIB_VERSION}}-${{env.CI_VERSION}}"
+                  echo "::set-output name=release_tag::v${{env.ARNICALIB_VERSION}}"
+
+    second:
+        name: Check release tag
+        runs-on: ubuntu-latest
+        needs: first
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - run: echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+            - run: if [ "${{env.GIT_TAG}}" != "${{needs.first.outputs.release_tag}}" ];then exit 1;fi
+
+    third:
+        name: Build and publish
+        runs-on: ubuntu-latest
+        needs: [first, second]
         permissions:
             contents: write
             packages: write
@@ -18,40 +58,18 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
-            - name: Set vars
-              run: |
-                  echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-                  echo "CI_VERSION=`echo rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
-                  config='gradle.properties'
-                  function prop {
-                    [ -f "$config" ] && grep -P "^\s*[^#]?${1}=.*$" $config | cut -d'=' -f2
-                  }
-                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
-                  echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
-
-            - name: Check tag
-              run: |
-                  if [ "${{env.GIT_TAG}}" != "v${{env.ARNICALIB_VERSION}}" ];then exit 1;fi
-
-            - name: Set up JDK 17
-              uses: actions/setup-java@v2
-              with:
-                  java-version: '17'
-                  distribution: 'temurin'
-                  architecture: x64
-
-            - name: Set up Gradlew and clean
+            - name: Set up Gradle and clean
               run: |
                   chmod +x ./gradlew
                   ./gradlew clean
                   rm -rf tmp
                   mkdir tmp
 
-            - name: Build and publish
+            - name: Build and publish package with Gradle
               env:
+                  CI_VERSION: ${{needs.first.outputs.ci_version}}
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-              run: |
-                  ./gradlew build publish genUpdateJson
+              run: ./gradlew build publish genUpdateJson
 
             - name: Update update JSON
               uses: JamesIves/github-pages-deploy-action@4.1.5
@@ -64,7 +82,7 @@ jobs:
             - name: Upload build artifacts
               uses: actions/upload-artifact@v1
               with:
-                  name: arnicalib-${{env.MINECRAFT_VERSION}}-${{env.ARNICALIB_VERSION}}-${{env.CI_VERSION}}
+                  name: ${{needs.first.outputs.full_version}}
                   path: build/libs
 
             - name: Github release
