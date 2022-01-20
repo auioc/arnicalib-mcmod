@@ -10,19 +10,21 @@ import net.minecraft.commands.CommandSourceStack;
 
 public final class ServerCommandRegistry {
 
+    public static final CommandNode<CommandSourceStack> NODE = literal(ArnicaLib.MOD_ID).build();
+
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        NODE.addChild(literal("version").executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.MAIN_VERSION, ArnicaLib.FULL_VERSION, ArnicaLib.MOD_NAME)).build());
+
+        getRootNode(dispatcher).addChild(NODE);
+    }
+
+
     public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
         CommandNode<CommandSourceStack> node = dispatcher.findNode(List.of("ah"));
         if (node == null) {
             node = dispatcher.register(literal("ah"));
         }
         return node;
-    }
-
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        getRootNode(dispatcher).addChild(
-            literal(ArnicaLib.MOD_ID).executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.MAIN_VERSION, ArnicaLib.FULL_VERSION, ArnicaLib.MOD_NAME))
-                .build()
-        );
     }
 
 }
