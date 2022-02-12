@@ -2,28 +2,23 @@ package org.auioc.mods.arnicalib.server.event.impl;
 
 import java.util.Random;
 import java.util.function.Function;
+import org.auioc.mods.arnicalib.api.game.event.ServerPlayerEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
-import net.minecraftforge.eventbus.api.Event;
 
-public class SetEyeOfEnderSurvivableEvent extends Event {
+public class SetEyeOfEnderSurvivableEvent extends ServerPlayerEvent {
 
     private final EyeOfEnder eye;
-    private final ServerPlayer player;
     private Function<Random, Boolean> survivable;
 
-    public SetEyeOfEnderSurvivableEvent(EyeOfEnder eye, ServerPlayer player) {
+    public SetEyeOfEnderSurvivableEvent(ServerPlayer player, EyeOfEnder eye) {
+        super(player);
         this.eye = eye;
-        this.player = player;
         this.survivable = (random) -> (random.nextInt(5) > 0);
     }
 
     public EyeOfEnder getEye() {
         return this.eye;
-    }
-
-    public ServerPlayer getPlayer() {
-        return this.player;
     }
 
     public Function<Random, Boolean> getSurvivable() {

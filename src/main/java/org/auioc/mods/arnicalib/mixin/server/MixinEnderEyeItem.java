@@ -35,7 +35,7 @@ public abstract class MixinEnderEyeItem {
         allow = 1
     )
     private void use(Level p_41184_, Player p_41185_, InteractionHand p_41186_, CallbackInfoReturnable<InteractionResultHolder> cir, ItemStack itemstack, HitResult hitresult, BlockPos blockpos, EyeOfEnder eyeofender) {
-        ((IMixinEyeOfEnder) eyeofender).setSurvivable(ServerEventFactory.fireSetEyeOfEnderSurvivableEvent(eyeofender, (ServerPlayer) p_41185_));
+        ((IMixinEyeOfEnder) eyeofender).setSurvivable(ServerEventFactory.fireSetEyeOfEnderSurvivableEvent((ServerPlayer) p_41185_, eyeofender));
     }
 
 }

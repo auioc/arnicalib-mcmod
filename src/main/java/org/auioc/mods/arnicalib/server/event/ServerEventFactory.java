@@ -60,8 +60,8 @@ public final class ServerEventFactory {
         return event.getEffects();
     }
 
-    public static Function<Random, Boolean> fireSetEyeOfEnderSurvivableEvent(EyeOfEnder eye, ServerPlayer player) {
-        SetEyeOfEnderSurvivableEvent event = new SetEyeOfEnderSurvivableEvent(eye, player);
+    public static Function<Random, Boolean> fireSetEyeOfEnderSurvivableEvent(ServerPlayer player, EyeOfEnder eye) {
+        SetEyeOfEnderSurvivableEvent event = new SetEyeOfEnderSurvivableEvent(player, eye);
         forgeEventBus.post(event);
         return event.getSurvivable();
     }
