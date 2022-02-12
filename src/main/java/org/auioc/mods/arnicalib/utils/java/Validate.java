@@ -378,4 +378,40 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     // #endregion Interval
 
+    /*================================================================================================================*/
+    // #region Fraction
+
+    private static final String INVALID_FRACTION_MESSAGE = "The denominator must not be zero";
+    private static final String NOT_A_PROPER_FRACTION_MESSAGE = "%s/%s is not a proper fraction";
+    private static final String NOT_A_IMPROPER_FRACTION_MESSAGE = "%s/%s is not a improper fraction";
+    private static final String NOT_A_UNIT_FRACTION_MESSAGE = "%s/%s is not a unit fraction";
+    private static final String INVALID_FRACTION_CHANCE = "%s/%s is not a valid fraction chance value";
+
+    public static void isFraction(long numerator, long denominator) {
+        isTrue(denominator != 0, INVALID_FRACTION_MESSAGE);
+    }
+
+    public static void isProperFraction(long numerator, long denominator) {
+        isFraction(numerator, denominator);
+        isTrue(numerator > 0 && denominator > 0, NOT_A_PROPER_FRACTION_MESSAGE);
+        isTrue(numerator < denominator, NOT_A_PROPER_FRACTION_MESSAGE);
+    }
+
+    public static void isImproperFraction(long numerator, long denominator) {
+        isFraction(numerator, denominator);
+        isTrue(Math.abs(numerator / denominator) >= 1, NOT_A_IMPROPER_FRACTION_MESSAGE);
+    }
+
+    public static void isUnitFraction(long numerator, long denominator) {
+        isProperFraction(numerator, denominator);
+        isTrue(numerator == 1, NOT_A_UNIT_FRACTION_MESSAGE);
+    }
+
+    public static void isFractionChance(long numerator, long denominator) {
+        isFraction(numerator, denominator);
+        isTrue(numerator >= 0 && denominator > 0 && numerator <= denominator, INVALID_FRACTION_CHANCE);
+    }
+
+    // #endregion ProperFraction
+
 }
