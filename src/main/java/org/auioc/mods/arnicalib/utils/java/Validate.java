@@ -4,23 +4,6 @@ import com.google.common.collect.Range;
 
 public class Validate extends org.apache.commons.lang3.Validate {
 
-    // #region Messages
-    private static final String NOT_POSITIVE_MESSAGE = "The value must be positive: %s";
-    private static final String NOT_NEGATIVE_MESSAGE = "The value must be negative: %s";
-    private static final String NOT_NON_NEGATIVE_MESSAGE = "The value must be non-negative: %s";
-    private static final String NOT_NON_POSITIVE_MESSAGE = "The value must be non-positive: %s";
-    private static final String INVALID_INTERVAL_MESSAGE = "The left bound must be less than the right bound";
-    private static final String NOT_IN_INTERVAL_MESSAGE = "The value %s is not in the interval %s";
-    private static final String NOT_IN_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, %s)";
-    private static final String NOT_IN_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, %s]";
-    private static final String NOT_IN_OPEN_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, %s]";
-    private static final String NOT_IN_CLOSED_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, %s)";
-    private static final String NOT_IN_LEFT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, +∞)";
-    private static final String NOT_IN_LEFT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, +∞)";
-    private static final String NOT_IN_RIGHT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s)";
-    private static final String NOT_IN_RIGHT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s]";
-    // #endregion Messages
-
     /*================================================================================================================*/
     // #region ThrowException
 
@@ -36,6 +19,11 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     /*================================================================================================================*/
     // #region CompareToZero
+
+    private static final String NOT_POSITIVE_MESSAGE = "The value must be positive: %s";
+    private static final String NOT_NEGATIVE_MESSAGE = "The value must be negative: %s";
+    private static final String NOT_NON_NEGATIVE_MESSAGE = "The value must be non-negative: %s";
+    private static final String NOT_NON_POSITIVE_MESSAGE = "The value must be non-positive: %s";
 
     public static void isPositive(long value, String message) {
         isTrue(value > 0, message);
@@ -111,6 +99,17 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     /*================================================================================================================*/
     // #region Interval
+
+    private static final String INVALID_INTERVAL_MESSAGE = "The left bound must be less than the right bound";
+    private static final String NOT_IN_INTERVAL_MESSAGE = "The value %s is not in the interval %s";
+    private static final String NOT_IN_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, %s)";
+    private static final String NOT_IN_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, %s]";
+    private static final String NOT_IN_OPEN_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, %s]";
+    private static final String NOT_IN_CLOSED_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, %s)";
+    private static final String NOT_IN_LEFT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (%s, +∞)";
+    private static final String NOT_IN_LEFT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval [%s, +∞)";
+    private static final String NOT_IN_RIGHT_OPEN_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s)";
+    private static final String NOT_IN_RIGHT_CLOSED_INTERVAL_MESSAGE = "The value %s is not in the interval (-∞, %s]";
 
     /**
      * Validate that the specified primitive value is in the specified interval; otherwise, throws an exception.
