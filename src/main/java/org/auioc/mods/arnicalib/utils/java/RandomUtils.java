@@ -90,6 +90,14 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         return random.nextInt(denominator) == 0;
     }
 
+    public static boolean fractionChance(int numerator, int denominator) {
+        return nextInt(0, denominator) < numerator;
+    }
+
+    public static boolean fractionChance(int numerator, int denominator, Random random) {
+        return random.nextInt(denominator) < numerator;
+    }
+
     // #endregion Chance
 
 }
