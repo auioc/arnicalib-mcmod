@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
+
+    /*================================================================================================================*/
+    // #region PickFromCollection
 
     public static <T> T pickOneFromCollection(Collection<T> collection) {
         Validate.notEmpty(collection, "The collection must be not empty");
@@ -59,5 +63,25 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         Validate.notEmpty(list, "The list must be not empty");
         return list.get(nextInt(0, list.size()));
     }
+
+    // #endregion PickFromCollection
+
+    /*================================================================================================================*/
+    // #region Chance
+
+    private static boolean percentageChance(int random, int chance) {
+        Validate.isInCloseInterval(chance, 0, 100);
+        return random < chance;
+    }
+
+    public static boolean percentageChance(int chance) {
+        return percentageChance(nextInt(0, 100), chance);
+    }
+
+    public static boolean percentageChance(int chance, Random random) {
+        return percentageChance(random.nextInt(0, 100), chance);
+    }
+
+    // #endregion Chance
 
 }
