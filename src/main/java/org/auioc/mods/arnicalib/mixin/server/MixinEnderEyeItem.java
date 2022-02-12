@@ -1,12 +1,14 @@
 package org.auioc.mods.arnicalib.mixin.server;
 
 import org.auioc.mods.arnicalib.api.mixin.server.IMixinEyeOfEnder;
+import org.auioc.mods.arnicalib.server.event.ServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -33,7 +35,7 @@ public abstract class MixinEnderEyeItem {
         allow = 1
     )
     private void use(Level p_41184_, Player p_41185_, InteractionHand p_41186_, CallbackInfoReturnable<InteractionResultHolder> cir, ItemStack itemstack, HitResult hitresult, BlockPos blockpos, EyeOfEnder eyeofender) {
-        ((IMixinEyeOfEnder) eyeofender).setSurvivable((random) -> random.nextInt(5) > 0);
+        ((IMixinEyeOfEnder) eyeofender).setSurvivable(ServerEventFactory.fireSetEyeOfEnderSurvivableEvent(eyeofender, (ServerPlayer) p_41185_));
     }
 
 }
