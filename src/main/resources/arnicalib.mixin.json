@@ -9,7 +9,9 @@
         "server.MixinLootContext",
         "server.MixinServerPlayerEntity",
         "server.MixinLivingEntity",
-        "server.MixinCommandSourceStack"
+        "server.MixinCommandSourceStack",
+        "server.MixinEyeOfEnder",
+        "server.MixinEnderEyeItem"
     ],
     "client": [],
     "server": [],
