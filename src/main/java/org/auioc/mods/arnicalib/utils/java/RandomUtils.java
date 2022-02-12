@@ -82,6 +82,14 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         return percentageChance(random.nextInt(0, 100), chance);
     }
 
+    public static boolean fractionChance(int denominator) {
+        return nextInt(0, denominator) == 0;
+    }
+
+    public static boolean fractionChance(int denominator, Random random) {
+        return random.nextInt(denominator) == 0;
+    }
+
     // #endregion Chance
 
 }
