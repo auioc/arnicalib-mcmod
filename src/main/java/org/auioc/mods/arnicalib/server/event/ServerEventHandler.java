@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public final class ServerEventHandler {
 
-    private static final Marker marker = LogUtil.getMarker("ServerHooks");
+    private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
 
     @SubscribeEvent
     public static void registerCommands(final RegisterCommandsEvent event) {
@@ -23,7 +23,7 @@ public final class ServerEventHandler {
         ConnectionProtocol intention = event.getPacket().getIntention();
         if (intention == ConnectionProtocol.STATUS) {
             LOGGER.info(
-                LogUtil.getMarker("ServerListPing").addParents(marker),
+                LogUtil.getMarker("ServerListPing").addParents(MARKER),
                 String.format("[%s] <-> InitialHandler has pinged", event.getNetworkManager().getRemoteAddress())
             );
             return;

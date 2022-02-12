@@ -27,7 +27,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 public final class ServerEventFactory {
 
-    private static final Marker marker = LogUtil.getMarker("ServerHooks");
+    private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
     private static final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
     // Return true if the event was Cancelable cancelled
@@ -40,7 +40,7 @@ public final class ServerEventFactory {
             manager.send(new ClientboundLoginDisconnectPacket(message));
             manager.disconnect(message);
             LOGGER.info(
-                LogUtil.getMarker("ServerLogin").addParents(marker),
+                LogUtil.getMarker("ServerLogin").addParents(MARKER),
                 String.format("Disconnecting %s connection attempt from %s: %s", event.getPacket().getIntention(), event.getNetworkManager().getRemoteAddress(), event.getMessage())
             );
             return true;
