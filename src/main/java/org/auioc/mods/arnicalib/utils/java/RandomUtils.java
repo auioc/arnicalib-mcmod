@@ -69,32 +69,33 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
     /*================================================================================================================*/
     // #region Chance
 
-    private static boolean percentageChance(int random, int chance) {
-        Validate.isInCloseInterval(chance, 0, 100);
-        return random < chance;
-    }
-
     public static boolean percentageChance(int chance) {
-        return percentageChance(nextInt(0, 100), chance);
+        Validate.isInCloseInterval(chance, 0, 100);
+        return nextInt(0, 100) < chance;
     }
 
     public static boolean percentageChance(int chance, Random random) {
-        return percentageChance(random.nextInt(0, 100), chance);
+        Validate.isInCloseInterval(chance, 0, 100);
+        return random.nextInt(100) < chance;
     }
 
     public static boolean fractionChance(int denominator) {
+        Validate.isPositive(denominator);
         return nextInt(0, denominator) == 0;
     }
 
     public static boolean fractionChance(int denominator, Random random) {
+        Validate.isPositive(denominator);
         return random.nextInt(denominator) == 0;
     }
 
     public static boolean fractionChance(int numerator, int denominator) {
+        Validate.isFractionChance(numerator, denominator);
         return nextInt(0, denominator) < numerator;
     }
 
     public static boolean fractionChance(int numerator, int denominator, Random random) {
+        Validate.isFractionChance(numerator, denominator);
         return random.nextInt(denominator) < numerator;
     }
 
