@@ -1,7 +1,6 @@
 package org.auioc.mods.arnicalib.api.game.event;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
 public class ServerPlayerEvent extends LivingEvent {
@@ -13,7 +12,7 @@ public class ServerPlayerEvent extends LivingEvent {
         this.player = player;
     }
 
-    public Player getPlayer() {
+    public ServerPlayer getPlayer() {
         return this.player;
     }
 
