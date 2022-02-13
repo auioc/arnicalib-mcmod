@@ -70,12 +70,12 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
     // #region Chance
 
     public static boolean percentageChance(int chance) {
-        Validate.isInCloseInterval(chance, 0, 100);
+        Validate.isInCloseInterval(0, 100, chance);
         return nextInt(0, 100) < chance;
     }
 
     public static boolean percentageChance(int chance, Random random) {
-        Validate.isInCloseInterval(chance, 0, 100);
+        Validate.isInCloseInterval(0, 100, chance);
         return random.nextInt(100) < chance;
     }
 
