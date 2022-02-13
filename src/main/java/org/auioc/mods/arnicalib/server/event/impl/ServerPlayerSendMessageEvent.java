@@ -7,12 +7,12 @@ import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
 @Cancelable
-public class ServerPlayerEntitySendMessageEvent extends Event {
+public class ServerPlayerSendMessageEvent extends Event {
     private final Component message;
     private final ChatType chatType;
     private final UUID uuid;
 
-    public ServerPlayerEntitySendMessageEvent(Component message, ChatType chatType, UUID uuid) {
+    public ServerPlayerSendMessageEvent(Component message, ChatType chatType, UUID uuid) {
         super();
         this.message = message;
         this.chatType = chatType;

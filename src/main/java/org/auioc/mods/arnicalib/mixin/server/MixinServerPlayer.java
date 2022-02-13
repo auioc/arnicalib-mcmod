@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 @Mixin(value = ServerPlayer.class)
-public abstract class MixinServerPlayerEntity {
+public abstract class MixinServerPlayer {
 
     // @org.spongepowered.asm.mixin.Debug(export = true, print = true)
     @Inject(
@@ -22,7 +22,7 @@ public abstract class MixinServerPlayerEntity {
         cancellable = true
     )
     private void onSendMessage(Component p_9147_, ChatType p_9148_, UUID p_9149_, CallbackInfo ci) {
-        if (ServerEventFactory.fireServerPlayerEntitySendMessageEvent(p_9147_, p_9148_, p_9149_)) {
+        if (ServerEventFactory.fireServerPlayerSendMessageEvent(p_9147_, p_9148_, p_9149_)) {
             ci.cancel();
         }
     }

@@ -7,7 +7,7 @@
         "common.MixinMobEffectInstance",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
-        "server.MixinServerPlayerEntity",
+        "server.MixinServerPlayer",
         "server.MixinLivingEntity",
         "server.MixinCommandSourceStack",
         "server.MixinEyeOfEnder",
