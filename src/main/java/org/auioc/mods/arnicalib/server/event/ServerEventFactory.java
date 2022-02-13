@@ -48,8 +48,8 @@ public final class ServerEventFactory {
         return false;
     }
 
-    public static boolean fireServerPlayerSendMessageEvent(Component message, ChatType type, UUID uuid) {
-        return forgeEventBus.post(new ServerPlayerSendMessageEvent(message, type, uuid));
+    public static boolean fireServerPlayerSendMessageEvent(ServerPlayer player, Component message, ChatType type, UUID uuid) {
+        return forgeEventBus.post(new ServerPlayerSendMessageEvent(player, message, type, uuid));
     }
 
     public static List<MobEffectInstance> fireLivingEatAddEffectEvent(LivingEntity entity, ItemStack food, List<MobEffectInstance> effects) {

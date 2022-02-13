@@ -22,7 +22,7 @@ public abstract class MixinServerPlayer {
         cancellable = true
     )
     private void onSendMessage(Component p_9147_, ChatType p_9148_, UUID p_9149_, CallbackInfo ci) {
-        if (ServerEventFactory.fireServerPlayerSendMessageEvent(p_9147_, p_9148_, p_9149_)) {
+        if (ServerEventFactory.fireServerPlayerSendMessageEvent(((ServerPlayer) (Object) this), p_9147_, p_9148_, p_9149_)) {
             ci.cancel();
         }
     }
