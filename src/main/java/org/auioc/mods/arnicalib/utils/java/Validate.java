@@ -393,23 +393,23 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     public static void isProperFraction(long numerator, long denominator) {
         isFraction(numerator, denominator);
-        isTrue(numerator > 0 && denominator > 0, NOT_A_PROPER_FRACTION_MESSAGE);
-        isTrue(numerator < denominator, NOT_A_PROPER_FRACTION_MESSAGE);
+        isTrue(numerator > 0 && denominator > 0, NOT_A_PROPER_FRACTION_MESSAGE, numerator, denominator);
+        isTrue(numerator < denominator, NOT_A_PROPER_FRACTION_MESSAGE, numerator, denominator);
     }
 
     public static void isImproperFraction(long numerator, long denominator) {
         isFraction(numerator, denominator);
-        isTrue(Math.abs(numerator / denominator) >= 1, NOT_A_IMPROPER_FRACTION_MESSAGE);
+        isTrue(Math.abs(numerator / denominator) >= 1, NOT_A_IMPROPER_FRACTION_MESSAGE, numerator, denominator);
     }
 
     public static void isUnitFraction(long numerator, long denominator) {
         isProperFraction(numerator, denominator);
-        isTrue(numerator == 1, NOT_A_UNIT_FRACTION_MESSAGE);
+        isTrue(numerator == 1, NOT_A_UNIT_FRACTION_MESSAGE, numerator, denominator);
     }
 
     public static void isFractionChance(long numerator, long denominator) {
         isFraction(numerator, denominator);
-        isTrue(numerator >= 0 && denominator > 0 && numerator <= denominator, INVALID_FRACTION_CHANCE);
+        isTrue(numerator >= 0 && denominator > 0 && numerator <= denominator, INVALID_FRACTION_CHANCE, numerator, denominator);
     }
 
     // #endregion ProperFraction
