@@ -2,10 +2,10 @@ package org.auioc.mods.arnicalib.server.command;
 
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import org.auioc.mods.arnicalib.ArnicaLib;
+import org.auioc.mods.arnicalib.server.command.impl.TestCommand;
 import org.auioc.mods.arnicalib.server.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
 
@@ -15,9 +15,7 @@ public final class ServerCommandRegistry {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         NODE.addChild(literal("version").executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.MAIN_VERSION, ArnicaLib.FULL_VERSION, ArnicaLib.MOD_NAME)).build());
-        NODE.addChild(literal("test").executes((ctx) -> {
-            return Command.SINGLE_SUCCESS;
-        }).build());
+        NODE.addChild(literal("test").executes(TestCommand::test).build());
 
         getRootNode(dispatcher).addChild(NODE);
     }
