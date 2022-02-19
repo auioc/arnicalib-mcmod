@@ -1,5 +1,6 @@
 package org.auioc.mods.arnicalib.utils.game;
 
+import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -8,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -83,6 +85,29 @@ public interface ItemUtils {
         }
 
         return createItemStack(item, count, nbt);
+    }
+
+
+    static int countItem(ItemStack stack, Predicate<ItemStack> predicate) {
+        if (!stack.isEmpty() && predicate.test(stack)) {
+            return stack.getCount();
+        }
+        return 0;
+    }
+
+    static int countItem(Container container, Predicate<ItemStack> predicate) {
+        int r = 0;
+        for (int i = 0, l = container.getContainerSize(); i < l; i++) {
+            ItemStack stack = container.getItem(i);
+            if (!stack.isEmpty()) {
+                r += countItem(stack, predicate);
+            }
+        }
+        return r;
+    }
+
+    static int countItem(Container container) {
+        return countItem(container, (stack) -> true);
     }
 
 }
