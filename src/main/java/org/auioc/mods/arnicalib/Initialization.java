@@ -2,13 +2,13 @@ package org.auioc.mods.arnicalib;
 
 import org.auioc.mods.arnicalib.client.config.ClientConfig;
 import org.auioc.mods.arnicalib.client.event.ClientEventHandler;
-import org.auioc.mods.arnicalib.common.command.CommandArgumentRegistry;
-import org.auioc.mods.arnicalib.common.itemgroup.ItemGroupRegistry;
-import org.auioc.mods.arnicalib.common.network.PacketHandler;
+import org.auioc.mods.arnicalib.common.command.AHCommandArguments;
+import org.auioc.mods.arnicalib.common.itemgroup.AHItemGroups;
+import org.auioc.mods.arnicalib.common.network.AHPacketHandler;
 import org.auioc.mods.arnicalib.server.event.ServerEventHandler;
-import org.auioc.mods.arnicalib.server.loot.GlobalLootModifierRegistry;
-import org.auioc.mods.arnicalib.server.loot.LootItemConditionRegistry;
-import org.auioc.mods.arnicalib.server.loot.LootItemFunctionRegistry;
+import org.auioc.mods.arnicalib.server.loot.AHGlobalLootModifiers;
+import org.auioc.mods.arnicalib.server.loot.AHLootItemConditions;
+import org.auioc.mods.arnicalib.server.loot.AHLootItemFunctions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -49,15 +49,15 @@ public final class Initialization {
         public void registerConfig() {}
 
         private void modSetup() {
-            PacketHandler.init();
-            CommandArgumentRegistry.init();
-            LootItemConditionRegistry.init();
-            LootItemFunctionRegistry.init();
-            modEventBus.register(GlobalLootModifierRegistry.class);
+            AHPacketHandler.init();
+            AHCommandArguments.init();
+            AHLootItemConditions.init();
+            AHLootItemFunctions.init();
+            modEventBus.register(AHGlobalLootModifiers.class);
         }
 
         private void forgeSetup() {
-            ItemGroupRegistry.init();
+            AHItemGroups.init();
             forgeEventBus.register(ServerEventHandler.class);
         }
 

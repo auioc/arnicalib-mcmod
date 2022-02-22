@@ -2,7 +2,7 @@ package org.auioc.mods.arnicalib.server.event;
 
 import static org.auioc.mods.arnicalib.ArnicaLib.LOGGER;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mods.arnicalib.server.command.ServerCommandRegistry;
+import org.auioc.mods.arnicalib.server.command.AHServerCommands;
 import org.auioc.mods.arnicalib.server.event.impl.ServerLoginEvent;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 import net.minecraft.network.ConnectionProtocol;
@@ -15,7 +15,7 @@ public final class ServerEventHandler {
 
     @SubscribeEvent
     public static void registerCommands(final RegisterCommandsEvent event) {
-        ServerCommandRegistry.register(event.getDispatcher());
+        AHServerCommands.register(event.getDispatcher());
     }
 
     @SubscribeEvent

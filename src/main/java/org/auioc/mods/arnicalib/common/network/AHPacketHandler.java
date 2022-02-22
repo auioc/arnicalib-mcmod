@@ -5,7 +5,7 @@ import org.auioc.mods.arnicalib.api.game.network.HPacketHandler;
 import org.auioc.mods.arnicalib.api.game.network.IHPacket;
 import net.minecraft.server.level.ServerPlayer;
 
-public final class PacketHandler {
+public final class AHPacketHandler {
 
     private static final String PROTOCOL_VERSION = Integer.toString(1);
     private static HPacketHandler HANDLER;

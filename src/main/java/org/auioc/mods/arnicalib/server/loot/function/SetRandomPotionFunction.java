@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import org.auioc.mods.arnicalib.api.game.registry.OrderedForgeRegistries;
-import org.auioc.mods.arnicalib.server.loot.LootItemFunctionRegistry;
+import org.auioc.mods.arnicalib.server.loot.AHLootItemFunctions;
 import org.auioc.mods.arnicalib.utils.java.RandomUtils;
 import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +35,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType getType() {
-        return LootItemFunctionRegistry.SET_RANDOM_POTION;
+        return AHLootItemFunctions.SET_RANDOM_POTION;
     }
 
     @Override

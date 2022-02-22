@@ -7,7 +7,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import org.auioc.mods.arnicalib.server.loot.LootItemFunctionRegistry;
+import org.auioc.mods.arnicalib.server.loot.AHLootItemFunctions;
 import org.auioc.mods.arnicalib.utils.game.EffectUtils;
 import org.auioc.mods.arnicalib.utils.java.Validate;
 import net.minecraft.util.GsonHelper;
@@ -30,7 +30,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType getType() {
-        return LootItemFunctionRegistry.SET_CUSTOM_EFFECTS;
+        return AHLootItemFunctions.SET_CUSTOM_EFFECTS;
     }
 
     @Override

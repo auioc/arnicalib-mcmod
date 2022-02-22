@@ -9,7 +9,7 @@ import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.server.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
 
-public final class ServerCommandRegistry {
+public final class AHServerCommands {
 
     public static final CommandNode<CommandSourceStack> NODE = literal(ArnicaLib.MOD_ID).build();
 

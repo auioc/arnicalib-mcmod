@@ -7,7 +7,7 @@ import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-public final class LootItemConditionRegistry {
+public final class AHLootItemConditions {
 
     public static void init() {}
 

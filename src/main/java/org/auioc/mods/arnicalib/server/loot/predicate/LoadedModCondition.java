@@ -3,7 +3,7 @@ package org.auioc.mods.arnicalib.server.loot.predicate;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import org.auioc.mods.arnicalib.server.loot.LootItemConditionRegistry;
+import org.auioc.mods.arnicalib.server.loot.AHLootItemConditions;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.Serializer;
@@ -26,7 +26,7 @@ public class LoadedModCondition implements LootItemCondition {
 
     @Override
     public LootItemConditionType getType() {
-        return LootItemConditionRegistry.LOADED_MOD;
+        return AHLootItemConditions.LOADED_MOD;
     }
 
 
