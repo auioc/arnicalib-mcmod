@@ -66,7 +66,7 @@ public class DemoScreen extends HScreen {
             this.divX, this.divY,
             BG_U_OFFSET, BG_V_OFFSET,
             BG_WIDTH, BG_HEIGHT,
-            TEXTURE_SIZE
+            TEXTURE_SIZE, TEXTURE_SIZE
         );
     }
 

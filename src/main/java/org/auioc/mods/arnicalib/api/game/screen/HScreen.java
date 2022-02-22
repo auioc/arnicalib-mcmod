@@ -7,6 +7,8 @@ import net.minecraft.network.chat.Component;
 
 public class HScreen extends Screen {
 
+    public static final int DEFAULT_TEXTURE_SIZE = 256;
+
     public HScreen(Component title) {
         super(title);
     }
@@ -19,17 +21,17 @@ public class HScreen extends Screen {
         return (a - b) / 2;
     }
 
-    public static void blit(PoseStack poseStack, int x, int y, int size) {
+    public static void blitSquare(PoseStack poseStack, int x, int y, int size) {
         //              X, Y, U, V, W,    H,    TW,   TH
-        blit(poseStack, x, y, 0, 0, size, size, size, size);
+        blit(poseStack, x, y, 0, 0, size, size, DEFAULT_TEXTURE_SIZE, DEFAULT_TEXTURE_SIZE);
     }
 
-    public static void blit(PoseStack poseStack, int x, int y, int w, int h, int textureSize) {
-        blit(poseStack, x, y, 0, 0, w, h, textureSize, textureSize);
+    public static void blitSquare(PoseStack poseStack, int x, int y, int size, int textureSize) {
+        blit(poseStack, x, y, 0, 0, size, size, textureSize, textureSize);
     }
 
-    public static void blit(PoseStack poseStack, int x, int y, int u, int v, int w, int h, int textureSize) {
-        blit(poseStack, x, y, u, v, w, h, textureSize, textureSize);
+    public static void blitSquare(PoseStack poseStack, int x, int y, int u, int v, int size, int textureSize) {
+        blit(poseStack, x, y, u, v, size, size, textureSize, textureSize);
     }
 
     public static void closeScreen() {
