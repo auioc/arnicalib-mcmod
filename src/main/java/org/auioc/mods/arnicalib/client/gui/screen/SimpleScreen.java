@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 
 @OnlyIn(Dist.CLIENT)
-public class DemoScreen extends HScreen {
+public class SimpleScreen extends HScreen {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation("minecraft:textures/gui/demo_background.png");
     protected static final int TEXTURE_SIZE = 256;
@@ -29,11 +29,11 @@ public class DemoScreen extends HScreen {
 
     protected boolean isPauseScreen = false;
 
-    public DemoScreen() {
+    public SimpleScreen() {
         super(TextUtils.StringText("ArnicaLib Demo Screen"));
     }
 
-    public DemoScreen(Component title) {
+    public SimpleScreen(Component title) {
         super(title);
     }
 
