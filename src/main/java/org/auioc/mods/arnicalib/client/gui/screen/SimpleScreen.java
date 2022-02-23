@@ -14,18 +14,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class SimpleScreen extends HScreen {
 
-    protected static final ResourceLocation TEXTURE = ArnicaLib.id("textures/gui/simple_screen.png");
-    protected static final int TEXTURE_SIZE = 16;
+    private static final ResourceLocation TEXTURE = ArnicaLib.id("textures/gui/simple_screen.png");
+    private static final int TEXTURE_SIZE = 16;
 
-    protected static final int CORNER_SIZE = 4;
-    protected static final int TOP_LEFT_CORNER_U_OFFSET = 0;
-    protected static final int TOP_LEFT_CORNER_V_OFFSET = 0;
-    protected static final int TOP_RIGHT_CORNER_U_OFFSET = 5;
-    protected static final int TOP_RIGHT_CORNER_V_OFFSET = 0;
-    protected static final int BOTTOM_LEFT_CORNER_U_OFFSET = 0;
-    protected static final int BOTTOM_LEFT_CORNER_V_OFFSET = 5;
-    protected static final int BOTTOM_RIGHT_CORNER_U_OFFSET = 5;
-    protected static final int BOTTOM_RIGHT_CORNER_V_OFFSET = 5;
+    private static final int CORNER_SIZE = 4;
+    private static final int TOP_LEFT_CORNER_U_OFFSET = 0;
+    private static final int TOP_LEFT_CORNER_V_OFFSET = 0;
+    private static final int TOP_RIGHT_CORNER_U_OFFSET = 5;
+    private static final int TOP_RIGHT_CORNER_V_OFFSET = 0;
+    private static final int BOTTOM_LEFT_CORNER_U_OFFSET = 0;
+    private static final int BOTTOM_LEFT_CORNER_V_OFFSET = 5;
+    private static final int BOTTOM_RIGHT_CORNER_U_OFFSET = 5;
+    private static final int BOTTOM_RIGHT_CORNER_V_OFFSET = 5;
 
     protected static final int COLOR_BLACK = adjustColor(0x000000);
     protected static final int COLOR_WHITE = adjustColor(0xFFFFFF);
@@ -37,8 +37,6 @@ public class SimpleScreen extends HScreen {
 
     protected int divX;
     protected int divY;
-
-    protected boolean isPauseScreen = false;
 
     public SimpleScreen(Component title, int divWidth, int divHeight) {
         super(title);
@@ -55,8 +53,8 @@ public class SimpleScreen extends HScreen {
     }
 
     @Override
-    public final boolean isPauseScreen() {
-        return isPauseScreen;
+    public boolean isPauseScreen() {
+        return false;
     }
 
     @Override
@@ -64,7 +62,7 @@ public class SimpleScreen extends HScreen {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
 
-        this.renderBackground(poseStack);
+        this._renderBackground(poseStack);
 
         this.renderBorderEdge(poseStack);
         this.renderBorderCorner(poseStack);
@@ -76,8 +74,7 @@ public class SimpleScreen extends HScreen {
 
     protected void subRender(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {}
 
-    @Override
-    public final void renderBackground(PoseStack poseStack) {
+    private void _renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
         fill(
@@ -88,7 +85,7 @@ public class SimpleScreen extends HScreen {
         );
     }
 
-    private final void renderBorderEdge(PoseStack poseStack) {
+    private void renderBorderEdge(PoseStack poseStack) {
         drawBorderEdge(
             poseStack,
             this.divX, this.divY,
@@ -115,7 +112,7 @@ public class SimpleScreen extends HScreen {
         );
     }
 
-    private final void renderBorderCorner(PoseStack poseStack) {
+    private void renderBorderCorner(PoseStack poseStack) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
