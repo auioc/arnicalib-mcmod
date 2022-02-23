@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.api.game.screen.HScreen;
+import org.auioc.mods.arnicalib.utils.game.TextUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,6 +44,14 @@ public class SimpleScreen extends HScreen {
         super(title);
         this.divWidth = divWidth;
         this.divHeight = divHeight;
+    }
+
+    public SimpleScreen(Component title) {
+        this(title, 176, 166);
+    }
+
+    public SimpleScreen() {
+        this(TextUtils.StringText("SimpleScreen"));
     }
 
     @Override
