@@ -38,6 +38,10 @@ public class HScreen extends Screen {
         blit(poseStack, x, y, u, v, w, h, textureSize, textureSize);
     }
 
+    public static int adjustColor(int rgbColor) {
+        return (rgbColor & -67108864) == 0 ? rgbColor | -16777216 : rgbColor;
+    }
+
     public static void closeScreen() {
         Minecraft.getInstance().setScreen((Screen) null);
     }
