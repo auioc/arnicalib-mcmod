@@ -16,10 +16,6 @@ public class SimpleScreen extends HScreen {
     protected static final ResourceLocation TEXTURE = ArnicaLib.id("textures/gui/simple_screen.png");
     protected static final int TEXTURE_SIZE = 16;
 
-    protected static final int BACKGROUND_SIZE = 1;
-    protected static final int BACKGROUND_U_OFFSET = 4;
-    protected static final int BACKGROUND_V_OFFSET = 4;
-
     protected static final int CORNER_SIZE = 4;
     protected static final int TOP_LEFT_CORNER_U_OFFSET = 0;
     protected static final int TOP_LEFT_CORNER_V_OFFSET = 0;
@@ -30,18 +26,10 @@ public class SimpleScreen extends HScreen {
     protected static final int BOTTOM_RIGHT_CORNER_U_OFFSET = 5;
     protected static final int BOTTOM_RIGHT_CORNER_V_OFFSET = 5;
 
-    protected static final int HORIZONTAL_BORDER_WIDTH = 1;
-    protected static final int HORIZONTAL_BORDER_HEIGHT = 4;
-    protected static final int VERTICAL_BORDER_WIDTH = 4;
-    protected static final int VERTICAL_BORDER_HEIGHT = 1;
-    protected static final int TOP_BORDER_U_OFFSET = 4;
-    protected static final int TOP_BORDER_V_OFFSET = 0;
-    protected static final int BOTTOM_BORDER_U_OFFSET = 4;
-    protected static final int BOTTOM_BORDER_V_OFFSET = 5;
-    protected static final int LEFT_BORDER_U_OFFSET = 0;
-    protected static final int LEFT_BORDER_V_OFFSET = 4;
-    protected static final int RIGHT_BORDER_U_OFFSET = 5;
-    protected static final int RIGHT_BORDER_V_OFFSET = 4;
+    protected static final int COLOR_BLACK = adjustColor(0x000000);
+    protected static final int COLOR_WHITE = adjustColor(0xFFFFFF);
+    protected static final int COLOR_GRAY = adjustColor(0x555555);
+    protected static final int COLOR_BACKGROUND = adjustColor(0xC6C6C6);
 
     protected final int divWidth;
     protected final int divHeight;
@@ -84,47 +72,61 @@ public class SimpleScreen extends HScreen {
     public void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
-        for (int xOffset = 0; xOffset < this.divWidth; xOffset++) {
-            for (int yOffset = 0; yOffset < this.divHeight; yOffset++) {
-                blitSquare(
-                    poseStack,
-                    this.divX + xOffset, this.divY + yOffset,
-                    BACKGROUND_U_OFFSET, BACKGROUND_V_OFFSET, BACKGROUND_SIZE, TEXTURE_SIZE
-                );
-            }
-        }
+        fill(
+            poseStack,
+            this.divX, this.divY,
+            this.divX + this.divWidth, this.divY + this.divHeight,
+            COLOR_BACKGROUND
+        );
     }
 
     private void renderBorderEdge(PoseStack poseStack) {
-        for (int xOffset = 0; xOffset < this.divWidth; xOffset++) {
-            blitBorderEdge(
-                poseStack,
-                this.divX + xOffset, this.divY - HORIZONTAL_BORDER_HEIGHT,
-                TOP_BORDER_U_OFFSET, TOP_BORDER_V_OFFSET,
-                false
-            );
-            blitBorderEdge(
-                poseStack,
-                this.divX + xOffset, this.divY + this.divHeight,
-                BOTTOM_BORDER_U_OFFSET, BOTTOM_BORDER_V_OFFSET,
-                false
-            );
-        }
+        drawBorderEdge(
+            poseStack,
+            this.divX, this.divY,
+            this.divX + this.divWidth, this.divY,
+            false, false
+        );
+        drawBorderEdge(
+            poseStack,
+            this.divX, this.divY + this.divHeight,
+            this.divX + this.divWidth, this.divY + this.divHeight,
+            false, true
+        );
+        drawBorderEdge(
+            poseStack,
+            this.divX, this.divY,
+            this.divX, this.divY + this.divHeight,
+            true, false
+        );
+        drawBorderEdge(
+            poseStack,
+            this.divX + this.divWidth, this.divY,
+            this.divX + this.divWidth, this.divY + this.divHeight,
+            true, true
+        );
+    }
 
-        for (int yOffset = 0; yOffset < this.divHeight; yOffset++) {
-            blitBorderEdge(
-                poseStack,
-                this.divX - VERTICAL_BORDER_WIDTH, this.divY + yOffset,
-                LEFT_BORDER_U_OFFSET, LEFT_BORDER_V_OFFSET,
-                true
-            );
-            blitBorderEdge(
-                poseStack,
-                this.divX + this.divWidth, this.divY + yOffset,
-                RIGHT_BORDER_U_OFFSET, RIGHT_BORDER_V_OFFSET,
-                true
-            );
-        }
+    private static void drawBorderEdge(PoseStack poseStack, int x1, int y1, int x2, int y2, boolean isVertical, boolean isPositive) {
+        int p = isPositive ? 1 : -1;
+        fill(
+            poseStack,
+            x1 + (isVertical ? 4 * p : 0), y1 + (isVertical ? 0 : 4 * p),
+            x2 + (isVertical ? 3 * p : 0), y2 + (isVertical ? 0 : 3 * p),
+            COLOR_BLACK
+        );
+        fill(
+            poseStack,
+            x1 + (isVertical ? 3 * p : 0), y1 + (isVertical ? 0 : 3 * p),
+            x2 + (isVertical ? 1 * p : 0), y2 + (isVertical ? 0 : 1 * p),
+            isPositive ? COLOR_GRAY : COLOR_WHITE
+        );
+        fill(
+            poseStack,
+            x1 + (isVertical ? p : 0), y1 + (isVertical ? 0 : p),
+            x2, y2,
+            COLOR_BACKGROUND
+        );
     }
 
     private void renderBorderCorner(PoseStack poseStack) {
@@ -156,15 +158,6 @@ public class SimpleScreen extends HScreen {
 
     private static void blitBorderCorner(PoseStack poseStack, int x, int y, int u, int v) {
         blitSquare(poseStack, x, y, u, v, CORNER_SIZE, TEXTURE_SIZE);
-    }
-
-    private static void blitBorderEdge(PoseStack poseStack, int x, int y, int u, int v, boolean isVertical) {
-        blit(
-            poseStack, x, y, u, v,
-            isVertical ? VERTICAL_BORDER_WIDTH : HORIZONTAL_BORDER_WIDTH,
-            isVertical ? VERTICAL_BORDER_HEIGHT : HORIZONTAL_BORDER_HEIGHT,
-            TEXTURE_SIZE
-        );
     }
 
     protected void subRender(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {}
