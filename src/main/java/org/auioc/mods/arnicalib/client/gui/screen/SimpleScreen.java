@@ -46,17 +46,14 @@ public class SimpleScreen extends HScreen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public final boolean isPauseScreen() {
         return isPauseScreen;
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public final void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
-
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
 
         this.renderBackground(poseStack);
 
@@ -68,8 +65,10 @@ public class SimpleScreen extends HScreen {
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
 
+    protected void subRender(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {}
+
     @Override
-    public void renderBackground(PoseStack poseStack) {
+    public final void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
         fill(
@@ -80,7 +79,7 @@ public class SimpleScreen extends HScreen {
         );
     }
 
-    private void renderBorderEdge(PoseStack poseStack) {
+    private final void renderBorderEdge(PoseStack poseStack) {
         drawBorderEdge(
             poseStack,
             this.divX, this.divY,
@@ -107,29 +106,10 @@ public class SimpleScreen extends HScreen {
         );
     }
 
-    private static void drawBorderEdge(PoseStack poseStack, int x1, int y1, int x2, int y2, boolean isVertical, boolean isPositive) {
-        int p = isPositive ? 1 : -1;
-        fill(
-            poseStack,
-            x1 + (isVertical ? 4 * p : 0), y1 + (isVertical ? 0 : 4 * p),
-            x2 + (isVertical ? 3 * p : 0), y2 + (isVertical ? 0 : 3 * p),
-            COLOR_BLACK
-        );
-        fill(
-            poseStack,
-            x1 + (isVertical ? 3 * p : 0), y1 + (isVertical ? 0 : 3 * p),
-            x2 + (isVertical ? 1 * p : 0), y2 + (isVertical ? 0 : 1 * p),
-            isPositive ? COLOR_GRAY : COLOR_WHITE
-        );
-        fill(
-            poseStack,
-            x1 + (isVertical ? p : 0), y1 + (isVertical ? 0 : p),
-            x2, y2,
-            COLOR_BACKGROUND
-        );
-    }
+    private final void renderBorderCorner(PoseStack poseStack) {
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE);
 
-    private void renderBorderCorner(PoseStack poseStack) {
         blitBorderCorner(
             poseStack,
             this.divX - CORNER_SIZE, this.divY - CORNER_SIZE,
@@ -153,13 +133,32 @@ public class SimpleScreen extends HScreen {
             this.divX + this.divWidth, this.divY + this.divHeight,
             BOTTOM_RIGHT_CORNER_U_OFFSET, BOTTOM_RIGHT_CORNER_V_OFFSET
         );
+    }
 
+    private static void drawBorderEdge(PoseStack poseStack, int x1, int y1, int x2, int y2, boolean isVertical, boolean isPositive) {
+        int p = isPositive ? 1 : -1;
+        fill(
+            poseStack,
+            x1 + (isVertical ? 4 * p : 0), y1 + (isVertical ? 0 : 4 * p),
+            x2 + (isVertical ? 3 * p : 0), y2 + (isVertical ? 0 : 3 * p),
+            COLOR_BLACK
+        );
+        fill(
+            poseStack,
+            x1 + (isVertical ? 3 * p : 0), y1 + (isVertical ? 0 : 3 * p),
+            x2 + (isVertical ? 1 * p : 0), y2 + (isVertical ? 0 : 1 * p),
+            isPositive ? COLOR_GRAY : COLOR_WHITE
+        );
+        fill(
+            poseStack,
+            x1 + (isVertical ? p : 0), y1 + (isVertical ? 0 : p),
+            x2, y2,
+            COLOR_BACKGROUND
+        );
     }
 
     private static void blitBorderCorner(PoseStack poseStack, int x, int y, int u, int v) {
         blitSquare(poseStack, x, y, u, v, CORNER_SIZE, TEXTURE_SIZE);
     }
-
-    protected void subRender(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {}
 
 }
