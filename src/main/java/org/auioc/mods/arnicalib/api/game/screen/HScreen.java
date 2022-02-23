@@ -34,6 +34,10 @@ public class HScreen extends Screen {
         blit(poseStack, x, y, u, v, size, size, textureSize, textureSize);
     }
 
+    public static void blit(PoseStack poseStack, int x, int y, int u, int v, int w, int h, int textureSize) {
+        blit(poseStack, x, y, u, v, w, h, textureSize, textureSize);
+    }
+
     public static void closeScreen() {
         Minecraft.getInstance().setScreen((Screen) null);
     }
