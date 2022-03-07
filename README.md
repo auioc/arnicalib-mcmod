@@ -10,13 +10,12 @@ Shared library for AH's Minecraft mods.
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/auioc/arnicalib-mcmod/dev-build?label=dev%20build&style=flat-square)](https://github.com/auioc/arnicalib-mcmod/actions/workflows/dev-build.yml)
 <br/>
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.18.2&color=00aa00&style=flat-square)
-[![Forge](https://img.shields.io/static/v1?label=Forge&message=40.0.3&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html)
+[![Forge](https://img.shields.io/static/v1?label=Forge&message=40.0.12&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.18.2.html)
 [![AdoptiumOpenJDK](https://img.shields.io/static/v1?label=AdoptiumOpenJDK&message=17.0.2%2B8&color=brightgreen&logo=java&style=flat-square)](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot)
 [![Gradle](https://img.shields.io/static/v1?label=Gradle&message=7.3&color=brightgreen&logo=gradle&style=flat-square)](https://docs.gradle.org/7.3/release-notes.html)
 
 </div>
 
-<!--
 ## For Developers
 
 There are two ways to use this mod in your workspace:
@@ -60,7 +59,6 @@ If you do not want to or can not use the GitHub Packages:
         implementation files("libs/arnicalib-<VERSION>-forgelib.jar")
     }
     ```
--->
 
 ## Maintainers
 
