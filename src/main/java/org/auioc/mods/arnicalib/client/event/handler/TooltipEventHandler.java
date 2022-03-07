@@ -40,7 +40,7 @@ public class TooltipEventHandler {
             addLine(event, nbtTooltip);
         }
 
-        var tags = itemStack.getItem().builtInRegistryHolder().tags().toList();
+        var tags = itemStack.getTags().toList();
         if (tags.size() > 0) {
             addLine(event, new TextComponent("Tags:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
             for (TagKey<Item> tag : tags) {
