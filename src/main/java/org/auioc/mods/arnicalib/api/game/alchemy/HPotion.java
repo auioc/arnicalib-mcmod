@@ -28,15 +28,21 @@ public class HPotion extends Potion {
         super(name, new MobEffectInstance(effect, duration, amplifier));
     }
 
+    public HPotion(String name, MobEffect effect, int duration, int amplifier, ArrayList<ItemStack> curativeItems) {
+        this(name, () -> {
+            var instance = new MobEffectInstance(effect, duration, amplifier);
+            instance.setCurativeItems(curativeItems);
+            return new MobEffectInstance[] {instance};
+        });
+    }
+
     public HPotion(String name, MobEffect effect, int duration, int amplifier, boolean incurable) {
         this(name, () -> {
-            MobEffectInstance[] effects = new MobEffectInstance[1];
-            MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier);
+            var instance = new MobEffectInstance(effect, duration, amplifier);
             if (incurable) {
                 instance.setCurativeItems(new ArrayList<ItemStack>());
             }
-            effects[0] = instance;
-            return effects;
+            return new MobEffectInstance[] {instance};
         });
     }
 
