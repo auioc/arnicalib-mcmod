@@ -36,4 +36,8 @@ public interface MCTimeUtils {
         return new int[] {day, hour, min, sec};
     }
 
+    static int getDay(long rawDayTime) {
+        return (((int) (rawDayTime % 2147483647L)) - ticksAtMidnight + ticksPerDay) / ticksPerDay;
+    }
+
 }
