@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -34,7 +35,11 @@ public abstract class MixinEnderEyeItem {
         require = 1,
         allow = 1
     )
-    private void use(Level p_41184_, Player p_41185_, InteractionHand p_41186_, CallbackInfoReturnable<InteractionResultHolder> cir, ItemStack itemstack, HitResult hitresult, BlockPos blockpos, EyeOfEnder eyeofender) {
+    private void use(
+        Level p_41184_, Player p_41185_, InteractionHand p_41186_,
+        CallbackInfoReturnable<InteractionResultHolder> cir,
+        ItemStack itemstack, HitResult hitresult, ServerLevel serverlevel, BlockPos blockpos, EyeOfEnder eyeofender
+    ) {
         ((IMixinEyeOfEnder) eyeofender).setSurvivable(ServerEventFactory.fireSetEyeOfEnderSurvivableEvent((ServerPlayer) p_41185_, eyeofender));
     }
 

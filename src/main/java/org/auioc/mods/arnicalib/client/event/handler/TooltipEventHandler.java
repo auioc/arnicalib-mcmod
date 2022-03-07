@@ -10,7 +10,8 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,10 +40,11 @@ public class TooltipEventHandler {
             addLine(event, nbtTooltip);
         }
 
-        if ((itemStack.getItem().getTags()).size() > 0) {
+        var tags = itemStack.getTags().toList();
+        if (tags.size() > 0) {
             addLine(event, new TextComponent("Tags:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
-            for (ResourceLocation tag : itemStack.getItem().getTags()) {
-                addLine(event, new TextComponent("    " + tag).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+            for (TagKey<Item> tag : tags) {
+                addLine(event, new TextComponent("    " + tag.location()).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
             }
         }
 
