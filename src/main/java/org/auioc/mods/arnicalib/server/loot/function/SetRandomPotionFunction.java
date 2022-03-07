@@ -58,7 +58,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
     }
 
     private static Potion getRandomPotion() {
-        return RandomUtils.pickOneFromList(OrderedForgeRegistries.Potions.ENTRIES).getValue();
+        return RandomUtils.pickOneFromList(OrderedForgeRegistries.Potions.get()).getValue();
     }
 
 

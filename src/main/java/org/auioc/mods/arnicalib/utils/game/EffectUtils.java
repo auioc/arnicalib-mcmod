@@ -69,7 +69,7 @@ public interface EffectUtils {
 
     static MobEffect getRandomEffect(boolean useOrderedRegestry) {
         if (useOrderedRegestry) {
-            return RandomUtils.pickOneFromList(OrderedForgeRegistries.MobEffects.ENTRIES).getValue();
+            return RandomUtils.pickOneFromList(OrderedForgeRegistries.MobEffects.get()).getValue();
         }
         return RandomUtils.pickOneFromCollection(ForgeRegistries.MOB_EFFECTS.getValues());
     }
