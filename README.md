@@ -60,15 +60,22 @@ If you do not want to or can not use the GitHub Packages:
     }
     ```
 
+## Documentation
+
+- `zh-CN`: [AHWiki ArnicaLib Category](https://wiki.auioc.com/view/MinecraftMod:ArnicaLib)
+
 ## Maintainers
 
 - [@WakelessSloth56](https://github.com/WakelessSloth56)
+- [@LainIO24](https://github.com/lainio24)
 
 ## Credits
 
 - [AUIOC](https://www.auioc.com)
-- [bgxd9592](https://github.com/bgxd9592)
+- [CamHex](https://forums.minecraftforge.net/profile/187809-camhex/)
 - [HaruhiFanClub](https://github.com/HaruhiFanClub)
+- [Libellule505](https://github.com/Libellule505)
+- [bgxd9592](https://github.com/bgxd9592)
 
 ## Contributing
 
