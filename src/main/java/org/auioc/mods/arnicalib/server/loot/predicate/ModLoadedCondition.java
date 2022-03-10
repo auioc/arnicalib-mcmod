@@ -11,11 +11,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.fml.ModList;
 
-public class LoadedModCondition implements LootItemCondition {
+public class ModLoadedCondition implements LootItemCondition {
 
     private final String modId;
 
-    public LoadedModCondition(String modId) {
+    public ModLoadedCondition(String modId) {
         this.modId = modId;
     }
 
@@ -26,18 +26,18 @@ public class LoadedModCondition implements LootItemCondition {
 
     @Override
     public LootItemConditionType getType() {
-        return AHLootItemConditions.LOADED_MOD;
+        return AHLootItemConditions.MOD_LOADED;
     }
 
 
-    public static class SerializerX implements Serializer<LoadedModCondition> {
+    public static class SerializerX implements Serializer<ModLoadedCondition> {
 
         @Override
-        public void serialize(JsonObject json, LoadedModCondition instance, JsonSerializationContext ctx) {}
+        public void serialize(JsonObject json, ModLoadedCondition instance, JsonSerializationContext ctx) {}
 
         @Override
-        public LoadedModCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {
-            return new LoadedModCondition(GsonHelper.getAsString(json, "loaded_mod"));
+        public ModLoadedCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {
+            return new ModLoadedCondition(GsonHelper.getAsString(json, "mod"));
         }
 
     }
