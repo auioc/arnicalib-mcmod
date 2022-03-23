@@ -1,12 +1,12 @@
 modLoader="javafml"
-loaderVersion="[39,)"
+loaderVersion="[40,)"
 license="GNU GPLv3"
 issueTrackerURL="https://github.com/auioc/arnicalib-mcmod/issues"
 
 [[mods]]
 modId="arnicalib"
 version="${file.jarVersion}"
-updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.18.1.json"
+updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.18.2.json"
 displayName="ArnicaLib"
 displayURL="http://hi.auioc.org/arnicalib-mcmod/"
 credits="AUIOC"
@@ -18,12 +18,12 @@ Shared library for AH's Minecraft mods.
 [[dependencies.arnicalib]]
     modId="forge"
     mandatory=true
-    versionRange="[39,)"
+    versionRange="[40,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.arnicalib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1,1.19)"
+    versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
