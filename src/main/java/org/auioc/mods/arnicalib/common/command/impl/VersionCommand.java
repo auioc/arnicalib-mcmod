@@ -1,4 +1,4 @@
-package org.auioc.mods.arnicalib.server.command.impl;
+package org.auioc.mods.arnicalib.common.command.impl;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;

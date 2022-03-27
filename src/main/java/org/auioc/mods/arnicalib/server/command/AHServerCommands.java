@@ -6,7 +6,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import org.auioc.mods.arnicalib.ArnicaLib;
-import org.auioc.mods.arnicalib.server.command.impl.VersionCommand;
+import org.auioc.mods.arnicalib.common.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
 
 public final class AHServerCommands {
