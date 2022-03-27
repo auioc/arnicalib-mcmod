@@ -15,9 +15,9 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "${arnicalib_version}"
-group = 'org.auioc.mods.arnicalib'
-archivesBaseName = "arnicalib-${minecraft_version}"
+group = 'org.auioc.mcmod'
+archivesBaseName = "arnicalib"
+version = "${minecraft_version}-${arnicalib_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -74,7 +74,7 @@ ext {
         "Specification-Vendor": 'AUIOC',
         "Specification-Version": '1',
         "Implementation-Title": project.name,
-        "Implementation-Version": "${version}",
+        "Implementation-Version": "${arnicalib_version}",
         "Implementation-Vendor" :'AUIOC',
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
         "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',

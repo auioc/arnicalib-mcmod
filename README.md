@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.auioc.mods.arnicalib:arnicalib-<MINECRAFT_VERSION>:<ARNICALIB_VERSION>:forgelib"
+    implementation "org.auioc.mcmod:arnicalib:<MINECRAFT_VERSION>-<ARNICALIB_VERSION>:forgelib"
 }
 ```
 
