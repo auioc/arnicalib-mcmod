@@ -3,10 +3,14 @@ package org.auioc.mods.arnicalib.utils.game;
 import static org.auioc.mods.arnicalib.ArnicaLib.i18n;
 import static org.auioc.mods.arnicalib.utils.game.TextUtils.I18nText;
 import java.lang.reflect.Field;
+import java.util.function.Function;
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import org.auioc.mods.arnicalib.api.mixin.server.IMixinCommandSourceStack;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public interface CommandUtils {
 
@@ -30,6 +34,52 @@ public interface CommandUtils {
         Field privateSourceField = CommandSourceStack.class.getDeclaredField("source");
         privateSourceField.setAccessible(true);
         return (CommandSource) privateSourceField.get(sourceStack);
+    }
+
+    public static class CommandFeedbackHelper {
+
+        private final Function<String, String> i18n;
+
+        public CommandFeedbackHelper(Function<String, String> i18n) {
+            this.i18n = i18n;
+        }
+
+        public TranslatableComponent successMessage(String key) {
+            return I18nText(this.i18n.apply("command." + key + ".success"));
+        }
+
+        public TranslatableComponent successMessage(String key, Object... args) {
+            return I18nText(this.i18n.apply("command." + key + ".success"), args);
+        }
+
+        public TranslatableComponent failureMessage(String key) {
+            return I18nText(this.i18n.apply("command." + key + ".failure"));
+        }
+
+        public TranslatableComponent failureMessage(String key, Object... args) {
+            return I18nText(this.i18n.apply("command." + key + ".failure"), args);
+        }
+
+        public int success(CommandContext<CommandSourceStack> ctx, String key) {
+            ctx.getSource().sendSuccess(this.successMessage(key), false);
+            return Command.SINGLE_SUCCESS;
+        }
+
+        public int success(CommandContext<CommandSourceStack> ctx, String key, Object... args) {
+            ctx.getSource().sendSuccess(this.successMessage(key, args), false);
+            return Command.SINGLE_SUCCESS;
+        }
+
+        public int failure(CommandContext<CommandSourceStack> ctx, String key) {
+            ctx.getSource().sendFailure(this.failureMessage(key));
+            return Command.SINGLE_SUCCESS;
+        }
+
+        public int failure(CommandContext<CommandSourceStack> ctx, String key, Object... args) {
+            ctx.getSource().sendFailure(this.failureMessage(key, args));
+            return Command.SINGLE_SUCCESS;
+        }
+
     }
 
 }
