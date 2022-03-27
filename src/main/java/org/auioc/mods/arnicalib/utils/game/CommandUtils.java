@@ -6,11 +6,15 @@ import java.lang.reflect.Field;
 import java.util.function.Function;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import org.auioc.mods.arnicalib.api.mixin.server.IMixinCommandSourceStack;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface CommandUtils {
 
@@ -34,6 +38,15 @@ public interface CommandUtils {
         Field privateSourceField = CommandSourceStack.class.getDeclaredField("source");
         privateSourceField.setAccessible(true);
         return (CommandSource) privateSourceField.get(sourceStack);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    static LocalPlayer getLocalPlayerOrException(CommandSourceStack sourceStack) throws CommandSyntaxException {
+        var entity = sourceStack.getEntity();
+        if (entity instanceof LocalPlayer) {
+            return (LocalPlayer) entity;
+        }
+        throw CommandSourceStack.ERROR_NOT_PLAYER.create();
     }
 
     public static class CommandFeedbackHelper {
