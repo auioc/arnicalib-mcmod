@@ -5,45 +5,51 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public interface FileUtils {
 
-    static Marker marker = LogUtil.getMarker(FileUtils.class);
+    static Marker MARKER = LogUtil.getMarker(FileUtils.class);
 
-    static Path getOrCreateDirectory(String directoryName) throws Exception {
-        Path path = Paths.get(directoryName);
-        if (!path.toFile().exists()) {
-            try {
-                Files.createDirectory(path);
-                LOGGER.warn(marker, "Folder " + path.toAbsolutePath() + " does not exist, created automatically.");
-            } catch (final IOException e) {
-                LOGGER.error(marker, "Could not create directory!", e);
-                throw new Exception("Could not create directory " + path);
-            }
+    static File getOrCreateDirectory(String directoryName) throws IOException {
+        var file = new File(directoryName);
+
+        if (file.exists()) {
+            return file;
         }
-        return path;
+
+        if (file.mkdirs()) {
+            LOGGER.warn(MARKER, "Directory \"" + file + "\" does not exist, create");
+            return file;
+        }
+        throw new IOException("Could not create directory \"" + file + "\"");
     }
 
-    static File writeText(String directoryName, String fileName, StringBuffer buffer) throws Exception {
-        Path path = getOrCreateDirectory(directoryName);
-        File file = new File(path.toUri().getPath() + "/" + fileName);
+    static File getFile(String fileName) throws IOException {
+        var file = new File(fileName);
+
+        if (file.getParentFile().exists()) {
+            return file;
+        }
+
+        if (file.getParentFile().mkdirs()) {
+            LOGGER.warn(MARKER, "Parent directory of file \"" + file + "\" does not exist, create");
+            return file;
+        }
+        throw new IOException("Could not create parent directory of file \"" + file + "\"");
+    }
+
+    static void writeText(String fileName, String text) throws IOException {
+        var file = getFile(fileName);
+
         if (file.exists()) {
-            LOGGER.warn(marker, "File " + file + " already exists, overwrite.");
+            LOGGER.warn(MARKER, "File \"" + file + "\" already exists, overwrite");
         }
-        try {
-            final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
-            writer.write(buffer.toString());
-            writer.close();
-        } catch (final Exception e) {
-            LOGGER.error(marker, "Cannot write data to file!", e);
-            throw new Exception("Cannot write data to file " + file);
-        }
-        return file;
+
+        final var writer = new BufferedWriter(new FileWriter(file, false));
+        writer.write(text);
+        writer.close();
     }
 
 }
