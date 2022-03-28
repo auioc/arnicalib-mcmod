@@ -3,11 +3,15 @@ package org.auioc.mods.arnicalib.utils.game;
 import static org.auioc.mods.arnicalib.ArnicaLib.i18n;
 import static org.auioc.mods.arnicalib.utils.game.TextUtils.I18nText;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.context.ParsedCommandNode;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import org.auioc.mods.arnicalib.api.mixin.server.IMixinCommandSourceStack;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
@@ -47,6 +51,40 @@ public interface CommandUtils {
             return (LocalPlayer) entity;
         }
         throw CommandSourceStack.ERROR_NOT_PLAYER.create();
+    }
+
+    /**
+     * @param nodes List of {@link ParsedCommandNode}s, from {@link CommandContext#getNodes()}
+     * @param fromIndex
+     * @param toIndex
+     * @param conventToSnakeCase
+     * @return String that concatenates the literals (or in its snake case) of all (or some of) {@link LiteralCommandNode}s in the {@link ParsedCommandNode} list, separated by dots
+     * @since 5.1.1
+     */
+    static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes, int fromIndex, int toIndex, boolean conventToSnakeCase) {
+        return nodes
+            .subList(fromIndex, toIndex)
+            .stream()
+            .map(ParsedCommandNode::getNode)
+            .filter((node) -> node instanceof LiteralCommandNode)
+            .map((node) -> (LiteralCommandNode<CommandSourceStack>) node)
+            .map(LiteralCommandNode::getLiteral)
+            .map((literal) -> conventToSnakeCase ? literal.replaceAll("[A-Z]", "_$0").toLowerCase() : literal)
+            .collect(Collectors.joining("."));
+    }
+
+    /**
+     * @see {@link #joinLiteralNodes(List, int, int, boolean)}
+     */
+    static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes, int fromIndex) {
+        return joinLiteralNodes(nodes, fromIndex, nodes.size(), true);
+    }
+
+    /**
+     * @see {@link #joinLiteralNodes(List, int, int, boolean)}
+     */
+    static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes) {
+        return joinLiteralNodes(nodes, 0, nodes.size(), true);
     }
 
     public static class CommandFeedbackHelper {
