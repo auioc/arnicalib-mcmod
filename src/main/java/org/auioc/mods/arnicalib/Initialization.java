@@ -3,7 +3,7 @@ package org.auioc.mods.arnicalib;
 import org.auioc.mods.arnicalib.client.config.ClientConfig;
 import org.auioc.mods.arnicalib.client.event.ClientEventHandler;
 import org.auioc.mods.arnicalib.common.command.AHCommandArguments;
-import org.auioc.mods.arnicalib.common.itemgroup.AHItemGroups;
+import org.auioc.mods.arnicalib.common.itemgroup.AHCreativeModeTabs;
 import org.auioc.mods.arnicalib.common.network.AHPacketHandler;
 import org.auioc.mods.arnicalib.server.event.ServerEventHandler;
 import org.auioc.mods.arnicalib.server.loot.AHGlobalLootModifiers;
@@ -65,7 +65,7 @@ public final class Initialization {
         }
 
         private void forgeSetup() {
-            AHItemGroups.init();
+            AHCreativeModeTabs.init();
             forgeEventBus.register(ServerEventHandler.class);
         }
 

@@ -2,7 +2,7 @@
     "arnicalib.title": "ArnicaLib",
 
     "itemGroup.arnicalib": "ArnicaLib",
-    "itemGroup.vanilla_hidden_item": "Vanilla Hidden Items",
+    "itemGroup.vanillaHiddenItems": "Vanilla Hidden Items",
 
     "arnicalib.command.failure.internal": "An internal error occurred trying to execute that command",
     "arnicalib.command.failure.not_server": "This command must be executed by the server",

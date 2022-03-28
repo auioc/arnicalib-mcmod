@@ -6,10 +6,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class VanillaHiddenItemGroup extends CreativeModeTab {
+public class TabVanillaHiddenItems extends CreativeModeTab {
 
-    public VanillaHiddenItemGroup() {
-        super("vanilla_hidden_item");
+    public TabVanillaHiddenItems() {
+        super("vanillaHiddenItems");
     }
 
     @Override
@@ -19,12 +19,13 @@ public class VanillaHiddenItemGroup extends CreativeModeTab {
 
     @Override
     public void fillItemList(NonNullList<ItemStack> list) {
-        ForgeRegistries.ITEMS.getValues().stream()
+        ForgeRegistries.ITEMS.getValues()
+            .stream()
             .filter((item) -> item != Items.AIR)
             .filter((item) -> item.getItemCategory() == null)
             .filter((item) -> item.getRegistryName().getNamespace().equals("minecraft"))
-            .forEach((item) -> list.add(new ItemStack(item)));
-
+            .map(ItemStack::new)
+            .forEach(list::add);
     }
 
 }

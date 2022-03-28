@@ -2,7 +2,7 @@
     "arnicalib.title": "ArnicaLib",
 
     "itemGroup.arnicalib": "ArnicaLib",
-    "itemGroup.vanilla_hidden_item": "原版隐藏物品",
+    "itemGroup.vanillaHiddenItems": "原版隐藏物品",
 
     "arnicalib.command.failure.internal": "试图执行该命令时出现内部错误",
     "arnicalib.command.failure.not_server": "此命令必须由服务器执行",
