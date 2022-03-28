@@ -7,11 +7,12 @@
     "arnicalib.command.failure.internal": "An internal error occurred trying to execute that command",
     "arnicalib.command.failure.not_server": "This command must be executed by the server",
     "arnicalib.command.failure.not_dedicated_server": "This command must be executed by the dedicated server",
-    "arnicalib.command.failure.reflection": "Failed while using reflection to get private source",
+    "arnicalib.command.failure.get_real_source.reflection": "Failed while using reflection to get real command source",
 
     "arnicalib.argument.damage_source.invalid": "Invalid damage source \"%s\"",
     "arnicalib.argument.creative_mod_tab.unknown": "Unknown creative mod tab \"%s\"",
 
     "arnicalib.command.version.success": "Version: %s (%s)",
-    "arnicalib.command.version.failure": "§eCould not read the mod version. §7If this is a development environment you can ignore this message."
+    "arnicalib.command.version.failure.zero": "§eCould not read the mod version. §7If this is a development environment you can ignore this message",
+    "arnicalib.command.version.failure.reflection": "Failed while using reflection to get mod version"
 }

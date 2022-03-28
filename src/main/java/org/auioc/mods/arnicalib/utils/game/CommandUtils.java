@@ -25,7 +25,7 @@ public interface CommandUtils {
     SimpleCommandExceptionType INTERNAL_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.internal")));
     SimpleCommandExceptionType NOT_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_server")));
     SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_dedicated_server")));
-    SimpleCommandExceptionType REFLECTION_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.reflection")));
+    SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.get_real_source.reflection")));
 
     /**
      * @param sourceStack

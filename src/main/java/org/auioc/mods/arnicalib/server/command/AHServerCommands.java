@@ -17,7 +17,7 @@ public final class AHServerCommands {
     public static final CommandNode<CommandSourceStack> NODE = literal(ArnicaLib.MOD_ID).build();
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        NODE.addChild(literal("version").executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.MAIN_VERSION, ArnicaLib.FULL_VERSION, ArnicaLib.MOD_NAME)).build());
+        NODE.addChild(literal("version").executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.class)).build());
         NODE.addChild(literal("test").then(argument("tab", CreativeModeTabArgument.creativeModeTab()).executes((ctx) -> {
             System.err.println(ctx.getArgument("tab", CreativeModeTab.class));
 

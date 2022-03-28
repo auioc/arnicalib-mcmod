@@ -8,6 +8,8 @@ import net.minecraft.world.entity.player.Player;
 
 public interface TextUtils {
 
+    Object[] NO_ARGS = new Object[0];
+
     static void chat(Player player, String message) {
         player.sendMessage(new TextComponent(message), Util.NIL_UUID);
     }
