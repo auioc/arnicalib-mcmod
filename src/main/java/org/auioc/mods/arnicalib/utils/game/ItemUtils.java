@@ -36,11 +36,9 @@ public interface ItemUtils {
         return getRegistryName(itemStack.getItem());
     }
 
-    static Predicate<ItemStack> IS_VANILLA_ITEM = (itemStack) -> RegistryUtils.IS_VANILLA.test(itemStack.getItem());
-
-    static Predicate<Item> IS_AIR = (item) -> item == Items.AIR;
-
-    static Predicate<Item> IS_CATEGORIZED = (item) -> item.getItemCategory() != null;
+    Predicate<ItemStack> IS_VANILLA_ITEM = (itemStack) -> RegistryUtils.IS_VANILLA.test(itemStack.getItem());
+    Predicate<Item> IS_AIR = (item) -> item == Items.AIR;
+    Predicate<Item> IS_CATEGORIZED = (item) -> item.getItemCategory() != null;
 
     @SuppressWarnings("deprecation")
     static int getMaxStackSize(Item item) {

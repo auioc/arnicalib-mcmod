@@ -4,11 +4,11 @@ import net.minecraft.world.level.Level;
 
 public interface MCTimeUtils {
 
-    static final int ticksAtMidnight = 18000;
-    static final int ticksPerDay = 24000;
-    static final int ticksPerHour = 1000;
-    static final double ticksPerMinute = 1000d / 60d;
-    static final double ticksPerSecond = 1000d / 60d / 60d;
+    int ticksAtMidnight = 18000;
+    int ticksPerDay = 24000;
+    int ticksPerHour = 1000;
+    double ticksPerMinute = 1000d / 60d;
+    double ticksPerSecond = 1000d / 60d / 60d;
 
     static long[] getTime(Level level) {
         return new long[] {level.getDayTime(), level.getGameTime(), System.currentTimeMillis()};

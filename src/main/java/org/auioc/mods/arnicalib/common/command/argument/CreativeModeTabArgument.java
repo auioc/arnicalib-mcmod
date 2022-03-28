@@ -18,7 +18,7 @@ import net.minecraft.world.item.CreativeModeTab;
 
 public class CreativeModeTabArgument implements ArgumentType<CreativeModeTab> {
 
-    private static final DynamicCommandExceptionType UNKNOWN_CREATIVE_MOD_TAB = new DynamicCommandExceptionType(
+    private static final DynamicCommandExceptionType UNKNOWN_CREATIVE_MODE_TAB = new DynamicCommandExceptionType(
         (langId) -> TextUtils.I18nText(ArnicaLib.i18n("argument.creative_mod_tab.unknown"), langId)
     );
 
@@ -33,7 +33,7 @@ public class CreativeModeTabArgument implements ArgumentType<CreativeModeTab> {
             .stream()
             .filter((tab) -> getLangId(tab).equals(langId))
             .findAny()
-            .orElseThrow(() -> UNKNOWN_CREATIVE_MOD_TAB.create(langId));
+            .orElseThrow(() -> UNKNOWN_CREATIVE_MODE_TAB.create(langId));
     }
 
     @Override
