@@ -12,7 +12,7 @@ import com.mojang.brigadier.context.ParsedCommandNode;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import org.auioc.mods.arnicalib.api.mixin.server.IMixinCommandSourceStack;
+import org.auioc.mods.arnicalib.api.mixin.common.IMixinCommandSourceStack;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;

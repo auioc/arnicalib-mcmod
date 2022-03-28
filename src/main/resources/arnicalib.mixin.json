@@ -5,11 +5,11 @@
     "mixins": [
         "common.MixinPistonBaseBlock",
         "common.MixinMobEffectInstance",
+        "common.MixinCommandSourceStack",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
         "server.MixinServerPlayer",
         "server.MixinLivingEntity",
-        "server.MixinCommandSourceStack",
         "server.MixinEyeOfEnder",
         "server.MixinEnderEyeItem"
     ],

@@ -1,6 +1,6 @@
-package org.auioc.mods.arnicalib.mixin.server;
+package org.auioc.mods.arnicalib.mixin.common;
 
-import org.auioc.mods.arnicalib.api.mixin.server.IMixinCommandSourceStack;
+import org.auioc.mods.arnicalib.api.mixin.common.IMixinCommandSourceStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
