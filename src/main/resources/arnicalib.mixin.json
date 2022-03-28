@@ -6,6 +6,7 @@
         "common.MixinPistonBaseBlock",
         "common.MixinMobEffectInstance",
         "common.MixinCommandSourceStack",
+        "common.MixinCreativeModeTab",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
         "server.MixinServerPlayer",
