@@ -13,6 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface ItemUtils {
@@ -35,6 +36,11 @@ public interface ItemUtils {
         return getRegistryName(itemStack.getItem());
     }
 
+    static Predicate<ItemStack> IS_VANILLA_ITEM = (itemStack) -> RegistryUtils.IS_VANILLA.test(itemStack.getItem());
+
+    static Predicate<Item> IS_AIR = (item) -> item == Items.AIR;
+
+    static Predicate<Item> IS_CATEGORIZED = (item) -> item.getItemCategory() != null;
 
     @SuppressWarnings("deprecation")
     static int getMaxStackSize(Item item) {

@@ -1,5 +1,7 @@
 package org.auioc.mods.arnicalib.common.itemgroup.impl;
 
+import org.auioc.mods.arnicalib.utils.game.ItemUtils;
+import org.auioc.mods.arnicalib.utils.game.RegistryUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -21,9 +23,9 @@ public class TabVanillaHiddenItems extends CreativeModeTab {
     public void fillItemList(NonNullList<ItemStack> list) {
         ForgeRegistries.ITEMS.getValues()
             .stream()
-            .filter((item) -> item != Items.AIR)
-            .filter((item) -> item.getItemCategory() == null)
-            .filter((item) -> item.getRegistryName().getNamespace().equals("minecraft"))
+            .filter(ItemUtils.IS_AIR.negate())
+            .filter(ItemUtils.IS_CATEGORIZED.negate())
+            .filter(RegistryUtils.IS_VANILLA)
             .map(ItemStack::new)
             .forEach(list::add);
     }
