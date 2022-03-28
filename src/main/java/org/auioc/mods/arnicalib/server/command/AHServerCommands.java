@@ -1,13 +1,16 @@
 package org.auioc.mods.arnicalib.server.command;
 
+import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import org.auioc.mods.arnicalib.ArnicaLib;
+import org.auioc.mods.arnicalib.common.command.argument.CreativeModeTabArgument;
 import org.auioc.mods.arnicalib.common.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.item.CreativeModeTab;
 
 public final class AHServerCommands {
 
@@ -15,9 +18,11 @@ public final class AHServerCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         NODE.addChild(literal("version").executes((ctx) -> VersionCommand.getModVersion(ctx, ArnicaLib.MAIN_VERSION, ArnicaLib.FULL_VERSION, ArnicaLib.MOD_NAME)).build());
-        NODE.addChild(literal("test").executes((ctx) -> {
+        NODE.addChild(literal("test").then(argument("tab", CreativeModeTabArgument.creativeModeTab()).executes((ctx) -> {
+            System.err.println(ctx.getArgument("tab", CreativeModeTab.class));
+
             return Command.SINGLE_SUCCESS;
-        }).build());
+        })).build());
 
         getRootNode(dispatcher).addChild(NODE);
     }

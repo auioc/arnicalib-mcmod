@@ -9,7 +9,8 @@
     "arnicalib.command.failure.not_dedicated_server": "此命令必须由专用服务器执行",
     "arnicalib.command.failure.reflection": "使用反射获取命令源失败",
 
-    "arnicalib.argument.damage_source.invalid": "无效的伤害类型%s",
+    "arnicalib.argument.damage_source.invalid": "无效的伤害类型\"%s\"",
+    "arnicalib.argument.creative_mod_tab.unknown": "未知的创造模式物品栏标签\"%s\"",
 
     "arnicalib.command.version.success": "版本: %s (%s)",
     "arnicalib.command.version.failure": "§e无法读取模组版本。§7若处在开发环境中则您可以忽略此消息"
