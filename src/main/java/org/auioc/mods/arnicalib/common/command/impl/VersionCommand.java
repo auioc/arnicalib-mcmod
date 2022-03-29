@@ -26,6 +26,10 @@ public class VersionCommand {
 
     public static final Function<Class<?>, CommandNode<CommandSourceStack>> NODE_BUILDER = (modClass) -> literal("version").executes(HANDLER_BUILDER.apply(modClass)).build();
 
+    public static void addVersionNode(CommandNode<CommandSourceStack> node, Class<?> modClass) {
+        node.addChild(NODE_BUILDER.apply(modClass));
+    }
+
     public static int getModVersion(CommandContext<CommandSourceStack> ctx, String mainVersion, String fullVersion, String modName) {
         MutableComponent message = TextUtils.EmptyText();
 

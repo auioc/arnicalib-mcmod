@@ -14,7 +14,7 @@ public final class AHServerCommands {
     public static final CommandNode<CommandSourceStack> NODE = literal(ArnicaLib.MOD_ID).build();
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        NODE.addChild(VersionCommand.NODE_BUILDER.apply(ArnicaLib.class));
+        VersionCommand.addVersionNode(NODE, ArnicaLib.class);
         NODE.addChild(literal("test").executes((ctx) -> {
             return Command.SINGLE_SUCCESS;
         }).build());
