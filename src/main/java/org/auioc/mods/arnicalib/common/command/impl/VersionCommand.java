@@ -1,10 +1,13 @@
 package org.auioc.mods.arnicalib.common.command.impl;
 
+import static net.minecraft.commands.Commands.literal;
 import static org.auioc.mods.arnicalib.ArnicaLib.LOGGER;
+import java.util.function.Function;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import com.mojang.brigadier.tree.CommandNode;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.utils.LogUtil;
@@ -19,6 +22,10 @@ public class VersionCommand {
 
     private static final SimpleCommandExceptionType GET_VERSION_REFLECTION_ERROR = new SimpleCommandExceptionType(i18n("failure.reflection"));
 
+    public static final Function<Class<?>, Command<CommandSourceStack>> HANDLER_BUILDER = (modClass) -> (ctx) -> getModVersion(ctx, modClass);
+
+    public static final Function<Class<?>, CommandNode<CommandSourceStack>> NODE_BUILDER = (modClass) -> literal("version").executes(HANDLER_BUILDER.apply(modClass)).build();
+
     public static int getModVersion(CommandContext<CommandSourceStack> ctx, String mainVersion, String fullVersion, String modName) {
         MutableComponent message = TextUtils.EmptyText();
 
@@ -31,7 +38,6 @@ public class VersionCommand {
         }
 
         ctx.getSource().sendSuccess(message, false);
-
         return Command.SINGLE_SUCCESS;
     }
 
