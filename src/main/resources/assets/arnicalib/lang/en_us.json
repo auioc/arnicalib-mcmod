@@ -11,6 +11,7 @@
 
     "arnicalib.argument.damage_source.invalid": "Invalid damage source \"%s\"",
     "arnicalib.argument.creative_mod_tab.unknown": "Unknown creative mod tab \"%s\"",
+    "arnicalib.argument.language_info.unknown": "Unknown language \"%s\"",
 
     "arnicalib.command.version.success": "Version: %s (%s)",
     "arnicalib.command.version.failure.zero": "§eCould not read the mod version. §7If this is a development environment you can ignore this message",
