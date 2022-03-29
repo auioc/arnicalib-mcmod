@@ -19,15 +19,24 @@ public final class AHServerCommands {
             return Command.SINGLE_SUCCESS;
         }).build());
 
-        getRootNode(dispatcher).addChild(NODE);
+        getAHNode(dispatcher).addChild(NODE);
     }
 
+    /**
+     * @since 4.1.0
+     * @deprecated Use {@link #getAHNode} instead
+     */
+    @Deprecated(since = "5.1.3")
     public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
         CommandNode<CommandSourceStack> node = dispatcher.findNode(List.of("ah"));
         if (node == null) {
             node = dispatcher.register(literal("ah"));
         }
         return node;
+    }
+
+    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return getRootNode(dispatcher);
     }
 
 }
