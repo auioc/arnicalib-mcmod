@@ -12,15 +12,24 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public final class AHClientCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        getRootNode(dispatcher);
+        getAHNode(dispatcher);
     }
 
+    /**
+     * @since 5.0.2
+     * @deprecated Use {@link #getAHNode} instead
+     */
+    @Deprecated(since = "5.1.3")
     public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
         CommandNode<CommandSourceStack> node = dispatcher.findNode(List.of("ah"));
         if (node == null) {
             node = dispatcher.register(literal("ah"));
         }
         return node;
+    }
+
+    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return getRootNode(dispatcher);
     }
 
 }
