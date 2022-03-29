@@ -1,7 +1,7 @@
 package org.auioc.mods.arnicalib.client.command.argument;
 
-import java.util.SortedSet;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class LanguageInfoArgument implements ArgumentType<LanguageInfo> {
 
-    private static final DynamicCommandExceptionType UNKNOWN_CREATIVE_MODE_TAB = new DynamicCommandExceptionType(
+    private static final DynamicCommandExceptionType UNKNOWN_LANGUAGE_CODE = new DynamicCommandExceptionType(
         (langCode) -> TextUtils.I18nText(ArnicaLib.i18n("argument.language_info.unknown"), langCode)
     );
 
@@ -32,19 +32,18 @@ public class LanguageInfoArgument implements ArgumentType<LanguageInfo> {
     public LanguageInfo parse(StringReader reader) throws CommandSyntaxException {
         String langCode = reader.readString();
         return getLanguages()
-            .stream()
             .filter((langInfo) -> langInfo.getCode().equals(langCode))
             .findAny()
-            .orElseThrow(() -> UNKNOWN_CREATIVE_MODE_TAB.create(langCode));
+            .orElseThrow(() -> UNKNOWN_LANGUAGE_CODE.create(langCode));
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        return SharedSuggestionProvider.suggest(getLanguages().stream().map(LanguageInfo::getCode), builder);
+        return SharedSuggestionProvider.suggest(getLanguages().map(LanguageInfo::getCode), builder);
     }
 
-    private static SortedSet<LanguageInfo> getLanguages() {
-        return Minecraft.getInstance().getLanguageManager().getLanguages();
+    private static Stream<LanguageInfo> getLanguages() {
+        return Minecraft.getInstance().getLanguageManager().getLanguages().stream();
     }
 
 }

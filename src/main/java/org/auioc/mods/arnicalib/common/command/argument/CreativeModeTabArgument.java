@@ -1,8 +1,8 @@
 package org.auioc.mods.arnicalib.common.command.argument;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -29,8 +29,7 @@ public class CreativeModeTabArgument implements ArgumentType<CreativeModeTab> {
     @Override
     public CreativeModeTab parse(StringReader reader) throws CommandSyntaxException {
         String langId = reader.readString();
-        return getAllTabs()
-            .stream()
+        return getTabs()
             .filter((tab) -> getLangId(tab).equals(langId))
             .findAny()
             .orElseThrow(() -> UNKNOWN_CREATIVE_MODE_TAB.create(langId));
@@ -38,14 +37,11 @@ public class CreativeModeTabArgument implements ArgumentType<CreativeModeTab> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        return SharedSuggestionProvider.suggest(
-            getAllTabs().stream().map(CreativeModeTabArgument::getLangId),
-            builder
-        );
+        return SharedSuggestionProvider.suggest(getTabs().map(CreativeModeTabArgument::getLangId), builder);
     }
 
-    public static List<CreativeModeTab> getAllTabs() {
-        return Arrays.asList(CreativeModeTab.TABS);
+    public static Stream<CreativeModeTab> getTabs() {
+        return Arrays.asList(CreativeModeTab.TABS).stream();
     }
 
     public static String getLangId(CreativeModeTab tab) {
