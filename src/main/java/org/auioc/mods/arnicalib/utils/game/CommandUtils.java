@@ -55,15 +55,15 @@ public interface CommandUtils {
     }
 
     /**
-     * @param nodes List of {@link ParsedCommandNode}s, from {@link CommandContext#getNodes()}
+     * @param nodeList           List of {@link ParsedCommandNode}s, from {@link CommandContext#getNodes()}
      * @param fromIndex
      * @param toIndex
      * @param conventToSnakeCase
      * @return String that concatenates the literals (or in its snake case) of all (or some of) {@link LiteralCommandNode}s in the {@link ParsedCommandNode} list, separated by dots
      * @since 5.1.1
      */
-    static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes, int fromIndex, int toIndex, boolean conventToSnakeCase) {
-        return nodes
+    static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodeList, int fromIndex, int toIndex, boolean conventToSnakeCase) {
+        return nodeList
             .subList(fromIndex, toIndex)
             .stream()
             .map(ParsedCommandNode::getNode)

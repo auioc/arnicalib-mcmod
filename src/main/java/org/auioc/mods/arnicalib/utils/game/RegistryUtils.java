@@ -22,7 +22,8 @@ public class RegistryUtils {
     }
 
     /**
-     * For special use only, please use {@link org.auioc.mods.arnicalib.utils.game.RegistryUtils#getAllRegistryObjects(DeferredRegister)} instead generally.
+     * For special use only,
+     * please use {@link org.auioc.mods.arnicalib.utils.game.RegistryUtils#getAllRegistryObjects(DeferredRegister)} instead generally.
      */
     @SuppressWarnings("unchecked")
     public static <T extends IForgeRegistryEntry<? super T>> List<T> getAllRegistryObjects(Class<? extends IHRegistry> clazz, Class<T> type) {

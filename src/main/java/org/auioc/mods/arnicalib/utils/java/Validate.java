@@ -115,8 +115,8 @@ public class Validate extends org.apache.commons.lang3.Validate {
      * Validate that the specified primitive value is in the specified interval; otherwise, throws an exception.
      *
      * @param interval
-     * @param value the value to validate
-     * @param message the exception message if invalid
+     * @param value    the value to validate
+     * @param message  the exception message if invalid
      * @throws IllegalArgumentException if the value is not in the interval
      * @see #isInInterval(Range, double, String)
      */
@@ -136,7 +136,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified bounds are valid the interval bounds; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      */
     public static void isBoundedInterval(long left, long right) {
@@ -157,7 +157,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>(left, right)</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
@@ -171,7 +171,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>[left, right]</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
@@ -185,7 +185,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>(left, right]</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
@@ -199,7 +199,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>[left, right)</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
@@ -213,7 +213,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>(left, +∞)</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
      * @see #isInLeftOpenInterval(double, double)
@@ -225,7 +225,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>[left, +∞)</b>; otherwise, throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
      * @see #isInLeftClosedInterval(double, double)
@@ -261,7 +261,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * Validate that the specified primitive value is in the interval <b>(right, left)</b>; it always throws an exception.
      *
-     * @param left the interval left bound
+     * @param left  the interval left bound
      * @param right the interval right bound
      * @param value the value to validate
      * @throws IllegalArgumentException if the value is not in the interval
