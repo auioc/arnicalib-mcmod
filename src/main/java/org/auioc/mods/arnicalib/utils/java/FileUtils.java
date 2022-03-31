@@ -8,11 +8,11 @@ import java.io.IOException;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mods.arnicalib.utils.LogUtil;
 
-public interface FileUtils {
+public class FileUtils extends org.apache.commons.io.FileUtils {
 
-    static Marker MARKER = LogUtil.getMarker(FileUtils.class);
+    private static final Marker MARKER = LogUtil.getMarker(FileUtils.class);
 
-    static File getOrCreateDirectory(String directoryName) throws IOException {
+    public static File getOrCreateDirectory(String directoryName) throws IOException {
         var file = new File(directoryName);
 
         if (file.exists()) {
@@ -26,7 +26,7 @@ public interface FileUtils {
         throw new IOException("Could not create directory \"" + file + "\"");
     }
 
-    static File getFile(String fileName) throws IOException {
+    public static File getFile(String fileName) throws IOException {
         var file = new File(fileName);
 
         if (file.getParentFile().exists()) {
@@ -40,7 +40,14 @@ public interface FileUtils {
         throw new IOException("Could not create parent directory of file \"" + file + "\"");
     }
 
-    static void writeText(String fileName, String text) throws IOException {
+    /* ============================================================================================================== */
+    // #region Deprecated
+
+    @Deprecated
+    private FileUtils() {}
+
+    @Deprecated(since = "5.1.4")
+    public static void writeText(String fileName, String text) throws IOException {
         var file = getFile(fileName);
 
         if (file.exists()) {
@@ -51,5 +58,7 @@ public interface FileUtils {
         writer.write(text);
         writer.close();
     }
+
+    // #endregion Deprecated
 
 }
