@@ -62,7 +62,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
     }
 
 
-    public static class SerializerX extends Serializer<SetRandomPotionFunction> {
+    public static class Serializer extends LootItemConditionalFunction.Serializer<SetRandomPotionFunction> {
 
         public void serialize(JsonObject json, SetRandomPotionFunction instance, JsonSerializationContext ctx) {}
 

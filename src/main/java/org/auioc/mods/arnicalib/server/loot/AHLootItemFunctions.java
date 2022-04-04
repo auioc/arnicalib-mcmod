@@ -18,7 +18,7 @@ public final class AHLootItemFunctions {
         return LOOT_FUNCTION_TYPES.register(id, () -> new LootItemFunctionType(serializer));
     }
 
-    public static final RegistryObject<LootItemFunctionType> SET_RANDOM_POTION = register("set_random_potion", new SetRandomPotionFunction.SerializerX());
-    public static final RegistryObject<LootItemFunctionType> SET_CUSTOM_EFFECTS = register("set_custom_effects", new SetCustomEffectsFunction.SerializerX());
+    public static final RegistryObject<LootItemFunctionType> SET_RANDOM_POTION = register("set_random_potion", new SetRandomPotionFunction.Serializer());
+    public static final RegistryObject<LootItemFunctionType> SET_CUSTOM_EFFECTS = register("set_custom_effects", new SetCustomEffectsFunction.Serializer());
 
 }

@@ -17,6 +17,6 @@ public final class AHLootItemConditions {
         return LOOT_CONDITION_TYPES.register(id, () -> new LootItemConditionType(serializer));
     }
 
-    public static final RegistryObject<LootItemConditionType> MOD_LOADED = register("mod_loaded", new ModLoadedCondition.SerializerX());
+    public static final RegistryObject<LootItemConditionType> MOD_LOADED = register("mod_loaded", new ModLoadedCondition.Serializer());
 
 }

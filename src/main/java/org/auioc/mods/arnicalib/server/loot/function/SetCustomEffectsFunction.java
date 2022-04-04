@@ -39,7 +39,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
     }
 
 
-    public static class SerializerX extends Serializer<SetCustomEffectsFunction> {
+    public static class Serializer extends LootItemConditionalFunction.Serializer<SetCustomEffectsFunction> {
 
         public void serialize(JsonObject json, SetCustomEffectsFunction instance, JsonSerializationContext ctx) {}
 

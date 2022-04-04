@@ -6,7 +6,6 @@ import com.google.gson.JsonSerializationContext;
 import org.auioc.mods.arnicalib.server.loot.AHLootItemConditions;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.fml.ModList;
@@ -30,7 +29,7 @@ public class ModLoadedCondition implements LootItemCondition {
     }
 
 
-    public static class SerializerX implements Serializer<ModLoadedCondition> {
+    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<ModLoadedCondition> {
 
         @Override
         public void serialize(JsonObject json, ModLoadedCondition instance, JsonSerializationContext ctx) {}
