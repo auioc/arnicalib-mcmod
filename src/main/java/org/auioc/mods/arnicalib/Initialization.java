@@ -55,10 +55,10 @@ public final class Initialization {
             AHPacketHandler.init();
             AHCommandArguments.init();
             modEventBus.register(AHGlobalLootModifiers.class);
+            AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
             modEventBus.addGenericListener(
                 GlobalLootModifierSerializer.class, // It works within any RegistryEvent.Register
                 (RegistryEvent.Register event) -> {
-                    AHLootItemConditions.init();
                     AHLootItemFunctions.init();
                 }
             );

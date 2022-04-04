@@ -1,20 +1,23 @@
 package org.auioc.mods.arnicalib.server.loot;
 
+import java.util.function.Supplier;
 import org.auioc.mods.arnicalib.ArnicaLib;
 import org.auioc.mods.arnicalib.server.loot.predicate.ModLoadedCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class AHLootItemConditions {
 
-    public static void init() {}
+    public static final DeferredRegister<LootItemConditionType> LOOT_CONDITION_TYPES = DeferredRegister.create(Registry.LOOT_ITEM_REGISTRY, ArnicaLib.MOD_ID);
 
-    public static final LootItemConditionType MOD_LOADED = register("mod_loaded", new ModLoadedCondition.SerializerX());
-
-    private static LootItemConditionType register(String id, Serializer<? extends LootItemCondition> serializer) {
-        return Registry.register(Registry.LOOT_CONDITION_TYPE, ArnicaLib.id(id), new LootItemConditionType(serializer));
+    private static RegistryObject<LootItemConditionType> register(String id, Supplier<Serializer<? extends LootItemCondition>> serializerSup) {
+        return LOOT_CONDITION_TYPES.register(id, () -> new LootItemConditionType(serializerSup.get()));
     }
+
+    public static final RegistryObject<LootItemConditionType> MOD_LOADED = register("mod_loaded", ModLoadedCondition.SerializerX::new);
 
 }

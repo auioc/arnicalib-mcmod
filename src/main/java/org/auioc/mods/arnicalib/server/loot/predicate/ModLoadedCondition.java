@@ -26,7 +26,7 @@ public class ModLoadedCondition implements LootItemCondition {
 
     @Override
     public LootItemConditionType getType() {
-        return AHLootItemConditions.MOD_LOADED;
+        return AHLootItemConditions.MOD_LOADED.get();
     }
 
 
