@@ -35,7 +35,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType getType() {
-        return AHLootItemFunctions.SET_RANDOM_POTION;
+        return AHLootItemFunctions.SET_RANDOM_POTION.get();
     }
 
     @Override

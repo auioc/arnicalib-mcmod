@@ -7,16 +7,18 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class AHLootItemFunctions {
 
-    public static void init() {}
+    public static final DeferredRegister<LootItemFunctionType> LOOT_FUNCTION_TYPES = DeferredRegister.create(Registry.LOOT_FUNCTION_REGISTRY, ArnicaLib.MOD_ID);
 
-    public static final LootItemFunctionType SET_RANDOM_POTION = register("set_random_potion", new SetRandomPotionFunction.SerializerX());
-    public static final LootItemFunctionType SET_CUSTOM_EFFECTS = register("set_custom_effects", new SetCustomEffectsFunction.SerializerX());
-
-    private static LootItemFunctionType register(String id, Serializer<? extends LootItemFunction> serializer) {
-        return Registry.register(Registry.LOOT_FUNCTION_TYPE, ArnicaLib.id(id), new LootItemFunctionType(serializer));
+    private static RegistryObject<LootItemFunctionType> register(String id, Serializer<? extends LootItemFunction> serializer) {
+        return LOOT_FUNCTION_TYPES.register(id, () -> new LootItemFunctionType(serializer));
     }
+
+    public static final RegistryObject<LootItemFunctionType> SET_RANDOM_POTION = register("set_random_potion", new SetRandomPotionFunction.SerializerX());
+    public static final RegistryObject<LootItemFunctionType> SET_CUSTOM_EFFECTS = register("set_custom_effects", new SetCustomEffectsFunction.SerializerX());
 
 }

@@ -30,7 +30,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType getType() {
-        return AHLootItemFunctions.SET_CUSTOM_EFFECTS;
+        return AHLootItemFunctions.SET_CUSTOM_EFFECTS.get();
     }
 
     @Override

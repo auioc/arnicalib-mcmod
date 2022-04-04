@@ -11,8 +11,6 @@ import org.auioc.mods.arnicalib.server.loot.AHLootItemConditions;
 import org.auioc.mods.arnicalib.server.loot.AHLootItemFunctions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -50,18 +48,12 @@ public final class Initialization {
 
         public void registerConfig() {}
 
-        @SuppressWarnings(value = {"unchecked", "rawtypes"})
         private void modSetup() {
             AHPacketHandler.init();
             AHCommandArguments.init();
             modEventBus.register(AHGlobalLootModifiers.class);
             AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
-            modEventBus.addGenericListener(
-                GlobalLootModifierSerializer.class, // It works within any RegistryEvent.Register
-                (RegistryEvent.Register event) -> {
-                    AHLootItemFunctions.init();
-                }
-            );
+            AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
         }
 
         private void forgeSetup() {
