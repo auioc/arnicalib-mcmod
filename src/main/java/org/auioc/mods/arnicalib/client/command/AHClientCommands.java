@@ -15,6 +15,10 @@ public final class AHClientCommands {
         getAHNode(dispatcher);
     }
 
+    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return getRootNode(dispatcher);
+    }
+
     /**
      * @since 5.0.2
      * @deprecated Use {@link #getAHNode} instead
@@ -26,10 +30,6 @@ public final class AHClientCommands {
             node = dispatcher.register(literal("ah"));
         }
         return node;
-    }
-
-    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
-        return getRootNode(dispatcher);
     }
 
 }

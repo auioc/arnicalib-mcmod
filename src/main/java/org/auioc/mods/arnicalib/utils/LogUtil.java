@@ -7,6 +7,8 @@ import org.apache.logging.log4j.MarkerManager;
 
 public class LogUtil {
 
+    private LogUtil() {}
+
     private static StackTraceElement getCaller() {
         StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
 

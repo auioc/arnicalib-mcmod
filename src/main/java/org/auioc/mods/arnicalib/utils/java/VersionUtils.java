@@ -10,6 +10,8 @@ import org.auioc.mods.arnicalib.utils.LogUtil;
 
 public class VersionUtils {
 
+    private VersionUtils() {}
+
     private static final Marker MARKER = LogUtil.getMarker(VersionUtils.class);
 
     private static final Pair<String, String> DEFAULT_VERSION_TUPLE = Pair.of("0", "0");

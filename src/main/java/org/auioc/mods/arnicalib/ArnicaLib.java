@@ -38,4 +38,7 @@ public final class ArnicaLib {
         return MOD_ID + "." + key;
     }
 
+    @Deprecated /** For compatibility only */
+    public static final String MODID = "arnicalib";
+
 }

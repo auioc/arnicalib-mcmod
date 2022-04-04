@@ -15,6 +15,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class RegistryUtils {
 
+    private RegistryUtils() {}
+
     public static final Predicate<ForgeRegistryEntry<?>> IS_VANILLA = (entry) -> entry.getRegistryName().getNamespace().equals("minecraft");
 
     public static <T extends IForgeRegistryEntry<T>> List<T> getAllRegistryObjects(DeferredRegister<T> deferredRegister) {

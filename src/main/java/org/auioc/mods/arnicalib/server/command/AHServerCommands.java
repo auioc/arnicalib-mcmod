@@ -22,6 +22,10 @@ public final class AHServerCommands {
         getAHNode(dispatcher).addChild(NODE);
     }
 
+    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return getRootNode(dispatcher);
+    }
+
     /**
      * @since 4.1.0
      * @deprecated Use {@link #getAHNode} instead
@@ -33,10 +37,6 @@ public final class AHServerCommands {
             node = dispatcher.register(literal("ah"));
         }
         return node;
-    }
-
-    public static CommandNode<CommandSourceStack> getAHNode(CommandDispatcher<CommandSourceStack> dispatcher) {
-        return getRootNode(dispatcher);
     }
 
 }
