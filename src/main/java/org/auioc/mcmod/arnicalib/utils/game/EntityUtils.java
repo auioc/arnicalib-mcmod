@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -16,6 +18,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public interface EntityUtils {
+
+    /*================================================================================================================*/
+    // #region RayTrace
 
     static Vec3[] getEntityViewRay(Entity entity, double rayLength) {
         Vec3 entityViewVector = entity.getViewVector(1.0F);
@@ -125,5 +130,41 @@ public interface EntityUtils {
             }, b
         );
     }
+
+    // #endregion RayTrace
+
+    /*================================================================================================================*/
+    // #region Predicates
+
+    Predicate<Entity> IS_LIVING = (entity) -> entity instanceof LivingEntity;
+    Predicate<Entity> IS_PLAYER = (entity) -> entity instanceof net.minecraft.world.entity.player.Player;
+    Predicate<Entity> IS_LOCAL_PLAYER = (entity) -> entity instanceof net.minecraft.client.player.LocalPlayer;
+    Predicate<Entity> IS_SERVER_PLAYER = (entity) -> entity instanceof net.minecraft.server.level.ServerPlayer;
+    Predicate<Entity> IS_FAKE_PLAYER = (entity) -> entity instanceof net.minecraftforge.common.util.FakePlayer;
+    Predicate<Entity> IS_PROJECTILE = (entity) -> entity instanceof net.minecraft.world.entity.projectile.Projectile;
+
+    static MobCategory getCategory(Entity entity) {
+        return entity.getType().getCategory();
+    }
+
+    Predicate<Entity> IS_FRIENDLY = (entity) -> getCategory(entity).isFriendly();
+    Predicate<Entity> IS_PERSISTENT = (entity) -> getCategory(entity).isPersistent();
+    Predicate<Entity> IS_MISC = (entity) -> getCategory(entity) == MobCategory.MISC;
+    Predicate<Entity> IS_MONSTER = (entity) -> getCategory(entity) == MobCategory.MONSTER;
+    Predicate<Entity> IS_CREATURE = (entity) -> getCategory(entity) == MobCategory.CREATURE;
+    Predicate<Entity> IS_AMBIENT = (entity) -> getCategory(entity) == MobCategory.AMBIENT;
+    Predicate<Entity> IS_AXOLOTLS = (entity) -> getCategory(entity) == MobCategory.AXOLOTLS;
+    Predicate<Entity> IS_UNDERGROUND_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.UNDERGROUND_WATER_CREATURE;
+    Predicate<Entity> IS_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.WATER_CREATURE;
+    Predicate<Entity> IS_WATER_AMBIENT = (entity) -> getCategory(entity) == MobCategory.WATER_AMBIENT;
+
+    Predicate<LivingEntity> IS_UNDEFINED = (living) -> living.getMobType() == MobType.UNDEFINED;
+    Predicate<LivingEntity> IS_DEFINED = (living) -> living.getMobType() != MobType.UNDEFINED;
+    Predicate<LivingEntity> IS_UNDEAD = (living) -> living.getMobType() == MobType.UNDEAD;
+    Predicate<LivingEntity> IS_ARTHROPOD = (living) -> living.getMobType() == MobType.ARTHROPOD;
+    Predicate<LivingEntity> IS_ILLAGER = (living) -> living.getMobType() == MobType.ILLAGER;
+    Predicate<LivingEntity> IS_WATER = (living) -> living.getMobType() == MobType.WATER;
+
+    // #endregion Predicates
 
 }
