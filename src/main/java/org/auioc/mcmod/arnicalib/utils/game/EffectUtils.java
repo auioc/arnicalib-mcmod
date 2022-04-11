@@ -83,7 +83,7 @@ public interface EffectUtils {
         return null;
     }
 
-    static MobEffectInstance createInstance(JsonObject json) {
+    static MobEffectInstance deserializeFromJson(JsonObject json) {
         ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "id"));
         Validate.isTrue(ForgeRegistries.MOB_EFFECTS.containsKey(id), "Unknown mob effect '" + id + "'");
         MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(id);
@@ -106,7 +106,7 @@ public interface EffectUtils {
                 hiddenEffectJson.addProperty("id", id.toString());
             }
             Validate.isTrue(GsonHelper.getAsInt(hiddenEffectJson, "duration", 1) > duration, "The duration of the hidden effect must be greater than the parent effect");
-            hiddenEffect = createInstance(hiddenEffectJson);
+            hiddenEffect = deserializeFromJson(hiddenEffectJson);
         }
 
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
@@ -123,7 +123,7 @@ public interface EffectUtils {
         return instance;
     }
 
-    static void saveInstance(MobEffectInstance instance, JsonObject json) {
+    static void serializeToJson(MobEffectInstance instance, JsonObject json) {
         json.addProperty("id", instance.getEffect().getRegistryName().toString());
         json.addProperty("duration", instance.getDuration());
         json.addProperty("amplifier", instance.getAmplifier());
@@ -139,14 +139,14 @@ public interface EffectUtils {
 
         if (((IMixinMobEffectInstance) instance).getHiddenEffect() != null) {
             JsonObject hiddenEffect = new JsonObject();
-            saveInstance(((IMixinMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
+            serializeToJson(((IMixinMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
             json.add("hidden_effect", hiddenEffect);
         }
     }
 
-    static JsonObject instanceToJson(MobEffectInstance instance) {
+    static JsonObject serializeToJson(MobEffectInstance instance) {
         JsonObject json = new JsonObject();
-        saveInstance(instance, json);
+        serializeToJson(instance, json);
         return json;
     }
 

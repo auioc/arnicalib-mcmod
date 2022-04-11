@@ -74,7 +74,7 @@ public interface ItemUtils {
         return itemStack;
     }
 
-    static ItemStack createItemStack(JsonObject json) {
+    static ItemStack deserializeFromJson(JsonObject json) {
         Item item = getItem(GsonHelper.getAsString(json, "id"));
 
         int count = GsonHelper.getAsInt(json, "count", 1);
