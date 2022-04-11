@@ -3,12 +3,15 @@ package org.auioc.mcmod.arnicalib.utils.game;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import org.auioc.mcmod.arnicalib.api.game.registry.OrderedForgeRegistries;
+import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinMobEffectInstance;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import org.auioc.mcmod.arnicalib.utils.java.Validate;
@@ -24,21 +27,31 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EffectUtils {
 
-    @Nullable
-    static MobEffect getEffect(int id) {
-        return MobEffect.byId(id);
+    @Nonnull
+    @Deprecated
+    static Optional<MobEffect> getEffect(int id) {
+        return Optional.ofNullable(MobEffect.byId(id));
     }
 
-    @Nullable
-    static MobEffect getEffect(String id) {
-        return ForgeRegistries.MOB_EFFECTS.getValue(new ResourceLocation(id));
+    @Nonnull
+    static Optional<MobEffect> getEffect(ResourceLocation id) {
+        return Optional.ofNullable(ForgeRegistries.MOB_EFFECTS.containsKey(id) ? ForgeRegistries.MOB_EFFECTS.getValue(id) : null);
     }
 
-    @Nullable
-    static MobEffect getEffect(ResourceLocation id) {
-        return ForgeRegistries.MOB_EFFECTS.getValue(id);
+    @Nonnull
+    static Optional<MobEffect> getEffect(String id) {
+        return getEffect(new ResourceLocation(id));
     }
 
+    @Nonnull
+    static MobEffect getEffectOrElseThrow(ResourceLocation id) {
+        return Optional.ofNullable(ForgeRegistries.MOB_EFFECTS.getValue(id)).orElseThrow(RegistryEntryException.UNKNOWN_MOB_EFFECT.create(id.toString()));
+    }
+
+    @Nonnull
+    static MobEffect getEffectOrElseThrow(String id) {
+        return getEffect(id).orElseThrow(RegistryEntryException.UNKNOWN_MOB_EFFECT.create(id));
+    }
 
     static List<MobEffect> getEffects(@Nullable MobEffectCategory type) {
         Collection<MobEffect> effects = ForgeRegistries.MOB_EFFECTS.getValues();
@@ -78,15 +91,18 @@ public interface EffectUtils {
     @Nullable
     static MobEffectInstance createInstance(CompoundTag effect_nbt) {
         if (effect_nbt.contains("id", 8) && effect_nbt.contains("duration", 3) && effect_nbt.contains("amplifier", 3)) {
-            return new MobEffectInstance(getEffect(effect_nbt.getString("id")), effect_nbt.getInt("duration"), effect_nbt.getInt("amplifier"));
+            return new MobEffectInstance(
+                getEffectOrElseThrow(effect_nbt.getString("id")),
+                effect_nbt.getInt("duration"),
+                effect_nbt.getInt("amplifier")
+            );
         }
         return null;
     }
 
     static MobEffectInstance deserializeFromJson(JsonObject json) {
-        ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "id"));
-        Validate.isTrue(ForgeRegistries.MOB_EFFECTS.containsKey(id), "Unknown mob effect '" + id + "'");
-        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(id);
+        String id = GsonHelper.getAsString(json, "id");
+        MobEffect effect = getEffectOrElseThrow(id);
 
         int duration = GsonHelper.getAsInt(json, "duration", 1);
 
@@ -100,12 +116,9 @@ public interface EffectUtils {
         MobEffectInstance hiddenEffect = (MobEffectInstance) null;
         if (json.has("hidden_effect")) {
             JsonObject hiddenEffectJson = GsonHelper.getAsJsonObject(json, "hidden_effect");
-            if (hiddenEffectJson.has("id")) {
-                Validate.isTrue(GsonHelper.getAsString(hiddenEffectJson, "id").equals(id.toString()), "The id of the hidden effect must be unset or equal to the parent effect");
-            } else {
-                hiddenEffectJson.addProperty("id", id.toString());
-            }
-            Validate.isTrue(GsonHelper.getAsInt(hiddenEffectJson, "duration", 1) > duration, "The duration of the hidden effect must be greater than the parent effect");
+            if (hiddenEffectJson.has("id") && !GsonHelper.getAsString(hiddenEffectJson, "id").equals(id)) throw new JsonSyntaxException("The id of the hidden effect must be unset or equal to the parent effect");
+            else hiddenEffectJson.addProperty("id", id);
+            if (GsonHelper.getAsInt(hiddenEffectJson, "duration", 1) <= duration) throw new JsonSyntaxException("The duration of the hidden effect must be greater than the parent effect");
             hiddenEffect = deserializeFromJson(hiddenEffectJson);
         }
 
@@ -114,8 +127,9 @@ public interface EffectUtils {
         if (json.has("curative_items")) {
             JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items");
             List<ItemStack> curativeItems = new ArrayList<ItemStack>();
-            for (JsonElement element : curativeItemsJson) {
-                curativeItems.add(new ItemStack(ItemUtils.getItem(GsonHelper.convertToString(element, "curative_items"))));
+            for (var element : curativeItemsJson) {
+                var curativeItemId = GsonHelper.convertToString(element, "curative_item");
+                curativeItems.add(new ItemStack(ItemUtils.getItemOrElseThrow(curativeItemId)));
             }
             instance.setCurativeItems(curativeItems);
         }
