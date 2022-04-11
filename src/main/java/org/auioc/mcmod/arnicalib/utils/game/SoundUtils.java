@@ -1,5 +1,8 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import java.util.Optional;
+import javax.annotation.Nonnull;
+import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -8,16 +11,28 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public interface SoundUtils {
 
-    static SoundEvent getSoundEvent(ResourceLocation id) {
-        return ForgeRegistries.SOUND_EVENTS.getValue(id);
+    @Nonnull
+    static Optional<SoundEvent> getSoundEvent(ResourceLocation id) {
+        return Optional.ofNullable(ForgeRegistries.SOUND_EVENTS.containsKey(id) ? ForgeRegistries.SOUND_EVENTS.getValue(id) : null);
     }
 
-    static SoundEvent getSoundEvent(String id) {
+    @Nonnull
+    static Optional<SoundEvent> getSoundEvent(String id) {
         return getSoundEvent(new ResourceLocation(id));
     }
 
+    @Nonnull
+    static SoundEvent getSoundEventOrElseThrow(ResourceLocation id) {
+        return getSoundEvent(id).orElseThrow(RegistryEntryException.UNKNOWN_SOUND_EVENT.create(id.toString()));
+    }
+
+    @Nonnull
+    static SoundEvent getSoundEventOrElseThrow(String id) {
+        return getSoundEvent(id).orElseThrow(RegistryEntryException.UNKNOWN_SOUND_EVENT.create(id));
+    }
+
     static void playerToPlayer(Player player, String id, SoundSource source, float volume, float pitch) {
-        player.playNotifySound(getSoundEvent(id), source, volume, pitch);
+        player.playNotifySound(getSoundEventOrElseThrow(id), source, volume, pitch);
     }
 
     static void playerToPlayer(Player player, String id) {
@@ -29,7 +44,7 @@ public interface SoundUtils {
     }
 
     static void playerToPlayer(Player player, ResourceLocation id, SoundSource source, float volume, float pitch) {
-        player.playNotifySound(getSoundEvent(id), source, volume, pitch);
+        player.playNotifySound(getSoundEventOrElseThrow(id), source, volume, pitch);
     }
 
     static void playerToPlayer(Player player, ResourceLocation id) {
