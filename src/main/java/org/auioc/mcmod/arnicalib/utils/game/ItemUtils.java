@@ -1,10 +1,14 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
@@ -18,17 +22,28 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public interface ItemUtils {
 
-    static Item getItem(ResourceLocation id) {
-        Validate.isTrue(ForgeRegistries.ITEMS.containsKey(id), "Unknown item '" + id + "'");
-        return ForgeRegistries.ITEMS.getValue(id);
+    @Nonnull
+    static Optional<Item> getItem(ResourceLocation id) {
+        return Optional.ofNullable(ForgeRegistries.ITEMS.containsKey(id) ? ForgeRegistries.ITEMS.getValue(id) : null);
     }
 
-    static Item getItem(String id) {
+    @Nonnull
+    static Optional<Item> getItem(String id) {
         return getItem(new ResourceLocation(id));
     }
 
+    @Nonnull
+    static Item getItemOrElseThrow(ResourceLocation id) {
+        return getItem(id).orElseThrow(RegistryEntryException.UNKNOWN_ITEM.create(id.toString()));
+    }
+
+    @Nonnull
+    static Item getItemOrElseThrow(String id) {
+        return getItem(id).orElseThrow(RegistryEntryException.UNKNOWN_ITEM.create(id.toString()));
+    }
+
     static List<Item> getItems(List<String> idList) {
-        return idList.stream().map(ResourceLocation::new).map(ItemUtils::getItem).toList();
+        return idList.stream().map(ItemUtils::getItemOrElseThrow).toList();
     }
 
     static String getRegistryName(Item item) {
@@ -75,19 +90,23 @@ public interface ItemUtils {
     }
 
     static ItemStack deserializeFromJson(JsonObject json) {
-        Item item = getItem(GsonHelper.getAsString(json, "id"));
+        var item = getItemOrElseThrow(GsonHelper.getAsString(json, "id"));
 
         int count = GsonHelper.getAsInt(json, "count", 1);
-        Validate.isPositive(count, "The item count must be positive: " + count);
-        Validate.isTrue(count <= getMaxStackSize(item), "The specified count " + count + " is too large, the max stack size of item '" + getRegistryName(item) + "' is " + getMaxStackSize(item));
+        try {
+            Validate.isPositive(count, "The item count must be positive: " + count);
+            Validate.isTrue(count <= getMaxStackSize(item), "The specified count " + count + " is too large, the max stack size of item '" + getRegistryName(item) + "' is " + getMaxStackSize(item));
+        } catch (IllegalArgumentException e) {
+            throw new JsonSyntaxException(e);
+        }
 
         CompoundTag nbt = null;
-        String snbt = GsonHelper.getAsString(json, "tag", null);
+        var snbt = GsonHelper.getAsString(json, "nbt", null);
         if (snbt != null) {
             try {
                 nbt = TagParser.parseTag(snbt);
             } catch (CommandSyntaxException e) {
-                Validate.throwException("Invalid NBT: " + e.getMessage());
+                throw new JsonSyntaxException("Invalid NBT: " + e.getMessage());
             }
         }
 
