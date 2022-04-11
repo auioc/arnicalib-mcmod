@@ -7,23 +7,37 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface SoundUtils {
-    static SoundEvent getSoundEvent(String key) {
-        return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(key));
+
+    static SoundEvent getSoundEvent(ResourceLocation id) {
+        return ForgeRegistries.SOUND_EVENTS.getValue(id);
     }
 
-    static void playSoundToPlayer(Player player, String key, SoundSource source, float volume, float pitch) {
-        if (!key.equals("")) {
-            player.playNotifySound(getSoundEvent(key), source, volume, pitch);
-        }
+    static SoundEvent getSoundEvent(String id) {
+        return getSoundEvent(new ResourceLocation(id));
     }
 
-
-    static void playSoundToPlayer(Player player, String key) {
-        playSoundToPlayer(player, key, SoundSource.MASTER, 1, 1);
+    static void playerToPlayer(Player player, String id, SoundSource source, float volume, float pitch) {
+        player.playNotifySound(getSoundEvent(id), source, volume, pitch);
     }
 
-    static void playSoundToPlayer(Player player, String key, float volume, float pitch) {
-        playSoundToPlayer(player, key, SoundSource.MASTER, volume, pitch);
+    static void playerToPlayer(Player player, String id) {
+        playerToPlayer(player, id, SoundSource.MASTER, 1, 1);
+    }
+
+    static void playerToPlayer(Player player, String id, float volume, float pitch) {
+        playerToPlayer(player, id, SoundSource.MASTER, volume, pitch);
+    }
+
+    static void playerToPlayer(Player player, ResourceLocation id, SoundSource source, float volume, float pitch) {
+        player.playNotifySound(getSoundEvent(id), source, volume, pitch);
+    }
+
+    static void playerToPlayer(Player player, ResourceLocation id) {
+        playerToPlayer(player, id, SoundSource.MASTER, 1, 1);
+    }
+
+    static void playerToPlayer(Player player, ResourceLocation id, float volume, float pitch) {
+        playerToPlayer(player, id, SoundSource.MASTER, volume, pitch);
     }
 
 }
