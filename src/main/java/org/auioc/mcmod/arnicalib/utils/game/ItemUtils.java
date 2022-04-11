@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
@@ -27,6 +28,9 @@ public interface ItemUtils {
         return getItem(new ResourceLocation(id));
     }
 
+    static List<Item> getItems(List<String> idList) {
+        return idList.stream().map(ResourceLocation::new).map(ItemUtils::getItem).toList();
+    }
 
     static String getRegistryName(Item item) {
         return item.getRegistryName().toString();
