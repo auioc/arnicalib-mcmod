@@ -27,7 +27,7 @@ public abstract class MixinLivingEntity {
         if (!level.isClientSide() && stack.isEdible()) {
             List<MobEffectInstance> effects = new ArrayList<>();
 
-            for (Pair<MobEffectInstance, Float> pair : stack.getItem().getFoodProperties().getEffects()) {
+            for (Pair<MobEffectInstance, Float> pair : stack.getItem().getFoodProperties(stack, entity).getEffects()) {
                 if (pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
                     effects.add(new MobEffectInstance(pair.getFirst()));
                 }
