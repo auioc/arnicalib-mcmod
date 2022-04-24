@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        // classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -14,6 +15,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
+// apply plugin: "com.matthewprenger.cursegradle"
 
 group = 'org.auioc.mcmod'
 archivesBaseName = "arnicalib"
@@ -161,6 +163,25 @@ task genUpdateJson() {
         file.write(groovy.json.JsonOutput.toJson(j))
     }
 }
+
+// curseforge {
+//     apiKey = getVar('CF_API_KEY')
+//     project {
+//         id = '610820'
+//         changelogType = 'text'
+//         changelog = ''
+//         releaseType = 'release'
+//         addGameVersion "${minecraft_version}"
+//         mainArtifact jar
+//         addArtifact sourcesJar
+//         addArtifact deobfJar
+//         addArtifact forgelibJar
+//     }
+//     options {
+//         debug = true
+//         forgeGradleIntegration = false
+//     }
+// }
 
 
 def getVar(String var_name) {
