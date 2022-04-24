@@ -20,8 +20,8 @@ public class ClientConfig {
         {
             b.push("advanced_tooltip");
 
-            EnableAdvancedTooltip = b.define("enable", false);
-            AdvancedTooltipOnlyOnDebug = b.define("only_on_debug", false);
+            EnableAdvancedTooltip = b.define("enable", true);
+            AdvancedTooltipOnlyOnDebug = b.define("only_on_debug", true);
             AdvancedTooltipOnlyOnShift = b.define("only_on_shift", false);
 
             b.pop();
