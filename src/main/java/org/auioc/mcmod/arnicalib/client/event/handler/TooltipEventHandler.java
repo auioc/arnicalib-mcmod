@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.client.event.handler;
 
+import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.StringText;
 import com.mojang.blaze3d.platform.InputConstants;
 import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
 import org.lwjgl.glfw.GLFW;
@@ -9,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,16 +35,16 @@ public class TooltipEventHandler {
 
         if (itemStack.hasTag()) {
             CompoundTag nbt = itemStack.getTag();
-            Component nbtTooltip = new TextComponent("NBT:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                .append(new TextComponent("").setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)).append(NbtUtils.toPrettyComponent(nbt)));
+            Component nbtTooltip = StringText("NBT:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+                .append(StringText("").setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)).append(NbtUtils.toPrettyComponent(nbt)));
             addLine(event, nbtTooltip);
         }
 
         var tags = itemStack.getTags().toList();
         if (tags.size() > 0) {
-            addLine(event, new TextComponent("Tags:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+            addLine(event, StringText("Tags:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
             for (TagKey<Item> tag : tags) {
-                addLine(event, new TextComponent("    " + tag.location()).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+                addLine(event, StringText("    " + tag.location()).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
             }
         }
 

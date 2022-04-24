@@ -1,11 +1,14 @@
 package org.auioc.mcmod.arnicalib.client.config;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
+@OnlyIn(Dist.CLIENT)
 public class ClientConfig {
 
-    public static ForgeConfigSpec CONFIG;
+    public static final ForgeConfigSpec CONFIG;
 
     public static BooleanValue EnableAdvancedTooltip;
     public static BooleanValue AdvancedTooltipOnlyOnDebug;
