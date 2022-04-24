@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.registry;
+package org.auioc.mcmod.arnicalib.utils.game;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.ArrayList;

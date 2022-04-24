@@ -10,7 +10,6 @@ import javax.annotation.Nullable;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import org.auioc.mcmod.arnicalib.api.game.registry.OrderedForgeRegistries;
 import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinMobEffectInstance;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
