@@ -31,28 +31,28 @@ public interface SoundUtils {
         return getSoundEvent(id).orElseThrow(RegistryEntryException.UNKNOWN_SOUND_EVENT.create(id));
     }
 
-    static void playerToPlayer(Player player, String id, SoundSource source, float volume, float pitch) {
+    static void play(Player player, String id, SoundSource source, float volume, float pitch) {
         player.playNotifySound(getSoundEventOrElseThrow(id), source, volume, pitch);
     }
 
-    static void playerToPlayer(Player player, String id) {
-        playerToPlayer(player, id, SoundSource.MASTER, 1, 1);
+    static void play(Player player, String id) {
+        play(player, id, SoundSource.MASTER, 1, 1);
     }
 
-    static void playerToPlayer(Player player, String id, float volume, float pitch) {
-        playerToPlayer(player, id, SoundSource.MASTER, volume, pitch);
+    static void play(Player player, String id, float volume, float pitch) {
+        play(player, id, SoundSource.MASTER, volume, pitch);
     }
 
-    static void playerToPlayer(Player player, ResourceLocation id, SoundSource source, float volume, float pitch) {
+    static void play(Player player, ResourceLocation id, SoundSource source, float volume, float pitch) {
         player.playNotifySound(getSoundEventOrElseThrow(id), source, volume, pitch);
     }
 
-    static void playerToPlayer(Player player, ResourceLocation id) {
-        playerToPlayer(player, id, SoundSource.MASTER, 1, 1);
+    static void play(Player player, ResourceLocation id) {
+        play(player, id, SoundSource.MASTER, 1, 1);
     }
 
-    static void playerToPlayer(Player player, ResourceLocation id, float volume, float pitch) {
-        playerToPlayer(player, id, SoundSource.MASTER, volume, pitch);
+    static void play(Player player, ResourceLocation id, float volume, float pitch) {
+        play(player, id, SoundSource.MASTER, volume, pitch);
     }
 
 }
