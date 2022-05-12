@@ -12,7 +12,6 @@
     "arnicalib.command.failure.not_dedicated_server": "This command must be executed by the dedicated server",
     "arnicalib.command.failure.get_real_source.reflection": "Failed while using reflection to get real command source",
 
-    "arnicalib.argument.damage_source.invalid": "Invalid damage source \"%s\"",
     "arnicalib.argument.creative_mod_tab.unknown": "Unknown creative mod tab \"%s\"",
     "arnicalib.argument.language_info.unknown": "Unknown language \"%s\"",
 
