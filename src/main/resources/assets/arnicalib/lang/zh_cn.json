@@ -4,6 +4,9 @@
     "itemGroup.arnicalib": "ArnicaLib",
     "itemGroup.vanillaHiddenItems": "原版隐藏物品",
 
+    "arnicalib.advanced_tooltip.nbt": "NBT：",
+    "arnicalib.advanced_tooltip.tag": "标签：",
+
     "arnicalib.command.failure.internal": "试图执行该命令时出现内部错误",
     "arnicalib.command.failure.not_server": "此命令必须由服务器执行",
     "arnicalib.command.failure.not_dedicated_server": "此命令必须由专用服务器执行",

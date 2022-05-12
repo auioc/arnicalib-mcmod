@@ -1,12 +1,13 @@
 package org.auioc.mcmod.arnicalib.client.event.handler;
 
+import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
 import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.StringText;
 import com.mojang.blaze3d.platform.InputConstants;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
 import org.lwjgl.glfw.GLFW;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -23,40 +24,39 @@ public class TooltipEventHandler {
     private static Minecraft mc = Minecraft.getInstance();
 
     public static void handle(ItemTooltipEvent event) {
-        if (!ClientConfig.EnableAdvancedTooltip.get()) {
-            return;
-        }
+        if (!ClientConfig.EnableAdvancedTooltip.get()) return;
 
         ItemStack itemStack = event.getItemStack();
+        if (itemStack.isEmpty()) return;
 
-        if (itemStack.isEmpty()) {
-            return;
-        }
+        var darkGary = Style.EMPTY.withColor(ChatFormatting.DARK_GRAY);
 
         if (itemStack.hasTag()) {
-            CompoundTag nbt = itemStack.getTag();
-            Component nbtTooltip = StringText("NBT:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
-                .append(StringText("").setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)).append(NbtUtils.toPrettyComponent(nbt)));
-            addLine(event, nbtTooltip);
+            addLine(
+                event,
+                I18nText(ArnicaLib.i18n("advanced_tooltip.nbt"))
+                    .setStyle(darkGary)
+                    .append(
+                        StringText("")
+                            .setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE))
+                            .append(NbtUtils.toPrettyComponent(itemStack.getTag()))
+                    )
+            );
         }
 
         var tags = itemStack.getTags().toList();
         if (tags.size() > 0) {
-            addLine(event, StringText("Tags:").setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+            addLine(event, I18nText(ArnicaLib.i18n("advanced_tooltip.tag")).setStyle(darkGary));
             for (TagKey<Item> tag : tags) {
-                addLine(event, StringText("    " + tag.location()).setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY)));
+                addLine(event, StringText("  " + tag.location()).setStyle(darkGary));
             }
         }
 
     }
 
     private static void addLine(ItemTooltipEvent event, Component tooltip) {
-        if (ClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) {
-            return;
-        }
-        if (ClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) {
-            return;
-        }
+        if (ClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
+        if (ClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
         event.getToolTip().add(tooltip);
     }
 

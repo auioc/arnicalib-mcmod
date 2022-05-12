@@ -4,6 +4,9 @@
     "itemGroup.arnicalib": "ArnicaLib",
     "itemGroup.vanillaHiddenItems": "Vanilla Hidden Items",
 
+    "arnicalib.advanced_tooltip.nbt": "NBT: ",
+    "arnicalib.advanced_tooltip.tag": "Tags: ",
+
     "arnicalib.command.failure.internal": "An internal error occurred trying to execute that command",
     "arnicalib.command.failure.not_server": "This command must be executed by the server",
     "arnicalib.command.failure.not_dedicated_server": "This command must be executed by the dedicated server",
