@@ -3,9 +3,6 @@ package org.auioc.mcmod.arnicalib.common.command;
 import com.mojang.brigadier.arguments.ArgumentType;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.common.command.argument.CreativeModeTabArgument;
-import org.auioc.mcmod.arnicalib.common.command.argument.DamageSourceArgument;
-import org.auioc.mcmod.arnicalib.common.command.argument.EntityDamageSourceArgument;
-import org.auioc.mcmod.arnicalib.common.command.argument.IndirectEntityDamageSourceArgument;
 import net.minecraft.commands.synchronization.ArgumentSerializer;
 import net.minecraft.commands.synchronization.ArgumentTypes;
 import net.minecraft.commands.synchronization.EmptyArgumentSerializer;
@@ -17,9 +14,7 @@ public final class AHCommandArguments {
     }
 
     public static void init() {
-        register("damage_source", DamageSourceArgument.class, new EmptyArgumentSerializer<>(DamageSourceArgument::damageSource));
-        register("entity_damage_source", EntityDamageSourceArgument.class, new EmptyArgumentSerializer<>(EntityDamageSourceArgument::damageSource));
-        register("indirect_entity_damage_source", IndirectEntityDamageSourceArgument.class, new EmptyArgumentSerializer<>(IndirectEntityDamageSourceArgument::damageSource));
         register("creative_mode_tab", CreativeModeTabArgument.class, new EmptyArgumentSerializer<>(CreativeModeTabArgument::creativeModeTab));
     }
+
 }
