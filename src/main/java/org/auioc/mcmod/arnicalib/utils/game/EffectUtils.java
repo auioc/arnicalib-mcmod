@@ -44,7 +44,7 @@ public interface EffectUtils {
 
     @Nonnull
     static MobEffect getEffectOrElseThrow(ResourceLocation id) {
-        return Optional.ofNullable(ForgeRegistries.MOB_EFFECTS.getValue(id)).orElseThrow(RegistryEntryException.UNKNOWN_MOB_EFFECT.create(id.toString()));
+        return getEffect(id).orElseThrow(RegistryEntryException.UNKNOWN_MOB_EFFECT.create(id.toString()));
     }
 
     @Nonnull

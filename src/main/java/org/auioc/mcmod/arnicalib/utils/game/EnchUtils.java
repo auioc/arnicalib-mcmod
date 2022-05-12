@@ -8,10 +8,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EnchUtils {
+
     static Enchantment getEnchantment(String id) {
         return ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(id));
     }
-
 
     static void enchantOne(ListTag enchantments, int index, int level) {
         CompoundTag nbt = enchantments.getCompound(index);
