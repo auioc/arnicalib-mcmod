@@ -7,13 +7,13 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinMobEffectInstance;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import org.auioc.mcmod.arnicalib.utils.java.Validate;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -188,6 +188,11 @@ public interface EffectUtils {
             return 0;
         }
         return instance.getAmplifier() + 1;
+    }
+
+    static MobEffectInstance makeIncurable(MobEffectInstance instance) {
+        instance.setCurativeItems(new ArrayList<ItemStack>());
+        return instance;
     }
 
 }
