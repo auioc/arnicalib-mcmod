@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
+    public static final Random RANDOM = new Random();
+
     /*================================================================================================================*/
     // #region PickFromCollection
 
@@ -15,7 +17,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         Validate.notEmpty(collection, "The collection must be not empty");
 
         int size = collection.size();
-        int target = nextInt(0, size);
+        int target = RANDOM.nextInt(size);
         Iterator<T> iterator = collection.iterator();
         for (int i = 0; i < target; i++) {
             iterator.next();
@@ -40,13 +42,13 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         List<T> newList = new ArrayList<T>();
 
         if (N == 1) {
-            newList.add(list.get(nextInt(0, size)));
+            newList.add(list.get(RANDOM.nextInt(size)));
         } else {
             List<Integer> targets = new ArrayList<Integer>();
             for (int i = 0; i < N; i++) {
                 int target;
                 while (true) {
-                    target = nextInt(0, size);
+                    target = RANDOM.nextInt(size);
                     if (!targets.contains(target)) {
                         targets.add(target);
                         break;
@@ -61,7 +63,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     public static <T> T pickOneFromList(List<T> list) {
         Validate.notEmpty(list, "The list must be not empty");
-        return list.get(nextInt(0, list.size()));
+        return list.get(RANDOM.nextInt(list.size()));
     }
 
     // #endregion PickFromCollection
@@ -71,7 +73,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     public static boolean percentageChance(int chance) {
         Validate.isInCloseInterval(0, 100, chance);
-        return nextInt(0, 100) < chance;
+        return RANDOM.nextInt(100) < chance;
     }
 
     public static boolean percentageChance(int chance, Random random) {
@@ -81,7 +83,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     public static boolean fractionChance(int denominator) {
         Validate.isPositive(denominator);
-        return nextInt(0, denominator) == 0;
+        return RANDOM.nextInt(denominator) == 0;
     }
 
     public static boolean fractionChance(int denominator, Random random) {
@@ -91,7 +93,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     public static boolean fractionChance(int numerator, int denominator) {
         Validate.isFractionChance(numerator, denominator);
-        return nextInt(0, denominator) < numerator;
+        return RANDOM.nextInt(denominator) < numerator;
     }
 
     public static boolean fractionChance(int numerator, int denominator, Random random) {
