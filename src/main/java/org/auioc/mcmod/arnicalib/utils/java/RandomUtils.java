@@ -27,7 +27,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         return result;
     }
 
-    public static <T> List<T> pickFromList(List<T> list, int N) {
+    public static <T> List<T> pickFromList(List<T> list, int N, boolean allowRepetitions) {
         Validate.notEmpty(list, "The list must be not empty");
 
         int size = list.size();
@@ -42,28 +42,42 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
         List<T> newList = new ArrayList<T>();
 
         if (N == 1) {
-            newList.add(list.get(RANDOM.nextInt(size)));
+            newList.add(pickOneFromList(list, size));
         } else {
-            List<Integer> targets = new ArrayList<Integer>();
-            for (int i = 0; i < N; i++) {
-                int target;
-                while (true) {
-                    target = RANDOM.nextInt(size);
-                    if (!targets.contains(target)) {
-                        targets.add(target);
-                        break;
-                    }
+            if (allowRepetitions) {
+                for (int i = 0; i < N; i++) {
+                    newList.add(pickOneFromList(list, size));
                 }
-                newList.add(list.get(target));
+            } else {
+                List<Integer> targets = new ArrayList<Integer>();
+                for (int i = 0; i < N; i++) {
+                    int target;
+                    while (true) {
+                        target = RANDOM.nextInt(size);
+                        if (!targets.contains(target)) {
+                            targets.add(target);
+                            break;
+                        }
+                    }
+                    newList.add(list.get(target));
+                }
             }
         }
 
         return newList;
     }
 
+    public static <T> List<T> pickFromList(List<T> list, int N) {
+        return pickFromList(list, N, false);
+    }
+
     public static <T> T pickOneFromList(List<T> list) {
         Validate.notEmpty(list, "The list must be not empty");
         return list.get(RANDOM.nextInt(list.size()));
+    }
+
+    private static <T> T pickOneFromList(List<T> list, int size) {
+        return list.get(RANDOM.nextInt(size));
     }
 
     // #endregion PickFromCollection
