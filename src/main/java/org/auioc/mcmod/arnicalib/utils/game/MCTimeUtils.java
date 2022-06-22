@@ -8,7 +8,8 @@ public interface MCTimeUtils {
     int ticksPerDay = 24000;
     int ticksPerHour = 1000;
     double ticksPerMinute = 1000d / 60d;
-    double ticksPerSecond = 1000d / 60d / 60d;
+    double ticksPerSecond = ticksPerMinute / 60d;
+    double ticksPerMillisecond = ticksPerSecond / 1000d;
 
     static long[] getTime(Level level) {
         return new long[] {level.getDayTime(), level.getGameTime(), System.currentTimeMillis()};
@@ -36,8 +37,8 @@ public interface MCTimeUtils {
         return new int[] {day, hour, min, sec};
     }
 
-    static int getDay(long rawDayTime) {
-        return (((int) (rawDayTime % 2147483647L)) - ticksAtMidnight + ticksPerDay) / ticksPerDay;
+    static int getDay(long dayTime) {
+        return ((int) (dayTime % 2147483647L)) / ticksPerDay;
     }
 
 }
