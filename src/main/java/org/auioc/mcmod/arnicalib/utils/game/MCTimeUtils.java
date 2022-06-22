@@ -24,25 +24,17 @@ public interface MCTimeUtils {
     }
 
     static int[] formatDayTime(long rawDayTime) {
-        // change the server time started with 0 at midnight
-        int dayTime = ((int) (rawDayTime % 2147483647L)) - ticksAtMidnight + ticksPerDay;
+        int dayTime = (int) (rawDayTime % 2147483647L);
 
         int day = dayTime / ticksPerDay;
 
-        /*
-        *    int ticks = dayTime % ticksPerDay;
-        *    int hour = ticks / ticksPerHour;
-        *    ticks -= hour * ticksPerHour;
-        *    int minutes = (int) (ticks / ticksPerMinute);
-        *    ticks -= minutes * ticksPerMinute;
-        *    int seconds = (int) (ticks / ticksPerSecond);
-        */
         int ticks = dayTime - day * ticksPerDay;
-        int hour = (ticks / ticksPerHour) % 24;
+        int hour = (int) (ticks / ticksPerHour + 6) % 24;
         int min = (int) (ticks / ticksPerMinute) % 60;
         int sec = (int) (ticks / ticksPerSecond) % 60;
+        int msec = (int) (ticks / ticksPerMillisecond) % 1000;
 
-        return new int[] {day, hour, min, sec};
+        return new int[] {day, hour, min, sec, msec};
     }
 
     static int getDay(long dayTime) {
