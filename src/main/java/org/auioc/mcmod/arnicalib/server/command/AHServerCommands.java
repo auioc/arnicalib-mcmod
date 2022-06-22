@@ -2,11 +2,11 @@ package org.auioc.mcmod.arnicalib.server.command;
 
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.common.command.impl.VersionCommand;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.common.command.impl.VersionCommand;
 import net.minecraft.commands.CommandSourceStack;
 
 public final class AHServerCommands {
