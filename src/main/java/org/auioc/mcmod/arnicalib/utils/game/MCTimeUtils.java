@@ -4,20 +4,20 @@ import net.minecraft.world.level.Level;
 
 public interface MCTimeUtils {
 
-    int ticksAtSunrise = 23000;
-    int ticksAtDayBegin = 0;
-    int ticksAtDay = 1000;
-    int ticksAtNoon = 6000;
-    int ticksAtSunset = 12000;
-    int ticksAtNight = 13000;
-    int ticksAtMidnight = 18000;
-    int ticksAtDayEnd = 24000;
+    int SUNRISE = 23000;
+    int DAY_BEGIN = 0;
+    int DAY = 1000;
+    int NOON = 6000;
+    int SUNSET = 12000;
+    int NIGHT = 13000;
+    int MIDNIGHT = 18000;
+    int DAY_END = 24000;
 
-    int ticksPerDay = 24000;
-    int ticksPerHour = 1000;
-    double ticksPerMinute = 1000D / 60D;
-    double ticksPerSecond = ticksPerMinute / 60D;
-    double ticksPerMillisecond = ticksPerSecond / 1000D;
+    int TICKS_PER_DAY = 24000;
+    int TICKS_PER_HOUR = 1000;
+    double TICKS_PER_MINUTE = 1000D / 60D;
+    double TICKS_PER_SECOND = TICKS_PER_MINUTE / 60D;
+    double TICKS_PER_MILLISECOND = TICKS_PER_SECOND / 1000D;
 
     static long[] getTime(Level level) {
         return new long[] {level.getDayTime(), level.getGameTime(), System.currentTimeMillis()};
@@ -26,19 +26,19 @@ public interface MCTimeUtils {
     static int[] formatDayTime(long rawDayTime) {
         int dayTime = (int) (rawDayTime % 2147483647L);
 
-        int day = dayTime / ticksPerDay;
+        int day = dayTime / TICKS_PER_DAY;
 
-        int ticks = dayTime - day * ticksPerDay;
-        int hour = (int) (ticks / ticksPerHour + 6) % 24;
-        int min = (int) (ticks / ticksPerMinute) % 60;
-        int sec = (int) (ticks / ticksPerSecond) % 60;
-        int msec = (int) (ticks / ticksPerMillisecond) % 1000;
+        int ticks = dayTime - day * TICKS_PER_DAY;
+        int hour = (int) (ticks / TICKS_PER_HOUR + 6) % 24;
+        int min = (int) (ticks / TICKS_PER_MINUTE) % 60;
+        int sec = (int) (ticks / TICKS_PER_SECOND) % 60;
+        int msec = (int) (ticks / TICKS_PER_MILLISECOND) % 1000;
 
         return new int[] {day, hour, min, sec, msec};
     }
 
     static int getDay(long dayTime) {
-        return ((int) (dayTime % 2147483647L)) / ticksPerDay;
+        return ((int) (dayTime % 2147483647L)) / TICKS_PER_DAY;
     }
 
 }
