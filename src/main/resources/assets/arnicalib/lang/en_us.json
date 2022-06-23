@@ -17,5 +17,10 @@
 
     "arnicalib.command.version.success": "Version: %s (%s)",
     "arnicalib.command.version.failure.zero": "§eCould not read the mod version. §7If this is a development environment you can ignore this message",
-    "arnicalib.command.version.failure.reflection": "Failed while using reflection to get mod version"
+    "arnicalib.command.version.failure.reflection": "Failed while using reflection to get mod version",
+
+    "arnicalib.command.handler_dynamic_loader.failure.class_not_found": "Failed to load class: %s",
+    "arnicalib.command.handler_dynamic_loader.failure.get_method": "Failed to get \"run\" method: %s",
+    "arnicalib.command.handler_dynamic_loader.failure.invoke_method": "Failed to invoke \"run\" method: %s",
+    "arnicalib.command.handler_dynamic_loader.failure.not_cse_thrown": "Command handler throws an exception that is not a CommandSyntaxException: %s"
 }
