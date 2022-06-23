@@ -9,9 +9,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 
-public class CommandHandlerDynamicLoader {
+public class DynamicCommandHandler {
 
-    private static final Marker MARKER = LogUtil.getMarker(CommandHandlerDynamicLoader.class);
+    private static final Marker MARKER = LogUtil.getMarker(DynamicCommandHandler.class);
 
     public static int run(String className, String methodName, CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         try {

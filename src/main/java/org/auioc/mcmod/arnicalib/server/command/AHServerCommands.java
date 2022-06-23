@@ -4,7 +4,7 @@ import static net.minecraft.commands.Commands.literal;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.common.command.impl.VersionCommand;
-import org.auioc.mcmod.arnicalib.utils.game.CommandHandlerDynamicLoader;
+import org.auioc.mcmod.arnicalib.utils.game.DynamicCommandHandler;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
@@ -39,7 +39,7 @@ public final class AHServerCommands {
 
     private static final CommandNode<CommandSourceStack> TEST_NODE = literal("test")
         .executes(
-            (ctx) -> CommandHandlerDynamicLoader.run(
+            (ctx) -> DynamicCommandHandler.run(
                 "org.auioc.mcmod.arnicalib.server.command.TestCommandHandler",
                 "run",
                 ctx
