@@ -13,15 +13,9 @@ public final class AHServerCommands {
 
     public static final CommandNode<CommandSourceStack> NODE = literal(ArnicaLib.MOD_ID).build();
 
-    private static final String TEST_COMMAND_CLASS_NAME = "org.auioc.mcmod.arnicalib.server.command.TestCommandHandler";
-
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         VersionCommand.addVersionNode(NODE, ArnicaLib.class);
-        NODE.addChild(
-            literal("test")
-                .executes((ctx) -> CommandHandlerDynamicLoader.run(TEST_COMMAND_CLASS_NAME, ctx))
-                .build()
-        );
+        NODE.addChild(TEST_NODE);
 
         getAHNode(dispatcher).addChild(NODE);
     }
@@ -42,5 +36,15 @@ public final class AHServerCommands {
     public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
         return getAHNode(dispatcher);
     }
+
+    private static final CommandNode<CommandSourceStack> TEST_NODE = literal("test")
+        .executes(
+            (ctx) -> CommandHandlerDynamicLoader.run(
+                "org.auioc.mcmod.arnicalib.server.command.TestCommandHandler",
+                "run",
+                ctx
+            )
+        )
+        .build();
 
 }

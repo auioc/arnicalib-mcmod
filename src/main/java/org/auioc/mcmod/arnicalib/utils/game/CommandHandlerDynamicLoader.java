@@ -2,7 +2,6 @@ package org.auioc.mcmod.arnicalib.utils.game;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import com.mojang.brigadier.Command;
@@ -14,9 +13,9 @@ public class CommandHandlerDynamicLoader {
 
     private static final Marker MARKER = LogUtil.getMarker(CommandHandlerDynamicLoader.class);
 
-    public static int run(String className, CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+    public static int run(String className, String methodName, CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         try {
-            _run(className, ctx);
+            _run(className, methodName, ctx);
         } catch (Throwable e) {
             if (e instanceof CommandSyntaxException cse) {
                 LOGGER.warn(MARKER, "Command handler " + className + " throws a CommandSyntaxException");
@@ -27,17 +26,17 @@ public class CommandHandlerDynamicLoader {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void _run(String className, CommandContext<CommandSourceStack> ctx) throws Throwable {
+    private static void _run(String className, String methodName, CommandContext<CommandSourceStack> ctx) throws Throwable {
         try {
-            Class<?> clazz = Class.forName(className);
-            Method runMethod = clazz.getMethod("run", CommandContext.class);
-            runMethod.invoke(null, ctx);
+            Class.forName(className)
+                .getMethod(methodName, CommandContext.class)
+                .invoke(null, ctx);
         } catch (ClassNotFoundException e) {
             rethrow(e, "Cannot load class");
         } catch (NoSuchMethodException | SecurityException e) {
-            rethrow(e, "Cannot get \"run\" method");
+            rethrow(e, "Cannot get method");
         } catch (IllegalAccessException | IllegalArgumentException e) {
-            rethrow(e, "Cannot invoke \"run\" method");
+            rethrow(e, "Cannot invoke method");
         } catch (InvocationTargetException e) {
             if (e.getTargetException() instanceof CommandSyntaxException cse) {
                 throw cse;
