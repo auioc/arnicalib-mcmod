@@ -5,12 +5,12 @@ import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCommandSourceStack;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.context.ParsedCommandNode;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCommandSourceStack;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
@@ -20,6 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public interface CommandUtils {
 
     SimpleCommandExceptionType INTERNAL_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.internal")));
+    SimpleCommandExceptionType LOGGABLE_INTERNAL_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.internal.loggable")));
     SimpleCommandExceptionType NOT_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_server")));
     SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_dedicated_server")));
     SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.get_real_source.reflection")));

@@ -8,6 +8,7 @@
     "arnicalib.advanced_tooltip.tag": "标签：",
 
     "arnicalib.command.failure.internal": "试图执行该命令时出现内部错误",
+    "arnicalib.command.failure.internal.loggable": "试图执行该命令时出现内部错误，详情请查看日志",
     "arnicalib.command.failure.not_server": "此命令必须由服务器执行",
     "arnicalib.command.failure.not_dedicated_server": "此命令必须由专用服务器执行",
     "arnicalib.command.failure.get_real_source.reflection": "使用反射获取真实命令源失败",
