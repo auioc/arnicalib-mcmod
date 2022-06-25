@@ -17,12 +17,12 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public interface EntityUtils {
+public class EntityUtils {
 
     /*================================================================================================================*/
     // #region RayTrace
 
-    static Vec3[] getEntityViewRay(Entity entity, double rayLength) {
+    public static Vec3[] getEntityViewRay(Entity entity, double rayLength) {
         Vec3 entityViewVector = entity.getViewVector(1.0F);
         Vec3 rayPath = entityViewVector.scale(rayLength);
         Vec3 from = entity.getEyePosition(1.0F);
@@ -31,7 +31,7 @@ public interface EntityUtils {
     }
 
     @Nullable
-    static EntityHitResult getEntityHitResult(Level level, Entity entity, Vec3 from, Vec3 to, AABB aabb, Predicate<Entity> predicate, float pickRadiusAddition) {
+    public static EntityHitResult getEntityHitResult(Level level, Entity entity, Vec3 from, Vec3 to, AABB aabb, Predicate<Entity> predicate, float pickRadiusAddition) {
         double d0 = Double.MAX_VALUE;
         Entity targetEntity = null;
 
@@ -52,14 +52,14 @@ public interface EntityUtils {
 
 
 
-    static BlockHitResult getBlockHitResult(Entity entity, double rayLength, ClipContext.Block blockMode, ClipContext.Fluid fluidMode) {
+    public static BlockHitResult getBlockHitResult(Entity entity, double rayLength, ClipContext.Block blockMode, ClipContext.Fluid fluidMode) {
         Vec3[] viewRay = getEntityViewRay(entity, rayLength);
         ClipContext rayCtx = new ClipContext(viewRay[0], viewRay[1], blockMode, fluidMode, entity);
         return entity.level.clip(rayCtx);
     }
 
     @Nullable
-    static EntityHitResult getEntityHitResult(Entity entity, double rayLength, float pickRadiusAddition, boolean blockMode) {
+    public static EntityHitResult getEntityHitResult(Entity entity, double rayLength, float pickRadiusAddition, boolean blockMode) {
         Vec3[] viewRay = getEntityViewRay(entity, rayLength);
 
         Vec3 to = viewRay[1];
@@ -76,27 +76,27 @@ public interface EntityUtils {
 
 
     @Nullable
-    static EntityHitResult getEntityHitResult(Entity entity, Vec3 from, Vec3 to, float pickRadiusAddition) {
+    public static EntityHitResult getEntityHitResult(Entity entity, Vec3 from, Vec3 to, float pickRadiusAddition) {
         return getEntityHitResult(entity.level, entity, from, to, entity.getBoundingBox().expandTowards(to).inflate(1.0D), EntitySelector.NO_SPECTATORS, pickRadiusAddition);
     }
 
     @Nullable
-    static EntityHitResult getEntityHitResult(Entity entity, Vec3 from, Vec3 to) {
+    public static EntityHitResult getEntityHitResult(Entity entity, Vec3 from, Vec3 to) {
         return getEntityHitResult(entity, from, to, 0.0F);
     }
 
 
-    static BlockHitResult getBlockHitResult(Entity entity, double rayLength) {
+    public static BlockHitResult getBlockHitResult(Entity entity, double rayLength) {
         return getBlockHitResult(entity, rayLength, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY);
     }
 
-    static EntityHitResult getEntityHitResult(Entity entity, double rayLength) {
+    public static EntityHitResult getEntityHitResult(Entity entity, double rayLength) {
         return getEntityHitResult(entity, rayLength, 0.0F, false);
     }
 
 
 
-    static int rayHitEntityOrBlockOrMiss(
+    public static int rayHitEntityOrBlockOrMiss(
         Entity entity, double rayLength,
         float pickRadiusAddition, ClipContext.Block blockMode, ClipContext.Fluid fluidMode,
         Function<EntityHitResult, Integer> e, Function<BlockHitResult, Integer> b, Function<BlockHitResult, Integer> m
@@ -114,11 +114,11 @@ public interface EntityUtils {
         }
     }
 
-    static int rayHitEntityOrBlock(Entity entity, double rayLength, Function<EntityHitResult, Integer> e, Function<BlockHitResult, Integer> b) {
+    public static int rayHitEntityOrBlock(Entity entity, double rayLength, Function<EntityHitResult, Integer> e, Function<BlockHitResult, Integer> b) {
         return rayHitEntityOrBlockOrMiss(entity, rayLength, 0.0F, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, e, b, m -> 0);
     }
 
-    static int rayHitLivingEntityOrBlock(Entity entity, double rayLength, Function<EntityHitResult, Integer> e, Function<BlockHitResult, Integer> b) {
+    public static int rayHitLivingEntityOrBlock(Entity entity, double rayLength, Function<EntityHitResult, Integer> e, Function<BlockHitResult, Integer> b) {
         return rayHitEntityOrBlock(
             entity, rayLength,
             (r) -> {
@@ -136,34 +136,34 @@ public interface EntityUtils {
     /*================================================================================================================*/
     // #region Predicates
 
-    Predicate<Entity> IS_LIVING = (entity) -> entity instanceof LivingEntity;
-    Predicate<Entity> IS_PLAYER = (entity) -> entity instanceof net.minecraft.world.entity.player.Player;
-    Predicate<Entity> IS_LOCAL_PLAYER = (entity) -> entity instanceof net.minecraft.client.player.LocalPlayer;
-    Predicate<Entity> IS_SERVER_PLAYER = (entity) -> entity instanceof net.minecraft.server.level.ServerPlayer;
-    Predicate<Entity> IS_FAKE_PLAYER = (entity) -> entity instanceof net.minecraftforge.common.util.FakePlayer;
-    Predicate<Entity> IS_PROJECTILE = (entity) -> entity instanceof net.minecraft.world.entity.projectile.Projectile;
+    public static final Predicate<Entity> IS_LIVING = (entity) -> entity instanceof LivingEntity;
+    public static final Predicate<Entity> IS_PLAYER = (entity) -> entity instanceof net.minecraft.world.entity.player.Player;
+    public static final Predicate<Entity> IS_LOCAL_PLAYER = (entity) -> entity instanceof net.minecraft.client.player.LocalPlayer;
+    public static final Predicate<Entity> IS_SERVER_PLAYER = (entity) -> entity instanceof net.minecraft.server.level.ServerPlayer;
+    public static final Predicate<Entity> IS_FAKE_PLAYER = (entity) -> entity instanceof net.minecraftforge.common.util.FakePlayer;
+    public static final Predicate<Entity> IS_PROJECTILE = (entity) -> entity instanceof net.minecraft.world.entity.projectile.Projectile;
 
-    static MobCategory getCategory(Entity entity) {
+    public static MobCategory getCategory(Entity entity) {
         return entity.getType().getCategory();
     }
 
-    Predicate<Entity> IS_FRIENDLY = (entity) -> getCategory(entity).isFriendly();
-    Predicate<Entity> IS_PERSISTENT = (entity) -> getCategory(entity).isPersistent();
-    Predicate<Entity> IS_MISC = (entity) -> getCategory(entity) == MobCategory.MISC;
-    Predicate<Entity> IS_MONSTER = (entity) -> getCategory(entity) == MobCategory.MONSTER;
-    Predicate<Entity> IS_CREATURE = (entity) -> getCategory(entity) == MobCategory.CREATURE;
-    Predicate<Entity> IS_AMBIENT = (entity) -> getCategory(entity) == MobCategory.AMBIENT;
-    Predicate<Entity> IS_AXOLOTLS = (entity) -> getCategory(entity) == MobCategory.AXOLOTLS;
-    Predicate<Entity> IS_UNDERGROUND_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.UNDERGROUND_WATER_CREATURE;
-    Predicate<Entity> IS_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.WATER_CREATURE;
-    Predicate<Entity> IS_WATER_AMBIENT = (entity) -> getCategory(entity) == MobCategory.WATER_AMBIENT;
+    public static final Predicate<Entity> IS_FRIENDLY = (entity) -> getCategory(entity).isFriendly();
+    public static final Predicate<Entity> IS_PERSISTENT = (entity) -> getCategory(entity).isPersistent();
+    public static final Predicate<Entity> IS_MISC = (entity) -> getCategory(entity) == MobCategory.MISC;
+    public static final Predicate<Entity> IS_MONSTER = (entity) -> getCategory(entity) == MobCategory.MONSTER;
+    public static final Predicate<Entity> IS_CREATURE = (entity) -> getCategory(entity) == MobCategory.CREATURE;
+    public static final Predicate<Entity> IS_AMBIENT = (entity) -> getCategory(entity) == MobCategory.AMBIENT;
+    public static final Predicate<Entity> IS_AXOLOTLS = (entity) -> getCategory(entity) == MobCategory.AXOLOTLS;
+    public static final Predicate<Entity> IS_UNDERGROUND_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.UNDERGROUND_WATER_CREATURE;
+    public static final Predicate<Entity> IS_WATER_CREATURE = (entity) -> getCategory(entity) == MobCategory.WATER_CREATURE;
+    public static final Predicate<Entity> IS_WATER_AMBIENT = (entity) -> getCategory(entity) == MobCategory.WATER_AMBIENT;
 
-    Predicate<LivingEntity> IS_UNDEFINED = (living) -> living.getMobType() == MobType.UNDEFINED;
-    Predicate<LivingEntity> IS_DEFINED = (living) -> living.getMobType() != MobType.UNDEFINED;
-    Predicate<LivingEntity> IS_UNDEAD = (living) -> living.getMobType() == MobType.UNDEAD;
-    Predicate<LivingEntity> IS_ARTHROPOD = (living) -> living.getMobType() == MobType.ARTHROPOD;
-    Predicate<LivingEntity> IS_ILLAGER = (living) -> living.getMobType() == MobType.ILLAGER;
-    Predicate<LivingEntity> IS_WATER = (living) -> living.getMobType() == MobType.WATER;
+    public static final Predicate<LivingEntity> IS_UNDEFINED = (living) -> living.getMobType() == MobType.UNDEFINED;
+    public static final Predicate<LivingEntity> IS_DEFINED = (living) -> living.getMobType() != MobType.UNDEFINED;
+    public static final Predicate<LivingEntity> IS_UNDEAD = (living) -> living.getMobType() == MobType.UNDEAD;
+    public static final Predicate<LivingEntity> IS_ARTHROPOD = (living) -> living.getMobType() == MobType.ARTHROPOD;
+    public static final Predicate<LivingEntity> IS_ILLAGER = (living) -> living.getMobType() == MobType.ILLAGER;
+    public static final Predicate<LivingEntity> IS_WATER = (living) -> living.getMobType() == MobType.WATER;
 
     // #endregion Predicates
 
