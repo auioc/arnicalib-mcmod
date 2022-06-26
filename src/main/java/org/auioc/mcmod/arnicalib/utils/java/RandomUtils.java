@@ -117,4 +117,17 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     // #endregion Chance
 
+    /*================================================================================================================*/
+    // #region Signum
+
+    public static int nextSignum() {
+        return RANDOM.nextBoolean() ? 1 : -1;
+    }
+
+    public static int nextSignum(Random random) {
+        return random.nextBoolean() ? 1 : -1;
+    }
+
+    // #endregion Signum
+
 }
