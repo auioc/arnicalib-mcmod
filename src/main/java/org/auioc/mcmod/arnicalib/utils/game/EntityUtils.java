@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,6 +19,15 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class EntityUtils {
+
+    /*================================================================================================================*/
+    // #region Teleport
+
+    public static void teleportTo(Entity entity, BlockPos pos) {
+        entity.teleportTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+    }
+
+    // #endregion Teleport
 
     /*================================================================================================================*/
     // #region RayTrace
