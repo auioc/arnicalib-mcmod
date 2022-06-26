@@ -130,4 +130,41 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     // #endregion Signum
 
+    /*================================================================================================================*/
+    // #region Offset
+
+    public static int offset(int bound, Random random) {
+        return random.nextInt(bound) * nextSignum(random);
+    }
+
+    public static long offset(long bound, Random random) {
+        return random.nextLong(bound) * nextSignum(random);
+    }
+
+    public static float offset(float bound, Random random) {
+        return random.nextFloat(bound) * nextSignum(random);
+    }
+
+    public static double offset(double bound, Random random) {
+        return random.nextDouble(bound) * nextSignum(random);
+    }
+
+    public static int offset(int bound) {
+        return RANDOM.nextInt(bound) * nextSignum();
+    }
+
+    public static long offset(long bound) {
+        return RANDOM.nextLong(bound) * nextSignum();
+    }
+
+    public static float offset(float bound) {
+        return RANDOM.nextFloat(bound) * nextSignum();
+    }
+
+    public static double offset(double bound) {
+        return RANDOM.nextDouble(bound) * nextSignum();
+    }
+
+    // #endregion Offset
+
 }
