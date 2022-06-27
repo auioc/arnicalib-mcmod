@@ -1,6 +1,9 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 
 public interface AABBUtils {
@@ -19,6 +22,18 @@ public interface AABBUtils {
 
     static AABB moveTo(AABB aabb, BlockPos pos) {
         return moveTo(aabb, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+    }
+
+    static boolean isEmpty(AABB aabb, Level level) {
+        return level.getBlockStates(aabb).allMatch(BlockState::isAir);
+    }
+
+    static boolean containsSolid(AABB aabb, Level level) {
+        return level.getBlockStates(aabb).map(BlockState::getMaterial).anyMatch(Material::isSolid);
+    }
+
+    static boolean containsLiquid(AABB aabb, Level level) {
+        return level.getBlockStates(aabb).map(BlockState::getMaterial).anyMatch(Material::isLiquid);
     }
 
 }
