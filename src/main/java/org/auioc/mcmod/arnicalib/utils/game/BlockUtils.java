@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface BlockUtils {
 
-    static boolean canStandOnSafely(BlockState blockStats) {
+    static boolean canStandOn(BlockState blockStats) {
         return blockStats.getMaterial().blocksMotion();
     }
 

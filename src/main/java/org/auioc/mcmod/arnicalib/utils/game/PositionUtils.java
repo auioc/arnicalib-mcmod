@@ -16,12 +16,12 @@ public interface PositionUtils {
             && pos.getY() >= level.getMinBuildHeight();
     }
 
-    static boolean canStandSafely(BlockPos pos, Level level) {
-        return BlockUtils.canStandOnSafely(level.getBlockState(pos.below()));
+    static boolean canStandOn(BlockPos pos, Level level) {
+        return BlockUtils.canStandOn(level.getBlockState(pos));
     }
 
-    static boolean canStandOnSafely(BlockPos pos, Level level) {
-        return BlockUtils.canStandOnSafely(level.getBlockState(pos));
+    static boolean canStand(BlockPos pos, Level level) {
+        return canStandOn(pos.below(), level);
     }
 
     static Vec3i random(Vec3i center, int radius, Random random) {
@@ -43,7 +43,7 @@ public interface PositionUtils {
     }
 
     static BlockPos random(BlockPos center, int radius, Random random) {
-        return new BlockPos(random(center, radius, random));
+        return new BlockPos(random((Vec3i) center, radius, random));
     }
 
 }
