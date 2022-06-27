@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,8 +23,12 @@ public class EntityUtils {
     /*================================================================================================================*/
     // #region Teleport
 
-    public static void teleportTo(Entity entity, BlockPos pos) {
+    public static void teleportTo(Entity entity, Vec3i pos) {
         entity.teleportTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+    }
+
+    public static void teleportTo(Entity entity, Vec3 pos) {
+        entity.teleportTo(pos.x, pos.y, pos.z);
     }
 
     // #endregion Teleport
