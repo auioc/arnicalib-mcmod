@@ -1,8 +1,12 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.Random;
+import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.api.java.exception.HException;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -22,6 +26,30 @@ public interface PositionUtils {
 
     static boolean canStand(BlockPos pos, Level level) {
         return canStandOn(pos.below(), level);
+    }
+
+    static int findStandableY(Level level, int x, int z, int minY, int maxY) throws HException {
+        minY = Math.max(minY, level.getMinBuildHeight());
+        maxY = Math.min(maxY, level.getMaxBuildHeight() - 1);
+        var pos = new MutableBlockPos(x, maxY, z);
+        while (true) {
+            if (PositionUtils.canStand(pos, level)) {
+                return pos.getY();
+            }
+            if (pos.getY() > minY) {
+                pos.move(Direction.DOWN);
+            } else {
+                throw new HException();
+            }
+        }
+    }
+
+    static int findStandableY(Level level, int x, int z) throws Exception {
+        return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
+    }
+
+    static MutableBlockPos setToStandableY(MutableBlockPos pos, @Nullable Integer minY, Level level) throws HException {
+        return pos.setY(findStandableY(level, pos.getX(), pos.getZ(), minY, pos.getY()));
     }
 
     static Vec3i random(Vec3i center, int radius, Random random) {
