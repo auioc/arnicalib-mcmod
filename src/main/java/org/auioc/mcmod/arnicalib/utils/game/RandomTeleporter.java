@@ -23,7 +23,7 @@ public class RandomTeleporter {
         throw new HException();
     }
 
-    public static boolean safeTeleport(LivingEntity living, BlockPos center, int radius, boolean surface, int maxTries) {
+    public static boolean teleport(LivingEntity living, BlockPos center, int radius, boolean surface, int maxTries) {
         if (living.level.isClientSide) return false;
 
         for (int t = 0; t < maxTries; t++) {
@@ -37,16 +37,16 @@ public class RandomTeleporter {
         return false;
     }
 
-    public static boolean safeTeleport(LivingEntity living, int radius, int maxTries) {
-        return safeTeleport(living, living.blockPosition(), radius, false, maxTries);
+    public static boolean teleport(LivingEntity living, int radius, int maxTries) {
+        return teleport(living, living.blockPosition(), radius, false, maxTries);
     }
 
-    public static void unsafeTeleport(LivingEntity living, Vec3 center, double radius) {
+    public static void teleportUnsafe(LivingEntity living, Vec3 center, double radius) {
         EntityUtils.teleportTo(living, PositionUtils.random(center, radius, living.getRandom()));
     }
 
-    public static void unsafeTeleport(LivingEntity living, double radius) {
-        unsafeTeleport(living, living.position(), radius);
+    public static void teleportUnsafe(LivingEntity living, double radius) {
+        teleportUnsafe(living, living.position(), radius);
     }
 
 }
