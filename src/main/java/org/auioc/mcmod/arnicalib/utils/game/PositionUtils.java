@@ -1,7 +1,6 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.Random;
-import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.api.java.exception.HException;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import net.minecraft.core.BlockPos;
@@ -44,12 +43,8 @@ public interface PositionUtils {
         }
     }
 
-    static int findStandableY(Level level, int x, int z) throws Exception {
+    static int findStandableY(Level level, int x, int z) throws HException {
         return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
-    }
-
-    static MutableBlockPos setToStandableY(MutableBlockPos pos, @Nullable Integer minY, Level level) throws HException {
-        return pos.setY(findStandableY(level, pos.getX(), pos.getZ(), minY, pos.getY()));
     }
 
     static Vec3i random(Vec3i center, int radius, Random random) {
