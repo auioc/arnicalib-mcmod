@@ -148,9 +148,10 @@ public class EntityUtils {
     // #endregion RayTrace
 
     /*================================================================================================================*/
-    // #region Predicates
+    // #region PredicatesFunctions
 
     public static final Predicate<Entity> IS_LIVING = (entity) -> entity instanceof LivingEntity;
+    public static final Function<Entity, LivingEntity> CAST_TO_LIVING = (entity) -> (LivingEntity) entity;
     public static final Predicate<Entity> IS_PLAYER = (entity) -> entity instanceof net.minecraft.world.entity.player.Player;
     public static final Predicate<Entity> IS_LOCAL_PLAYER = (entity) -> entity instanceof net.minecraft.client.player.LocalPlayer;
     public static final Predicate<Entity> IS_SERVER_PLAYER = (entity) -> entity instanceof net.minecraft.server.level.ServerPlayer;
@@ -179,6 +180,6 @@ public class EntityUtils {
     public static final Predicate<LivingEntity> IS_ILLAGER = (living) -> living.getMobType() == MobType.ILLAGER;
     public static final Predicate<LivingEntity> IS_WATER = (living) -> living.getMobType() == MobType.WATER;
 
-    // #endregion Predicates
+    // #endregion PredicatesFunctions
 
 }
