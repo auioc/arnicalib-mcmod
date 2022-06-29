@@ -4,6 +4,7 @@ import static org.auioc.mcmod.arnicalib.ArnicaLib.i18n;
 import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCommandSourceStack;
 import com.mojang.brigadier.context.CommandContext;
@@ -24,6 +25,12 @@ public interface CommandUtils {
     SimpleCommandExceptionType NOT_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_server")));
     SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_dedicated_server")));
     SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.get_real_source.reflection")));
+
+    Predicate<CommandSourceStack> PERMISSION_LEVEL_0 = (source) -> source.hasPermission(0);
+    Predicate<CommandSourceStack> PERMISSION_LEVEL_1 = (source) -> source.hasPermission(1);
+    Predicate<CommandSourceStack> PERMISSION_LEVEL_2 = (source) -> source.hasPermission(2);
+    Predicate<CommandSourceStack> PERMISSION_LEVEL_3 = (source) -> source.hasPermission(3);
+    Predicate<CommandSourceStack> PERMISSION_LEVEL_4 = (source) -> source.hasPermission(4);
 
     /**
      * @param sourceStack
