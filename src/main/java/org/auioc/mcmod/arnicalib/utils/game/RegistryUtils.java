@@ -6,18 +6,14 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import org.auioc.mcmod.arnicalib.api.game.registry.IHRegistry;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
 
 public class RegistryUtils {
 
     private RegistryUtils() {}
-
-    public static final Predicate<ForgeRegistryEntry<?>> IS_VANILLA = (entry) -> entry.getRegistryName().getNamespace().equals("minecraft");
 
     public static <T extends IForgeRegistryEntry<T>> List<T> getAllRegistryObjects(DeferredRegister<T> deferredRegister) {
         return deferredRegister.getEntries().stream().map(RegistryObject::get).toList();

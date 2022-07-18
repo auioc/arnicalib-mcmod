@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.common.itemgroup.impl;
 
 import org.auioc.mcmod.arnicalib.utils.game.ItemUtils;
-import org.auioc.mcmod.arnicalib.utils.game.RegistryUtils;
+import org.auioc.mcmod.arnicalib.utils.game.VanillaPredicates;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +25,7 @@ public class TabVanillaHiddenItems extends CreativeModeTab {
             .stream()
             .filter(ItemUtils.IS_AIR.negate())
             .filter(ItemUtils.IS_CATEGORIZED.negate())
-            .filter(RegistryUtils.IS_VANILLA)
+            .filter(VanillaPredicates.REGISTRY_ENTRY)
             .map(ItemStack::new)
             .forEach(list::add);
     }

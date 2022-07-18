@@ -5,11 +5,11 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
+import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
-import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
@@ -54,7 +54,7 @@ public interface ItemUtils {
         return getRegistryName(itemStack.getItem());
     }
 
-    Predicate<ItemStack> IS_VANILLA_ITEM = (itemStack) -> RegistryUtils.IS_VANILLA.test(itemStack.getItem());
+    Predicate<ItemStack> IS_VANILLA_ITEM = (itemStack) -> VanillaPredicates.REGISTRY_ENTRY.test(itemStack.getItem());
     Predicate<Item> IS_AIR = (item) -> item == Items.AIR;
     Predicate<Item> IS_CATEGORIZED = (item) -> item.getItemCategory() != null;
 
