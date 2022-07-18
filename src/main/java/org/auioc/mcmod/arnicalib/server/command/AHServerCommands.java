@@ -4,6 +4,7 @@ import static net.minecraft.commands.Commands.literal;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.common.command.impl.VersionCommand;
+import org.auioc.mcmod.arnicalib.server.command.impl.RtpCommand;
 import org.auioc.mcmod.arnicalib.utils.game.DynamicCommandHandler;
 import org.auioc.mcmod.arnicalib.utils.game.EnvironmentUtils;
 import com.mojang.brigadier.CommandDispatcher;
@@ -16,6 +17,7 @@ public final class AHServerCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         VersionCommand.addVersionNode(NODE, ArnicaLib.class);
+        NODE.addChild(RtpCommand.NODE);
         if (EnvironmentUtils.isDev()) addTestNode(NODE);
 
         getAHNode(dispatcher).addChild(NODE);
