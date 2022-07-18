@@ -34,14 +34,16 @@ public interface EnchUtils {
 
 
     static CompoundTag getHighestEnchantment(ListTag enchantments) {
-        int highestIndex = 0;
-        int highestLevel = 0;
+        int index = 0;
+        short highestLevel = 0;
         for (int i = 0, l = enchantments.size(); i < l; i++) {
-            if (enchantments.getCompound(i).getShort("lvl") > highestLevel) {
-                highestIndex = i;
+            short lvl = enchantments.getCompound(i).getShort("lvl");
+            if (lvl > highestLevel) {
+                index = i;
+                highestLevel = lvl;
             }
         }
-        return enchantments.getCompound(highestIndex);
+        return enchantments.getCompound(index);
     }
 
     static boolean isOverLimit(ListTag enchantments) {
