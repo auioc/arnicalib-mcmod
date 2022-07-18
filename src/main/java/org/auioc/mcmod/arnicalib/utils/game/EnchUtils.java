@@ -1,6 +1,9 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import java.util.Optional;
+import javax.annotation.Nonnull;
 import org.apache.commons.lang3.RandomUtils;
+import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -9,9 +12,26 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EnchUtils {
 
-    static Enchantment getEnchantment(String id) {
-        return ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(id));
+    @Nonnull
+    static Optional<Enchantment> getEnchantment(ResourceLocation id) {
+        return Optional.ofNullable(ForgeRegistries.ENCHANTMENTS.containsKey(id) ? ForgeRegistries.ENCHANTMENTS.getValue(id) : null);
     }
+
+    @Nonnull
+    static Optional<Enchantment> getEnchantment(String id) {
+        return getEnchantment(new ResourceLocation(id));
+    }
+
+    @Nonnull
+    static Enchantment getEnchantmentOrElseThrow(ResourceLocation id) {
+        return getEnchantment(id).orElseThrow(RegistryEntryException.UNKNOWN_ENCHANTMENT.create(id.toString()));
+    }
+
+    @Nonnull
+    static Enchantment getEnchantmentOrElseThrow(String id) {
+        return getEnchantment(id).orElseThrow(RegistryEntryException.UNKNOWN_ENCHANTMENT.create(id.toString()));
+    }
+
 
     static void enchantOne(ListTag enchantments, int index, int level) {
         CompoundTag nbt = enchantments.getCompound(index);
@@ -49,7 +69,7 @@ public interface EnchUtils {
     static boolean isOverLimit(ListTag enchantments) {
         for (int i = 0, l = enchantments.size(); i < l; i++) {
             CompoundTag ench = enchantments.getCompound(i);
-            if (ench.getShort("lvl") > (EnchUtils.getEnchantment(ench.getString("id"))).getMaxLevel()) {
+            if (ench.getShort("lvl") > (getEnchantmentOrElseThrow(ench.getString("id"))).getMaxLevel()) {
                 return true;
             }
         }

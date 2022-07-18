@@ -10,6 +10,7 @@ public class RegistryEntryException extends RuntimeException {
     public static final ThrowableSupplier<RegistryEntryException> UNKNOWN_MOB_EFFECT = (id) -> () -> new Unknown("mob effect", id);
     public static final ThrowableSupplier<RegistryEntryException> UNKNOWN_POTION = (id) -> () -> new Unknown("potion", id);
     public static final ThrowableSupplier<RegistryEntryException> UNKNOWN_SOUND_EVENT = (id) -> () -> new Unknown("sound event", id);
+    public static final ThrowableSupplier<RegistryEntryException> UNKNOWN_ENCHANTMENT = (id) -> () -> new Unknown("enchantment", id);
 
     public RegistryEntryException(String message) {
         super(message);
