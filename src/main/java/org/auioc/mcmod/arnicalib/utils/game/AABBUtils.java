@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -16,11 +17,15 @@ public interface AABBUtils {
         );
     }
 
+    static AABB moveTo(AABB aabb, Position pos) {
+        return moveTo(aabb, pos.x(), pos.y(), pos.z());
+    }
+
     static AABB moveTo(AABB aabb, int x, int y, int z) {
         return moveTo(aabb, x + 0.5D, y, x + 0.5D);
     }
 
-    static AABB moveTo(AABB aabb, BlockPos pos) {
+    static AABB moveTo(AABB aabb, Vec3i pos) {
         return moveTo(aabb, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
     }
 
