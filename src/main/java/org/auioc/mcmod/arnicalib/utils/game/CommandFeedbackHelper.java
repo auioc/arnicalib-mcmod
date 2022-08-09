@@ -8,6 +8,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public class CommandFeedbackHelper {
@@ -31,8 +32,11 @@ public class CommandFeedbackHelper {
         this(EmptyText(), i18n);
     }
 
+    public MutableComponent createMessage(MessageType type, Component message) {
+        return EmptyText().append(this.prefix).append(message);
+    }
 
-    private MutableComponent createMessage(MessageType type, String key, @Nullable String subKey, Object... args) {
+    public MutableComponent createMessage(MessageType type, String key, @Nullable String subKey, Object... args) {
         var sb = new StringBuilder(5);
         {
             sb.append("command.");
