@@ -33,12 +33,12 @@ public class CommandFeedbackHelper {
     }
 
 
-    public MutableComponent createMessage(MessageType type, Component message) {
+    public MutableComponent createMessage(Component message) {
         return EmptyText().append(this.prefix).append(message);
     }
 
     public MutableComponent createMessage(String key, Object... args) {
-        return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply(key), args));
+        return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply("command." + key), args));
     }
 
     public MutableComponent createMessage(String key) {
