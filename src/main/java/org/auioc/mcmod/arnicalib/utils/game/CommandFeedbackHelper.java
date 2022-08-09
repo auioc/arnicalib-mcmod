@@ -32,8 +32,17 @@ public class CommandFeedbackHelper {
         this(EmptyText(), i18n);
     }
 
+
     public MutableComponent createMessage(MessageType type, Component message) {
         return EmptyText().append(this.prefix).append(message);
+    }
+
+    public MutableComponent createMessage(String key, Object... args) {
+        return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply(key), args));
+    }
+
+    public MutableComponent createMessage(String key) {
+        return createMessage(key, NO_ARGS);
     }
 
     public MutableComponent createMessage(MessageType type, String key, @Nullable String subKey, Object... args) {
@@ -49,6 +58,7 @@ public class CommandFeedbackHelper {
         }
         return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply(sb.toString()), args));
     }
+
 
     public int sendMessage(CommandContext<CommandSourceStack> ctx, MessageType type, String key, @Nullable String subKey, @Nullable Object[] args, @Nullable ChatFormatting[] styles) {
         if (args == null) args = NO_ARGS;
