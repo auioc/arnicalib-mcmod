@@ -10,12 +10,12 @@ public class ClientConfig {
 
     public static final ForgeConfigSpec CONFIG;
 
-    public static BooleanValue EnableAdvancedTooltip;
-    public static BooleanValue AdvancedTooltipOnlyOnDebug;
-    public static BooleanValue AdvancedTooltipOnlyOnShift;
+    public static final BooleanValue EnableAdvancedTooltip;
+    public static final BooleanValue AdvancedTooltipOnlyOnDebug;
+    public static final BooleanValue AdvancedTooltipOnlyOnShift;
 
     static {
-        ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
+        final ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
         {
             b.push("advanced_tooltip");
