@@ -41,4 +41,25 @@ public interface AABBUtils {
         return level.getBlockStates(aabb).map(BlockState::getMaterial).anyMatch(Material::isLiquid);
     }
 
+    static double[][] getEdges(AABB aabb) {
+        return new double[][] {
+            {aabb.minX, aabb.minY, aabb.minZ, aabb.minX, aabb.minY, aabb.maxZ},
+            {aabb.minX, aabb.minY, aabb.minZ, aabb.maxX, aabb.minY, aabb.minZ},
+            {aabb.minX, aabb.minY, aabb.minZ, aabb.minX, aabb.maxY, aabb.minZ},
+
+            {aabb.maxX, aabb.maxY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ},
+            {aabb.minX, aabb.maxY, aabb.maxZ, aabb.maxX, aabb.maxY, aabb.maxZ},
+            {aabb.maxX, aabb.minY, aabb.maxZ, aabb.maxX, aabb.maxY, aabb.maxZ},
+
+            {aabb.minX, aabb.minY, aabb.maxZ, aabb.maxX, aabb.minY, aabb.maxZ},
+
+            {aabb.minX, aabb.maxY, aabb.minZ, aabb.minX, aabb.maxY, aabb.maxZ},
+            {aabb.minX, aabb.maxY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.minZ},
+
+            {aabb.maxX, aabb.minY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.minZ},
+
+            {aabb.maxX, aabb.minY, aabb.maxZ, aabb.maxX, aabb.minY, aabb.minZ},
+            {aabb.minX, aabb.minY, aabb.maxZ, aabb.minX, aabb.maxY, aabb.maxZ},
+        };
+    }
 }
