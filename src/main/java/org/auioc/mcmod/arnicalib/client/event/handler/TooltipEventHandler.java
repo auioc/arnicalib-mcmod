@@ -2,10 +2,10 @@ package org.auioc.mcmod.arnicalib.client.event.handler;
 
 import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
 import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.StringText;
-import com.mojang.blaze3d.platform.InputConstants;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
 import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NbtUtils;
@@ -25,6 +25,8 @@ public class TooltipEventHandler {
 
     public static void handle(ItemTooltipEvent event) {
         if (!ClientConfig.EnableAdvancedTooltip.get()) return;
+        if (ClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
+        if (ClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
 
         ItemStack itemStack = event.getItemStack();
         if (itemStack.isEmpty()) return;
@@ -55,8 +57,6 @@ public class TooltipEventHandler {
     }
 
     private static void addLine(ItemTooltipEvent event, Component tooltip) {
-        if (ClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
-        if (ClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
         event.getToolTip().add(tooltip);
     }
 
