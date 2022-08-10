@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
@@ -9,9 +10,8 @@ public class ParticleUtils {
 
     private static final Minecraft MC = Minecraft.getInstance();
 
-    public static void drawLine(Vec3 startPoint, Vec3 endPoint, double stepLength) {
-        drawLine(startPoint.x, startPoint.y, startPoint.z, endPoint.x, endPoint.y, endPoint.z, stepLength);
-    }
+    /*================================================================================================================*/
+    // #region drawLine
 
     public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, double stepLength) {
         double diffX = (x2 - x1);
@@ -33,5 +33,15 @@ public class ParticleUtils {
             MC.level.addParticle(ParticleTypes.ELECTRIC_SPARK, x, y, z, 0.0D, 0.0D, 0.0D);
         }
     }
+
+    public static void drawLine(Vec3 startPoint, Vec3 endPoint, double stepLength) {
+        drawLine(startPoint.x, startPoint.y, startPoint.z, endPoint.x, endPoint.y, endPoint.z, stepLength);
+    }
+
+    public static void drawLine(Vec3i startPoint, Vec3i endPoint, double stepLength) {
+        drawLine(startPoint.getX(), startPoint.getY(), startPoint.getZ(), endPoint.getX(), endPoint.getY(), endPoint.getZ(), stepLength);
+    }
+
+    // #endregion drawLine
 
 }
