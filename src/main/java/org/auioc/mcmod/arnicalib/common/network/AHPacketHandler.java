@@ -7,10 +7,12 @@ import net.minecraft.server.level.ServerPlayer;
 
 public final class AHPacketHandler {
 
-    public static void init() {}
-
     private static final String PROTOCOL_VERSION = Integer.toString(1);
-    private static final HPacketHandler HANDLER = new HPacketHandler(ArnicaLib.id("main"), PROTOCOL_VERSION);
+    protected static final HPacketHandler HANDLER = new HPacketHandler(ArnicaLib.id("main"), PROTOCOL_VERSION);
+
+    public static void init() {
+        AHPackets.register();
+    }
 
     public static <MSG extends IHPacket> void sendToServer(MSG msg) {
         HANDLER.sendToServer(msg);
