@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -25,6 +26,10 @@ public class ParticlePainter {
     public static class Client {
 
         @SuppressWarnings("resource")
+        public static void drawPoint(double x, double y, double z, Options options) {
+            Minecraft.getInstance().levelRenderer.addParticle(options.particle, options.force, !options.force, x, y, z, 0.0D, 0.0D, 0.0D);
+        }
+
         public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, Options options) {
             double diffX = (x2 - x1);
             double diffY = (y2 - y1);
@@ -42,7 +47,15 @@ public class ParticlePainter {
                 double x = x1 + projectedStepLengthX * i;
                 double y = y1 + projectedStepLengthY * i;
                 double z = z1 + projectedStepLengthZ * i;
-                Minecraft.getInstance().levelRenderer.addParticle(options.particle, options.force, !options.force, x, y, z, 0.0D, 0.0D, 0.0D);
+                drawPoint(x, y, z, options);
+            }
+        }
+
+        public static void drawPolygon(Vec3[] vertexes, Options options) {
+            for (int i = 0, l = vertexes.length; i < l; i++) {
+                Vec3 a = vertexes[i];
+                Vec3 b = vertexes[(i + 1 == l) ? 0 : i + 1];
+                drawLine(a.x, a.y, a.z, b.x, b.y, b.z, options);
             }
         }
 
@@ -62,6 +75,14 @@ public class ParticlePainter {
                 }
                 case CUBOID -> {
                     drawCuboid(NbtUtils.getAABB(data, "AABB"), options);
+                }
+                case POLYGON -> {
+                    double[] p = NbtUtils.getDoubleArray(data, "Vertexes");
+                    Vec3[] vertexes = new Vec3[p.length / 3];
+                    for (int i = 0, j = 0; i < vertexes.length; i++, j = i * 3) {
+                        vertexes[i] = new Vec3(p[j], p[j + 1], p[j + 2]);
+                    }
+                    drawPolygon(vertexes, options);
                 }
                 default -> throw new IllegalArgumentException("Unexpected shape: " + shape);
             }
@@ -87,6 +108,18 @@ public class ParticlePainter {
         public static void drawCuboid(ServerPlayer player, AABB aabb, Options options) {
             draw(player, Shape.CUBOID, options, (nbt) -> {
                 nbt.put("AABB", NbtUtils.writeAABB(aabb));
+            });
+        }
+
+        public static void drawPolygon(ServerPlayer player, Vec3[] vertexes, Options options) {
+            draw(player, Shape.POLYGON, options, (nbt) -> {
+                double[] p = new double[vertexes.length * 3];
+                for (int i = 0, j = 0; i < vertexes.length; i++, j = i * 3) {
+                    p[j] = vertexes[i].x;
+                    p[j + 1] = vertexes[i].y;
+                    p[j + 2] = vertexes[i].z;
+                }
+                nbt.put("Vertexes", NbtUtils.writeDoubleArray(p));
             });
         }
 
