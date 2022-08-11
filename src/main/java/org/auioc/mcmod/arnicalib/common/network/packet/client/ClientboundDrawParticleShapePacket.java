@@ -16,39 +16,43 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ClientboundDrawParticleShapePacket implements IHPacket {
 
     private final Shape shape;
-    private final CompoundTag data;
     private final Options options;
+    private final CompoundTag data;
 
-    public ClientboundDrawParticleShapePacket(Shape shape, CompoundTag data, Options options) {
+    public ClientboundDrawParticleShapePacket(Shape shape, Options options, CompoundTag data) {
         this.shape = shape;
-        this.data = data;
         this.options = options;
+        this.data = data;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void handle(Context ctx) {
-        ParticlePainter.Client.draw(this.shape, this.data, this.options);
+        ParticlePainter.Client.draw(this.shape, this.options, this.data);
     }
 
     @Override
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeEnum(this.shape);
-        buffer.writeNbt(this.data);
         buffer.writeDouble(this.options.stepLength());
         buffer.writeResourceLocation(this.options.particle().getType().getRegistryName());
         this.options.particle().writeToNetwork(buffer);
         buffer.writeBoolean(this.options.force());
+        buffer.writeNbt(this.data);
     }
 
     public static ClientboundDrawParticleShapePacket decode(FriendlyByteBuf buffer) {
         var shape = buffer.readEnum(Shape.class);
+        Options options;
+        {
+            var stepLength = buffer.readDouble();
+            var _particleType = ForgeRegistries.PARTICLE_TYPES.getValue(buffer.readResourceLocation());
+            var particle = readParticle(buffer, _particleType);
+            var force = buffer.readBoolean();
+            options = new Options(stepLength, particle, force);
+        }
         var data = buffer.readNbt();
-        var stepLength = buffer.readDouble();
-        var _particleType = ForgeRegistries.PARTICLE_TYPES.getValue(buffer.readResourceLocation());
-        var particle = readParticle(buffer, _particleType);
-        var force = buffer.readBoolean();
-        return new ClientboundDrawParticleShapePacket(shape, data, new Options(stepLength, particle, force));
+        return new ClientboundDrawParticleShapePacket(shape, options, data);
     }
 
     @SuppressWarnings("deprecation")

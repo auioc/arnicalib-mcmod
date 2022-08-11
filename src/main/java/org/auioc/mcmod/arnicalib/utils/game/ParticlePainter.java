@@ -26,11 +26,11 @@ public class ParticlePainter {
     public static class Client {
 
         @SuppressWarnings("resource")
-        public static void drawPoint(double x, double y, double z, Options options) {
+        public static void drawPoint(Options options, double x, double y, double z) {
             Minecraft.getInstance().levelRenderer.addParticle(options.particle, options.force, !options.force, x, y, z, 0.0D, 0.0D, 0.0D);
         }
 
-        public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, Options options) {
+        public static void drawLine(Options options, double x1, double y1, double z1, double x2, double y2, double z2) {
             double diffX = (x2 - x1);
             double diffY = (y2 - y1);
             double diffZ = (z2 - z1);
@@ -47,34 +47,34 @@ public class ParticlePainter {
                 double x = x1 + projectedStepLengthX * i;
                 double y = y1 + projectedStepLengthY * i;
                 double z = z1 + projectedStepLengthZ * i;
-                drawPoint(x, y, z, options);
+                drawPoint(options, x, y, z);
             }
         }
 
-        public static void drawPolygon(Vec3[] vertexes, Options options) {
+        public static void drawPolygon(Options options, Vec3[] vertexes) {
             for (int i = 0, l = vertexes.length; i < l; i++) {
                 Vec3 a = vertexes[i];
                 Vec3 b = vertexes[(i + 1 == l) ? 0 : i + 1];
-                drawLine(a.x, a.y, a.z, b.x, b.y, b.z, options);
+                drawLine(options, a.x, a.y, a.z, b.x, b.y, b.z);
             }
         }
 
-        public static void drawCuboid(AABB aabb, Options options) {
+        public static void drawCuboid(Options options, AABB aabb) {
             double[][] edges = AABBUtils.getEdges(aabb);
             for (double[] edge : edges) {
-                drawLine(edge[0], edge[1], edge[2], edge[3], edge[4], edge[5], options);
+                drawLine(options, edge[0], edge[1], edge[2], edge[3], edge[4], edge[5]);
             }
         }
 
-        public static void draw(Shape shape, CompoundTag data, Options options) {
+        public static void draw(Shape shape, Options options, CompoundTag data) {
             switch (shape) {
                 case LINE -> {
                     double[] p1 = NbtUtils.getDoubleArray(data, "StartPoint");
                     double[] p2 = NbtUtils.getDoubleArray(data, "EndPoint");
-                    drawLine(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2], options);
+                    drawLine(options, p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]);
                 }
                 case CUBOID -> {
-                    drawCuboid(NbtUtils.getAABB(data, "AABB"), options);
+                    drawCuboid(options, NbtUtils.getAABB(data, "AABB"));
                 }
                 case POLYGON -> {
                     double[] p = NbtUtils.getDoubleArray(data, "Vertexes");
@@ -82,7 +82,7 @@ public class ParticlePainter {
                     for (int i = 0, j = 0; i < vertexes.length; i++, j = i * 3) {
                         vertexes[i] = new Vec3(p[j], p[j + 1], p[j + 2]);
                     }
-                    drawPolygon(vertexes, options);
+                    drawPolygon(options, vertexes);
                 }
                 default -> throw new IllegalArgumentException("Unexpected shape: " + shape);
             }
@@ -95,23 +95,23 @@ public class ParticlePainter {
         private static void draw(ServerPlayer player, Shape shape, Options options, Consumer<CompoundTag> serializer) {
             var nbt = new CompoundTag();
             serializer.accept(nbt);
-            AHPacketHandler.sendToClient(player, new ClientboundDrawParticleShapePacket(shape, nbt, options));
+            AHPacketHandler.sendToClient(player, new ClientboundDrawParticleShapePacket(shape, options, nbt));
         }
 
-        public static void drawLine(ServerPlayer player, double x1, double y1, double z1, double x2, double y2, double z2, Options options) {
+        public static void drawLine(ServerPlayer player, Options options, double x1, double y1, double z1, double x2, double y2, double z2) {
             draw(player, Shape.LINE, options, (nbt) -> {
                 nbt.put("StartPoint", NbtUtils.writeDoubleArray(x1, y1, z1));
                 nbt.put("EndPoint", NbtUtils.writeDoubleArray(x2, y2, z2));
             });
         }
 
-        public static void drawCuboid(ServerPlayer player, AABB aabb, Options options) {
+        public static void drawCuboid(ServerPlayer player, Options options, AABB aabb) {
             draw(player, Shape.CUBOID, options, (nbt) -> {
                 nbt.put("AABB", NbtUtils.writeAABB(aabb));
             });
         }
 
-        public static void drawPolygon(ServerPlayer player, Vec3[] vertexes, Options options) {
+        public static void drawPolygon(ServerPlayer player, Options options, Vec3[] vertexes) {
             draw(player, Shape.POLYGON, options, (nbt) -> {
                 double[] p = new double[vertexes.length * 3];
                 for (int i = 0, j = 0; i < vertexes.length; i++, j = i * 3) {
