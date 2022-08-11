@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class NbtUtils {
 
@@ -44,6 +45,20 @@ public class NbtUtils {
 
     public static AABB getAABB(CompoundTag nbt, String key) {
         return readAABB(getDoubleListTag(nbt, key));
+    }
+
+
+    public static ListTag writeVec3(Vec3 vec) {
+        return writeDoubleArray(vec.x, vec.y, vec.z);
+    }
+
+    public static Vec3 readVec3(ListTag nbt) {
+        double[] p = readDoubleArray(nbt);
+        return new Vec3(p[0], p[1], p[2]);
+    }
+
+    public static Vec3 getVec3(CompoundTag nbt, String key) {
+        return readVec3(getDoubleListTag(nbt, key));
     }
 
 }
