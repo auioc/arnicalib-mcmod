@@ -5,6 +5,7 @@ import org.auioc.mcmod.arnicalib.api.game.phys.Shape;
 import org.auioc.mcmod.arnicalib.common.network.AHPacketHandler;
 import org.auioc.mcmod.arnicalib.common.network.packet.client.ClientboundDrawParticleShapePacket;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -66,6 +67,7 @@ public class ParticlePainter {
             }
         }
 
+
         public static void draw(Shape shape, Options options, CompoundTag data) {
             switch (shape) {
                 case LINE -> {
@@ -98,16 +100,11 @@ public class ParticlePainter {
             AHPacketHandler.sendToClient(player, new ClientboundDrawParticleShapePacket(shape, options, nbt));
         }
 
+
         public static void drawLine(ServerPlayer player, Options options, double x1, double y1, double z1, double x2, double y2, double z2) {
             draw(player, Shape.LINE, options, (nbt) -> {
                 nbt.put("StartPoint", NbtUtils.writeDoubleArray(x1, y1, z1));
                 nbt.put("EndPoint", NbtUtils.writeDoubleArray(x2, y2, z2));
-            });
-        }
-
-        public static void drawCuboid(ServerPlayer player, Options options, AABB aabb) {
-            draw(player, Shape.CUBOID, options, (nbt) -> {
-                nbt.put("AABB", NbtUtils.writeAABB(aabb));
             });
         }
 
@@ -122,6 +119,43 @@ public class ParticlePainter {
                 nbt.put("Vertexes", NbtUtils.writeDoubleArray(p));
             });
         }
+
+        public static void drawCuboid(ServerPlayer player, Options options, AABB aabb) {
+            draw(player, Shape.CUBOID, options, (nbt) -> {
+                nbt.put("AABB", NbtUtils.writeAABB(aabb));
+            });
+        }
+
+
+        // #region overload
+
+        public static void drawLine(ServerPlayer player, double x1, double y1, double z1, double x2, double y2, double z2) {
+            drawLine(player, DEFAULT_OPTIONS, x1, y1, z1, x2, y2, z2);
+        }
+
+        public static void drawLine(ServerPlayer player, Vec3 start, Vec3 end) {
+            drawLine(player, DEFAULT_OPTIONS, start.x, start.y, start.z, end.x, end.y, end.z);
+        }
+
+        public static void drawLine(ServerPlayer player, Vec3i start, Vec3i end) {
+            drawLine(player, Vec3.atCenterOf(start), Vec3.atCenterOf(end));
+        }
+
+        public static void drawPolygon(ServerPlayer player, Vec3[] vertexes) {
+            drawPolygon(player, DEFAULT_OPTIONS, vertexes);
+        }
+
+        public static void drawPolygon(ServerPlayer player, Vec3i[] vertexes) {
+            Vec3[] _vertexes = new Vec3[vertexes.length];
+            for (int i = 0; i < vertexes.length; i++) _vertexes[i] = Vec3.atCenterOf(vertexes[i]);
+            drawPolygon(player, _vertexes);
+        }
+
+        public static void drawCuboid(ServerPlayer player, AABB aabb) {
+            drawCuboid(player, DEFAULT_OPTIONS, aabb);
+        }
+
+        // #endregion overload
 
     }
 
