@@ -18,7 +18,7 @@ public final class AHServerCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         VersionCommand.addVersionNode(NODE, ArnicaLib.class);
         NODE.addChild(RtpCommand.NODE);
-        if (EnvironmentUtils.isDev()) addTestNode(NODE);
+        if (EnvironmentUtils.IS_DEV) addTestNode(NODE);
 
         getAHNode(dispatcher).addChild(NODE);
     }
