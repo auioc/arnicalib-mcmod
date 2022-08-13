@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,6 +30,14 @@ public class EntityUtils {
 
     public static void teleportTo(Entity entity, Vec3 pos) {
         entity.teleportTo(pos.x, pos.y, pos.z);
+    }
+
+    public static void teleportTo(Entity entity, ResourceKey<Level> dim, Vec3 pos) {
+        entity.changeDimension(LevelUtils.getLevel(dim), LevelUtils.createSimpleTeleporter(pos));
+    }
+
+    public static void teleportTo(Entity entity, ResourceKey<Level> dim, Vec3i pos) {
+        entity.changeDimension(LevelUtils.getLevel(dim), LevelUtils.createSimpleTeleporter(pos));
     }
 
     // #endregion Teleport

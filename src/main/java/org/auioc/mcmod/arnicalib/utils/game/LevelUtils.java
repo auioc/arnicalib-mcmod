@@ -48,6 +48,10 @@ public interface LevelUtils {
         return createSimpleTeleporter(Vec3.atCenterOf(pos), false);
     }
 
+    static ITeleporter createSimpleTeleporter(Vec3 pos) {
+        return createSimpleTeleporter(pos, false);
+    }
+
     static ITeleporter createSimpleTeleporter(double x, double y, double z) {
         return createSimpleTeleporter(new Vec3(x, y, z), false);
     }
