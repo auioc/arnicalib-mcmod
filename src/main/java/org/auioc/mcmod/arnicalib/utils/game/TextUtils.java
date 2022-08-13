@@ -34,6 +34,10 @@ public interface TextUtils {
         return new TextComponent(text);
     }
 
+    static TextComponent literal(String text) {
+        return new TextComponent(text);
+    }
+
     static TextComponent StringText(String text) {
         return new TextComponent(text);
     }
@@ -42,11 +46,19 @@ public interface TextUtils {
         return new TranslatableComponent(key);
     }
 
+    static TranslatableComponent translatable(String key) {
+        return new TranslatableComponent(key);
+    }
+
     static TranslatableComponent I18nText(String key) {
         return new TranslatableComponent(key);
     }
 
     static TranslatableComponent getI18nText(String key, Object... arguments) {
+        return new TranslatableComponent(key, arguments);
+    }
+
+    static TranslatableComponent translatable(String key, Object... arguments) {
         return new TranslatableComponent(key, arguments);
     }
 

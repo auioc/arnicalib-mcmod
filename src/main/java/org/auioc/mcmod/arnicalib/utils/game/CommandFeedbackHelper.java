@@ -1,7 +1,5 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.EmptyText;
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
 import java.util.function.Function;
 import javax.annotation.Nullable;
 import com.mojang.brigadier.Command;
@@ -28,17 +26,21 @@ public class CommandFeedbackHelper {
         this.i18n = i18n;
     }
 
+    public CommandFeedbackHelper(String modName, Function<String, String> i18n) {
+        this(TextUtils.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA), i18n);
+    }
+
     public CommandFeedbackHelper(Function<String, String> i18n) {
-        this(EmptyText(), i18n);
+        this(TextUtils.empty(), i18n);
     }
 
 
     public MutableComponent createMessage(Component message) {
-        return EmptyText().append(this.prefix).append(message);
+        return (TextUtils.empty()).append(this.prefix).append(message);
     }
 
     public MutableComponent createMessage(String key, Object... args) {
-        return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply("command." + key), args));
+        return (TextUtils.empty()).append(this.prefix).append(TextUtils.translatable(this.i18n.apply("command." + key), args));
     }
 
     public MutableComponent createMessage(String key) {
@@ -56,7 +58,7 @@ public class CommandFeedbackHelper {
                 sb.append(subKey);
             }
         }
-        return EmptyText().append(this.prefix).append(I18nText(this.i18n.apply(sb.toString()), args));
+        return (TextUtils.empty()).append(this.prefix).append(TextUtils.translatable(this.i18n.apply(sb.toString()), args));
     }
 
 
