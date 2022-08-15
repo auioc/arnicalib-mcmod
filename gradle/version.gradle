@@ -6,7 +6,6 @@ def getBuildVersion() {
             def dev =  getEnvAsBoolean('IS_RELEASE') ? '' : 'dev-'
             def sha =  System.getenv('GITHUB_SHA').substring(0, 7)
             def buildNumber = System.getenv('GITHUB_RUN_NUMBER')
-
             return "${dev}rev.${sha}-build.${buildNumber}"
         } else {
             return System.getenv('CI_VERSION')
