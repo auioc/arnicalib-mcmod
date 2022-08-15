@@ -24,9 +24,9 @@ public class VersionUtils {
 
     public static String getFullVersion(Attributes attrs, String modName) {
         String version = attrs.getValue(modName + "-Version");
-        if (getRevisionNumber(version).isEmpty()) {
-            LOGGER.warn(MARKER, "The revision number of mod " + modName + " is null. If this is a manually built version you can ignore this message.");
-        }
+        if (getBuildNumber(version) == 0) LOGGER.warn(MARKER, "The build number of mod " + modName + " is 0");
+        if (version.contains("-dirty")) LOGGER.warn(MARKER, "The mod " + modName + " is a dirty build");
+        if (version.contains("-dev-")) LOGGER.warn(MARKER, "The mod " + modName + " is a development version");
         return version;
     }
 

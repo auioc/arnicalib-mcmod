@@ -24,7 +24,7 @@ public class MixinItemStack {
     private void onInventoryTick(Level p_41667_, Entity p_41668_, int p_41669_, boolean p_41670_, CallbackInfo ci) {
         if (p_41670_ && p_41668_ instanceof Player player) {
             if (CommonEventFactory.onSelectedItemItemInventoryTick(player, p_41667_, ((ItemStack) (Object) this), p_41669_)) {
-                ci.cancel();;
+                ci.cancel();
             }
         }
     }
