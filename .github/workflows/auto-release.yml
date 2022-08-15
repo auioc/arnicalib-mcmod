@@ -8,53 +8,25 @@ on:
         tags:
             - 'v*'
 
-permissions:
-    contents: write
-    packages: write
-
 jobs:
     first:
-        name: Set variables
-        runs-on: ubuntu-latest
-        outputs:
-            ci_version: ${{ steps.set_outputs.outputs.ci_version }}
-            full_version: ${{ steps.set_outputs.outputs.full_version }}
-            release_tag: ${{ steps.set_outputs.outputs.release_tag }}
-
-        steps:
-            - uses: actions/checkout@v2
-
-            - id: set_envs
-              name: Set environment variables
-              run: |
-                  prop() { grep -P "^\s*[^#]?${1}=.*$" './gradle.properties' | cut -d'=' -f2; }
-                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
-                  echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
-                  echo "CI_VERSION=`echo rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
-
-            - id: set_outputs
-              name: Set outputs
-              run: |
-                  echo "::set-output name=ci_version::${{env.CI_VERSION}}"
-                  echo "::set-output name=full_version::arnicalib-${{env.MINECRAFT_VERSION}}-${{env.ARNICALIB_VERSION}}-${{env.CI_VERSION}}"
-                  echo "::set-output name=release_tag::v${{env.ARNICALIB_VERSION}}"
-
-    second:
         name: Check release tag
         runs-on: ubuntu-latest
-        needs: first
 
         steps:
             - uses: actions/checkout@v2
 
-            - run: echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+            - run: |
+                  prop() { grep -P "^\s*[^#]?${1}=.*$" './gradle.properties' | cut -d'=' -f2; }
+                  echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
 
-            - run: if [ "${{env.GIT_TAG}}" != "${{needs.first.outputs.release_tag}}" ];then exit 1;fi
+            - run: if [ "${{env.GIT_TAG}}" != "v${{env.ARNICALIB_VERSION}}" ];then exit 1;fi
 
-    third:
+    second:
         name: Build and publish
         runs-on: ubuntu-latest
-        needs: [first, second]
+        needs: first
         permissions:
             contents: write
             packages: write
@@ -65,17 +37,16 @@ jobs:
             - name: Set up Gradle and clean
               run: |
                   chmod +x ./gradlew
-                  ./gradlew clean
                   rm -rf tmp
                   mkdir tmp
 
             - name: Build and publish package with Gradle
               env:
-                  CI_VERSION: ${{needs.first.outputs.ci_version}}
+                  IS_RELEASE: true
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
                   ORG_GRADLE_PROJECT_signingKey: ${{secrets.RELEASE_SIGNING_GPG_PRIVATE_KEY}}
                   ORG_GRADLE_PROJECT_signingPassword: ${{secrets.RELEASE_SIGNING_GPG_PASSPHRASE}}
-              run: ./gradlew build publish genUpdateJson
+              run: ./gradlew clean build publish genUpdateJson outputProjectFullName
 
             - name: Update update JSON
               uses: JamesIves/github-pages-deploy-action@4.1.5
@@ -84,12 +55,6 @@ jobs:
                   target-folder: update
                   branch: gh-pages
                   folder: tmp
-
-            - name: Upload build artifacts
-              uses: actions/upload-artifact@v1
-              with:
-                  name: ${{needs.first.outputs.full_version}}
-                  path: build/libs
 
             - name: Github release
               uses: marvinpinto/action-automatic-releases@latest
