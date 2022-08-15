@@ -78,4 +78,8 @@ public interface PlayerUtils {
         player.getAttribute(ForgeMod.REACH_DISTANCE.get()).setBaseValue(reach);
     }
 
+    static boolean isOp(ServerPlayer player) {
+        return player.getServer().getPlayerList().isOp(player.getGameProfile());
+    }
+
 }
