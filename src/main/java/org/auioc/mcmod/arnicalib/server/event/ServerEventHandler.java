@@ -13,20 +13,22 @@ public final class ServerEventHandler {
 
     private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
 
+
     @SubscribeEvent
     public static void registerCommands(final RegisterCommandsEvent event) {
         AHServerCommands.register(event.getDispatcher());
     }
 
+
+    private static final Marker SERVER_LIST_PING_MARKER = LogUtil.getMarker("ServerListPing").addParents(MARKER);
+
     @SubscribeEvent
     public static void onServerLogin(final ServerLoginEvent event) {
-        ConnectionProtocol intention = event.getPacket().getIntention();
-        if (intention == ConnectionProtocol.STATUS) {
+        if (event.getPacket().getIntention() == ConnectionProtocol.STATUS) {
             LOGGER.info(
-                LogUtil.getMarker("ServerListPing").addParents(MARKER),
+                SERVER_LIST_PING_MARKER,
                 String.format("[%s] <-> InitialHandler has pinged", event.getNetworkManager().getRemoteAddress())
             );
-            return;
         }
     }
 
