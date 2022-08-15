@@ -9,6 +9,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
+@Deprecated(since = "5.3.9", forRemoval = true)
 public class CommandFeedbackHelper {
 
     public static enum MessageType {
