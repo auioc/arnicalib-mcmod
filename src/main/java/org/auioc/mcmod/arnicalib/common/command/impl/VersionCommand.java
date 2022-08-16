@@ -3,15 +3,15 @@ package org.auioc.mcmod.arnicalib.common.command.impl;
 import static net.minecraft.commands.Commands.literal;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.function.Function;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.utils.LogUtil;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.CommandNode;
-import org.apache.logging.log4j.Marker;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.utils.LogUtil;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.MutableComponent;
@@ -31,9 +31,9 @@ public class VersionCommand {
     }
 
     public static int getModVersion(CommandContext<CommandSourceStack> ctx, String mainVersion, String fullVersion, String modName) {
-        MutableComponent message = TextUtils.EmptyText();
+        MutableComponent message = TextUtils.empty();
 
-        message.append(TextUtils.StringText("[" + modName + "] ").withStyle(ChatFormatting.AQUA));
+        message.append(TextUtils.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA));
 
         if (mainVersion.equals("0") && fullVersion.equals("0")) {
             message.append(i18n("failure.zero"));
@@ -61,7 +61,7 @@ public class VersionCommand {
     }
 
     private static MutableComponent i18n(String key, Object... args) {
-        return TextUtils.I18nText(ArnicaLib.i18n("command.version." + key), args);
+        return TextUtils.translatable(ArnicaLib.i18n("command.version." + key), args);
     }
 
     private static MutableComponent i18n(String key) {

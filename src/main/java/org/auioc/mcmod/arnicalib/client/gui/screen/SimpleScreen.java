@@ -1,10 +1,10 @@
 package org.auioc.mcmod.arnicalib.client.gui.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.api.game.screen.HScreen;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,7 +49,7 @@ public class SimpleScreen extends HScreen {
     }
 
     public SimpleScreen() {
-        this(TextUtils.StringText("SimpleScreen"));
+        this(TextUtils.literal("SimpleScreen"));
     }
 
     @Override

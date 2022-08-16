@@ -1,9 +1,8 @@
 package org.auioc.mcmod.arnicalib.client.event.handler;
 
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.StringText;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import org.lwjgl.glfw.GLFW;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
@@ -36,10 +35,10 @@ public class TooltipEventHandler {
         if (itemStack.hasTag()) {
             addLine(
                 event,
-                I18nText(ArnicaLib.i18n("advanced_tooltip.nbt"))
+                TextUtils.translatable(ArnicaLib.i18n("advanced_tooltip.nbt"))
                     .setStyle(darkGary)
                     .append(
-                        StringText("")
+                        TextUtils.empty()
                             .setStyle(Style.EMPTY.withColor(ChatFormatting.WHITE))
                             .append(NbtUtils.toPrettyComponent(itemStack.getTag()))
                     )
@@ -48,9 +47,9 @@ public class TooltipEventHandler {
 
         var tags = itemStack.getTags().toList();
         if (tags.size() > 0) {
-            addLine(event, I18nText(ArnicaLib.i18n("advanced_tooltip.tag")).setStyle(darkGary));
+            addLine(event, TextUtils.translatable(ArnicaLib.i18n("advanced_tooltip.tag")).setStyle(darkGary));
             for (TagKey<Item> tag : tags) {
-                addLine(event, StringText("  " + tag.location()).setStyle(darkGary));
+                addLine(event, TextUtils.literal("  " + tag.location()).setStyle(darkGary));
             }
         }
 

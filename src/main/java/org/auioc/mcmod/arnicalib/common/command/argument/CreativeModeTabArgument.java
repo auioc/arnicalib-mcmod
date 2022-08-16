@@ -3,6 +3,9 @@ package org.auioc.mcmod.arnicalib.common.command.argument;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCreativeModeTab;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -10,16 +13,13 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCreativeModeTab;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class CreativeModeTabArgument implements ArgumentType<CreativeModeTab> {
 
     private static final DynamicCommandExceptionType UNKNOWN_CREATIVE_MODE_TAB = new DynamicCommandExceptionType(
-        (langId) -> TextUtils.I18nText(ArnicaLib.i18n("argument.creative_mod_tab.unknown"), langId)
+        (langId) -> TextUtils.translatable(ArnicaLib.i18n("argument.creative_mod_tab.unknown"), langId)
     );
 
     public static CreativeModeTabArgument creativeModeTab() {

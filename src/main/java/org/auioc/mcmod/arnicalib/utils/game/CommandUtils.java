@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.i18n;
-import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.I18nText;
+import static org.auioc.mcmod.arnicalib.utils.game.TextUtils.translatable;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,11 +20,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface CommandUtils {
 
-    SimpleCommandExceptionType INTERNAL_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.internal")));
-    SimpleCommandExceptionType LOGGABLE_INTERNAL_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.internal.loggable")));
-    SimpleCommandExceptionType NOT_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_server")));
-    SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.not_dedicated_server")));
-    SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(I18nText(i18n("command.failure.get_real_source.reflection")));
+    SimpleCommandExceptionType INTERNAL_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.internal")));
+    SimpleCommandExceptionType LOGGABLE_INTERNAL_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.internal.loggable")));
+    SimpleCommandExceptionType NOT_SERVER_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.not_server")));
+    SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.not_dedicated_server")));
+    SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.get_real_source.reflection")));
 
     Predicate<CommandSourceStack> PERMISSION_LEVEL_0 = (source) -> source.hasPermission(0);
     Predicate<CommandSourceStack> PERMISSION_LEVEL_1 = (source) -> source.hasPermission(1);
