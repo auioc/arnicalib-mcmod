@@ -7,7 +7,6 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        // classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -16,8 +15,10 @@ apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'org.auioc.mcmod'
-archivesBaseName = "arnicalib"
-project.ext.modVersion= "${arnicalib_version}"
+archivesBaseName = 'arnicalib'
+project.ext.modVersion = "${arnicalib_version}"
+project.ext.modName = 'ArnicaLib'
+project.ext.modId = 'arnicalib'
 apply from: 'gradle/version.gradle'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -32,7 +33,7 @@ minecraft {
             property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
-            arg '-mixin.config=arnicalib.mixin.json'
+            arg "-mixin.config=${project.modId}.mixin.json"
             mods {
                 arnicalib {
                     source sourceSets.main
@@ -46,7 +47,7 @@ minecraft {
             property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
-            arg '-mixin.config=arnicalib.mixin.json'
+            arg "-mixin.config=${project.modId}.mixin.json"
             mods {
                 arnicalib {
                     source sourceSets.main
@@ -66,7 +67,7 @@ dependencies {
 }
 
 mixin {
-    add sourceSets.main, 'arnicalib.mixin-refmap.json'
+    add sourceSets.main, "${project.modId}.mixin-refmap.json"
 }
 
 apply from: 'gradle/tasks.gradle'

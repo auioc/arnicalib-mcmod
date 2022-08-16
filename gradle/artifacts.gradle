@@ -1,16 +1,16 @@
 def jarManifest = [
-        "Specification-Title": 'arnicalib',
+        "Specification-Title": project.modId,
         "Specification-Vendor": 'AUIOC',
         "Specification-Version": '1',
-        "Implementation-Title": project.name,
-        "Implementation-Version": "${project.modVersion}",
+        "Implementation-Title": project.modName,
+        "Implementation-Version": project.modVersion,
         "Implementation-Vendor" :'AUIOC',
         "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
         "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
         "TweakOrder": 0,
-        "MixinConfigs": 'arnicalib.mixin.json',
-        "ArnicaLib-Version": "${project.archivesBaseName}-${project.fullVersion}"
+        "MixinConfigs": "${project.modId}.mixin.json",
     ]
+jarManifest."${project.modName}-Version" = "${project.archivesBaseName}-${project.fullVersion}"
 
 jar {
     manifest {attributes(jarManifest)}
