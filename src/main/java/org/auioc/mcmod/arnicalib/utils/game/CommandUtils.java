@@ -15,6 +15,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -26,6 +27,7 @@ public interface CommandUtils {
     SimpleCommandExceptionType NOT_DEDICATED_SERVER_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.not_dedicated_server")));
     SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = new SimpleCommandExceptionType(translatable(i18n("command.failure.get_real_source.reflection")));
 
+    Predicate<CommandSourceStack> IS_PLAYER = (source) -> source.getEntity() instanceof ServerPlayer;
     Predicate<CommandSourceStack> PERMISSION_LEVEL_0 = (source) -> source.hasPermission(0);
     Predicate<CommandSourceStack> PERMISSION_LEVEL_1 = (source) -> source.hasPermission(1);
     Predicate<CommandSourceStack> PERMISSION_LEVEL_2 = (source) -> source.hasPermission(2);
