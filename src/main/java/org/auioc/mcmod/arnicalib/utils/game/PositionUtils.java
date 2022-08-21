@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import java.util.Optional;
 import java.util.Random;
-import org.auioc.mcmod.arnicalib.api.java.exception.HException;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -27,23 +27,23 @@ public interface PositionUtils {
         return canStandOn(pos.below(), level);
     }
 
-    static int findStandableY(Level level, int x, int z, int minY, int maxY) throws HException {
+    static Optional<Integer> findStandableY(Level level, int x, int z, int minY, int maxY) {
         minY = Math.max(minY, level.getMinBuildHeight());
         maxY = Math.min(maxY, level.getMaxBuildHeight() - 1);
         var pos = new MutableBlockPos(x, maxY, z);
         while (true) {
             if (PositionUtils.canStand(pos, level)) {
-                return pos.getY();
+                return Optional.of(pos.getY());
             }
             if (pos.getY() > minY) {
                 pos.move(Direction.DOWN);
             } else {
-                throw new HException();
+                Optional.empty();
             }
         }
     }
 
-    static int findStandableY(Level level, int x, int z) throws HException {
+    static Optional<Integer> findStandableY(Level level, int x, int z) {
         return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
     }
 
