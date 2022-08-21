@@ -13,5 +13,7 @@ task genUpdateJson() {
 }
 
 task outputProjectFullName() {
-    file("tmp/fullname.txt").write("${project.archivesBaseName}-${project.fullVersion}")
+    doFirst {
+        file("tmp/fullname.txt").write("${project.archivesBaseName}-${project.fullVersion}")
+    }
 }

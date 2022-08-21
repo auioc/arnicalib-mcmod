@@ -14,11 +14,11 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
-group = 'org.auioc.mcmod'
-archivesBaseName = 'arnicalib'
-project.ext.modVersion = "${arnicalib_version}"
-project.ext.modName = 'ArnicaLib'
-project.ext.modId = 'arnicalib'
+project.ext.modId = "${mod_id}"
+project.ext.modName = "${mod_name}"
+project.ext.modVersion= "${mod_version}"
+group = "${group}"
+archivesBaseName = "${project.modId}"
 apply from: 'gradle/version.gradle'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)

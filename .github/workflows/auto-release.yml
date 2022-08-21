@@ -19,9 +19,9 @@ jobs:
             - run: |
                   prop() { grep -P "^\s*[^#]?${1}=.*$" './gradle.properties' | cut -d'=' -f2; }
                   echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-                  echo "ARNICALIB_VERSION=`echo $(prop "arnicalib_version")`" >> $GITHUB_ENV
+                  echo "MOD_VERSION=`echo $(prop "mod_version")`" >> $GITHUB_ENV
 
-            - run: if [ "${{env.GIT_TAG}}" != "v${{env.ARNICALIB_VERSION}}" ];then exit 1;fi
+            - run: if [ "${{env.GIT_TAG}}" != "v${{env.MOD_VERSION}}" ];then exit 1;fi
 
     second:
         name: Build and publish
