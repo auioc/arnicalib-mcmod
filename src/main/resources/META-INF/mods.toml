@@ -10,7 +10,7 @@ updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.18.2.json"
 displayName="ArnicaLib"
 displayURL="http://hi.auioc.org/arnicalib-mcmod/"
 credits="AUIOC"
-authors="WakelssSloth56"
+authors="WakelssSloth56, LainIO24"
 description='''
 Shared library for AH's Minecraft mods.
 '''
