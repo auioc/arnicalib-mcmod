@@ -31,16 +31,13 @@ public interface PositionUtils {
         minY = Math.max(minY, level.getMinBuildHeight());
         maxY = Math.min(maxY, level.getMaxBuildHeight() - 1);
         var pos = new MutableBlockPos(x, maxY, z);
-        while (true) {
+        while (pos.getY() >= minY) {
             if (PositionUtils.canStand(pos, level)) {
                 return Optional.of(pos.getY());
             }
-            if (pos.getY() > minY) {
-                pos.move(Direction.DOWN);
-            } else {
-                Optional.empty();
-            }
+            pos.move(Direction.DOWN);
         }
+        return Optional.empty();
     }
 
     static Optional<Integer> findStandableY(Level level, int x, int z) {
