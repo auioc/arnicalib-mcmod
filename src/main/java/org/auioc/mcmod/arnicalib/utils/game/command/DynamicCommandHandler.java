@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.utils.game.command;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.lang.reflect.InvocationTargetException;
@@ -21,7 +21,7 @@ public class DynamicCommandHandler {
                 LOGGER.warn(MARKER, "Command handler " + className + " throws a CommandSyntaxException");
                 throw cse;
             }
-            throw CommandUtils.LOGGABLE_INTERNAL_ERROR.create();
+            throw CommandExceptions.LOGGABLE_INTERNAL_ERROR.create();
         }
         return Command.SINGLE_SUCCESS;
     }
