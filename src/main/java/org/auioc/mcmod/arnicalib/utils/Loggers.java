@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @deprecated Use {@link LogUtil} instead
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class Loggers {
     public static final Logger logger = LogManager.getLogger();
 

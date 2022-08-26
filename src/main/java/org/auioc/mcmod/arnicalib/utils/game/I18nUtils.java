@@ -6,7 +6,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 /**
  * @deprecated Use {@link TextUtils} instead
  */
-@Deprecated(since = "3.1.3")
+@Deprecated(since = "3.1.3", forRemoval = true)
 public interface I18nUtils {
     static Component getTranslatedText(String key) {
         return new TranslatableComponent(key);
