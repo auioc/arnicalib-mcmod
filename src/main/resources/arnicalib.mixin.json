@@ -8,6 +8,7 @@
         "common.MixinCommandSourceStack",
         "common.MixinCreativeModeTab",
         "common.MixinItemStack",
+        "common.MixinArrow",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
         "server.MixinServerPlayer",
