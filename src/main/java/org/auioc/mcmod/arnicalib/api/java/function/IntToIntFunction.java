@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.api.java.function;
 
 @FunctionalInterface
-public interface StringToStringFunction {
+public interface IntToIntFunction {
 
-    String applyAsString(String t);
+    int applyAsInt(int value);
 
 }
