@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.function.Function;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.server.event.impl.CatMorningGiftChanceEvent;
+import org.auioc.mcmod.arnicalib.server.event.impl.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
@@ -19,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -80,6 +83,12 @@ public final class ServerEventFactory {
         var event = new CatMorningGiftChanceEvent(cat, ownerPlayer);
         BUS.post(event);
         return event.getChance();
+    }
+
+    public static FishingRodCastEvent.Pre firePreFishingRodCastEvent(Player player, Level level, ItemStack fishingRod, int speedBonus, int luckBonus) {
+        var event = new FishingRodCastEvent.Pre((ServerPlayer) player, (ServerLevel) level, fishingRod, speedBonus, luckBonus);
+        BUS.post(event);
+        return event;
     }
 
 }
