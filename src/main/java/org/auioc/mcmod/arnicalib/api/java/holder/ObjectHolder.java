@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.api.java.holder;
 
-public class ObjectHolder<T> {
+public class ObjectHolder<T> implements IObjectHolder<T> {
 
     protected T value;
 
@@ -8,10 +8,12 @@ public class ObjectHolder<T> {
         this.value = value;
     }
 
+    @Override
     public T get() {
         return this.value;
     }
 
+    @Override
     public void set(T value) {
         this.value = value;
     }
