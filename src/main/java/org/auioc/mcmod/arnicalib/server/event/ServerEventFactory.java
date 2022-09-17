@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
 import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.server.event.impl.CatMorningGiftChanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
@@ -21,6 +22,8 @@ import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -71,6 +74,12 @@ public final class ServerEventFactory {
         var event = new PiglinStanceEvent(target);
         BUS.post(event);
         return event.getStance();
+    }
+
+    public static double fireCatMorningGiftChanceEvent(Cat cat, Player ownerPlayer) {
+        var event = new CatMorningGiftChanceEvent(cat, ownerPlayer);
+        BUS.post(event);
+        return event.getChance();
     }
 
 }
