@@ -10,6 +10,7 @@
         "common.MixinItemStack",
         "common.MixinProjectile",
         "common.MixinArrow",
+        "common.MixinFoodData",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
         "server.MixinPiglinAi",
