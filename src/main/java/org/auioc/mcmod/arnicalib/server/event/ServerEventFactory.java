@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
+import javax.annotation.Nullable;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.server.event.impl.CatMorningGiftChanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.FishingRodCastEvent;
+import org.auioc.mcmod.arnicalib.server.event.impl.ItemHurtEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
@@ -89,6 +91,12 @@ public final class ServerEventFactory {
         var event = new FishingRodCastEvent.Pre((ServerPlayer) player, (ServerLevel) level, fishingRod, speedBonus, luckBonus);
         BUS.post(event);
         return event;
+    }
+
+    public static int fireItemHurtEvent(ItemStack itemStack, int damage, Random random, @Nullable ServerPlayer player) {
+        var event = new ItemHurtEvent(itemStack, damage, random, player);
+        BUS.post(event);
+        return event.getDamage();
     }
 
 }
