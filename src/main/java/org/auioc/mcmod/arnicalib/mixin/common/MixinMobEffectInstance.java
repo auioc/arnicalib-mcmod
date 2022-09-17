@@ -12,11 +12,48 @@ public abstract class MixinMobEffectInstance implements IMixinMobEffectInstance 
     @Shadow
     @Nullable
     private MobEffectInstance hiddenEffect;
+    @Shadow
+    private int duration;
+    @Shadow
+    private int amplifier;
+    @Shadow
+    private boolean ambient;
+    @Shadow
+    private boolean visible;
+    @Shadow
+    private boolean showIcon;
+
+    @Shadow
 
     @Override
     @Nullable
     public MobEffectInstance getHiddenEffect() {
         return this.hiddenEffect;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public void setAmplifier(int amplifier) {
+        this.amplifier = amplifier;
+    }
+
+    @Override
+    public void setAmbient(boolean ambient) {
+        this.ambient = ambient;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    @Override
+    public void showIcon(boolean showIcon) {
+        this.showIcon = showIcon;
     }
 
 }

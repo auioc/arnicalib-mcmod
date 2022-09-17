@@ -1,11 +1,7 @@
 package org.auioc.mcmod.arnicalib.api.mixin.common;
 
-import javax.annotation.Nullable;
-import net.minecraft.world.effect.MobEffectInstance;
+import org.auioc.mcmod.arnicalib.api.game.effect.IHMobEffectInstance;
 
-public interface IMixinMobEffectInstance {
-
-    @Nullable
-    MobEffectInstance getHiddenEffect();
+public interface IMixinMobEffectInstance extends IHMobEffectInstance {
 
 }
