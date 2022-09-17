@@ -23,8 +23,6 @@ public abstract class MixinMobEffectInstance implements IMixinMobEffectInstance 
     @Shadow
     private boolean showIcon;
 
-    @Shadow
-
     @Override
     @Nullable
     public MobEffectInstance getHiddenEffect() {
