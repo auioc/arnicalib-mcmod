@@ -1,1 +1,4 @@
-{ "arnicalib.fishing_rod_item": "coremods/fishing_rod_item.js" }
+{
+    "arnicalib.fishing_rod_item": "coremods/fishing_rod_item.js",
+    "arnicalib.item_stack": "coremods/item_stack.js"
+}
