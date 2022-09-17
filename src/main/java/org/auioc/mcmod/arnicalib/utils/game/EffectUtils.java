@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.api.game.effect.IHMobEffectInstance;
 import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinMobEffectInstance;
 import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
 import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import com.google.gson.JsonArray;
@@ -22,6 +22,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EffectUtils {
@@ -150,9 +151,9 @@ public interface EffectUtils {
         }
         json.add("curative_items", curativeItems);
 
-        if (((IMixinMobEffectInstance) instance).getHiddenEffect() != null) {
+        if (((IHMobEffectInstance) instance).getHiddenEffect() != null) {
             JsonObject hiddenEffect = new JsonObject();
-            serializeToJson(((IMixinMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
+            serializeToJson(((IHMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
             json.add("hidden_effect", hiddenEffect);
         }
     }
@@ -193,6 +194,25 @@ public interface EffectUtils {
     static MobEffectInstance makeIncurable(MobEffectInstance instance) {
         instance.setCurativeItems(new ArrayList<ItemStack>());
         return instance;
+    }
+
+    static void setDuration(MobEffectInstance instance, int duration) {
+        ((IHMobEffectInstance) instance).setDuration(duration);
+    }
+
+
+    static void setAmplifier(MobEffectInstance instance, int amplifier) {
+        ((IHMobEffectInstance) instance).setAmplifier(amplifier);
+    }
+
+    @Deprecated
+    static void setDurationReflection(MobEffectInstance instance, int duration) {
+        ObfuscationReflectionHelper.setPrivateValue(MobEffectInstance.class, instance, duration, "f_19503_");
+    }
+
+    @Deprecated
+    static void setAmplifierReflection(MobEffectInstance instance, int amplifier) {
+        ObfuscationReflectionHelper.setPrivateValue(MobEffectInstance.class, instance, amplifier, "f_19504_");
     }
 
 }
