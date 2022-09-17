@@ -2,15 +2,15 @@ package org.auioc.mcmod.arnicalib.server.loot.function;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
+import org.auioc.mcmod.arnicalib.utils.game.OrderedForgeRegistries;
+import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
+import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
-import org.auioc.mcmod.arnicalib.utils.game.OrderedForgeRegistries;
-import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
-import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -58,7 +58,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
     }
 
     private static Potion getRandomPotion() {
-        return RandomUtils.pickOneFromList(OrderedForgeRegistries.Potions.get()).getValue();
+        return RandomUtils.pickOneFromList(OrderedForgeRegistries.POTIONS.get()).getValue();
     }
 
 
