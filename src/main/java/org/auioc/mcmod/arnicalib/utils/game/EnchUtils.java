@@ -1,13 +1,23 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.RandomUtils;
+import org.auioc.mcmod.arnicalib.api.game.enchantment.EnchantmentVisitor.BiEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.api.game.enchantment.EnchantmentVisitor.QuadEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.api.game.enchantment.EnchantmentVisitor.TriEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.api.game.enchantment.IValidSlotsVisibleEnchantment;
 import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public interface EnchUtils {
@@ -74,6 +84,46 @@ public interface EnchUtils {
             }
         }
         return false;
+    }
+
+
+    static void runIteration(BiEnchantmentVisitor visitor, Map<Enchantment, Integer> enchMap) {
+        for (var enchEntry : enchMap.entrySet()) visitor.accept(enchEntry.getKey(), enchEntry.getValue());
+    }
+
+    static void runIterationOnItem(BiEnchantmentVisitor visitor, ItemStack itemStack) {
+        if (!itemStack.isEmpty()) runIteration(visitor, EnchantmentHelper.getEnchantments(itemStack));
+    }
+
+    static void runIterationOnItems(TriEnchantmentVisitor visitor, Iterable<ItemStack> itemStacks, Predicate<ItemStack> predicate) {
+        for (var itemStack : itemStacks) {
+            if (!itemStack.isEmpty() && predicate.test(itemStack)) {
+                runIterationOnItem((ench, lvl) -> visitor.accept(itemStack, ench, lvl), itemStack);
+            }
+        }
+    }
+
+    static void runIterationOnItems(TriEnchantmentVisitor visitor, Iterable<ItemStack> itemStacks) {
+        runIterationOnItems(visitor, itemStacks, (o) -> true);
+    }
+
+    static void runIterationOnLiving(QuadEnchantmentVisitor visitor, LivingEntity living, EquipmentSlot[] slots) {
+        for (EquipmentSlot slot : slots) {
+            var itemStack = living.getItemBySlot(slot);
+            runIterationOnItem((ench, lvl) -> {
+                if (ench instanceof IValidSlotsVisibleEnchantment _ench) {
+                    if (_ench.isValidSlot(slot)) {
+                        visitor.accept(slot, itemStack, ench, lvl);
+                    }
+                } else {
+                    visitor.accept(slot, itemStack, ench, lvl);
+                }
+            }, itemStack);
+        }
+    }
+
+    static void runIterationOnLiving(QuadEnchantmentVisitor visitor, LivingEntity living) {
+        runIterationOnLiving(visitor, living, EquipmentSlot.values());
     }
 
 }
