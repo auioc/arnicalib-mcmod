@@ -20,7 +20,6 @@ public abstract class MixinEyeOfEnder extends Entity implements IMixinEyeOfEnder
         super(p_19870_, p_19871_);
     }
 
-
     @Shadow
     private boolean surviveAfterDeath;
 
@@ -44,7 +43,7 @@ public abstract class MixinEyeOfEnder extends Entity implements IMixinEyeOfEnder
         require = 1,
         allow = 1
     )
-    private void ignoreSetSurviveAfterDeathInSignalToMethod(EyeOfEnder e, boolean z) {}
+    private void ignorePutFiled_surviveAfterDeath(EyeOfEnder e, boolean z) {}
 
 }
 

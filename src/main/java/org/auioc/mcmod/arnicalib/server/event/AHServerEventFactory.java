@@ -8,13 +8,13 @@ import java.util.function.Function;
 import javax.annotation.Nullable;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.server.event.impl.CatMorningGiftChanceEvent;
+import org.auioc.mcmod.arnicalib.server.event.impl.EyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ItemHurtEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerPlayerSendMessageEvent;
-import org.auioc.mcmod.arnicalib.server.event.impl.SetEyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.utils.LogUtil;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import net.minecraft.network.Connection;
@@ -69,8 +69,8 @@ public final class AHServerEventFactory {
         return event.getEffects();
     }
 
-    public static Function<Random, Boolean> fireSetEyeOfEnderSurvivableEvent(ServerPlayer player, EyeOfEnder eye) {
-        SetEyeOfEnderSurvivableEvent event = new SetEyeOfEnderSurvivableEvent(player, eye);
+    public static Function<Random, Boolean> onEyeOfEnderSetSurvivable(ServerPlayer player, EyeOfEnder eye) {
+        EyeOfEnderSurvivableEvent event = new EyeOfEnderSurvivableEvent(player, eye);
         BUS.post(event);
         return event.getSurvivable();
     }

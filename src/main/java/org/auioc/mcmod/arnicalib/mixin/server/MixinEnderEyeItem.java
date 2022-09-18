@@ -40,7 +40,7 @@ public abstract class MixinEnderEyeItem {
         CallbackInfoReturnable<InteractionResultHolder> cir,
         ItemStack itemstack, HitResult hitresult, ServerLevel serverlevel, BlockPos blockpos, EyeOfEnder eyeofender
     ) {
-        ((IMixinEyeOfEnder) eyeofender).setSurvivable(AHServerEventFactory.fireSetEyeOfEnderSurvivableEvent((ServerPlayer) p_41185_, eyeofender));
+        ((IMixinEyeOfEnder) eyeofender).setSurvivable(AHServerEventFactory.onEyeOfEnderSetSurvivable((ServerPlayer) p_41185_, eyeofender));
     }
 
 }
