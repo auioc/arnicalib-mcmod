@@ -16,10 +16,10 @@ import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerPlayerSendMessageEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.SetEyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.utils.LogUtil;
+import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -34,18 +34,18 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-public final class ServerEventFactory {
+public final class AHServerEventFactory {
 
     private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
     private static final IEventBus BUS = MinecraftForge.EVENT_BUS;
 
     // Return true if the event was Cancelable cancelled
 
-    public static boolean fireServerLoginEvent(final ClientIntentionPacket packet, final Connection manager) {
+    public static boolean onServerLogin(final ClientIntentionPacket packet, final Connection manager) {
         ServerLoginEvent event = new ServerLoginEvent(packet, manager);
         boolean cancelled = BUS.post(event);
         if (cancelled) {
-            TextComponent message = new TextComponent(event.getMessage());
+            var message = TextUtils.literal(event.getMessage());
             manager.send(new ClientboundLoginDisconnectPacket(message));
             manager.disconnect(message);
             LOGGER.info(
@@ -57,11 +57,11 @@ public final class ServerEventFactory {
         return false;
     }
 
-    public static boolean fireServerPlayerSendMessageEvent(ServerPlayer player, Component message, ChatType type, UUID uuid) {
+    public static boolean onServerPlayerSendMessage(ServerPlayer player, Component message, ChatType type, UUID uuid) {
         return BUS.post(new ServerPlayerSendMessageEvent(player, message, type, uuid));
     }
 
-    public static List<MobEffectInstance> fireLivingEatAddEffectEvent(LivingEntity entity, ItemStack food, List<MobEffectInstance> effects) {
+    public static List<MobEffectInstance> onLivingEatAddEffect(LivingEntity entity, ItemStack food, List<MobEffectInstance> effects) {
         LivingEatAddEffectEvent event = new LivingEatAddEffectEvent(entity, food, effects);
         if (BUS.post(event)) {
             event.getEffects().clear();
@@ -75,25 +75,27 @@ public final class ServerEventFactory {
         return event.getSurvivable();
     }
 
-    public static PiglinStanceEvent.Stance firePiglinStanceEvent(LivingEntity target) {
+    public static PiglinStanceEvent.Stance onPiglinChooseEvent(LivingEntity target) {
         var event = new PiglinStanceEvent(target);
         BUS.post(event);
         return event.getStance();
     }
 
-    public static double fireCatMorningGiftChanceEvent(Cat cat, Player ownerPlayer) {
+    public static double onCatSetMorningGiftChance(Cat cat, Player ownerPlayer) {
         var event = new CatMorningGiftChanceEvent(cat, ownerPlayer);
         BUS.post(event);
         return event.getChance();
     }
 
-    public static FishingRodCastEvent.Pre firePreFishingRodCastEvent(Player player, Level level, ItemStack fishingRod, int speedBonus, int luckBonus) {
+    // Coremod arnicalib.fishing_rod_item
+    public static FishingRodCastEvent.Pre preFishingRodCast(Player player, Level level, ItemStack fishingRod, int speedBonus, int luckBonus) {
         var event = new FishingRodCastEvent.Pre((ServerPlayer) player, (ServerLevel) level, fishingRod, speedBonus, luckBonus);
         BUS.post(event);
         return event;
     }
 
-    public static int fireItemHurtEvent(ItemStack itemStack, int damage, Random random, @Nullable ServerPlayer player) {
+    // Coremod arnicalib.item_stack
+    public static int onItemHurt(ItemStack itemStack, int damage, Random random, @Nullable ServerPlayer player) {
         var event = new ItemHurtEvent(itemStack, damage, random, player);
         BUS.post(event);
         return event.getDamage();

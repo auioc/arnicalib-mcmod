@@ -27,8 +27,8 @@ function initializeCoreMod() {
                     toInject.add(
                         new MethodInsnNode(
                             Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/server/event/ServerEventFactory',
-                            'fireItemHurtEvent',
+                            'org/auioc/mcmod/arnicalib/server/event/AHServerEventFactory',
+                            'onItemHurt',
                             '(Lnet/minecraft/world/item/ItemStack;ILjava/util/Random;Lnet/minecraft/server/level/ServerPlayer;)I',
                             false
                         )
@@ -76,7 +76,7 @@ function initializeCoreMod() {
         if (!this.isDamageableItem()) {
             return false;
         } else {
-+           p_41630_ = org.auioc.mcmod.arnicalib.server.event.ServerEventFactory.fireItemHurtEvent(this, p_41630_, p_41631_, p_41632_);
++           p_41630_ = org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory.onItemHurt(this, p_41630_, p_41631_, p_41632_);
             if (p_41630_ > 0) {
                 //_ ...
             }
@@ -100,7 +100,7 @@ function initializeCoreMod() {
 +       ILOAD 1
 +       ALOAD 2
 +       ALOAD 3
-+       INVOKESTATIC org/auioc/mcmod/arnicalib/server/event/ServerEventFactory.fireItemHurtEvent (Lnet/minecraft/world/item/ItemStack;ILjava/util/Random;Lnet/minecraft/server/level/ServerPlayer;)I
++       INVOKESTATIC org/auioc/mcmod/arnicalib/server/event/AHServerEventFactory.onItemHurt (Lnet/minecraft/world/item/ItemStack;ILjava/util/Random;Lnet/minecraft/server/level/ServerPlayer;)I
 +       ISTORE 1
         ILOAD 1
         IFLE L3

@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.client.event.handler;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
+import org.auioc.mcmod.arnicalib.client.config.AHClientConfig;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import org.lwjgl.glfw.GLFW;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -23,9 +23,9 @@ public class TooltipEventHandler {
     private static Minecraft mc = Minecraft.getInstance();
 
     public static void handle(ItemTooltipEvent event) {
-        if (!ClientConfig.EnableAdvancedTooltip.get()) return;
-        if (ClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
-        if (ClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
+        if (!AHClientConfig.EnableAdvancedTooltip.get()) return;
+        if (AHClientConfig.AdvancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
+        if (AHClientConfig.AdvancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
 
         ItemStack itemStack = event.getItemStack();
         if (itemStack.isEmpty()) return;

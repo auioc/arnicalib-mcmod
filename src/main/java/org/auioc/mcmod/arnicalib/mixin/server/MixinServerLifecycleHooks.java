@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +21,7 @@ public abstract class MixinServerLifecycleHooks {
         cancellable = true
     )
     private static void onServerLogin(final ClientIntentionPacket packet, final Connection manager, CallbackInfoReturnable<Boolean> cir) {
-        if (ServerEventFactory.fireServerLoginEvent(packet, manager)) {
+        if (AHServerEventFactory.onServerLogin(packet, manager)) {
             cir.setReturnValue(false);
         }
     }

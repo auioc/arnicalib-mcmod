@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
-public final class ClientEventHandler {
+public final class AHClientEventHandler {
 
     @SubscribeEvent
     public static void registerCommands(final RegisterClientCommandsEvent event) {

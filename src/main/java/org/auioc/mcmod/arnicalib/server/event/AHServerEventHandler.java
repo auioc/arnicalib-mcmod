@@ -9,7 +9,7 @@ import net.minecraft.network.ConnectionProtocol;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public final class ServerEventHandler {
+public final class AHServerEventHandler {
 
     private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
 

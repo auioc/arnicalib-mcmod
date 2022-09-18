@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mixin.common;
 
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.common.event.CommonEventFactory;
+import org.auioc.mcmod.arnicalib.common.event.AHCommonEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +20,7 @@ public abstract class MixinFoodData {
      */
     @Overwrite(remap = false)
     public void eat(Item p_38713_, ItemStack p_38714_, @Nullable LivingEntity entity) {
-        var event = CommonEventFactory.onLivingEat(entity, ((FoodData) (Object) this), p_38714_);
+        var event = AHCommonEventFactory.onLivingEat(entity, ((FoodData) (Object) this), p_38714_);
         if (!event.isCanceled()) {
             int nutrition = event.getNutrition();
             float saturationModifier = event.getSaturationModifier();

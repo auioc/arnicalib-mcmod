@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mixin.common;
 
-import org.auioc.mcmod.arnicalib.common.event.CommonEventFactory;
+import org.auioc.mcmod.arnicalib.common.event.AHCommonEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +23,7 @@ public abstract class MixinPistonBaseBlock {
         cancellable = true
     )
     private static void onCheckPushable(BlockState p_60205_, Level p_60206_, BlockPos p_60207_, Direction p_60208_, boolean p_60209_, Direction p_60210_, CallbackInfoReturnable<Boolean> cir) {
-        if (CommonEventFactory.firePistonCheckPushableEvent(p_60205_, p_60206_, p_60207_, p_60208_, p_60209_, p_60210_)) {
+        if (AHCommonEventFactory.onPistonCheckPushable(p_60205_, p_60206_, p_60207_, p_60208_, p_60209_, p_60210_)) {
             cir.setReturnValue(false);
         }
     }

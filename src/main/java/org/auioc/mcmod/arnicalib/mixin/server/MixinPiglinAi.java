@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +20,7 @@ public class MixinPiglinAi {
         allow = 1
     )
     private static void isWearingGold(LivingEntity p_34809_, CallbackInfoReturnable<Boolean> cri) {
-        var stance = ServerEventFactory.firePiglinStanceEvent(p_34809_);
+        var stance = AHServerEventFactory.onPiglinChooseEvent(p_34809_);
         if (stance == PiglinStanceEvent.Stance.NEUTRAL) {
             cri.setReturnValue(true);
         } else if (stance == PiglinStanceEvent.Stance.HOSTILE) {

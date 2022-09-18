@@ -43,8 +43,8 @@ function initializeCoreMod() {
                     toInject.add(
                         new MethodInsnNode(
                             Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/server/event/ServerEventFactory',
-                            'firePreFishingRodCastEvent',
+                            'org/auioc/mcmod/arnicalib/server/event/AHServerEventFactory',
+                            'preFishingRodCast',
                             '(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/server/event/impl/FishingRodCastEvent$Pre;',
                             false
                         )
@@ -126,7 +126,7 @@ function initializeCoreMod() {
             if (!p_41290_.isClientSide) {
                 int k = EnchantmentHelper.getFishingSpeedBonus(itemstack);
                 int j = EnchantmentHelper.getFishingLuckBonus(itemstack);
-+               var preEvent = org.auioc.mcmod.arnicalib.server.event.ServerEventFactory.firePreFishingRodCastEvent(p_41291_, p_41290_, itemstack, k, j);
++               var preEvent = org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory.preFishingRodCast(p_41291_, p_41290_, itemstack, k, j);
 +               k = preEvent.getSpeedBonus();
 +               j = preEvent.getLuckBonus();
                 p_41290_.addFreshEntity(new FishingHook(p_41291_, p_41290_, j, k));
@@ -160,7 +160,7 @@ function initializeCoreMod() {
 +       ALOAD 4
 +       ILOAD 5
 +       ILOAD 6
-+       INVOKESTATIC org/auioc/mcmod/arnicalib/server/event/ServerEventFactory.firePreFishingRodCastEvent (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/server/event/impl/FishingRodCastEvent$Pre;
++       INVOKESTATIC org/auioc/mcmod/arnicalib/server/event/AHServerEventFactory.preFishingRodCast (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/server/event/impl/FishingRodCastEvent$Pre;
 +       ASTORE 7
 +       ALOAD 7
 +       INVOKEVIRTUAL org/auioc/mcmod/arnicalib/server/event/impl/FishingRodCastEvent$Pre.getSpeedBonus ()I

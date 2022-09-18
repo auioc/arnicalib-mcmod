@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
 import java.util.UUID;
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +22,7 @@ public abstract class MixinServerPlayer {
         cancellable = true
     )
     private void onSendMessage(Component p_9147_, ChatType p_9148_, UUID p_9149_, CallbackInfo ci) {
-        if (ServerEventFactory.fireServerPlayerSendMessageEvent(((ServerPlayer) (Object) this), p_9147_, p_9148_, p_9149_)) {
+        if (AHServerEventFactory.onServerPlayerSendMessage(((ServerPlayer) (Object) this), p_9147_, p_9148_, p_9149_)) {
             ci.cancel();
         }
     }

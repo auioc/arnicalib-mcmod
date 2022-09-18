@@ -1,11 +1,11 @@
 package org.auioc.mcmod.arnicalib;
 
-import org.auioc.mcmod.arnicalib.client.config.ClientConfig;
-import org.auioc.mcmod.arnicalib.client.event.ClientEventHandler;
+import org.auioc.mcmod.arnicalib.client.config.AHClientConfig;
+import org.auioc.mcmod.arnicalib.client.event.AHClientEventHandler;
 import org.auioc.mcmod.arnicalib.common.command.AHCommandArguments;
 import org.auioc.mcmod.arnicalib.common.itemgroup.AHCreativeModeTabs;
 import org.auioc.mcmod.arnicalib.common.network.AHPacketHandler;
-import org.auioc.mcmod.arnicalib.server.event.ServerEventHandler;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventHandler;
 import org.auioc.mcmod.arnicalib.server.loot.AHGlobalLootModifiers;
 import org.auioc.mcmod.arnicalib.server.loot.AHLootItemConditions;
 import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
@@ -60,7 +60,7 @@ public final class Initialization {
 
         private void forgeSetup() {
             AHCreativeModeTabs.init();
-            forgeEventBus.register(ServerEventHandler.class);
+            forgeEventBus.register(AHServerEventHandler.class);
         }
 
     }
@@ -77,13 +77,13 @@ public final class Initialization {
         }
 
         public void registerConfig() {
-            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG);
+            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AHClientConfig.CONFIG);
         }
 
         public void modSetup() {}
 
         public void forgeSetup() {
-            forgeEventBus.register(ClientEventHandler.class);
+            forgeEventBus.register(AHClientEventHandler.class);
         }
 
     }

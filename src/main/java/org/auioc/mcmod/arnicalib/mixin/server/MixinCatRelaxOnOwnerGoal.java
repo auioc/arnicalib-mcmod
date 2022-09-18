@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +28,7 @@ public class MixinCatRelaxOnOwnerGoal {
         allow = 1
     )
     private double modifyConstant_stop(double title) {
-        return ServerEventFactory.fireCatMorningGiftChanceEvent(this.cat, this.ownerPlayer);
+        return AHServerEventFactory.onCatSetMorningGiftChance(this.cat, this.ownerPlayer);
     }
 
 }

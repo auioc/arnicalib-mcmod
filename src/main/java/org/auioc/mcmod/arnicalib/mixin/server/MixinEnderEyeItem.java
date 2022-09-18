@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
 import org.auioc.mcmod.arnicalib.api.mixin.server.IMixinEyeOfEnder;
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,7 +40,7 @@ public abstract class MixinEnderEyeItem {
         CallbackInfoReturnable<InteractionResultHolder> cir,
         ItemStack itemstack, HitResult hitresult, ServerLevel serverlevel, BlockPos blockpos, EyeOfEnder eyeofender
     ) {
-        ((IMixinEyeOfEnder) eyeofender).setSurvivable(ServerEventFactory.fireSetEyeOfEnderSurvivableEvent((ServerPlayer) p_41185_, eyeofender));
+        ((IMixinEyeOfEnder) eyeofender).setSurvivable(AHServerEventFactory.fireSetEyeOfEnderSurvivableEvent((ServerPlayer) p_41185_, eyeofender));
     }
 
 }

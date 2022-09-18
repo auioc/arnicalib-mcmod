@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.mixin.server;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.auioc.mcmod.arnicalib.server.event.ServerEventFactory;
+import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.mojang.datafixers.util.Pair;
@@ -30,7 +30,7 @@ public abstract class MixinLivingEntity {
                 }
             }
 
-            effects = ServerEventFactory.fireLivingEatAddEffectEvent(entity, stack, effects);
+            effects = AHServerEventFactory.onLivingEatAddEffect(entity, stack, effects);
 
             for (MobEffectInstance instance : effects) {
                 entity.addEffect(instance);

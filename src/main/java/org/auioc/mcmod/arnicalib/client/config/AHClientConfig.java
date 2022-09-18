@@ -6,7 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientConfig {
+public class AHClientConfig {
 
     public static final ForgeConfigSpec CONFIG;
 
