@@ -17,4 +17,12 @@ public class MathUtil {
         return r;
     }
 
+    public static double log(double a, double n) {
+        return Math.log(n) / Math.log(a);
+    }
+
+    public static double log2(double n) {
+        return log(2.0D, n);
+    }
+
 }
