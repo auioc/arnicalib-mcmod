@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.game.particle;
 
 import org.auioc.mcmod.arnicalib.base.phys.Shape;
 import org.auioc.mcmod.arnicalib.game.nbt.NbtUtils;
-import org.auioc.mcmod.arnicalib.utils.game.AABBUtils;
+import org.auioc.mcmod.arnicalib.game.world.phys.AABBUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;

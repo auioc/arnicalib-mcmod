@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.world;
 
 import java.util.function.Function;
 import net.minecraft.core.Registry;
@@ -13,18 +13,18 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
-public interface LevelUtils {
+public class LevelUtils {
 
-    static ResourceKey<Level> createKey(ResourceLocation id) {
+    public static ResourceKey<Level> createKey(ResourceLocation id) {
         return ResourceKey.create(Registry.DIMENSION_REGISTRY, id);
     }
 
-    static ServerLevel getLevel(ResourceKey<Level> key) {
+    public static ServerLevel getLevel(ResourceKey<Level> key) {
         return ServerLifecycleHooks.getCurrentServer().getLevel(key);
     }
 
 
-    static ITeleporter createSimpleTeleporter(Vec3 pos, boolean playTeleportSound) {
+    public static ITeleporter createSimpleTeleporter(Vec3 pos, boolean playTeleportSound) {
         return new ITeleporter() {
             @Override
             public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
@@ -40,19 +40,19 @@ public interface LevelUtils {
         };
     }
 
-    static ITeleporter createSimpleTeleporter(Vec3i pos, boolean playTeleportSound) {
+    public static ITeleporter createSimpleTeleporter(Vec3i pos, boolean playTeleportSound) {
         return createSimpleTeleporter(Vec3.atCenterOf(pos), playTeleportSound);
     }
 
-    static ITeleporter createSimpleTeleporter(Vec3i pos) {
+    public static ITeleporter createSimpleTeleporter(Vec3i pos) {
         return createSimpleTeleporter(Vec3.atCenterOf(pos), false);
     }
 
-    static ITeleporter createSimpleTeleporter(Vec3 pos) {
+    public static ITeleporter createSimpleTeleporter(Vec3 pos) {
         return createSimpleTeleporter(pos, false);
     }
 
-    static ITeleporter createSimpleTeleporter(double x, double y, double z) {
+    public static ITeleporter createSimpleTeleporter(double x, double y, double z) {
         return createSimpleTeleporter(new Vec3(x, y, z), false);
     }
 

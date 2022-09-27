@@ -1,8 +1,9 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.world.position;
 
 import java.util.Optional;
 import java.util.Random;
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
+import org.auioc.mcmod.arnicalib.utils.game.BlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -11,23 +12,23 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 
-public interface PositionUtils {
+public class PositionUtils {
 
-    static boolean isInWorldBounds(BlockPos pos, Level level) {
+    public static boolean isInWorldBounds(BlockPos pos, Level level) {
         return level.getWorldBorder().isWithinBounds(pos)
             && pos.getY() < level.getMaxBuildHeight()
             && pos.getY() >= level.getMinBuildHeight();
     }
 
-    static boolean canStandOn(BlockPos pos, Level level) {
+    public static boolean canStandOn(BlockPos pos, Level level) {
         return BlockUtils.canStandOn(level.getBlockState(pos));
     }
 
-    static boolean canStand(BlockPos pos, Level level) {
+    public static boolean canStand(BlockPos pos, Level level) {
         return canStandOn(pos.below(), level);
     }
 
-    static Optional<Integer> findStandableY(Level level, int x, int z, int minY, int maxY) {
+    public static Optional<Integer> findStandableY(Level level, int x, int z, int minY, int maxY) {
         minY = Math.max(minY, level.getMinBuildHeight());
         maxY = Math.min(maxY, level.getMaxBuildHeight() - 1);
         var pos = new MutableBlockPos(x, maxY, z);
@@ -40,11 +41,11 @@ public interface PositionUtils {
         return Optional.empty();
     }
 
-    static Optional<Integer> findStandableY(Level level, int x, int z) {
+    public static Optional<Integer> findStandableY(Level level, int x, int z) {
         return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
     }
 
-    static Vec3i random(Vec3i center, int radius, Random random) {
+    public static Vec3i random(Vec3i center, int radius, Random random) {
         radius += 1;
         return new Vec3i(
             center.getX() + RandomUtils.offset(radius, random),
@@ -53,7 +54,7 @@ public interface PositionUtils {
         );
     }
 
-    static Vec3 random(Vec3 center, double radius, Random random) {
+    public static Vec3 random(Vec3 center, double radius, Random random) {
         radius += 1.0D;
         return new Vec3(
             center.x + RandomUtils.offset(radius, random),
@@ -62,7 +63,7 @@ public interface PositionUtils {
         );
     }
 
-    static BlockPos random(BlockPos center, int radius, Random random) {
+    public static BlockPos random(BlockPos center, int radius, Random random) {
         return new BlockPos(random((Vec3i) center, radius, random));
     }
 

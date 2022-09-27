@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.world.phys;
 
 import java.util.Optional;
 import java.util.function.Function;

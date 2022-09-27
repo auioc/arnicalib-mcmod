@@ -3,6 +3,8 @@ package org.auioc.mcmod.arnicalib.utils.game;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.game.world.LevelUtils;
+import org.auioc.mcmod.arnicalib.game.world.phys.RayTraceUtils;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
