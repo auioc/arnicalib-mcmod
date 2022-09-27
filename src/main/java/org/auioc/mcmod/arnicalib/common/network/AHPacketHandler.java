@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.common.network;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.api.game.network.HPacketHandler;
-import org.auioc.mcmod.arnicalib.api.game.network.IHPacket;
+import org.auioc.mcmod.arnicalib.game.network.HPacketHandler;
+import org.auioc.mcmod.arnicalib.game.network.IHPacket;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class AHPacketHandler {

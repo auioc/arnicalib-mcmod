@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.Optional;
 import javax.annotation.Nonnull;
-import org.auioc.mcmod.arnicalib.api.game.registry.RegistryEntryException;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryEntryException;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;

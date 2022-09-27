@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.server.event.impl;
 
 import java.util.Random;
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.api.game.event.ServerPlayerEvent;
+import org.auioc.mcmod.arnicalib.game.event.ServerPlayerEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 

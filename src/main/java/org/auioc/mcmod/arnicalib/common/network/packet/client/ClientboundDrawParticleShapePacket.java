@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.common.network.packet.client;
 
-import org.auioc.mcmod.arnicalib.api.game.network.IHPacket;
-import org.auioc.mcmod.arnicalib.api.game.phys.Shape;
+import org.auioc.mcmod.arnicalib.base.phys.Shape;
+import org.auioc.mcmod.arnicalib.game.network.IHPacket;
 import org.auioc.mcmod.arnicalib.utils.game.ParticlePainter;
 import org.auioc.mcmod.arnicalib.utils.game.ParticlePainter.Options;
 import net.minecraft.core.particles.ParticleOptions;

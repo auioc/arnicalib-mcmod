@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.network;
+package org.auioc.mcmod.arnicalib.game.network;
 
 import java.util.Optional;
 import java.util.function.Function;

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.enchantment;
+package org.auioc.mcmod.arnicalib.game.enchantment;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

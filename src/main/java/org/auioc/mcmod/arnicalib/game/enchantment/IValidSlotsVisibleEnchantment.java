@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.enchantment;
+package org.auioc.mcmod.arnicalib.game.enchantment;
 
 import org.apache.commons.lang3.ArrayUtils;
 import net.minecraft.world.entity.EquipmentSlot;

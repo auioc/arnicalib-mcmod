@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.enchantment;
+package org.auioc.mcmod.arnicalib.game.enchantment;
 
 import java.util.Map;
 import javax.annotation.Nullable;

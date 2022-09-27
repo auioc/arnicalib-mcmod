@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.effect;
+package org.auioc.mcmod.arnicalib.game.effect;
 
 import javax.annotation.Nullable;
 import net.minecraft.world.effect.MobEffectInstance;

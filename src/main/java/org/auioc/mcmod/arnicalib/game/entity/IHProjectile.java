@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.entity;
+package org.auioc.mcmod.arnicalib.game.entity;
 
 import javax.annotation.Nullable;
 import net.minecraft.world.phys.Vec3;

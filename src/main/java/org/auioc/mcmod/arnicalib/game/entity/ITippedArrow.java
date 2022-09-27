@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.entity;
+package org.auioc.mcmod.arnicalib.game.entity;
 
 import java.util.Set;
 import net.minecraft.world.effect.MobEffectInstance;

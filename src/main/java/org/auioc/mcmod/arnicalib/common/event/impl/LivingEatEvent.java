@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.common.event.impl;
 
-import org.auioc.mcmod.arnicalib.api.game.event.FoodDataEvent;
+import org.auioc.mcmod.arnicalib.game.event.FoodDataEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;

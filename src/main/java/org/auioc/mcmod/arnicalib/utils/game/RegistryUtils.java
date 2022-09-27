@@ -6,7 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import org.auioc.mcmod.arnicalib.api.game.registry.IHRegistry;
+import org.auioc.mcmod.arnicalib.game.registry.IHRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;

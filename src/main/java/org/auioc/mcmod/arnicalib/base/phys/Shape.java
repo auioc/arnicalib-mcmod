@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.phys;
+package org.auioc.mcmod.arnicalib.base.phys;
 
 public enum Shape {
     LINE, //

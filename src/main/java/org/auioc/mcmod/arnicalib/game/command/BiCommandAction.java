@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.apache.commons.lang3.function.FailableToIntBiFunction;

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.game.registry;
+package org.auioc.mcmod.arnicalib.game.registry;
 
 import org.auioc.mcmod.arnicalib.base.function.ThrowableSupplier;
 

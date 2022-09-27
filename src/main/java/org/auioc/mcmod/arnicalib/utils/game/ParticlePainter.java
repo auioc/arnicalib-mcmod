@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.function.Consumer;
-import org.auioc.mcmod.arnicalib.api.game.phys.Shape;
+import org.auioc.mcmod.arnicalib.base.phys.Shape;
 import org.auioc.mcmod.arnicalib.common.network.AHPacketHandler;
 import org.auioc.mcmod.arnicalib.common.network.packet.client.ClientboundDrawParticleShapePacket;
 import net.minecraft.client.Minecraft;
