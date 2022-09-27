@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.language;
 
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -8,18 +8,18 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public interface LanguageUtils {
+public class LanguageUtils {
 
-    LanguageInfo DEFAULT_LANGUAGE = new LanguageInfo("en_us", "US", "English", false);
+    public static final LanguageInfo DEFAULT_LANGUAGE = new LanguageInfo("en_us", "US", "English", false);
 
-    static ClientLanguage getLanguage(LanguageInfo langInfo) {
+    public static ClientLanguage getLanguage(LanguageInfo langInfo) {
         return ClientLanguage.loadFrom(
             Minecraft.getInstance().getResourceManager(),
             List.of(langInfo)
         );
     }
 
-    static ClientLanguage getLanguage(String langCode) {
+    public static ClientLanguage getLanguage(String langCode) {
         var langInfo = Minecraft.getInstance().getLanguageManager().getLanguage(langCode);
         if (langInfo == null) {
             langInfo = DEFAULT_LANGUAGE;
