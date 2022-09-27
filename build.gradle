@@ -28,12 +28,11 @@ minecraft {
     mappings channel: "${mappings_channel}", version: "${mappings_version}"
     runs {
         client {
-            workingDirectory project.file('run')
+            workingDirectory project.file('run').canonicalPath
             property 'file.encoding', 'UTF-8'
             property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
-            arg "-mixin.config=${project.modId}.mixin.json"
             mods {
                 arnicalib {
                     source sourceSets.main
@@ -42,12 +41,11 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
+            workingDirectory project.file('run').canonicalPath
             property 'file.encoding', 'UTF-8'
             property 'user.language', 'en'
             property 'log4j.configurationFile', 'log4j2.xml'
             property 'mixin.debug', 'true'
-            arg "-mixin.config=${project.modId}.mixin.json"
             mods {
                 arnicalib {
                     source sourceSets.main
@@ -68,6 +66,7 @@ dependencies {
 
 mixin {
     add sourceSets.main, "${project.modId}.mixin-refmap.json"
+    config "${project.modId}.mixin.json"
 }
 
 apply from: 'gradle/tasks.gradle'
