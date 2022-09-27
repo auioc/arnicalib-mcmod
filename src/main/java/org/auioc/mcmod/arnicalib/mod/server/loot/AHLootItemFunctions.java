@@ -1,8 +1,8 @@
-package org.auioc.mcmod.arnicalib.server.loot;
+package org.auioc.mcmod.arnicalib.mod.server.loot;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.server.loot.function.SetCustomEffectsFunction;
-import org.auioc.mcmod.arnicalib.server.loot.function.SetRandomPotionFunction;
+import org.auioc.mcmod.arnicalib.mod.server.loot.function.SetCustomEffectsFunction;
+import org.auioc.mcmod.arnicalib.mod.server.loot.function.SetRandomPotionFunction;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;

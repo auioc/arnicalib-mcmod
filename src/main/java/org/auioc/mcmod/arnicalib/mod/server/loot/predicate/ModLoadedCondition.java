@@ -1,9 +1,9 @@
-package org.auioc.mcmod.arnicalib.server.loot.predicate;
+package org.auioc.mcmod.arnicalib.mod.server.loot.predicate;
 
+import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import org.auioc.mcmod.arnicalib.server.loot.AHLootItemConditions;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;

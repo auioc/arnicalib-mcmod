@@ -1,7 +1,7 @@
-package org.auioc.mcmod.arnicalib.server.loot;
+package org.auioc.mcmod.arnicalib.mod.server.loot;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.server.loot.predicate.ModLoadedCondition;
+import org.auioc.mcmod.arnicalib.mod.server.loot.predicate.ModLoadedCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;

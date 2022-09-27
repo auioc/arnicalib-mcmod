@@ -1,10 +1,10 @@
-package org.auioc.mcmod.arnicalib.server.loot.function;
+package org.auioc.mcmod.arnicalib.mod.server.loot.function;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.game.effect.MobEffectInstanceSerializer;
-import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
+import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemFunctions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
