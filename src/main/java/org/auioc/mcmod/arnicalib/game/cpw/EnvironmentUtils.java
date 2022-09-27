@@ -1,14 +1,14 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.cpw;
 
 import java.util.Locale;
 import cpw.mods.modlauncher.Launcher;
 import cpw.mods.modlauncher.api.IEnvironment;
 
-public interface EnvironmentUtils {
+public class EnvironmentUtils {
 
-    boolean IS_DEV = isDev();
+    public static final boolean IS_DEV = isDev();
 
-    static boolean isDev() {
+    public static boolean isDev() {
         return Launcher.INSTANCE
             .environment()
             .getProperty(IEnvironment.Keys.LAUNCHTARGET.get())
