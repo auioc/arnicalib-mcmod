@@ -3,7 +3,6 @@ package org.auioc.mcmod.arnicalib;
 import org.auioc.mcmod.arnicalib.client.config.AHClientConfig;
 import org.auioc.mcmod.arnicalib.client.event.AHClientEventHandler;
 import org.auioc.mcmod.arnicalib.common.itemgroup.AHCreativeModeTabs;
-import org.auioc.mcmod.arnicalib.common.network.AHPacketHandler;
 import org.auioc.mcmod.arnicalib.server.event.AHServerEventHandler;
 import org.auioc.mcmod.arnicalib.server.loot.AHGlobalLootModifiers;
 import org.auioc.mcmod.arnicalib.server.loot.AHLootItemConditions;
@@ -50,7 +49,6 @@ public final class Initialization {
         public void registerConfig() {}
 
         private void modSetup() {
-            AHPacketHandler.init();
             modEventBus.register(AHGlobalLootModifiers.class);
             AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
             AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
