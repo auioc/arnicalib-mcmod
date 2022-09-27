@@ -1,10 +1,13 @@
-package org.auioc.mcmod.arnicalib.api.game.screen;
+package org.auioc.mcmod.arnicalib.game.gui.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class HScreen extends Screen {
 
     public static final int DEFAULT_TEXTURE_SIZE = 256;

@@ -1,7 +1,6 @@
-package org.auioc.mcmod.arnicalib.client.gui.screen;
+package org.auioc.mcmod.arnicalib.game.gui.screen;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.api.game.screen.HScreen;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
