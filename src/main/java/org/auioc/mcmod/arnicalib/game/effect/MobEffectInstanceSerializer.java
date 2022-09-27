@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.game.effect;
 import java.util.ArrayList;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
-import org.auioc.mcmod.arnicalib.utils.game.ItemUtils;
+import org.auioc.mcmod.arnicalib.game.item.ItemRegistry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -43,7 +43,7 @@ public class MobEffectInstanceSerializer {
             List<ItemStack> curativeItems = new ArrayList<ItemStack>();
             for (var element : curativeItemsJson) {
                 var curativeItemId = GsonHelper.convertToString(element, "curative_item");
-                curativeItems.add(new ItemStack(ItemUtils.getItemOrElseThrow(curativeItemId)));
+                curativeItems.add(new ItemStack(ItemRegistry.getOrElseThrow(curativeItemId)));
             }
             instance.setCurativeItems(curativeItems);
         }

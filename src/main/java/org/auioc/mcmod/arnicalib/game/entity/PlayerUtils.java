@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.entity;
 
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.utils.game.ItemUtils;
+import org.auioc.mcmod.arnicalib.game.item.ItemUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
