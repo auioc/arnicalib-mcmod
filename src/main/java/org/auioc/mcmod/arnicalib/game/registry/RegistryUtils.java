@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.registry;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -6,7 +6,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import org.auioc.mcmod.arnicalib.game.registry.IHRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
@@ -21,10 +20,10 @@ public class RegistryUtils {
 
     /**
      * For special use only,
-     * please use {@link org.auioc.mcmod.arnicalib.utils.game.RegistryUtils#getAllRegistryObjects(DeferredRegister)} instead generally.
+     * please use {@link org.auioc.mcmod.arnicalib.game.registry.RegistryUtils#getAllRegistryObjects(DeferredRegister)} instead generally.
      */
     @SuppressWarnings("unchecked")
-    public static <T extends IForgeRegistryEntry<? super T>> List<T> getAllRegistryObjects(Class<? extends IHRegistry> clazz, Class<T> type) {
+    public static <T extends IForgeRegistryEntry<? super T>> List<T> getAllRegistryObjects(Class<?> clazz, Class<T> type) {
         List<T> list = new ArrayList<T>();
 
         Field[] fields = clazz.getDeclaredFields();

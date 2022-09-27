@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.registry;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.ArrayList;
@@ -30,20 +30,20 @@ import net.minecraftforge.registries.IForgeRegistryModifiable;
 
 public class OrderedForgeRegistries {
 
-    private static final Marker MARKER = LogUtil.getMarker("OrderedForgeRegistries");
+    private static final Marker MARKER = LogUtil.getMarker(OrderedForgeRegistries.class);
 
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, Block>>> BLOCKS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.BLOCKS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, Fluid>>> FLUIDS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.FLUIDS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, Item>>> ITEMS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.ITEMS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, SoundEvent>>> SOUND_EVENTS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.SOUND_EVENTS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, MobEffect>>> MOB_EFFECTS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.MOB_EFFECTS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, Potion>>> POTIONS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.POTIONS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, Enchantment>>> ENCHANTMENTS = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.ENCHANTMENTS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, EntityType<?>>>> ENTITIES = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.ENTITIES));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, BlockEntityType<?>>>> BLOCK_ENTITIES = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.BLOCK_ENTITIES));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, ParticleType<?>>>> PARTICLE_TYPES = new LazyObjectHolder<>(() -> createEntryList(ForgeRegistries.PARTICLE_TYPES));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, Block>>> BLOCKS = new LazyObjectHolder<>(() -> create(ForgeRegistries.BLOCKS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, Fluid>>> FLUIDS = new LazyObjectHolder<>(() -> create(ForgeRegistries.FLUIDS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, Item>>> ITEMS = new LazyObjectHolder<>(() -> create(ForgeRegistries.ITEMS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, SoundEvent>>> SOUND_EVENTS = new LazyObjectHolder<>(() -> create(ForgeRegistries.SOUND_EVENTS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, MobEffect>>> MOB_EFFECTS = new LazyObjectHolder<>(() -> create(ForgeRegistries.MOB_EFFECTS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, Potion>>> POTIONS = new LazyObjectHolder<>(() -> create(ForgeRegistries.POTIONS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, Enchantment>>> ENCHANTMENTS = new LazyObjectHolder<>(() -> create(ForgeRegistries.ENCHANTMENTS));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, EntityType<?>>>> ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.ENTITIES));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, BlockEntityType<?>>>> BLOCK_ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.BLOCK_ENTITIES));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, ParticleType<?>>>> PARTICLE_TYPES = new LazyObjectHolder<>(() -> create(ForgeRegistries.PARTICLE_TYPES));
 
-    private static <V extends IForgeRegistryEntry<V>> List<Entry<ResourceLocation, V>> createEntryList(IForgeRegistry<V> iRegistry) {
+    private static <V extends IForgeRegistryEntry<V>> List<Entry<ResourceLocation, V>> create(IForgeRegistry<V> iRegistry) {
         Validate.isTrue(iRegistry instanceof IForgeRegistryModifiable, "Only supports IForgeRegistryModifiable");
 
         IForgeRegistryModifiable<V> registry = (IForgeRegistryModifiable<V>) iRegistry;
