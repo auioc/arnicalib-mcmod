@@ -1,9 +1,6 @@
 {
     "arnicalib.title": "ArnicaLib",
 
-    "itemGroup.arnicalib": "ArnicaLib",
-    "itemGroup.vanillaHiddenItems": "原版隐藏物品",
-
     "arnicalib.advanced_tooltip.nbt": "NBT：",
     "arnicalib.advanced_tooltip.tag": "标签：",
 
