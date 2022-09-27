@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;

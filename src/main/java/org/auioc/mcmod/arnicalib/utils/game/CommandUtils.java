@@ -2,9 +2,9 @@ package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.List;
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.utils.game.command.CommandExceptions;
-import org.auioc.mcmod.arnicalib.utils.game.command.CommandNodeUtils;
-import org.auioc.mcmod.arnicalib.utils.game.command.CommandSourceUtils;
+import org.auioc.mcmod.arnicalib.game.command.CommandExceptions;
+import org.auioc.mcmod.arnicalib.game.command.CommandNodeUtils;
+import org.auioc.mcmod.arnicalib.game.command.CommandSourceUtils;
 import com.mojang.brigadier.context.ParsedCommandNode;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;

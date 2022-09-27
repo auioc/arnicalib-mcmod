@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.client.command.argument;
+package org.auioc.mcmod.arnicalib.game.command.argument;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;

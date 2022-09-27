@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.common.command.impl;
+package org.auioc.mcmod.arnicalib.game.command.node;
 
 import static net.minecraft.commands.Commands.literal;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
@@ -16,9 +16,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.MutableComponent;
 
-public class VersionCommand {
+public class VersionCommandNode {
 
-    private static final Marker MARKER = LogUtil.getMarker(VersionCommand.class);
+    private static final Marker MARKER = LogUtil.getMarker(VersionCommandNode.class);
 
     private static final SimpleCommandExceptionType GET_VERSION_REFLECTION_ERROR = new SimpleCommandExceptionType(i18n("failure.reflection"));
 

@@ -1,8 +1,9 @@
-package org.auioc.mcmod.arnicalib.base.log;
+package org.auioc.mcmod.arnicalib.utils;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 
 /**
  * @deprecated Use {@link LogUtil} instead

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.command;
+package org.auioc.mcmod.arnicalib.game.command.action;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableToIntFunction;

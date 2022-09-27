@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,7 +1,7 @@
-package org.auioc.mcmod.arnicalib.utils.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
-import org.auioc.mcmod.arnicalib.game.command.BiCommandAction;
-import org.auioc.mcmod.arnicalib.game.command.CommandAction;
+import org.auioc.mcmod.arnicalib.game.command.action.BiCommandAction;
+import org.auioc.mcmod.arnicalib.game.command.action.CommandAction;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

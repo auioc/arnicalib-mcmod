@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game.command;
+package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.function.Predicate;
 import org.auioc.mcmod.arnicalib.mixin.common.api.IMixinCommandSourceStack;

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.command;
+package org.auioc.mcmod.arnicalib.game.command.exception;
 
 import java.util.function.Function;
 import org.apache.logging.log4j.Logger;
