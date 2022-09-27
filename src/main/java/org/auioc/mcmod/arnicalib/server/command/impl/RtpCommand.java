@@ -5,8 +5,8 @@ import static net.minecraft.commands.Commands.literal;
 import java.util.List;
 import java.util.Optional;
 import org.auioc.mcmod.arnicalib.game.command.CommandSourceUtils;
+import org.auioc.mcmod.arnicalib.game.entity.EntityFunctions;
 import org.auioc.mcmod.arnicalib.game.world.position.RandomTeleporter;
-import org.auioc.mcmod.arnicalib.utils.game.EntityUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
@@ -93,7 +93,7 @@ public class RtpCommand {
     }
 
     private static List<? extends LivingEntity> getLivingEntities(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
-        return EntityArgument.getEntities(ctx, "entities").stream().filter(EntityUtils.IS_LIVING).map(EntityUtils.CAST_TO_LIVING).toList();
+        return EntityArgument.getEntities(ctx, "entities").stream().filter(EntityFunctions.IS_LIVING).map(EntityFunctions.CAST_TO_LIVING).toList();
     }
 
 }

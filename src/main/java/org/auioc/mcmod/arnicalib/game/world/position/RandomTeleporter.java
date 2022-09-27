@@ -2,8 +2,8 @@ package org.auioc.mcmod.arnicalib.game.world.position;
 
 import java.util.Optional;
 import java.util.Random;
+import org.auioc.mcmod.arnicalib.game.entity.EntityUtils;
 import org.auioc.mcmod.arnicalib.game.world.phys.AABBUtils;
-import org.auioc.mcmod.arnicalib.utils.game.EntityUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
