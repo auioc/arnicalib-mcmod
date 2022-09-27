@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.nbt;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;

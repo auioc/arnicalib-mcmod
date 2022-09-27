@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.mixin.common;
 
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.game.nbt.NbtUtils;
 import org.auioc.mcmod.arnicalib.mixin.common.api.IMixinProjectile;
-import org.auioc.mcmod.arnicalib.utils.game.NbtUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
