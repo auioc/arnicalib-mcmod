@@ -13,7 +13,6 @@
     "arnicalib.command.failure.not_dedicated_server": "此命令必须由专用服务器执行",
     "arnicalib.command.failure.get_real_source.reflection": "使用反射获取真实命令源失败",
 
-    "arnicalib.argument.creative_mod_tab.unknown": "未知的创造模式物品栏标签\"%s\"",
     "arnicalib.argument.language_info.unknown": "未知的语言\"%s\"",
 
     "arnicalib.command.version.success": "版本: %s (%s)",

@@ -6,7 +6,6 @@
         "common.MixinPistonBaseBlock",
         "common.MixinMobEffectInstance",
         "common.MixinCommandSourceStack",
-        "common.MixinCreativeModeTab",
         "common.MixinItemStack",
         "common.MixinProjectile",
         "common.MixinArrow",
