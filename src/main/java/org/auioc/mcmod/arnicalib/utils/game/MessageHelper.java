@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
-import org.auioc.mcmod.arnicalib.api.java.function.StringToStringFunction;
+import org.auioc.mcmod.arnicalib.base.function.StringToStringFunction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.ChatType;

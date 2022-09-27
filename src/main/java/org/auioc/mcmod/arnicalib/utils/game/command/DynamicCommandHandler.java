@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.utils.game.command;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.Marker;
-import org.auioc.mcmod.arnicalib.utils.LogUtil;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

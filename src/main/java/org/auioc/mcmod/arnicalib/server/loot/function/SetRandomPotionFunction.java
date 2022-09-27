@@ -2,10 +2,10 @@ package org.auioc.mcmod.arnicalib.server.loot.function;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
+import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
 import org.auioc.mcmod.arnicalib.utils.game.OrderedForgeRegistries;
-import org.auioc.mcmod.arnicalib.utils.java.RandomUtils;
-import org.auioc.mcmod.arnicalib.utils.java.Validate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;

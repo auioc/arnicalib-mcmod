@@ -2,8 +2,8 @@ package org.auioc.mcmod.arnicalib.api.game.enchantment;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import org.auioc.mcmod.arnicalib.api.java.function.QuadConsumer;
-import org.auioc.mcmod.arnicalib.api.java.function.TriConsumer;
+import org.auioc.mcmod.arnicalib.base.function.QuadConsumer;
+import org.auioc.mcmod.arnicalib.base.function.TriConsumer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;

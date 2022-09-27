@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.api.game.registry;
 
-import org.auioc.mcmod.arnicalib.api.java.function.ThrowableSupplier;
+import org.auioc.mcmod.arnicalib.base.function.ThrowableSupplier;
 
 public class RegistryEntryException extends RuntimeException {
 
