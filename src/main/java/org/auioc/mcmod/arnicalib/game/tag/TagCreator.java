@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.tag;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
