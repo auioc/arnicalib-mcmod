@@ -1,4 +1,4 @@
-apply from: "$rootDir/gradle/utils.gradle"
+apply from: "gradle/utils.gradle"
 
 def getBuildVersion() {
     if (getEnvAsBoolean('CI')) {
