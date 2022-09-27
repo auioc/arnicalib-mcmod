@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.world;
 
 import java.util.function.Predicate;
 import net.minecraft.world.Container;
