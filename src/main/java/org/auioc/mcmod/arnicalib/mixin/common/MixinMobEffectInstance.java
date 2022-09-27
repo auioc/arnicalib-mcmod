@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mixin.common;
 
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinMobEffectInstance;
+import org.auioc.mcmod.arnicalib.mixin.common.api.IMixinMobEffectInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import net.minecraft.world.effect.MobEffectInstance;

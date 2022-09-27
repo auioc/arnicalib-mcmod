@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.mixin.server;
 
 import java.util.Random;
 import java.util.function.Function;
-import org.auioc.mcmod.arnicalib.api.mixin.server.IMixinEyeOfEnder;
+import org.auioc.mcmod.arnicalib.mixin.server.api.IMixinEyeOfEnder;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

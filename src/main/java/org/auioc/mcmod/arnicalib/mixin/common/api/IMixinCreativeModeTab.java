@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.api.mixin.common;
+package org.auioc.mcmod.arnicalib.mixin.common.api;
 
 public interface IMixinCreativeModeTab {
 

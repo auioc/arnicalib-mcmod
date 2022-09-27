@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCreativeModeTab;
+import org.auioc.mcmod.arnicalib.mixin.common.api.IMixinCreativeModeTab;
 import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;

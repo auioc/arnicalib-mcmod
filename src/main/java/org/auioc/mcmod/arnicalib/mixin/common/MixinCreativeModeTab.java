@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mixin.common;
 
-import org.auioc.mcmod.arnicalib.api.mixin.common.IMixinCreativeModeTab;
+import org.auioc.mcmod.arnicalib.mixin.common.api.IMixinCreativeModeTab;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
