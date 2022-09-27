@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.config;
 
 import java.util.List;
 import java.util.function.Consumer;
