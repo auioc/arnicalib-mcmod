@@ -3,8 +3,8 @@ package org.auioc.mcmod.arnicalib.server.loot.function;
 import java.util.ArrayList;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
+import org.auioc.mcmod.arnicalib.game.effect.MobEffectInstanceSerializer;
 import org.auioc.mcmod.arnicalib.server.loot.AHLootItemFunctions;
-import org.auioc.mcmod.arnicalib.utils.game.EffectUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -49,7 +49,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
             JsonArray effectsJson = GsonHelper.getAsJsonArray(json, "effects");
             Validate.isTrue(!effectsJson.isEmpty(), "The mob effect instance list must be not empty");
             for (JsonElement element : effectsJson) {
-                effects.add(EffectUtils.deserializeFromJson(GsonHelper.convertToJsonObject(element, "mobEffectInstance")));
+                effects.add(MobEffectInstanceSerializer.fromJson(GsonHelper.convertToJsonObject(element, "mobEffectInstance")));
             }
 
             return new SetCustomEffectsFunction(conditions, effects);
