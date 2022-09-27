@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.client.event.handler;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.client.config.AHClientConfig;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.lwjgl.glfw.GLFW;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;

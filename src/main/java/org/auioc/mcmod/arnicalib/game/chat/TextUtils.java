@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.chat;
 
 import java.util.List;
 import net.minecraft.Util;

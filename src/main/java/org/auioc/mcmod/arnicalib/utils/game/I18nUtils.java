@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.utils.game;
 
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 

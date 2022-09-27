@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.game.command.argument;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;

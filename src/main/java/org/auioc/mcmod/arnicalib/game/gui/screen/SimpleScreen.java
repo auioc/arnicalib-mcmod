@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.gui.screen;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;

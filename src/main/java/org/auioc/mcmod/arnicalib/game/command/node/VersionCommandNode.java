@@ -6,7 +6,7 @@ import java.util.function.Function;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

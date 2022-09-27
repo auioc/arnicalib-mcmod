@@ -2,6 +2,7 @@ package org.auioc.mcmod.arnicalib.utils.game;
 
 import java.util.function.Function;
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;

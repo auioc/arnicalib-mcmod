@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.chat;
 
 import org.auioc.mcmod.arnicalib.base.function.StringToStringFunction;
 import net.minecraft.ChatFormatting;

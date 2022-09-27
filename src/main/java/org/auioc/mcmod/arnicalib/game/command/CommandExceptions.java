@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.utils.game.TextUtils;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.exceptions.BuiltInExceptionProvider;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
