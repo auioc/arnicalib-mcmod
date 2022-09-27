@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mixin.server;
 
-import org.auioc.mcmod.arnicalib.mixin.server.api.IMixinEyeOfEnder;
+import org.auioc.mcmod.arnicalib.game.mixin.server.IMixinEyeOfEnder;
 import org.auioc.mcmod.arnicalib.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

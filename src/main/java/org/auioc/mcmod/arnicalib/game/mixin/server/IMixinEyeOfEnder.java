@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.mixin.server.api;
+package org.auioc.mcmod.arnicalib.game.mixin.server;
 
 import java.util.Random;
 import java.util.function.Function;
