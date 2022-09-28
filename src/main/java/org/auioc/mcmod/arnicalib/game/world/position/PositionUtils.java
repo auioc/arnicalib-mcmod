@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.game.world.position;
 import java.util.Optional;
 import java.util.Random;
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
-import org.auioc.mcmod.arnicalib.utils.game.BlockUtils;
+import org.auioc.mcmod.arnicalib.game.block.BlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;

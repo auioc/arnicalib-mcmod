@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.item;
 
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.utils.game.VanillaPredicates;
+import org.auioc.mcmod.arnicalib.game.registry.VanillaPredicates;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.block;
 
 import net.minecraft.world.level.block.state.BlockState;
 
