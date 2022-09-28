@@ -13,7 +13,6 @@ import org.auioc.mcmod.arnicalib.server.event.impl.EyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ItemHurtEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
-import org.auioc.mcmod.arnicalib.server.event.impl.PiglinStanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerPlayerSendMessageEvent;
 import net.minecraft.network.Connection;
@@ -71,12 +70,6 @@ public final class AHServerEventFactory {
         EyeOfEnderSurvivableEvent event = new EyeOfEnderSurvivableEvent(player, eye);
         BUS.post(event);
         return event.getSurvivable();
-    }
-
-    public static PiglinStanceEvent.Stance onPiglinChooseEvent(LivingEntity target) {
-        var event = new PiglinStanceEvent(target);
-        BUS.post(event);
-        return event.getStance();
     }
 
     // Coremod arnicalib.fishing_rod_item
