@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
-import org.auioc.mcmod.arnicalib.server.event.impl.CatMorningGiftChanceEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.EyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ItemHurtEvent;
@@ -26,7 +25,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.item.ItemStack;
@@ -79,12 +77,6 @@ public final class AHServerEventFactory {
         var event = new PiglinStanceEvent(target);
         BUS.post(event);
         return event.getStance();
-    }
-
-    public static double onCatSetMorningGiftChance(Cat cat, Player ownerPlayer) {
-        var event = new CatMorningGiftChanceEvent(cat, ownerPlayer);
-        BUS.post(event);
-        return event.getChance();
     }
 
     // Coremod arnicalib.fishing_rod_item
