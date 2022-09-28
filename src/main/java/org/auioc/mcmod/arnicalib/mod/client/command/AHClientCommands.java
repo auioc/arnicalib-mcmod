@@ -23,13 +23,4 @@ public final class AHClientCommands {
         return node;
     }
 
-    /**
-     * @since 5.0.2
-     * @deprecated Use {@link #getAHNode} instead
-     */
-    @Deprecated(since = "5.1.3", forRemoval = true)
-    public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
-        return getAHNode(dispatcher);
-    }
-
 }

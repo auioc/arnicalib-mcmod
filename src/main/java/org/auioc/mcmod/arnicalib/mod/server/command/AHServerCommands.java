@@ -31,15 +31,6 @@ public final class AHServerCommands {
         return node;
     }
 
-    /**
-     * @since 4.1.0
-     * @deprecated Use {@link #getAHNode} instead
-     */
-    @Deprecated(since = "5.1.3", forRemoval = true)
-    public static CommandNode<CommandSourceStack> getRootNode(CommandDispatcher<CommandSourceStack> dispatcher) {
-        return getAHNode(dispatcher);
-    }
-
     private static void addTestNode(CommandNode<CommandSourceStack> node) {
         node.addChild(
             literal("test")

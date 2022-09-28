@@ -15,11 +15,6 @@ public final class AHCommonEventFactory {
 
     private static final IEventBus BUS = MinecraftForge.EVENT_BUS;
 
-    @Deprecated(since = "3.1.1")
-    public static boolean postPistonAddBlockLineEvent(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
-        return BUS.post(new org.auioc.mcmod.arnicalib.common.event.impl.PistonAddBlockLineEvent(blockState, level, blockPos, direction));
-    }
-
     public static boolean onPistonCheckPushable(BlockState blockState, Level level, BlockPos blockPos, Direction pushDirection, boolean p_60209_, Direction p_60210_) {
         return BUS.post(new PistonCheckPushableEvent(blockState, level, blockPos, pushDirection, p_60209_, p_60210_));
     }

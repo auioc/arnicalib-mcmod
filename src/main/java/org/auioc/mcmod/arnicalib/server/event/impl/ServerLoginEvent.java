@@ -22,11 +22,6 @@ public class ServerLoginEvent extends Event {
         return this.packet;
     }
 
-    @Deprecated
-    public Connection getManager() {
-        return this.manager;
-    }
-
     public Connection getNetworkManager() {
         return this.manager;
     }
