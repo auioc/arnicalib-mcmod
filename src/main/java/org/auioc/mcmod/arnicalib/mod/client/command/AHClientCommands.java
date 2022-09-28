@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.client.command;
+package org.auioc.mcmod.arnicalib.mod.client.command;
 
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;

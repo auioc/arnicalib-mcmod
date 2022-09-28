@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
-import org.auioc.mcmod.arnicalib.client.command.AHClientCommands;
+import org.auioc.mcmod.arnicalib.mod.client.command.AHClientCommands;
 import org.auioc.mcmod.arnicalib.server.command.AHServerCommands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;

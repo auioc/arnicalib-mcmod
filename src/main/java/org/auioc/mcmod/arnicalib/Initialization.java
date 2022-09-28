@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib;
 
-import org.auioc.mcmod.arnicalib.client.config.AHClientConfig;
-import org.auioc.mcmod.arnicalib.client.event.AHClientEventHandler;
+import org.auioc.mcmod.arnicalib.mod.client.config.AHClientConfig;
+import org.auioc.mcmod.arnicalib.mod.client.event.AHClientEventHandler;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHGlobalLootModifiers;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemFunctions;
