@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.base.validate;
+package org.auioc.mcmod.arnicalib.base.word;
 
 import java.util.regex.Pattern;
 
