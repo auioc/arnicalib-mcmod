@@ -5,7 +5,6 @@
     "mixins": [
         "common.MixinMobEffectInstance",
         "common.MixinCommandSourceStack",
-        "common.MixinItemStack",
         "common.MixinProjectile",
         "common.MixinArrow",
         "common.MixinEnchantment",
