@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.server.event.impl;
+package org.auioc.mcmod.arnicalib.game.event.server;
 
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;

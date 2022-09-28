@@ -1,10 +1,10 @@
-package org.auioc.mcmod.arnicalib.server.event;
+package org.auioc.mcmod.arnicalib.mod.server.event;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
-import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
+import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;

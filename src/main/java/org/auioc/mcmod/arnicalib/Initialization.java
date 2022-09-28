@@ -2,10 +2,10 @@ package org.auioc.mcmod.arnicalib;
 
 import org.auioc.mcmod.arnicalib.mod.client.config.AHClientConfig;
 import org.auioc.mcmod.arnicalib.mod.client.event.AHClientEventHandler;
+import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventHandler;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHGlobalLootModifiers;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemFunctions;
-import org.auioc.mcmod.arnicalib.server.event.AHServerEventHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
