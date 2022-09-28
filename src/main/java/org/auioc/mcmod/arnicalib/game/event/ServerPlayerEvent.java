@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.game.event;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
-public class ServerPlayerEvent extends LivingEvent {
+public abstract class ServerPlayerEvent extends LivingEvent {
 
     private final ServerPlayer player;
 

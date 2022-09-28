@@ -4,7 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodData;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
-public class FoodDataEvent extends LivingEvent {
+public abstract class FoodDataEvent extends LivingEvent {
 
     private final FoodData foodData;
 
