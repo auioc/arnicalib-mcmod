@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.server.command.impl;
+package org.auioc.mcmod.arnicalib.mod.server.command.impl;
 
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;

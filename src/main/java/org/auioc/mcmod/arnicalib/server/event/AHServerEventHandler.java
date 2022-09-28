@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.server.event;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
-import org.auioc.mcmod.arnicalib.server.command.AHServerCommands;
+import org.auioc.mcmod.arnicalib.mod.server.command.AHServerCommands;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraftforge.event.RegisterCommandsEvent;

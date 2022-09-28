@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.server.command;
+package org.auioc.mcmod.arnicalib.mod.server.command;
 
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;
@@ -6,7 +6,7 @@ import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.command.DynamicCommandHandler;
 import org.auioc.mcmod.arnicalib.game.command.node.VersionCommandNode;
 import org.auioc.mcmod.arnicalib.game.cpw.EnvironmentUtils;
-import org.auioc.mcmod.arnicalib.server.command.impl.RtpCommand;
+import org.auioc.mcmod.arnicalib.mod.server.command.impl.RtpCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
@@ -45,7 +45,7 @@ public final class AHServerCommands {
             literal("test")
                 .executes(
                     (ctx) -> DynamicCommandHandler.run(
-                        "org.auioc.mcmod.arnicalib.server.command.TestCommandHandler",
+                        "org.auioc.mcmod.arnicalib.mod.server.command.TestCommandHandler",
                         "run",
                         ctx
                     )
