@@ -9,7 +9,6 @@
         "common.MixinItemStack",
         "common.MixinProjectile",
         "common.MixinArrow",
-        "common.MixinFoodData",
         "common.MixinEnchantment",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
