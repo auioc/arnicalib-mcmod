@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.entity;
+package org.auioc.mcmod.arnicalib.game.entity.player;
 
 import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.game.item.ItemUtils;

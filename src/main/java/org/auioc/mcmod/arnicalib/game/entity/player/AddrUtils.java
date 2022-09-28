@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.utils.game;
+package org.auioc.mcmod.arnicalib.game.entity.player;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -7,10 +7,10 @@ import io.netty.channel.local.LocalAddress;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 
-public interface AddrUtils {
+public class AddrUtils {
 
     @Nullable
-    static String getIp(Connection connection) {
+    public static String getIp(Connection connection) {
         SocketAddress addr = connection.getRemoteAddress();
         if (addr instanceof InetSocketAddress) {
             return ((InetSocketAddress) addr).getAddress().getHostAddress();
@@ -21,7 +21,7 @@ public interface AddrUtils {
     }
 
     @Nullable
-    static String getPlayerIp(ServerPlayer player) {
+    public static String getPlayerIp(ServerPlayer player) {
         return getIp(player.connection.getConnection());
     }
 
