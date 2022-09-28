@@ -10,7 +10,6 @@
         "common.MixinEnchantment",
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext",
-        "server.MixinServerPlayer",
         "server.MixinLivingEntity",
         "server.MixinEyeOfEnder",
         "server.MixinEnderEyeItem"

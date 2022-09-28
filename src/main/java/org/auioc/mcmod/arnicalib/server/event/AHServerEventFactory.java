@@ -3,7 +3,6 @@ package org.auioc.mcmod.arnicalib.server.event;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.function.Function;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
@@ -11,10 +10,7 @@ import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.server.event.impl.EyeOfEnderSurvivableEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.LivingEatAddEffectEvent;
 import org.auioc.mcmod.arnicalib.server.event.impl.ServerLoginEvent;
-import org.auioc.mcmod.arnicalib.server.event.impl.ServerPlayerSendMessageEvent;
 import net.minecraft.network.Connection;
-import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,10 +42,6 @@ public final class AHServerEventFactory {
             return true;
         }
         return false;
-    }
-
-    public static boolean onServerPlayerSendMessage(ServerPlayer player, Component message, ChatType type, UUID uuid) {
-        return BUS.post(new ServerPlayerSendMessageEvent(player, message, type, uuid));
     }
 
     public static List<MobEffectInstance> onLivingEatAddEffect(LivingEntity entity, ItemStack food, List<MobEffectInstance> effects) {
