@@ -9,9 +9,7 @@
         "common.MixinArrow",
         "common.MixinEnchantment",
         "server.MixinServerLifecycleHooks",
-        "server.MixinLootContext",
-        "server.MixinEyeOfEnder",
-        "server.MixinEnderEyeItem"
+        "server.MixinLootContext"
     ],
     "client": [],
     "server": [],
