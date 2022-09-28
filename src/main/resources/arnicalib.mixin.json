@@ -3,7 +3,6 @@
     "package": "org.auioc.mcmod.arnicalib.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "common.MixinPistonBaseBlock",
         "common.MixinMobEffectInstance",
         "common.MixinCommandSourceStack",
         "common.MixinItemStack",
