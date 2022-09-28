@@ -16,9 +16,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.MutableComponent;
 
-public class VersionCommandNode {
+public class VersionCommand {
 
-    private static final Marker MARKER = LogUtil.getMarker(VersionCommandNode.class);
+    private static final Marker MARKER = LogUtil.getMarker(VersionCommand.class);
 
     private static final SimpleCommandExceptionType GET_VERSION_REFLECTION_ERROR = new SimpleCommandExceptionType(i18n("failure.reflection"));
 
