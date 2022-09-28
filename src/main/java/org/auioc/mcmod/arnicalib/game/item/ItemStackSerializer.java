@@ -39,4 +39,18 @@ public class ItemStackSerializer {
         return ItemUtils.createItemStack(item, count, nbt);
     }
 
+    public static void toJson(ItemStack itemStack, JsonObject json) {
+        json.addProperty("id", itemStack.getItem().getRegistryName().toString());
+        json.addProperty("count", itemStack.getCount());
+        if (itemStack.hasTag()) {
+            json.addProperty("nbt", itemStack.getTag().toString());
+        }
+    }
+
+    public static JsonObject toJson(ItemStack itemStack) {
+        JsonObject json = new JsonObject();
+        toJson(itemStack, json);
+        return json;
+    }
+
 }

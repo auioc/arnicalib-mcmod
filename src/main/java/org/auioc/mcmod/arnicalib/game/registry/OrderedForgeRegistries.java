@@ -61,7 +61,7 @@ public class OrderedForgeRegistries {
             list.add(Map.entry(entry.getKey().location(), entry.getValue()));
         }
 
-        LOGGER.info(MARKER, "Created entry list of registry '" + name + "'' with " + list.size() + " entries");
+        LOGGER.info(MARKER, "Created entry list of registry '" + name + "' with " + list.size() + " entries");
         return List.copyOf(list);
     }
 
