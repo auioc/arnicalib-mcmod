@@ -2,9 +2,9 @@ package org.auioc.mcmod.arnicalib.game.enchantment;
 
 import java.util.Map;
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.game.enchantment.EnchantmentVisitor.BiEnchantmentVisitor;
-import org.auioc.mcmod.arnicalib.game.enchantment.EnchantmentVisitor.QuadEnchantmentVisitor;
-import org.auioc.mcmod.arnicalib.game.enchantment.EnchantmentVisitor.TriEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.game.enchantment.visitor.BiEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.game.enchantment.visitor.QuadEnchantmentVisitor;
+import org.auioc.mcmod.arnicalib.game.enchantment.visitor.TriEnchantmentVisitor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
