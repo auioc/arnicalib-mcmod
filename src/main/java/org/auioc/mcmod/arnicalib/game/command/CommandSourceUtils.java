@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.game.mixin.common.IMixinCommandSourceStack;
+import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinCommandSourceStack;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;

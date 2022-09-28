@@ -1,6 +1,6 @@
-package org.auioc.mcmod.arnicalib.mixin.common;
+package org.auioc.mcmod.arnicalib.mod.mixin.common;
 
-import org.auioc.mcmod.arnicalib.game.mixin.common.IMixinEnchantment;
+import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinEnchantment;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

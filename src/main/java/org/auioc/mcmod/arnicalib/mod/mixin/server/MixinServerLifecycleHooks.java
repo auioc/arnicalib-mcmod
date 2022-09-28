@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.mixin.server;
+package org.auioc.mcmod.arnicalib.mod.mixin.server;
 
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory;
 import org.spongepowered.asm.mixin.Mixin;

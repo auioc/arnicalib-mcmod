@@ -1,7 +1,7 @@
-package org.auioc.mcmod.arnicalib.mixin.common;
+package org.auioc.mcmod.arnicalib.mod.mixin.common;
 
 import java.util.Set;
-import org.auioc.mcmod.arnicalib.game.mixin.common.IMixinArrow;
+import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinArrow;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

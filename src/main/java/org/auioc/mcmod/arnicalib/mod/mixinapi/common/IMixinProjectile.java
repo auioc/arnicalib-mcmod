@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.mixin.common;
+package org.auioc.mcmod.arnicalib.mod.mixinapi.common;
 
 import org.auioc.mcmod.arnicalib.game.entity.projectile.IHProjectile;
 
