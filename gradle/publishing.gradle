@@ -28,6 +28,14 @@ publishing {
             }
         }
         maven {
+            name = 'AuiocMavenRepo'
+            url = uri("https://repo.auioc.com/maven/releases")
+            credentials {
+                username = System.getenv('AUIOC_MAVEN_USERNAME')
+                password = System.getenv('AUIOC_MAVEN_TOKEN')
+            }
+        }
+        maven {
             name = 'McmodsRepo'
             url "file://${project.projectDir}/mcmodsrepo"
         }

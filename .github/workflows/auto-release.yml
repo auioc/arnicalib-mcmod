@@ -53,6 +53,8 @@ jobs:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
                   ORG_GRADLE_PROJECT_signingKey: ${{secrets.RELEASE_SIGNING_GPG_PRIVATE_KEY}}
                   ORG_GRADLE_PROJECT_signingPassword: ${{secrets.RELEASE_SIGNING_GPG_PASSPHRASE}}
+                  AUIOC_MAVEN_USERNAME: ${{secrets.AUIOC_MAVEN_USERNAME}}
+                  AUIOC_MAVEN_TOKEN: ${{secrets.AUIOC_MAVEN_TOKEN}}
               run: ./gradlew clean build publish genUpdateJson
 
             - name: Update update JSON
