@@ -20,13 +20,13 @@ public final class AHServerEventHandler {
     }
 
 
-    private static final Marker SERVER_LIST_PING_MARKER = LogUtil.getMarker("ServerListPing").addParents(MARKER);
+    private static final Marker SLP_MARKER = LogUtil.getMarker("ServerListPing").addParents(MARKER);
 
     @SubscribeEvent
     public static void onServerLogin(final ServerLoginEvent event) {
         if (event.getPacket().getIntention() == ConnectionProtocol.STATUS) {
-            LOGGER.info(
-                SERVER_LIST_PING_MARKER,
+            LOGGER.debug(
+                SLP_MARKER,
                 String.format("[%s] <-> InitialHandler has pinged", event.getNetworkManager().getRemoteAddress())
             );
         }
