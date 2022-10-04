@@ -2,6 +2,7 @@ package org.auioc.mcmod.arnicalib;
 
 import org.auioc.mcmod.arnicalib.mod.client.config.AHClientConfig;
 import org.auioc.mcmod.arnicalib.mod.client.event.AHClientEventHandler;
+import org.auioc.mcmod.arnicalib.mod.common.tag.HTags;
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventHandler;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHGlobalLootModifiers;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
@@ -51,6 +52,7 @@ public final class Initialization {
             modEventBus.register(AHGlobalLootModifiers.class);
             AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
             AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
+            HTags.init();
         }
 
         private void forgeSetup() {
