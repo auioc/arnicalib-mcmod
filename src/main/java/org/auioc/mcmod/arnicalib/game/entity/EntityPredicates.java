@@ -1,6 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.entity;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -9,7 +8,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 
-public class EntityFunctions {
+public class EntityPredicates {
 
     public static final Predicate<Entity> IS_LIVING = (entity) -> entity instanceof LivingEntity;
     public static final Predicate<Entity> IS_PLAYER = (entity) -> entity instanceof Player;
@@ -35,9 +34,6 @@ public class EntityFunctions {
     public static final Predicate<LivingEntity> IS_ARTHROPOD = (living) -> living.getMobType() == MobType.ARTHROPOD;
     public static final Predicate<LivingEntity> IS_ILLAGER = (living) -> living.getMobType() == MobType.ILLAGER;
     public static final Predicate<LivingEntity> IS_WATER = (living) -> living.getMobType() == MobType.WATER;
-
-    public static final Function<Entity, LivingEntity> CAST_TO_LIVING = (entity) -> (LivingEntity) entity;
-    public static final Function<Player, ServerPlayer> CAST_TO_SERVER_PLAYER = (player) -> (ServerPlayer) player;
 
     private static MobCategory getCategory(Entity entity) {
         return entity.getType().getCategory();
