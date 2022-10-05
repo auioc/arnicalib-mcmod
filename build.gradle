@@ -14,17 +14,9 @@ apply plugin: 'eclipse'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/mixin-plugin.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/project.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/version.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/minecraft.gradle'
+apply from: 'gradle/a.gradle'
 
 repositories {}
 dependencies {}
 
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/mixin.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/tasks.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/artifacts.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/minecraft/publishing.gradle'
-apply from: 'https://hi.auioc.org/gradle-scripts/common/signing.gradle'
-
+apply from: 'gradle/b.gradle'
