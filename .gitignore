@@ -24,3 +24,5 @@ forge*changelog.txt
 test*.*
 
 mcmodsrepo
+
+src/generated/resources/*/
