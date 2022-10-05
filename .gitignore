@@ -25,4 +25,4 @@ test*.*
 
 mcmodsrepo
 
-src/generated/resources/*/
+src/generated

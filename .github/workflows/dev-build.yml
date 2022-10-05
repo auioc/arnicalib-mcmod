@@ -25,14 +25,11 @@ jobs:
                   distribution: 'temurin'
                   architecture: x64
 
-            - name: Set up Gradle
+            - name: Build with Gradle
               run: |
                   chmod +x ./gradlew
-                  rm -rf tmp
-                  mkdir tmp
-
-            - name: Build with Gradle
-              run: ./gradlew clean runData build outputProjectFullname
+                  ./gradlew runData
+                  ./gradlew build outputProjectFullname
 
             - name: Read project full name
               run: echo "PROJECT_FULL_NAME=`cat ./tmp/fullname.txt`" >> $GITHUB_ENV

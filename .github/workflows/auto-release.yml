@@ -41,13 +41,7 @@ jobs:
                   distribution: 'temurin'
                   architecture: x64
 
-            - name: Set up Gradle and clean
-              run: |
-                  chmod +x ./gradlew
-                  rm -rf tmp
-                  mkdir tmp
-
-            - name: Build and publish package with Gradle
+            - name: Build and publish with Gradle
               env:
                   IS_RELEASE: true
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -55,7 +49,10 @@ jobs:
                   ORG_GRADLE_PROJECT_signingPassword: ${{secrets.RELEASE_SIGNING_GPG_PASSPHRASE}}
                   AUIOC_MAVEN_USERNAME: ${{secrets.AUIOC_MAVEN_USERNAME}}
                   AUIOC_MAVEN_TOKEN: ${{secrets.AUIOC_MAVEN_TOKEN}}
-              run: ./gradlew clean build publish genUpdateJson
+              run: |
+                  chmod +x ./gradlew
+                  ./gradlew runData
+                  ./gradlew build build publish genUpdateJson
 
             - name: Update update JSON
               uses: JamesIves/github-pages-deploy-action@4.1.5
