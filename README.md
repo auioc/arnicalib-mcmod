@@ -20,49 +20,56 @@ Shared library for AH's Minecraft mods.
 
 There are two ways to use this mod in your workspace:
 
-### GitHub Package (Recommended)
+### Maven (Recommended)
 
 Add the following to your `build.gradle`:
 
-```groovy
-repositories {
+#### Repositories
+
+Add any of the following maven repository to the `repositories` section:
+
+- GitHub Packages
+
+    ```groovy
     maven {
-        url "https://maven.pkg.github.com/auioc/arnicalib-mcmod"
+        url 'https://maven.pkg.github.com/auioc/arnicalib-mcmod'
         credentials {
             username = "<GITHUB_USERNAME>"
             password = "<GITHUB_TOKEN>"
         }
     }
-}
+    ```
 
-dependencies {
-    implementation "org.auioc.mcmod:arnicalib:<MINECRAFT_VERSION>-<ARNICALIB_VERSION>:forgelib"
-}
-```
+    **Notice:** You must provide a valid GitHub username and token to access the GitHub Packages. See [official documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#using-a-published-package) for more information.
 
-#### Notices
-
-1. Mod version can be found in the [Packages](https://github.com/auioc/arnicalib-mcmod/packages/) of this repository.
-2. You must provide a valid GitHub username and token to access the GitHub Packages.
-    - See [official documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#using-a-published-package) for more information.
-
-### Local JAR File
-
-If you do not want to or can not use the GitHub Packages:
-
-1. Download the forgelib jar of the version you want from [Releases](https://github.com/auioc/arnicalib-mcmod/releases), then put them into `libs` folder.
-
-2. Add the following to your `build.gradle`:
+- AUIOC Maven Repository
 
     ```groovy
-    dependencies {
-        implementation files("libs/arnicalib-<VERSION>-forgelib.jar")
+    maven {
+        url 'https://repo.auioc.com/maven/releases'
+        content { includeGroup 'org.auioc.mcmod' }
     }
     ```
 
-## Documentation
+#### Dependencies
 
-- `zh-CN`: [AHWiki ArnicaLib Category](https://wiki.auioc.com/view/MinecraftMod:ArnicaLib)
+Add the following to the `dependencies` section:
+
+```groovy
+implementation "org.auioc.mcmod:arnicalib:<MINECRAFT_VERSION>-<ARNICALIB_VERSION>:deobf"
+```
+
+### Local JAR File
+
+If you do not want to or can not use the maven repository:
+
+1. Download the deobf jar of the version you want from [Releases](https://github.com/auioc/arnicalib-mcmod/releases), then put them into `libs` folder.
+
+2. Add the following to the `dependencies` section in your `build.gradle`:
+
+    ```groovy
+    implementation files("libs/arnicalib-<VERSION>-deobf.jar")
+    ```
 
 ## Maintainers
 
