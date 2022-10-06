@@ -1,8 +1,9 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
 import static org.auioc.mcmod.arnicalib.game.tag.HEntityTypeTags.*;
-import java.util.function.Predicate;
+import javax.annotation.Nonnull;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
 import org.auioc.mcmod.arnicalib.game.entity.EntityTypePredicates;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.data.DataGenerator;
@@ -10,8 +11,9 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
-public class HEntityTypeTagsProvider extends EntityTypeTagsProvider {
+public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements IHTagsProvider<EntityType<?>> {
 
     public HEntityTypeTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
         super(generator, ArnicaLib.MOD_ID, existingFileHelper);
@@ -20,6 +22,12 @@ public class HEntityTypeTagsProvider extends EntityTypeTagsProvider {
     @Override
     public String getName() {
         return "HEntityTypeTags";
+    }
+
+    @Nonnull
+    @Override
+    public IForgeRegistry<EntityType<?>> getRegistry() {
+        return ForgeRegistries.ENTITIES;
     }
 
     @Override
@@ -47,25 +55,17 @@ public class HEntityTypeTagsProvider extends EntityTypeTagsProvider {
             EntityType.SQUID, EntityType.TROPICAL_FISH, EntityType.TURTLE
         );
 
-        add(tag(MISC_ENTITIES), EntityTypePredicates.IS_MISC);
-        add(tag(MONSTERS), EntityTypePredicates.IS_MONSTER);
-        add(tag(CREATURES), EntityTypePredicates.IS_CREATURE);
-        add(tag(AXOLOTLS), EntityTypePredicates.IS_AXOLOTLS);
-        add(tag(UNDERGROUND_WATER_CREATURES), EntityTypePredicates.IS_UNDERGROUND_WATER_CREATURE);
-        add(tag(WATER_CREATURES), EntityTypePredicates.IS_WATER_CREATURE);
-        add(tag(WATER_AMBIENT_ENTITIES), EntityTypePredicates.IS_WATER_AMBIENT);
-        add(tag(AMBIENT_ENTITIES), EntityTypePredicates.IS_AMBIENT);
+        addFromRegistry(tag(MISC_ENTITIES), EntityTypePredicates.IS_MISC);
+        addFromRegistry(tag(MONSTERS), EntityTypePredicates.IS_MONSTER);
+        addFromRegistry(tag(CREATURES), EntityTypePredicates.IS_CREATURE);
+        addFromRegistry(tag(AXOLOTLS), EntityTypePredicates.IS_AXOLOTLS);
+        addFromRegistry(tag(UNDERGROUND_WATER_CREATURES), EntityTypePredicates.IS_UNDERGROUND_WATER_CREATURE);
+        addFromRegistry(tag(WATER_CREATURES), EntityTypePredicates.IS_WATER_CREATURE);
+        addFromRegistry(tag(WATER_AMBIENT_ENTITIES), EntityTypePredicates.IS_WATER_AMBIENT);
+        addFromRegistry(tag(AMBIENT_ENTITIES), EntityTypePredicates.IS_AMBIENT);
 
-        add(tag(FRIENDLY_ENTITIES), EntityTypePredicates.IS_FRIENDLY);
-        add(tag(PERSISTENT_ENTITIES), EntityTypePredicates.IS_PERSISTENT);
-    }
-
-    private static void add(TagAppender<EntityType<?>> appender, Predicate<EntityType<?>> predicate) {
-        for (var entityType : ForgeRegistries.ENTITIES.getValues()) {
-            if (predicate.test(entityType)) {
-                appender.add(entityType);
-            }
-        }
+        addFromRegistry(tag(FRIENDLY_ENTITIES), EntityTypePredicates.IS_FRIENDLY);
+        addFromRegistry(tag(PERSISTENT_ENTITIES), EntityTypePredicates.IS_PERSISTENT);
     }
 
 }
