@@ -12,22 +12,32 @@ public class ListUtils {
         return list.get(list.size() - 1);
     }
 
-    public static <T> int indexOf(List<T> list, Predicate<T> predicate) {
+    public static <T> int indexOf(List<T> list, Predicate<T> predicate, int ordinal) {
         for (int i = 0, l = list.size(); i < l; ++i) {
             if (predicate.test(list.get(i))) {
-                return i;
+                if (ordinal <= 0) return i;
+                ordinal--;
+            }
+        }
+        return -1;
+    }
+
+    public static <T> int indexOf(List<T> list, Predicate<T> predicate) {
+        return indexOf(list, predicate, 0);
+    }
+
+    public static <T> int lastIndexOf(List<T> list, Predicate<T> predicate, int ordinal) {
+        for (int i = list.size() - 1; i >= 0; --i) {
+            if (predicate.test(list.get(i))) {
+                if (ordinal <= 0) return i;
+                ordinal--;
             }
         }
         return -1;
     }
 
     public static <T> int lastIndexOf(List<T> list, Predicate<T> predicate) {
-        for (int i = list.size() - 1; i >= 0; --i) {
-            if (predicate.test(list.get(i))) {
-                return i;
-            }
-        }
-        return -1;
+        return lastIndexOf(list, predicate, 0);
     }
 
     public <T> int[] allIndexesOf(List<T> list, Predicate<T> predicate) {
