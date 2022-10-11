@@ -16,7 +16,7 @@ public class AHClientConfig {
         final ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
         ConfigUtils.push(b, "advanced_item_tooltip", AdvancedItemTooltip.Config::build);
-        ConfigUtils.push(b, "additional_debug_information", DebugScreenInformation.Config::build);
+        ConfigUtils.push(b, "debug_information", DebugScreenInformation.Config::build);
 
         CONFIG = b.build();
     }
