@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.cpw;
+package org.auioc.mcmod.arnicalib.game.mod;
 
 import java.util.Locale;
 import cpw.mods.modlauncher.Launcher;
