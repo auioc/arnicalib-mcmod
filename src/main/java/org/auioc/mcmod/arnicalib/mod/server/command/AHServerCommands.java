@@ -5,7 +5,7 @@ import java.util.List;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.command.DynamicCommandHandler;
 import org.auioc.mcmod.arnicalib.game.command.node.VersionCommand;
-import org.auioc.mcmod.arnicalib.game.cpw.EnvironmentUtils;
+import org.auioc.mcmod.arnicalib.game.mod.EnvironmentUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;

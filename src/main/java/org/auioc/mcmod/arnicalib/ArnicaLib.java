@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.base.version.VersionUtils;
+import org.auioc.mcmod.arnicalib.mod.Initialization;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 
