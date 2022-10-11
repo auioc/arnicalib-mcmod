@@ -4,26 +4,26 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 
-public interface ConfigUtils {
+public class ConfigUtils {
 
-    static void pushWithoutPop(Builder specBuilder, String path, Consumer<Builder> subBuilder) {
+    public static void pushWithoutPop(Builder specBuilder, String path, Consumer<Builder> subBuilder) {
         specBuilder.push(path);
         subBuilder.accept(specBuilder);
     }
 
-    static void push(Builder specBuilder, String path, Consumer<Builder> subBuilder) {
+    public static void push(Builder specBuilder, String path, Consumer<Builder> subBuilder) {
         specBuilder.push(path);
         subBuilder.accept(specBuilder);
         specBuilder.pop();
     }
 
 
-    static boolean validateListSize(Object obj, int size) {
+    public static boolean validateListSize(Object obj, int size) {
         if (!(obj instanceof List)) return false;
         return (((List<?>) obj).size() == size) ? true : false;
     }
 
-    static boolean validateListElements(Object obj, Class<?> clazz) {
+    public static boolean validateListElements(Object obj, Class<?> clazz) {
         if (!(obj instanceof List)) return false;
 
         for (Object e : (List<?>) obj) {

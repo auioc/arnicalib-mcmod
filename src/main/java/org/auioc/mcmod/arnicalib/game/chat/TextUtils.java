@@ -6,28 +6,28 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public interface TextUtils {
+public class TextUtils {
 
-    Object[] NO_ARGS = new Object[0];
+    public static final Object[] NO_ARGS = new Object[0];
 
-    static TextComponent empty() {
+    public static TextComponent empty() {
         return new TextComponent("");
     }
 
-    static TextComponent literal(String text) {
+    public static TextComponent literal(String text) {
         return new TextComponent(text);
     }
 
-    static TranslatableComponent translatable(String key) {
+    public static TranslatableComponent translatable(String key) {
         return new TranslatableComponent(key);
     }
 
-    static TranslatableComponent translatable(String key, Object... arguments) {
+    public static TranslatableComponent translatable(String key, Object... arguments) {
         return new TranslatableComponent(key, arguments);
     }
 
 
-    static MutableComponent join(List<Component> texts, Component separator) {
+    public static MutableComponent join(List<Component> texts, Component separator) {
         var r = empty();
         if (texts.isEmpty()) return r;
 
@@ -40,7 +40,7 @@ public interface TextUtils {
         return r;
     }
 
-    static MutableComponent join(List<Component> texts) {
+    public static MutableComponent join(List<Component> texts) {
         return join(texts, literal(", "));
     }
 

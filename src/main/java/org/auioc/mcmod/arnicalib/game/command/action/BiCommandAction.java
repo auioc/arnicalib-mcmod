@@ -6,11 +6,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 public class BiCommandAction {
 
-
     public static interface SingleSuccess<T, U> extends FailableBiConsumer<T, U, CommandSyntaxException> {
+
     }
 
     public static interface MultiSuccess<T, U> extends FailableToIntBiFunction<T, U, CommandSyntaxException> {
+
     }
 
 }
