@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import org.auioc.mcmod.arnicalib.base.collection.ListUtils;
 import org.auioc.mcmod.arnicalib.game.world.position.SpeedUnit;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 
+@OnlyIn(Dist.CLIENT)
 public class DebugScreenInformation {
 
     private static final Minecraft MC = Minecraft.getInstance();
 
     public static void handle(ArrayList<String> gameInfo, ArrayList<String> systemInfo) {
-        if (!MC.options.reducedDebugInfo) handleGameInformation(gameInfo);
-        handleSystemInformation(systemInfo);
+        if (!MC.options.reducedDebugInfo) {
+            handleGameInformation(gameInfo);
+            handleSystemInformation(systemInfo);
+        }
     }
 
     private static void handleGameInformation(ArrayList<String> info) {
