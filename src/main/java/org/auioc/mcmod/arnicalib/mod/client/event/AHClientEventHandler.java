@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.mod.client.event;
 
 import org.auioc.mcmod.arnicalib.mod.client.command.AHClientCommands;
-import org.auioc.mcmod.arnicalib.mod.client.event.handler.TooltipEventHandler;
+import org.auioc.mcmod.arnicalib.mod.client.widget.AdvancedItemTooltip;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
@@ -16,10 +16,9 @@ public final class AHClientEventHandler {
         AHClientCommands.register(event.getDispatcher());
     }
 
-
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
-        TooltipEventHandler.handle(event);
+        AdvancedItemTooltip.handle(event);
     }
 
 }

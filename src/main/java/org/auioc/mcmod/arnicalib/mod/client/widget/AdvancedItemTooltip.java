@@ -1,8 +1,7 @@
-package org.auioc.mcmod.arnicalib.mod.client.event.handler;
+package org.auioc.mcmod.arnicalib.mod.client.widget;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
-import org.auioc.mcmod.arnicalib.mod.client.config.AHClientConfig;
 import org.lwjgl.glfw.GLFW;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
@@ -15,17 +14,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 @OnlyIn(Dist.CLIENT)
-public class TooltipEventHandler {
+public class AdvancedItemTooltip {
 
-    private static Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft MC = Minecraft.getInstance();
 
-    public static void handle(ItemTooltipEvent event) {
-        if (!AHClientConfig.enableAdvancedTooltip.get()) return;
-        if (AHClientConfig.advancedTooltipOnlyOnDebug.get() && !isDebugMode()) return;
-        if (AHClientConfig.advancedTooltipOnlyOnShift.get() && !isShiftKeyDown()) return;
+    public static void handle(final ItemTooltipEvent event) {
+        if (!Config.enabled.get()) return;
+        if (Config.onlyOnDebug.get() && !isDebugMode()) return;
+        if (Config.onlyOnShift.get() && !isShiftKeyDown()) return;
 
         ItemStack itemStack = event.getItemStack();
         if (itemStack.isEmpty()) return;
@@ -52,7 +53,6 @@ public class TooltipEventHandler {
                 addLine(event, TextUtils.literal("  " + tag.location()).setStyle(darkGary));
             }
         }
-
     }
 
     private static void addLine(ItemTooltipEvent event, Component tooltip) {
@@ -60,12 +60,26 @@ public class TooltipEventHandler {
     }
 
     private static boolean isDebugMode() {
-        return mc.options.advancedItemTooltips;
+        return MC.options.advancedItemTooltips;
     }
 
     private static boolean isShiftKeyDown() {
-        return InputConstants.isKeyDown(mc.getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
-            InputConstants.isKeyDown(mc.getWindow().getWindow(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+        return InputConstants.isKeyDown(MC.getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT) ||
+            InputConstants.isKeyDown(MC.getWindow().getWindow(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+    }
+
+    public static class Config {
+
+        public static BooleanValue enabled;
+        public static BooleanValue onlyOnDebug;
+        public static BooleanValue onlyOnShift;
+
+        public static void build(final ForgeConfigSpec.Builder b) {
+            enabled = b.define("enabled", true);
+            onlyOnDebug = b.define("only_on_debug", true);
+            onlyOnShift = b.define("only_on_shift", false);
+        }
+
     }
 
 }
