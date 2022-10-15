@@ -45,4 +45,10 @@ public class ClientParticlePainter {
         }
     }
 
+    public static void drawSphere(ParticlePainterOptions options, Vec3 centre, double radius, double deltaAngle) {
+        for (var p : ShapeUtils.createSphere(centre, radius, deltaAngle)) {
+            drawPoint(options, p.x, p.y, p.z);
+        }
+    }
+
 }
