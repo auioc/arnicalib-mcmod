@@ -36,17 +36,30 @@ public class ShapeUtils {
         var base = VectorUtils.getBaseVector(normalVector);
 
         int count = countPoints(360.0D, centralAngle);
-        var vertexes = new Vec3[count];
+        var vertices = new Vec3[count];
         for (int i = 0; i < count; ++i) {
             double t = Math.toRadians(i * centralAngle);
             double sinT = Math.sin(t);
             double cosT = Math.cos(t);
-            vertexes[i] = centre
+            vertices[i] = centre
                 .add(VectorUtils.multiply(VectorUtils.multiply(base.getLeft(), circumradius), cosT))
                 .add(VectorUtils.multiply(VectorUtils.multiply(base.getRight(), circumradius), sinT));
         }
 
-        return vertexes;
+        return vertices;
+    }
+
+    public static Vec3[][] createStarPolygon(Vec3 centre, Vec3 normalVector, double circumradius, int points) {
+        var vertices = createRegularPolygon(centre, normalVector, circumradius, 360.D / points);
+
+        var lines = new Vec3[points][2];
+        for (int i = 0, l = vertices.length; i < l; ++i) {
+            lines[i] = new Vec3[] {
+                vertices[i], vertices[(i + 2 >= l) ? i + 2 - l : i + 2]
+            };
+        }
+
+        return lines;
     }
 
     public static Vec3[] createSphere(Vec3 centre, double radius, double deltaAngle) {
