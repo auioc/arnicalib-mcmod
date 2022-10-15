@@ -4,16 +4,16 @@ import java.util.function.Predicate;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-public interface ContainerUtils {
+public class ContainerUtils {
 
-    static int countItem(ItemStack stack, Predicate<ItemStack> predicate) {
+    public static int countItem(ItemStack stack, Predicate<ItemStack> predicate) {
         if (!stack.isEmpty() && predicate.test(stack)) {
             return stack.getCount();
         }
         return 0;
     }
 
-    static int countItem(Container container, Predicate<ItemStack> predicate) {
+    public static int countItem(Container container, Predicate<ItemStack> predicate) {
         int r = 0;
         for (int i = 0, l = container.getContainerSize(); i < l; i++) {
             ItemStack stack = container.getItem(i);
@@ -24,12 +24,12 @@ public interface ContainerUtils {
         return r;
     }
 
-    static int countItem(Container container) {
+    public static int countItem(Container container) {
         return countItem(container, (stack) -> true);
     }
 
 
-    static int clearItem(ItemStack stack, Predicate<ItemStack> predicate, int count, boolean required) {
+    public static int clearItem(ItemStack stack, Predicate<ItemStack> predicate, int count, boolean required) {
         if (count > 0 && !stack.isEmpty() && predicate.test(stack)) {
             int r = 0;
             if (stack.getCount() < count) {
@@ -46,7 +46,7 @@ public interface ContainerUtils {
         return 0;
     }
 
-    static int clearItem(Container container, Predicate<ItemStack> predicate, int count, boolean required) {
+    public static int clearItem(Container container, Predicate<ItemStack> predicate, int count, boolean required) {
         if (count <= 0) {
             return 0;
         }
