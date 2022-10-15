@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.game.nbt.NbtUtils;
 import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinProjectile;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -13,6 +14,9 @@ import net.minecraft.world.phys.Vec3;
 
 @Mixin(value = Projectile.class)
 public class MixinProjectile implements IMixinProjectile {
+
+    @Shadow
+    private boolean hasBeenShot;
 
     @Nullable
     private Vec3 shootingPosition;
@@ -25,17 +29,15 @@ public class MixinProjectile implements IMixinProjectile {
 
     @Inject(
         method = "Lnet/minecraft/world/entity/projectile/Projectile;tick()V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/projectile/Projectile;gameEvent(Lnet/minecraft/world/level/gameevent/GameEvent;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;)V",
-            ordinal = 0
-        ),
+        at = @At(value = "HEAD"),
         require = 1,
         allow = 1
     )
     private void tick(CallbackInfo ci) {
-        var pos = ((Projectile) (Object) this).position();
-        this.shootingPosition = new Vec3(pos.x, pos.y, pos.z);
+        if (!this.hasBeenShot) {
+            var pos = ((Projectile) (Object) this).position();
+            this.shootingPosition = new Vec3(pos.x, pos.y, pos.z);
+        }
     }
 
     @Inject(
