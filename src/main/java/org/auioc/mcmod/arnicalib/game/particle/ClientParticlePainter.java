@@ -22,14 +22,20 @@ public class ClientParticlePainter {
         }
     }
 
-    public static void drawPolygon(ParticlePainterOptions options, Vec3[] vertexes) {
-        for (int i = 0, l = vertexes.length; i < l; ++i) {
-            drawLine(options, vertexes[i], vertexes[(i + 1 == l) ? 0 : i + 1]);
+    public static void drawPolygon(ParticlePainterOptions options, Vec3[] vertices) {
+        for (int i = 0, l = vertices.length; i < l; ++i) {
+            drawLine(options, vertices[i], vertices[(i + 1 == l) ? 0 : i + 1]);
         }
     }
 
     public static void drawPolygon(ParticlePainterOptions options, Vec3 centre, Vec3 normalVector, double circumradius, double centralAngle) {
         drawPolygon(options, ShapeUtils.createRegularPolygon(centre, normalVector, circumradius, centralAngle));
+    }
+
+    public static void drawStarPolygon(ParticlePainterOptions options, Vec3 centre, Vec3 normalVector, double circumradius, int points) {
+        for (var l : ShapeUtils.createStarPolygon(centre, normalVector, circumradius, points)) {
+            drawLine(options, l[0], l[1]);
+        }
     }
 
     public static void drawCircle(ParticlePainterOptions options, Vec3 centre, Vec3 normalVector, double radius, double deltaAngle) {
