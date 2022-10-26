@@ -18,19 +18,39 @@ public class ConfigUtils {
     }
 
 
-    public static boolean validateListSize(Object obj, int size) {
-        if (!(obj instanceof List)) return false;
-        return (((List<?>) obj).size() == size) ? true : false;
+    public static boolean validateListSize(Object o, int size) {
+        if (o instanceof List<?> l) {
+            return l.size() == size;
+        }
+        return false;
     }
 
-    public static boolean validateListElements(Object obj, Class<?> clazz) {
-        if (!(obj instanceof List)) return false;
-
-        for (Object e : (List<?>) obj) {
-            if (e.getClass() != clazz) return false;
+    public static <T> boolean validateListElements(Object o, Class<T> type) {
+        if (o instanceof List<?> l) {
+            for (var e : l) {
+                if (!type.isInstance(e)) return false;
+            }
+            return true;
         }
+        return false;
+    }
 
-        return true;
+    public static <T> boolean validateListElements(Object o, Class<T> type, List<T> allowed) {
+        if (o instanceof List<?> l) {
+            for (var e : l) {
+                if (type.isInstance(e) && allowed.contains(type.cast(o))) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static <T> boolean validateStringList(Object o, List<String> allowed) {
+        return validateListElements(o, String.class, allowed);
     }
 
 }
