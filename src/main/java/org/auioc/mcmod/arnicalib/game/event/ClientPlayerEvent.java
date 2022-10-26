@@ -1,8 +1,11 @@
 package org.auioc.mcmod.arnicalib.game.event;
 
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
+@OnlyIn(Dist.CLIENT)
 public abstract class ClientPlayerEvent extends PlayerEvent {
 
     private final LocalPlayer clientPlayer;
