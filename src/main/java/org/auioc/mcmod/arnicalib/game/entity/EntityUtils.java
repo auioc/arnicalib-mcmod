@@ -25,4 +25,15 @@ public class EntityUtils {
         entity.changeDimension(LevelUtils.getLevel(dim), LevelUtils.createSimpleTeleporter(pos));
     }
 
+    public static Vec3 calcVelocity(Entity entity) {
+        double vX = entity.getX() - entity.xOld;
+        double vY = entity.getY() - entity.yOld;
+        double vZ = entity.getZ() - entity.zOld;
+        return new Vec3(vX, vY, vZ);
+    }
+
+    public static double calcSpeed(Entity entity) {
+        return calcVelocity(entity).length();
+    }
+
 }
