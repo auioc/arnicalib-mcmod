@@ -11,7 +11,7 @@
         "server.MixinServerLifecycleHooks",
         "server.MixinLootContext"
     ],
-    "client": [],
+    "client": ["client.MixinLocalPlayer"],
     "server": [],
     "injectors": {
         "defaultRequire": 1
