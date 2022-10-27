@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -28,6 +29,7 @@ public class EntityUtils {
         entity.changeDimension(LevelUtils.getLevel(dim), LevelUtils.createSimpleTeleporter(pos));
     }
 
+
     public static Vec3 calcVelocity(Entity entity) {
         double vX = entity.getX() - entity.xOld;
         double vY = entity.getY() - entity.yOld;
@@ -39,10 +41,16 @@ public class EntityUtils {
         return calcVelocity(entity).length();
     }
 
+
     public static Component getFacing8WindDirection(Entity entity) {
         float yaw = Mth.wrapDegrees(entity.getYRot());
         int d8 = (int) Math.floor((yaw - 180.0F) / 45.0F + 0.5F) & 7;
         return TextUtils.translatable("direction.8wind." + d8);
+    }
+
+
+    public static Component getAxolotlVariantName(Axolotl.Variant variant) {
+        return TextUtils.translatable("entity.minecraft.axolotl.variant." + variant.getName());
     }
 
 }
