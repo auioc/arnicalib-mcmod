@@ -2,6 +2,9 @@ package org.auioc.mcmod.arnicalib.game.effect;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,6 +50,20 @@ public class MobEffectUtils {
     @Deprecated
     public static void setAmplifierReflection(MobEffectInstance instance, int amplifier) {
         ObfuscationReflectionHelper.setPrivateValue(MobEffectInstance.class, instance, amplifier, "f_19504_");
+    }
+
+
+    public static Component getDisplayString(MobEffect effect, int amplifier, int duration) {
+        return TextUtils.empty()
+            .append(effect.getDisplayName())
+            .append(" ")
+            .append(TextUtils.translatable("enchantment.level." + (amplifier + 1)))
+            .append(" ")
+            .append(StringUtil.formatTickDuration(duration));
+    }
+
+    public static Component getDisplayString(MobEffectInstance instance) {
+        return getDisplayString(instance.getEffect(), instance.getAmplifier(), instance.getDuration());
     }
 
 }
