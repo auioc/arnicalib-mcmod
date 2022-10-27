@@ -1,8 +1,12 @@
 package org.auioc.mcmod.arnicalib.game.world;
 
 import java.util.function.Function;
+import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -54,6 +58,19 @@ public class LevelUtils {
 
     public static ITeleporter createSimpleTeleporter(double x, double y, double z) {
         return createSimpleTeleporter(new Vec3(x, y, z), false);
+    }
+
+    public static Component getMoonphaseName(Level level) {
+        return TextUtils.translatable("moonphase." + level.getMoonPhase());
+    }
+
+    public static Component getDimensionName(Level level) {
+        return TextUtils.translatable(Util.makeDescriptionId("dimension", level.dimension().getRegistryName()));
+    }
+
+    public static Component getBiomeName(Level level, BlockPos pos) {
+        var b = level.getBiome(pos).unwrapKey();
+        return (b.isPresent()) ? TextUtils.translatable(Util.makeDescriptionId("biome", b.get().location())) : TextUtils.empty();
     }
 
 }
