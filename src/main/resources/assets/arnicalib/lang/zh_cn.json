@@ -15,5 +15,33 @@
 
     "arnicalib.command.version.success": "版本: %s (%s)",
     "arnicalib.command.version.failure.zero": "§e无法读取模组版本。§7若处在开发环境中则您可以忽略此消息",
-    "arnicalib.command.version.failure.reflection": "使用反射获取版本失败"
+    "arnicalib.command.version.failure.reflection": "使用反射获取版本失败",
+
+    "direction.8wind.0": "北",
+    "direction.8wind.1": "东北",
+    "direction.8wind.2": "东",
+    "direction.8wind.3": "东南",
+    "direction.8wind.4": "南",
+    "direction.8wind.5": "西南",
+    "direction.8wind.6": "西",
+    "direction.8wind.7": "西北",
+
+    "moonphase.0": "满月",
+    "moonphase.1": "亏凸月",
+    "moonphase.2": "下弦月",
+    "moonphase.3": "残月",
+    "moonphase.4": "新月",
+    "moonphase.5": "娥眉月",
+    "moonphase.6": "上弦月",
+    "moonphase.7": "盈凸月",
+
+    "dimension.minecraft.overworld": "主世界",
+    "dimension.minecraft.the_end": "末路之地",
+    "dimension.minecraft.the_nether": "下界",
+
+    "entity.minecraft.axolotl.variant.blue": "蓝色",
+    "entity.minecraft.axolotl.variant.cyan": "青色",
+    "entity.minecraft.axolotl.variant.gold": "金色",
+    "entity.minecraft.axolotl.variant.lucy": "粉红色",
+    "entity.minecraft.axolotl.variant.wild": "棕色"
 }
