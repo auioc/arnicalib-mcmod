@@ -13,29 +13,30 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.LanguageInfo;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-@Deprecated(since = "5.6.4", forRemoval = true)
-public class LanguageInfoArgument implements ArgumentType<LanguageInfo> {
+public class LanguageArgument implements ArgumentType<LanguageInfo> {
 
-    private static final DynamicCommandExceptionType UNKNOWN_LANGUAGE_CODE = new DynamicCommandExceptionType(
-        (langCode) -> TextUtils.translatable(ArnicaLib.i18n("argument.language_info.unknown"), langCode)
+    private static final DynamicCommandExceptionType UNKNOWN_LANGUAGE = new DynamicCommandExceptionType(
+        (code) -> TextUtils.translatable(ArnicaLib.i18n("argument.language.unknown"), code)
     );
 
-    public static LanguageInfoArgument languageInfo() {
-        return new LanguageInfoArgument();
+    public static LanguageArgument language() {
+        return new LanguageArgument();
+    }
+
+    public static LanguageInfo getLanguage(CommandContext<CommandSourceStack> ctx, String argument) {
+        return ctx.getArgument(argument, LanguageInfo.class);
     }
 
     @Override
     public LanguageInfo parse(StringReader reader) throws CommandSyntaxException {
-        String langCode = reader.readString();
-        return getLanguages()
-            .filter((langInfo) -> langInfo.getCode().equals(langCode))
-            .findAny()
-            .orElseThrow(() -> UNKNOWN_LANGUAGE_CODE.create(langCode));
+        String code = reader.readString();
+        return getLanguages().filter((langInfo) -> langInfo.getCode().equals(code)).findAny().orElseThrow(() -> UNKNOWN_LANGUAGE.create(code));
     }
 
     @Override

@@ -11,6 +11,7 @@
     "arnicalib.command.failure.get_real_source.reflection": "Failed while using reflection to get real command source",
 
     "arnicalib.argument.language_info.unknown": "Unknown language \"%s\"",
+    "arnicalib.argument.language.unknown": "Unknown language \"%s\"",
     "arnicalib.argument.overlay.unknown": "Unknown overlay \"%s\"",
 
     "arnicalib.command.version.success": "Version: %s (%s)",
