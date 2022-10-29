@@ -1,7 +1,11 @@
 package org.auioc.mcmod.arnicalib.game.world;
 
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
+import org.auioc.mcmod.arnicalib.game.server.ServerUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -71,6 +75,17 @@ public class LevelUtils {
     public static Component getBiomeName(Level level, BlockPos pos) {
         var b = level.getBiome(pos).unwrapKey();
         return (b.isPresent()) ? TextUtils.translatable(Util.makeDescriptionId("biome", b.get().location())) : TextUtils.empty();
+    }
+
+
+    public static Map<ServerPlayer, ServerLevel> getPlayerLevelMap() {
+        return ServerUtils.getServer().getPlayerList().getPlayers()
+            .stream().collect(Collectors.toMap(Function.identity(), ServerPlayer::getLevel));
+    }
+
+    public static Map<UUID, ResourceLocation> getPlayerDimensionMap() {
+        return ServerUtils.getServer().getPlayerList().getPlayers()
+            .stream().collect(Collectors.toMap(ServerPlayer::getUUID, (p) -> p.getLevel().dimension().location()));
     }
 
 }
