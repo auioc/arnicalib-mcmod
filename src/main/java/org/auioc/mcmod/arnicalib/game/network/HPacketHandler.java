@@ -5,10 +5,13 @@ import java.util.function.Function;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 public class HPacketHandler implements IHPacketHandler {
 
@@ -48,15 +51,19 @@ public class HPacketHandler implements IHPacketHandler {
 
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public <MSG extends IHPacket> void sendToServer(MSG message) {
         CHANNEL.sendToServer(message);
     }
 
     @Override
     public <MSG extends IHPacket> void sendToClient(ServerPlayer player, MSG message) {
-        if (!(player instanceof FakePlayer)) {
-            CHANNEL.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
-        }
+        if (!(player instanceof FakePlayer)) CHANNEL.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    @Override
+    public <MSG extends IHPacket> void sendToAllClient(MSG message) {
+        ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers().forEach((p) -> sendToClient(p, message));
     }
 
 }
