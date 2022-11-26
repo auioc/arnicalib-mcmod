@@ -1,6 +1,8 @@
 package org.auioc.mcmod.arnicalib.game.chat;
 
 import java.util.List;
+import javax.annotation.Nullable;
+import com.google.gson.JsonElement;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -58,6 +60,14 @@ public class TextUtils {
 
     public static MutableComponent join(List<Component> texts) {
         return join(texts, literal(", "));
+    }
+
+
+    private static final Style.Serializer STYLE_SERIALIZER = new Style.Serializer();
+
+    @Nullable
+    public static Style deserializeStyle(JsonElement json) {
+        return STYLE_SERIALIZER.deserialize(json, null, null);
     }
 
 }
