@@ -27,12 +27,16 @@ public class MCTimeUtils {
         return (int) (level.getDayTime() % 24000L);
     }
 
-    public static int[] formatDayTime(long rawDayTime) {
-        int dayTime = (int) (rawDayTime % 2147483647L);
+    private static int mod(long dayTime) {
+        return (int) (dayTime % 2147483647L);
+    }
 
-        int day = dayTime / TICKS_PER_DAY;
+    public static int[] formatDayTime(long dayTime) {
+        int dayTimeI = mod(dayTime);
 
-        int ticks = dayTime - day * TICKS_PER_DAY;
+        int day = dayTimeI / TICKS_PER_DAY;
+
+        int ticks = dayTimeI - day * TICKS_PER_DAY;
         int hour = (int) (ticks / TICKS_PER_HOUR + 6) % 24;
         int min = (int) (ticks / TICKS_PER_MINUTE) % 60;
         int sec = (int) (ticks / TICKS_PER_SECOND) % 60;
@@ -42,7 +46,15 @@ public class MCTimeUtils {
     }
 
     public static int getDay(long dayTime) {
-        return ((int) (dayTime % 2147483647L)) / TICKS_PER_DAY;
+        return mod(dayTime) / TICKS_PER_DAY;
+    }
+
+    public static int getHour(long dayTime) {
+        return (mod(dayTime) / TICKS_PER_HOUR + 6) % 24;
+    }
+
+    public static int getMinute(long dayTime) {
+        return (mod(dayTime) % TICKS_PER_HOUR) * 60 / TICKS_PER_HOUR;
     }
 
 }
