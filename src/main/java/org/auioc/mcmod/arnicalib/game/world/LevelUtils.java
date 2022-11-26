@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.game.server.ServerUtils;
 import net.minecraft.Util;
@@ -69,12 +70,18 @@ public class LevelUtils {
     }
 
     public static Component getDimensionName(Level level) {
-        return TextUtils.translatable(Util.makeDescriptionId("dimension", level.dimension().getRegistryName()));
+        return TextUtils.translatable(Util.makeDescriptionId("dimension", level.dimension().location()));
     }
 
     public static Component getBiomeName(Level level, BlockPos pos) {
+        var id = getBiomeId(level, pos);
+        return (id != null) ? TextUtils.translatable(Util.makeDescriptionId("biome", id)) : TextUtils.empty();
+    }
+
+    @Nullable
+    public static ResourceLocation getBiomeId(Level level, BlockPos pos) {
         var b = level.getBiome(pos).unwrapKey();
-        return (b.isPresent()) ? TextUtils.translatable(Util.makeDescriptionId("biome", b.get().location())) : TextUtils.empty();
+        return (b.isPresent()) ? b.get().location() : null;
     }
 
 
