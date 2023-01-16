@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.nbt;
 
 import java.util.function.Supplier;
+import com.mojang.math.Vector3f;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.FloatTag;
@@ -105,6 +106,39 @@ public class NbtUtils {
 
     public static Vec3 getVec3OrElseGet(CompoundTag nbt, String key, Supplier<Vec3> supplier) {
         return readVec3OrElseGet(getDoubleListTag(nbt, key), supplier);
+    }
+
+    // ====================================================================== //
+
+    public static ListTag writeVector3f(Vector3f vec) {
+        return writeFloatArray(vec.x(), vec.y(), vec.z());
+    }
+
+    public static Vector3f readVector3f(ListTag nbt) {
+        float[] p = readFloatArray(nbt);
+        return new Vector3f(p[0], p[1], p[2]);
+    }
+
+    public static Vector3f readVector3fOrElse(ListTag nbt, Vector3f other) {
+        float[] p = readFloatArray(nbt);
+        return (p.length == 3) ? new Vector3f(p[0], p[1], p[2]) : other;
+    }
+
+    public static Vector3f readVector3fOrElseGet(ListTag nbt, Supplier<Vector3f> supplier) {
+        float[] p = readFloatArray(nbt);
+        return (p.length == 3) ? new Vector3f(p[0], p[1], p[2]) : supplier.get();
+    }
+
+    public static Vector3f getVector3f(CompoundTag nbt, String key) {
+        return readVector3f(getFloatListTag(nbt, key));
+    }
+
+    public static Vector3f getVector3fOrElse(CompoundTag nbt, String key, Vector3f other) {
+        return readVector3fOrElse(getFloatListTag(nbt, key), other);
+    }
+
+    public static Vector3f getVector3fOrElseGet(CompoundTag nbt, String key, Supplier<Vector3f> supplier) {
+        return readVector3fOrElseGet(getFloatListTag(nbt, key), supplier);
     }
 
 }
