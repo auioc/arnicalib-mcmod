@@ -17,7 +17,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -32,6 +34,7 @@ public class LevelUtils {
         return ServerLifecycleHooks.getCurrentServer().getLevel(key);
     }
 
+    // ============================================================================================================== //
 
     public static ITeleporter createSimpleTeleporter(Vec3 pos, boolean playTeleportSound) {
         return new ITeleporter() {
@@ -65,6 +68,8 @@ public class LevelUtils {
         return createSimpleTeleporter(new Vec3(x, y, z), false);
     }
 
+    // ============================================================================================================== //
+
     public static Component getMoonphaseName(Level level) {
         return TextUtils.translatable("moonphase." + level.getMoonPhase());
     }
@@ -84,6 +89,7 @@ public class LevelUtils {
         return (b.isPresent()) ? b.get().location() : null;
     }
 
+    // ============================================================================================================== //
 
     public static Map<ServerPlayer, ServerLevel> getPlayerLevelMap() {
         return ServerUtils.getServer().getPlayerList().getPlayers()
@@ -93,6 +99,12 @@ public class LevelUtils {
     public static Map<UUID, ResourceLocation> getPlayerDimensionMap() {
         return ServerUtils.getServer().getPlayerList().getPlayers()
             .stream().collect(Collectors.toMap(ServerPlayer::getUUID, (p) -> p.getLevel().dimension().location()));
+    }
+
+    // ============================================================================================================== //
+
+    public static boolean isSlimeChunk(ChunkPos chunkPos, long seed) {
+        return WorldgenRandom.seedSlimeChunk(chunkPos.x, chunkPos.z, seed, 987234911L).nextInt(10) == 0;
     }
 
 }
