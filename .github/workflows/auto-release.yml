@@ -55,7 +55,7 @@ jobs:
                   ./gradlew build publish genUpdateJson
 
             - name: Update update JSON
-              uses: JamesIves/github-pages-deploy-action@4.1.5
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
                   clean: false
                   target-folder: update
@@ -63,10 +63,8 @@ jobs:
                   folder: tmp
 
             - name: Github release
-              uses: marvinpinto/action-automatic-releases@latest
+              uses: softprops/action-gh-release@v1
               with:
-                  repo_token: ${{secrets.GITHUB_TOKEN}}
-                  prerelease: false
                   files: |
                       build/libs/*.jar
                       build/libs/*.asc
