@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.nbt;
 
+import java.util.function.Supplier;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.FloatTag;
@@ -84,8 +85,26 @@ public class NbtUtils {
         return new Vec3(p[0], p[1], p[2]);
     }
 
+    public static Vec3 readVec3OrElse(ListTag nbt, Vec3 other) {
+        double[] p = readDoubleArray(nbt);
+        return (p.length == 3) ? new Vec3(p[0], p[1], p[2]) : other;
+    }
+
+    public static Vec3 readVec3OrElseGet(ListTag nbt, Supplier<Vec3> supplier) {
+        double[] p = readDoubleArray(nbt);
+        return (p.length == 3) ? new Vec3(p[0], p[1], p[2]) : supplier.get();
+    }
+
     public static Vec3 getVec3(CompoundTag nbt, String key) {
         return readVec3(getDoubleListTag(nbt, key));
+    }
+
+    public static Vec3 getVec3OrElse(CompoundTag nbt, String key, Vec3 other) {
+        return readVec3OrElse(getDoubleListTag(nbt, key), other);
+    }
+
+    public static Vec3 getVec3OrElseGet(CompoundTag nbt, String key, Supplier<Vec3> supplier) {
+        return readVec3OrElseGet(getDoubleListTag(nbt, key), supplier);
     }
 
 }
