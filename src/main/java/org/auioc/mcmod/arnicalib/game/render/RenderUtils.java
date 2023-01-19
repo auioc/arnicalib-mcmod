@@ -42,6 +42,10 @@ public class RenderUtils {
         poseStack.mulPose(new Quaternion(x, y, z, true));
     }
 
+    public static void rotate(PoseStack poseStack, Vector3f rotation) {
+        rotate(poseStack, rotation.x(), rotation.y(), rotation.z());
+    }
+
     // ============================================================================================================== //
 
     public static void renderSingleBlock(
