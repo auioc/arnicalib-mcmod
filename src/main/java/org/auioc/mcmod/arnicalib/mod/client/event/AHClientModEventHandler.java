@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.mod.client.event;
 
-import org.auioc.mcmod.arnicalib.mod.client.resource.CustomModelLoader;
+import org.auioc.mcmod.arnicalib.game.resource.model.CustomModelLoader;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;

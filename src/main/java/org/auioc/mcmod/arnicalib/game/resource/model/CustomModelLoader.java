@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.mod.client.resource;
+package org.auioc.mcmod.arnicalib.game.resource.model;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.List;
