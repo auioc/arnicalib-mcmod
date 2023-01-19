@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.render;
 
+import javax.annotation.Nullable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
@@ -25,6 +26,14 @@ public class RenderUtils {
         poseStack.translate(translation.x, translation.y, translation.z);
     }
 
+    public static void translate(PoseStack poseStack, float x, float y, float z) {
+        poseStack.last().pose().multiplyWithTranslation(x, y, z);
+    }
+
+    public static void translate(PoseStack poseStack, Vector3f translation) {
+        translate(poseStack, translation.x(), translation.y(), translation.z());
+    }
+
     public static void rotate(PoseStack poseStack, Quaternion rotation) {
         poseStack.mulPose(rotation);
     }
@@ -36,7 +45,7 @@ public class RenderUtils {
     // ============================================================================================================== //
 
     public static void renderSingleBlock(
-        BlockState blockState, BakedModel model, IModelData modelData,
+        @Nullable BlockState blockState, BakedModel model, IModelData modelData,
         BlockRenderDispatcher blockRenderer, RenderType renderType,
         PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay
     ) {
