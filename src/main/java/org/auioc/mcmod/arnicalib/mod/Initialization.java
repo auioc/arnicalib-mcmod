@@ -2,6 +2,7 @@ package org.auioc.mcmod.arnicalib.mod;
 
 import org.auioc.mcmod.arnicalib.game.mod.ExtensionPointUtils;
 import org.auioc.mcmod.arnicalib.mod.client.ClientInitialization;
+import org.auioc.mcmod.arnicalib.mod.common.entity.AHEntityDataSerializers;
 import org.auioc.mcmod.arnicalib.mod.common.tag.HTags;
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventHandler;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHGlobalLootModifiers;
@@ -33,6 +34,7 @@ public final class Initialization {
 
     private static void modSetup() {
         modEventBus.register(AHGlobalLootModifiers.class);
+        AHEntityDataSerializers.DATA_SERIALIZERS.register(modEventBus);
         AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
         AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
         HTags.init();
