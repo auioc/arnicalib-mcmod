@@ -57,6 +57,12 @@ public class SimpleScreen extends HScreen {
     }
 
     @Override
+    protected void init() {
+        this.divX = center(this.width, this.divWidth);
+        this.divY = center(this.height, this.divHeight);
+    }
+
+    @Override
     public final void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
