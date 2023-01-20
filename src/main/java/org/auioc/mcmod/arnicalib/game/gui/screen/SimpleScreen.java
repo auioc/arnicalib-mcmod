@@ -2,6 +2,7 @@ package org.auioc.mcmod.arnicalib.game.gui.screen;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
+import org.auioc.mcmod.arnicalib.game.gui.component.CloseButton;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Widget;
@@ -36,18 +37,28 @@ public class SimpleScreen extends HScreen {
 
     protected final int divWidth;
     protected final int divHeight;
+    protected final boolean hasCloseButton;
 
     protected int divX;
     protected int divY;
 
-    public SimpleScreen(Component title, int divWidth, int divHeight) {
+    public SimpleScreen(Component title, int divWidth, int divHeight, boolean hasCloseButton) {
         super(title);
         this.divWidth = divWidth;
         this.divHeight = divHeight;
+        this.hasCloseButton = hasCloseButton;
+    }
+
+    public SimpleScreen(Component title, int divWidth, int divHeight) {
+        this(title, divWidth, divHeight, false);
+    }
+
+    public SimpleScreen(Component title, boolean hasCloseButton) {
+        this(title, 176, 166, hasCloseButton);
     }
 
     public SimpleScreen(Component title) {
-        this(title, 176, 166);
+        this(title, false);
     }
 
     public SimpleScreen() {
@@ -55,22 +66,26 @@ public class SimpleScreen extends HScreen {
     }
 
     @Override
-    public boolean isPauseScreen() {
-        return false;
-    }
+    public boolean isPauseScreen() { return false; }
 
     @Override
-    protected void init() {
+    protected final void init() {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
+        if (this.hasCloseButton) {
+            renderableWidget(CloseButton.topLeft(this.divX + divWidth, this.divY));
+        }
+        subInit();
     }
+
+    protected void subInit() {}
 
     @Override
     public final void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
 
-        this._renderBackground(poseStack);
+        this.renderBackground(poseStack);
 
         this.renderBorderEdge(poseStack);
         this.renderBorderCorner(poseStack);
@@ -87,7 +102,7 @@ public class SimpleScreen extends HScreen {
         return _widget;
     }
 
-    private void _renderBackground(PoseStack poseStack) {
+    public final void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
         fill(
