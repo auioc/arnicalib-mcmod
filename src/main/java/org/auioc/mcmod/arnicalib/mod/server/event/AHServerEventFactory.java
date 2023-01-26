@@ -18,6 +18,9 @@ public final class AHServerEventFactory {
 
     // Return true if the event was Cancelable cancelled
 
+    /**
+     * @see org.auioc.mcmod.arnicalib.mod.mixin.server.MixinServerLifecycleHooks#handleServerLogin
+     */
     public static boolean onServerLogin(final ClientIntentionPacket packet, final Connection manager) {
         ServerLoginEvent event = new ServerLoginEvent(packet, manager);
         boolean cancelled = BUS.post(event);

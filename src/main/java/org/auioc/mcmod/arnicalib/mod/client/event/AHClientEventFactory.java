@@ -12,6 +12,9 @@ public class AHClientEventFactory {
 
     private static final IEventBus BUS = MinecraftForge.EVENT_BUS;
 
+    /**
+     * @see org.auioc.mcmod.arnicalib.mod.mixin.client.MixinLocalPlayer#setPermissionLevel
+     */
     public static void onPermissionChanged(LocalPlayer player, int oldLevel, int newLevel) {
         BUS.post(new ClientPermissionsChangedEvent(player, oldLevel, newLevel));
     }
