@@ -2,6 +2,7 @@ package org.auioc.mcmod.arnicalib.game.enchantment;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 
 public class EnchantmentTagUtils {
 
@@ -18,6 +19,8 @@ public class EnchantmentTagUtils {
         tag.putShort("lvl", (short) (tag.getShort("lvl") + level));
     }
 
+    // ====================================================================== //
+
     public static CompoundTag getHighest(ListTag tag) {
         int index = 0;
         short highestLevel = 0;
@@ -31,6 +34,8 @@ public class EnchantmentTagUtils {
         return tag.getCompound(index);
     }
 
+    // ====================================================================== //
+
     public static boolean hasOverLimitEnchantment(ListTag tag) {
         for (int i = 0, l = tag.size(); i < l; i++) {
             CompoundTag ench = tag.getCompound(i);
@@ -39,6 +44,18 @@ public class EnchantmentTagUtils {
             }
         }
         return false;
+    }
+
+    // ====================================================================== //
+
+    public static int calcTotalLevel(ListTag tag) {
+        int totalLvl = 0;
+        for (var enchEntry : tag) {
+            if (enchEntry.getId() == Tag.TAG_COMPOUND) {
+                totalLvl += ((CompoundTag) enchEntry).getInt("lvl");
+            }
+        }
+        return totalLvl;
     }
 
 }

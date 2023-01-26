@@ -16,6 +16,8 @@ public class EnchantmentUtils {
         return enchantmentMap.entrySet().stream().sorted(Entry.comparingByValue()).toList();
     }
 
+    // ====================================================================== //
+
     public static Entry<Enchantment, Integer> getHighest(Map<Enchantment, Integer> enchantmentMap) {
         return sortByLevel(enchantmentMap).get(0);
     }
@@ -33,6 +35,7 @@ public class EnchantmentUtils {
         return getLowest(EnchantmentHelper.deserializeEnchantments(enchantmentsTag));
     }
 
+    // ====================================================================== //
 
     public static boolean isOverLimit(Enchantment enchantment, int level) {
         return level > enchantment.getMaxLevel();
