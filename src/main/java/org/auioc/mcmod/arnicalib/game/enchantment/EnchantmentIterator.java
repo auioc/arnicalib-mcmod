@@ -7,6 +7,7 @@ import org.auioc.mcmod.arnicalib.game.enchantment.visitor.QuadEnchantmentVisitor
 import org.auioc.mcmod.arnicalib.game.enchantment.visitor.TriEnchantmentVisitor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -17,9 +18,13 @@ public class EnchantmentIterator {
         for (var enchEntry : enchMap.entrySet()) visitor.accept(enchEntry.getKey(), enchEntry.getValue());
     }
 
+    // ====================================================================== //
+
     public static void runOnItem(BiEnchantmentVisitor visitor, ItemStack itemStack) {
         if (!itemStack.isEmpty()) run(visitor, EnchantmentHelper.getEnchantments(itemStack));
     }
+
+    // ====================================================================== //
 
     public static void runOnItems(TriEnchantmentVisitor visitor, Iterable<ItemStack> itemStacks, Predicate<ItemStack> predicate) {
         for (var itemStack : itemStacks) {
@@ -32,6 +37,8 @@ public class EnchantmentIterator {
     public static void runOnItems(TriEnchantmentVisitor visitor, Iterable<ItemStack> itemStacks) {
         runOnItems(visitor, itemStacks, (o) -> true);
     }
+
+    // ====================================================================== //
 
     public static void runOnLiving(QuadEnchantmentVisitor visitor, LivingEntity living, EquipmentSlot[] slots) {
         for (EquipmentSlot slot : slots) {
@@ -50,6 +57,14 @@ public class EnchantmentIterator {
 
     public static void runOnLiving(QuadEnchantmentVisitor visitor, LivingEntity living) {
         runOnLiving(visitor, living, EquipmentSlot.values());
+    }
+
+    // ====================================================================== //
+
+    public static void runOnInventory(TriEnchantmentVisitor visitor, Inventory inventory) {
+        runOnItems(visitor, inventory.items);
+        runOnItems(visitor, inventory.offhand);
+        runOnItems(visitor, inventory.armor);
     }
 
 }
