@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.event;
+package org.auioc.mcmod.arnicalib.game.event.common;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodData;

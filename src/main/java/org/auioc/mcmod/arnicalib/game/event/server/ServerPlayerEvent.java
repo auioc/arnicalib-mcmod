@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.game.event;
+package org.auioc.mcmod.arnicalib.game.event.server;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;

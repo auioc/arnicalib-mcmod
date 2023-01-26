@@ -1,6 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.event.client;
 
-import org.auioc.mcmod.arnicalib.game.event.ClientPlayerEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
