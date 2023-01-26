@@ -23,7 +23,7 @@ public class MixinServerLifecycleHooks {
         allow = 1,
         cancellable = true
     )
-    private static void onServerLogin(final ClientIntentionPacket packet, final Connection manager, CallbackInfoReturnable<Boolean> cir) {
+    private static void handleServerLogin(final ClientIntentionPacket packet, final Connection manager, CallbackInfoReturnable<Boolean> cir) {
         if (AHServerEventFactory.onServerLogin(packet, manager)) {
             cir.setReturnValue(false);
         }

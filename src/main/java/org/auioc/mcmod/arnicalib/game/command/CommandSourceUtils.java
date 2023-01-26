@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinCommandSourceStack;
+import org.auioc.mcmod.arnicalib.mod.mixin.common.MixinAccessorCommandSourceStack;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
@@ -39,7 +39,7 @@ public class CommandSourceUtils {
     }
 
     public static CommandSource getRealSource(CommandSourceStack sourceStack) {
-        return ((IMixinCommandSourceStack) sourceStack).getSource();
+        return ((MixinAccessorCommandSourceStack) sourceStack).getSource();
     }
 
 
