@@ -73,7 +73,7 @@ public class SimpleScreen extends HScreen {
         this.divX = center(this.width, this.divWidth);
         this.divY = center(this.height, this.divHeight);
         if (this.hasCloseButton) {
-            renderableWidget(CloseButton.topLeft(this.divX + divWidth, this.divY));
+            renderableWidget(CloseButton.topLeft(this.divX + divWidth, this.divY, this));
         }
         subInit();
     }

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,16 +27,19 @@ public class CloseButton extends AbstractButton {
 
     public static final int PADDING = 3;
 
-    public CloseButton(int x, int y) {
+    private final Screen parentScreen;
+
+    public CloseButton(int x, int y, Screen parentScreen) {
         super(x, y, CROSS_SIZE, CROSS_SIZE, new TextComponent("Close button"));
+        this.parentScreen = parentScreen;
     }
 
-    public static CloseButton topLeft(int x, int y, int padding) {
-        return new CloseButton(x - CROSS_SIZE - padding, y + padding);
+    public static CloseButton topLeft(int x, int y, int padding, Screen parentScreen) {
+        return new CloseButton(x - CROSS_SIZE - padding, y + padding, parentScreen);
     }
 
-    public static CloseButton topLeft(int x, int y) {
-        return topLeft(x, y, PADDING);
+    public static CloseButton topLeft(int x, int y, Screen parentScreen) {
+        return topLeft(x, y, PADDING, parentScreen);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class CloseButton extends AbstractButton {
 
     @Override
     public void onPress() {
-        HScreen.closeScreen();
+        this.parentScreen.onClose();
     }
 
     @Override
