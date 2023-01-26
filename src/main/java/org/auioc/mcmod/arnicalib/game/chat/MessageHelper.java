@@ -35,11 +35,6 @@ public class MessageHelper {
         return create(TextUtils.translatable(this.i18n.applyAsString(key), args), withPrefix);
     }
 
-    @Deprecated
-    public MutableComponent create(String key, boolean withPrefix, Object... args) {
-        return create(key, args, withPrefix);
-    }
-
     public MutableComponent create(String key, boolean withPrefix) {
         return create(key, TextUtils.NO_ARGS, withPrefix);
     }

@@ -54,7 +54,7 @@ public class LanguageUtils {
     }
 
     public static ClientLanguage get(String langCode) {
-        return getLanguage(getInfo(langCode).orElse(DEFAULT_LANGUAGE_INFO));
+        return get(getInfo(langCode).orElse(DEFAULT_LANGUAGE_INFO));
     }
 
 
@@ -70,24 +70,5 @@ public class LanguageUtils {
     public static String getString(ClientLanguage language, String key) {
         return language.getOrDefault(key);
     }
-
-
-    /* ============================================================================================================== */
-    // #region Deprecated
-
-    @Deprecated(since = "5.6.5", forRemoval = true)
-    public static final LanguageInfo DEFAULT_LANGUAGE = DEFAULT_LANGUAGE_INFO;
-
-    @Deprecated(since = "5.6.5", forRemoval = true)
-    public static ClientLanguage getLanguage(LanguageInfo info) {
-        return get(info);
-    }
-
-    @Deprecated(since = "5.6.5", forRemoval = true)
-    public static ClientLanguage getLanguage(String code) {
-        return get(code);
-    }
-
-    // #endregion Deprecated
 
 }

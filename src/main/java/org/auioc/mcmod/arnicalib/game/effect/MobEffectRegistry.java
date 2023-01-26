@@ -16,12 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class MobEffectRegistry {
 
     @Nonnull
-    @Deprecated
-    public static Optional<MobEffect> get(int id) {
-        return Optional.ofNullable(MobEffect.byId(id));
-    }
-
-    @Nonnull
     public static Optional<MobEffect> get(ResourceLocation id) {
         return Optional.ofNullable(ForgeRegistries.MOB_EFFECTS.containsKey(id) ? ForgeRegistries.MOB_EFFECTS.getValue(id) : null);
     }

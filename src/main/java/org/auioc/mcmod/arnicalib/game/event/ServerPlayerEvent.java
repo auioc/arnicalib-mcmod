@@ -12,12 +12,6 @@ public abstract class ServerPlayerEvent extends PlayerEvent {
         this.serverPlayer = serverPlayer;
     }
 
-    @Override
-    @Deprecated(since = "5.6.4", forRemoval = true)
-    public ServerPlayer getPlayer() {
-        return serverPlayer;
-    }
-
     public ServerPlayer getServerPlayer() {
         return serverPlayer;
     }

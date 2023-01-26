@@ -12,7 +12,4 @@ public class ItemPredicates {
     public static final Predicate<Item> IS_AIR = (item) -> item == Items.AIR;
     public static final Predicate<Item> IS_CATEGORIZED = (item) -> item.getItemCategory() != null;
 
-    @Deprecated(since = "5.6.2", forRemoval = true)
-    public static final Predicate<ItemStack> IS_VANILLA_ITEM = IS_VANILLA;
-
 }

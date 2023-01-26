@@ -9,16 +9,15 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class MobEffectUtils {
 
     public static void remove(LivingEntity entity, Predicate<MobEffectInstance> predicate) {
         var toRemove = new ArrayList<MobEffect>();
 
-        entity.getActiveEffects().forEach((instance) -> {
-            if (predicate.test(instance)) toRemove.add(instance.getEffect());
-        });
+        entity.getActiveEffects().forEach(
+            (instance) -> { if (predicate.test(instance)) toRemove.add(instance.getEffect()); }
+        );
 
         toRemove.forEach((effect) -> entity.removeEffect(effect));
     }
@@ -41,17 +40,6 @@ public class MobEffectUtils {
     public static void setAmplifier(MobEffectInstance instance, int amplifier) {
         ((IHMobEffectInstance) instance).setAmplifier(amplifier);
     }
-
-    @Deprecated
-    public static void setDurationReflection(MobEffectInstance instance, int duration) {
-        ObfuscationReflectionHelper.setPrivateValue(MobEffectInstance.class, instance, duration, "f_19503_");
-    }
-
-    @Deprecated
-    public static void setAmplifierReflection(MobEffectInstance instance, int amplifier) {
-        ObfuscationReflectionHelper.setPrivateValue(MobEffectInstance.class, instance, amplifier, "f_19504_");
-    }
-
 
     public static Component getDisplayString(MobEffect effect, int amplifier, int duration) {
         return TextUtils.empty()

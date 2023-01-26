@@ -11,8 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BaseCommandBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper.UnableToAccessFieldException;
 
 public class CommandSourceUtils {
 
@@ -26,22 +24,9 @@ public class CommandSourceUtils {
     public static final Predicate<CommandSourceStack> IS_COMMAND_BLOCK = (sourceStack) -> getRealSource(sourceStack) instanceof BaseCommandBlock;
     public static final Predicate<CommandSourceStack> IS_DEDICATED_SERVER = (sourceStack) -> getRealSource(sourceStack) instanceof DedicatedServer;
 
-    /**
-     * @param sourceStack
-     * @return The real command source of the specified {@code CommandSourceStack}
-     * @throws UnableToAccessFieldException
-     * @since 4.0.0
-     * @deprecated Use {@link #getPrivateSource} instead
-     */
-    @Deprecated(since = "4.1.5")
-    public static CommandSource getRealSourceReflection(CommandSourceStack sourceStack) {
-        return ObfuscationReflectionHelper.getPrivateValue(CommandSourceStack.class, sourceStack, "f_81288_");
-    }
-
     public static CommandSource getRealSource(CommandSourceStack sourceStack) {
         return ((MixinAccessorCommandSourceStack) sourceStack).getSource();
     }
-
 
     @OnlyIn(Dist.CLIENT)
     public static LocalPlayer getLocalPlayerOrException(CommandSourceStack sourceStack) throws CommandSyntaxException {

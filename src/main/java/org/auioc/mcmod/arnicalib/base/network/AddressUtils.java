@@ -2,7 +2,6 @@ package org.auioc.mcmod.arnicalib.base.network;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.net.InetAddress;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import javax.annotation.Nullable;
 import org.apache.logging.log4j.Marker;
@@ -11,13 +10,6 @@ import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 public interface AddressUtils {
 
     static Marker MARKER = LogUtil.getMarker(AddressUtils.class);
-
-    @Deprecated
-    static String ipv4toString(SocketAddress addr) {
-        String s = addr.toString();
-        s = s.substring(s.indexOf("/") + 1);
-        return s.substring(0, s.indexOf(":"));
-    }
 
     @Nullable
     static InetAddress toInetAddress(String addr) {

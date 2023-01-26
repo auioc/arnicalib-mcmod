@@ -1,10 +1,8 @@
 package org.auioc.mcmod.arnicalib.base.file;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import org.apache.logging.log4j.Marker;
@@ -67,23 +65,9 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         writeStringToFile(file, data, Charset.forName("utf8"), false);
     }
 
-    /* ============================================================================================================== */
-    // #region Deprecated
+    // ====================================================================== //
 
     @Deprecated
     private FileUtils() {}
-
-    @Deprecated(since = "5.1.4")
-    public static void writeText(String fileName, String text) throws IOException {
-        var file = getFile(fileName);
-
-        if (file.exists()) LOGGER.warn(MARKER, "File \"" + file + "\" already exists, overwrite");
-
-        final var writer = new BufferedWriter(new FileWriter(file, false));
-        writer.write(text);
-        writer.close();
-    }
-
-    // #endregion Deprecated
 
 }
