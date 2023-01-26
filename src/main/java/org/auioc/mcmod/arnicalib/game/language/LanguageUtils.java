@@ -13,8 +13,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class LanguageUtils {
 
-    private static final Minecraft MC = Minecraft.getInstance();
-
     public static final LanguageInfo DEFAULT_LANGUAGE_INFO = new LanguageInfo("en_us", "US", "English", false);
 
     public static final String[] VANILLA_LANGUAGES = new String[] {
@@ -33,15 +31,15 @@ public class LanguageUtils {
 
 
     public static SortedSet<LanguageInfo> getInfo() {
-        return MC.getLanguageManager().getLanguages();
+        return Minecraft.getInstance().getLanguageManager().getLanguages();
     }
 
     public static Optional<LanguageInfo> getInfo(String code) {
-        return Optional.ofNullable(MC.getLanguageManager().getLanguage(code));
+        return Optional.ofNullable(Minecraft.getInstance().getLanguageManager().getLanguage(code));
     }
 
     public static LanguageInfo getCurrentInfo() {
-        return MC.getLanguageManager().getSelected();
+        return Minecraft.getInstance().getLanguageManager().getSelected();
     }
 
     public static String[] getInfoCodes() {
@@ -50,7 +48,7 @@ public class LanguageUtils {
 
 
     public static ClientLanguage get(LanguageInfo langInfo) {
-        return ClientLanguage.loadFrom(MC.getResourceManager(), List.of(langInfo));
+        return ClientLanguage.loadFrom(Minecraft.getInstance().getResourceManager(), List.of(langInfo));
     }
 
     public static ClientLanguage get(String langCode) {

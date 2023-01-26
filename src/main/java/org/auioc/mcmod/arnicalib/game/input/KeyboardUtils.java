@@ -9,10 +9,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class KeyboardUtils {
 
-    private static final Minecraft MC = Minecraft.getInstance();
-
     public static boolean isKeyDown(int key) {
-        return InputConstants.isKeyDown(MC.getWindow().getWindow(), key);
+        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), key);
     }
 
     public static boolean isShiftKeyDown() {

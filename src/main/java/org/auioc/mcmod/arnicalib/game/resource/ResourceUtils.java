@@ -12,8 +12,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ResourceUtils {
 
-    private static final Minecraft MC = Minecraft.getInstance();
-
     public static ResourceLocation modelIdOrElse(String modelId, ResourceLocation other) {
         try {
             return modelId.contains("#") ? new ModelResourceLocation(modelId) : new ResourceLocation(modelId);
@@ -25,6 +23,8 @@ public class ResourceUtils {
     public static ResourceLocation modelId(String modelId) {
         return modelIdOrElse(modelId, ModelBakery.MISSING_MODEL_LOCATION);
     }
+
+    // ====================================================================== //
 
     public static boolean isValidModelId(String modelId) {
         try {
@@ -39,13 +39,14 @@ public class ResourceUtils {
         }
     }
 
+    // ====================================================================== //
+
     public static BakedModel getBakedModel(String modelId) {
-        return MC.getModelManager().getModel(modelId(modelId));
+        return Minecraft.getInstance().getModelManager().getModel(modelId(modelId));
     }
 
     public static BakedModel getBakedModel(ResourceLocation modelId) {
-        return MC.getModelManager().getModel(modelId);
+        return Minecraft.getInstance().getModelManager().getModel(modelId);
     }
-
 
 }
