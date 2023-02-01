@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.world.position;
 
-import org.auioc.mcmod.arnicalib.base.function.DoubleToDoubleFunction;
+import java.util.function.DoubleUnaryOperator;
 
 public enum SpeedUnit {
 
@@ -10,9 +10,9 @@ public enum SpeedUnit {
 
     private final String name;
     private final String symbol;
-    private final DoubleToDoubleFunction converter;
+    private final DoubleUnaryOperator converter;
 
-    private SpeedUnit(String name, String symbol, DoubleToDoubleFunction converter) {
+    private SpeedUnit(String name, String symbol, DoubleUnaryOperator converter) {
         this.name = name;
         this.symbol = symbol;
         this.converter = converter;
