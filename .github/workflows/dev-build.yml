@@ -24,7 +24,8 @@ jobs:
               with:
                   java-version: '17'
                   distribution: 'temurin'
-                  architecture: x64
+                  architecture: 'x64'
+                  cache: 'gradle'
 
             - name: Build with Gradle
               run: |

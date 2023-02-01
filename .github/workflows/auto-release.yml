@@ -39,7 +39,7 @@ jobs:
               with:
                   java-version: '17'
                   distribution: 'temurin'
-                  architecture: x64
+                  architecture: 'x64'
 
             - name: Build and publish with Gradle
               env:
