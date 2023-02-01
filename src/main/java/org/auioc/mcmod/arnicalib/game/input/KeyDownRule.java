@@ -1,11 +1,12 @@
 package org.auioc.mcmod.arnicalib.game.input;
 
+import java.util.function.BooleanSupplier;
 import org.auioc.mcmod.arnicalib.base.function.VoidPredicate;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public enum KeyDownRule implements VoidPredicate {
+public enum KeyDownRule implements VoidPredicate, BooleanSupplier {
 
     ALWAYS(() -> true), NEVER(() -> false), //
     ON_SHIFT_KEY_DOWN(KeyboardUtils::isShiftKeyDown), //
@@ -13,15 +14,20 @@ public enum KeyDownRule implements VoidPredicate {
     ON_ALT_KEY_DOWN(KeyboardUtils::isAltKeyDown), //
     ON_SPACE_KEY_DOWN(KeyboardUtils::isSpaceKeyDown);
 
-    private final VoidPredicate predicate;
+    private final BooleanSupplier delegate;
 
-    private KeyDownRule(VoidPredicate predicate) {
-        this.predicate = predicate;
+    private KeyDownRule(BooleanSupplier predicate) {
+        this.delegate = predicate;
+    }
+
+    @Override
+    public boolean getAsBoolean() {
+        return delegate.getAsBoolean();
     }
 
     @Override
     public boolean test() {
-        return predicate.test();
+        return delegate.getAsBoolean();
     }
 
 }
