@@ -61,10 +61,18 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
         return RandomUtils.pickOneFromList(OrderedForgeRegistries.POTIONS.get()).getValue();
     }
 
+    // ============================================================================================================== //
 
     public static class Serializer extends LootItemConditionalFunction.Serializer<SetRandomPotionFunction> {
 
-        public void serialize(JsonObject json, SetRandomPotionFunction instance, JsonSerializationContext ctx) {}
+        public void serialize(JsonObject json, SetRandomPotionFunction instance, JsonSerializationContext ctx) {
+            if (!instance.potions.isEmpty()) {
+                json.addProperty("blacklist", instance.isBlacklist);
+                var potions = new JsonArray(instance.potions.size());
+                instance.potions.stream().map((potion) -> potion.getRegistryName()).map((id) -> id.toString()).forEach(potions::add);;
+                json.add("potions", potions);
+            }
+        }
 
         public SetRandomPotionFunction deserialize(JsonObject json, JsonDeserializationContext ctx, LootItemCondition[] conditions) {
             List<Potion> potions = new ArrayList<Potion>();

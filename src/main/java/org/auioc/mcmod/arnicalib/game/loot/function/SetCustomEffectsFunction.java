@@ -41,7 +41,11 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
 
     public static class Serializer extends LootItemConditionalFunction.Serializer<SetCustomEffectsFunction> {
 
-        public void serialize(JsonObject json, SetCustomEffectsFunction instance, JsonSerializationContext ctx) {}
+        public void serialize(JsonObject json, SetCustomEffectsFunction instance, JsonSerializationContext ctx) {
+            var effects = new JsonArray(instance.effects.size());
+            instance.effects.stream().map(MobEffectInstanceSerializer::toJson).forEach(effects::add);
+            json.add("effects", effects);
+        }
 
         public SetCustomEffectsFunction deserialize(JsonObject json, JsonDeserializationContext ctx, LootItemCondition[] conditions) {
             List<MobEffectInstance> effects = new ArrayList<MobEffectInstance>();

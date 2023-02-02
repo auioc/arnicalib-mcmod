@@ -19,20 +19,23 @@ public class ModLoadedCondition implements LootItemCondition {
     }
 
     @Override
-    public boolean test(LootContext ctx) {
-        return ModList.get().isLoaded(this.modId);
-    }
-
-    @Override
     public LootItemConditionType getType() {
         return AHLootItemConditions.MOD_LOADED.get();
     }
 
+    @Override
+    public boolean test(LootContext ctx) {
+        return ModList.get().isLoaded(this.modId);
+    }
+
+    // ============================================================================================================== //
 
     public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<ModLoadedCondition> {
 
         @Override
-        public void serialize(JsonObject json, ModLoadedCondition instance, JsonSerializationContext ctx) {}
+        public void serialize(JsonObject json, ModLoadedCondition instance, JsonSerializationContext ctx) {
+            json.addProperty("mod", instance.modId);
+        }
 
         @Override
         public ModLoadedCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {

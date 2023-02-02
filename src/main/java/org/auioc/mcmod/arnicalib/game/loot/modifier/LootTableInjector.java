@@ -17,11 +17,11 @@ import net.minecraftforge.common.loot.LootModifier;
 
 public class LootTableInjector extends LootModifier {
 
-    private HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>(); // targetTableId, sourceTableId
-    private boolean strictParameter;
+    private final HashMap<ResourceLocation, ResourceLocation> injectors; // targetTableId, sourceTableId
+    private final boolean strictParameter;
 
-    protected LootTableInjector(LootItemCondition[] conditionsIn, HashMap<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
-        super(conditionsIn);
+    protected LootTableInjector(LootItemCondition[] conditions, HashMap<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
+        super(conditions);
         this.injectors = injectors;
         this.strictParameter = strictParameter;
     }
@@ -53,7 +53,7 @@ public class LootTableInjector extends LootModifier {
 
         @Override
         public LootTableInjector read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
-            HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<ResourceLocation, ResourceLocation>();
+            HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<>();
             boolean strictParameter;
 
             JsonArray injectorsJson = GsonHelper.getAsJsonArray(json, "injectors");
@@ -72,7 +72,20 @@ public class LootTableInjector extends LootModifier {
 
         @Override
         public JsonObject write(LootTableInjector instance) {
-            return null;
+            final var json = makeConditions(instance.conditions);
+            json.addProperty("strict_parameter", instance.strictParameter);
+            var injectors = new JsonArray(instance.injectors.size());
+            instance.injectors
+                .entrySet().stream()
+                .map((entry) -> {
+                    var injector = new JsonObject();
+                    injector.addProperty("target", entry.getKey().toString());
+                    injector.addProperty("source", entry.getValue().toString());
+                    return injector;
+                })
+                .forEach(injectors::add);
+            json.add("injectors", injectors);
+            return json;
         }
 
     }
