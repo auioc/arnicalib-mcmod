@@ -1,6 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.chat;
 
-import org.auioc.mcmod.arnicalib.base.function.StringToStringFunction;
 import org.auioc.mcmod.arnicalib.base.function.StringUnaryOperator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -89,19 +88,20 @@ public class MessageHelper {
 
     // ====================================================================== //
 
+    @SuppressWarnings("removal")
     @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(Component prefix, StringToStringFunction i18n) {
+    public MessageHelper(Component prefix, org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
         this.prefix = prefix;
         this.i18n = (str) -> i18n.applyAsString(str);
     }
 
     @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(String modName, StringToStringFunction i18n) {
+    public MessageHelper(String modName, org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
         this(TextUtils.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA), i18n);
     }
 
     @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(StringToStringFunction i18n) {
+    public MessageHelper(org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
         this(TextUtils.empty(), i18n);
     }
 

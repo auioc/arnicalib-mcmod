@@ -27,11 +27,13 @@ public class MathUtil {
 
     // ====================================================================== //
 
+    @SuppressWarnings("removal")
     @Deprecated(since = "5.7.1", forRemoval = true)
     public static int sigma(int n, int m, org.auioc.mcmod.arnicalib.base.function.IntToIntFunction f) {
         return sigma(n, m, (IntUnaryOperator) (int i) -> f.applyAsInt(i));
     }
 
+    @SuppressWarnings("removal")
     @Deprecated(since = "5.7.1", forRemoval = true)
     public static double sigma(int n, int m, org.auioc.mcmod.arnicalib.base.function.DoubleToDoubleFunction f) {
         return sigma(n, m, (DoubleUnaryOperator) (double i) -> f.applyAsDouble(i));
