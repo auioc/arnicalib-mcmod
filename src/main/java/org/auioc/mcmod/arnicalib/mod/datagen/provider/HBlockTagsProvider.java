@@ -1,7 +1,6 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
 import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
@@ -14,8 +13,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class HBlockTagsProvider extends BlockTagsProvider implements IHTagsProvider<Block> {
 
-    public HBlockTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, ArnicaLib.MOD_ID, existingFileHelper);
+    public HBlockTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
+        super(generator, ArnicaLib.MOD_ID, fileHelper);
     }
 
     @Override

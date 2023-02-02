@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
 import org.auioc.mcmod.arnicalib.game.entity.EntityTypePredicates;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
@@ -15,8 +14,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements IHTagsProvider<EntityType<?>> {
 
-    public HEntityTypeTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, ArnicaLib.MOD_ID, existingFileHelper);
+    public HEntityTypeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
+        super(generator, ArnicaLib.MOD_ID, fileHelper);
     }
 
     @Override
