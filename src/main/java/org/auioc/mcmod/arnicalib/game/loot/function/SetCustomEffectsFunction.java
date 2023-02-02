@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.mod.server.loot.function;
+package org.auioc.mcmod.arnicalib.game.loot.function;
 
 import java.util.ArrayList;
 import java.util.List;

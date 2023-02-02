@@ -14,7 +14,7 @@ public abstract class MixinLootContext {
 
     /**
      * @author WakelessSloth56
-     * @reason {@link org.auioc.mcmod.arnicalib.mod.server.loot.modifier.LootTableInjector#getItemStacks}
+     * @reason {@link org.auioc.mcmod.arnicalib.game.loot.modifier.LootTableInjector#getItemStacks}
      */
     // @org.spongepowered.asm.mixin.Debug(export = true, print = true)
     @Overwrite(remap = false)

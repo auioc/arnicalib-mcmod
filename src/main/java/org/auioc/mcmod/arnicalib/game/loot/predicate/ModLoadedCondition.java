@@ -1,4 +1,4 @@
-package org.auioc.mcmod.arnicalib.mod.server.loot.predicate;
+package org.auioc.mcmod.arnicalib.game.loot.predicate;
 
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 import com.google.gson.JsonDeserializationContext;
