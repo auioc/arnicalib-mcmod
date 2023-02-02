@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.mod.server.loot;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.game.loot.predicate.EntityAttributeCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.ModLoadedCondition;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.storage.loot.Serializer;
@@ -18,5 +19,6 @@ public final class AHLootItemConditions {
     }
 
     public static final RegistryObject<LootItemConditionType> MOD_LOADED = register("mod_loaded", new ModLoadedCondition.Serializer());
+    public static final RegistryObject<LootItemConditionType> ENTITY_ATTRIBUTE = register("entity_attribute", new EntityAttributeCondition.Serializer());
 
 }
