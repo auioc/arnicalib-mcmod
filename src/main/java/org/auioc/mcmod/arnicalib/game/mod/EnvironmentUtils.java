@@ -8,11 +8,15 @@ public class EnvironmentUtils {
 
     public static final boolean IS_DEV = isDev();
 
-    public static boolean isDev() {
+    public static String getLaunchTarget() {
         return Launcher.INSTANCE
             .environment()
             .getProperty(IEnvironment.Keys.LAUNCHTARGET.get())
-            .orElse("missing")
+            .orElse("MISSING");
+    }
+
+    public static boolean isDev() {
+        return getLaunchTarget()
             .toLowerCase(Locale.ROOT)
             .contains("dev");
     }

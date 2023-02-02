@@ -17,5 +17,6 @@
         "defaultRequire": 1
     },
     "refmap": "arnicalib.mixin-refmap.json",
+    "plugin": "org.auioc.mcmod.arnicalib.mod.mixin.MixinConfigPlugin",
     "minVersion": "0.8"
 }
