@@ -86,23 +86,4 @@ public class MessageHelper {
         sendGameInfo(player, key, TextUtils.NO_ARGS);
     }
 
-    // ====================================================================== //
-
-    @SuppressWarnings("removal")
-    @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(Component prefix, org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
-        this.prefix = prefix;
-        this.i18n = (str) -> i18n.applyAsString(str);
-    }
-
-    @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(String modName, org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
-        this(TextUtils.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA), i18n);
-    }
-
-    @Deprecated(since = "5.7.1", forRemoval = true)
-    public MessageHelper(org.auioc.mcmod.arnicalib.base.function.StringToStringFunction i18n) {
-        this(TextUtils.empty(), i18n);
-    }
-
 }
