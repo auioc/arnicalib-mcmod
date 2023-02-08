@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class CloseButton extends AbstractButton {
+public class CloseButton<T extends Screen> extends AbstractButton {
 
     private static final ResourceLocation TEXTURE = ArnicaLib.id("textures/gui/close_button.png");
     private static final int TEXTURE_SIZE = 16;
@@ -25,35 +25,31 @@ public class CloseButton extends AbstractButton {
     private static final int CROSS_HOVERED_U_OFFSET = 5;
     private static final int CROSS_HOVERED_V_OFFSET = 0;
 
-    public static final int PADDING = 3;
+    protected final T parentScreen;
 
-    private final Screen parentScreen;
-
-    public CloseButton(int x, int y, Screen parentScreen) {
+    public CloseButton(int x, int y, T parentScreen) {
         super(x, y, CROSS_SIZE, CROSS_SIZE, new TextComponent("Close button"));
         this.parentScreen = parentScreen;
     }
 
-    public static CloseButton topLeft(int x, int y, int padding, Screen parentScreen) {
-        return new CloseButton(x - CROSS_SIZE - padding, y + padding, parentScreen);
-    }
-
-    public static CloseButton topLeft(int x, int y, Screen parentScreen) {
-        return topLeft(x, y, PADDING, parentScreen);
-    }
-
     @Override
-    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public final void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        this.x = getX();
+        this.y = getY();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
         boolean flag = isHoveredOrFocused();
         HScreen.blitSquare(
-            poseStack, x, y,
+            poseStack, this.x, this.y,
             (flag) ? CROSS_HOVERED_U_OFFSET : CROSS_U_OFFSET,
             (flag) ? CROSS_HOVERED_V_OFFSET : CROSS_V_OFFSET,
             CROSS_SIZE, TEXTURE_SIZE
         );
     }
+
+    protected int getX() { return this.x; }
+
+    protected int getY() { return this.y; }
 
     @Override
     public void onPress() {
@@ -64,6 +60,13 @@ public class CloseButton extends AbstractButton {
     public void updateNarration(NarrationElementOutput narrationElementOutput) {
         defaultButtonNarrationText(narrationElementOutput);
         narrationElementOutput.add(NarratedElementType.HINT, getMessage());
+    }
+
+    // ====================================================================== //
+
+    @Deprecated(since = "5.7.2", forRemoval = true)
+    public static CloseButton<Screen> topLeft(int x, int y, Screen parentScreen) {
+        return new CloseButton<Screen>(x - CROSS_SIZE - 3, y + 3, parentScreen);
     }
 
 }
