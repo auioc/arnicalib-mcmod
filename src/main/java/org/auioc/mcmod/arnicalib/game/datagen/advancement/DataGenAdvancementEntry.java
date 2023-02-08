@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.datagen.advancement;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 import net.minecraft.advancements.Advancement;
@@ -10,6 +11,10 @@ public record DataGenAdvancementEntry(ResourceLocation id, Advancement.Builder b
 
     public DataGenAdvancementEntry(ResourceLocation id, UnaryOperator<Advancement.Builder> builder) {
         this(id, builder.apply(Advancement.Builder.advancement()));
+    }
+
+    public DataGenAdvancementEntry(ResourceLocation id, BiFunction<ResourceLocation, Advancement.Builder, Advancement.Builder> builder) {
+        this(id, builder.apply(id, Advancement.Builder.advancement()));
     }
 
     public void accept(Consumer<Advancement> writer, ExistingFileHelper fileHelper) {
