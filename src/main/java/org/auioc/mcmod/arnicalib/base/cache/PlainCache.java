@@ -3,10 +3,8 @@ package org.auioc.mcmod.arnicalib.base.cache;
 import java.util.HashMap;
 import java.util.Optional;
 import javax.annotation.Nullable;
-import org.checkerframework.checker.units.qual.K;
-import org.lwjgl.system.CallbackI.V;
 
-public class PlainCache implements Cache<K, V> {
+public class PlainCache<K, V> implements Cache<K, V> {
 
     private final HashMap<K, V> map = new HashMap<K, V>();
 
