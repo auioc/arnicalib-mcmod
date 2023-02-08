@@ -3,6 +3,7 @@ package org.auioc.mcmod.arnicalib.game.config;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -32,8 +33,12 @@ public class ConfigUtils {
     }
 
 
+    public static <T> ConfigValue<List<? extends T>> defineList(Builder specBuilder, String path, Supplier<List<? extends T>> defaultSupplier, Predicate<Object> elementValidator) {
+        return specBuilder.defineListAllowEmpty(split(path), defaultSupplier, elementValidator);
+    }
+
     public static <T> ConfigValue<List<? extends T>> defineList(Builder specBuilder, String path, Predicate<Object> elementValidator) {
-        return specBuilder.defineListAllowEmpty(split(path), List::of, elementValidator);
+        return defineList(specBuilder, path, List::of, elementValidator);
     }
 
     public static ConfigValue<List<? extends String>> defineStringList(Builder specBuilder, String path) {
@@ -42,6 +47,14 @@ public class ConfigUtils {
 
     public static ConfigValue<List<? extends String>> defineStringList(Builder specBuilder, String path, List<String> allowedValues) {
         return defineList(specBuilder, path, (o) -> o instanceof String && allowedValues.contains(o));
+    }
+
+    public static ConfigValue<List<? extends String>> defineStringList(Builder specBuilder, String path, Supplier<List<? extends String>> defaultSupplier, Predicate<String> stringValidator) {
+        return defineList(specBuilder, path, defaultSupplier, (o) -> (o instanceof String) && stringValidator.test((String) o));
+    }
+
+    public static ConfigValue<List<? extends String>> defineStringList(Builder specBuilder, String path, Supplier<List<? extends String>> defaultSupplier) {
+        return defineStringList(specBuilder, path, defaultSupplier, (o) -> true);
     }
 
 
