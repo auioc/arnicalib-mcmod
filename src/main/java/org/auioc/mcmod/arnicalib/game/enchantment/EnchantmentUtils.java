@@ -1,13 +1,17 @@
 package org.auioc.mcmod.arnicalib.game.enchantment;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.commons.lang3.Validate;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class EnchantmentUtils {
 
@@ -35,7 +39,7 @@ public class EnchantmentUtils {
         return getLowest(EnchantmentHelper.deserializeEnchantments(enchantmentsTag));
     }
 
-    // ====================================================================== //
+    // ============================================================================================================== //
 
     public static boolean isOverLimit(Enchantment enchantment, int level) {
         return level > enchantment.getMaxLevel();
@@ -44,6 +48,8 @@ public class EnchantmentUtils {
     public static boolean isOverLimit(Entry<Enchantment, Integer> enchantmentEntry) {
         return isOverLimit(enchantmentEntry.getKey(), enchantmentEntry.getValue());
     }
+
+    // ====================================================================== //
 
     public static boolean hasOverLimitEnchantment(Map<Enchantment, Integer> enchantmentMap) {
         for (var enchantmentEntry : enchantmentMap.entrySet()) {
@@ -55,6 +61,8 @@ public class EnchantmentUtils {
     public static boolean hasOverLimitEnchantment(ListTag enchantmentsTag) {
         return hasOverLimitEnchantment(EnchantmentHelper.deserializeEnchantments(enchantmentsTag));
     }
+
+    // ====================================================================== //
 
     public static LinkedHashMap<Enchantment, Integer> getOverLimitEnchantments(Map<Enchantment, Integer> enchantmentMap) {
         var map = new LinkedHashMap<Enchantment, Integer>();
@@ -68,6 +76,21 @@ public class EnchantmentUtils {
 
     public static LinkedHashMap<Enchantment, Integer> getOverLimitEnchantments(ListTag enchantmentsTag) {
         return getOverLimitEnchantments(EnchantmentHelper.deserializeEnchantments(enchantmentsTag));
+    }
+
+    // ============================================================================================================== //
+
+    public static ItemStack createBook(Enchantment enchantment, int lvl) {
+        return EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, lvl));
+    }
+
+    public static List<ItemStack> createBooks(Enchantment enchantment) {
+        int maxLevel = enchantment.getMaxLevel();
+        var list = new ArrayList<ItemStack>(maxLevel);
+        for (int lvl = 1; lvl <= maxLevel; ++lvl) {
+            list.add(createBook(enchantment, lvl));
+        }
+        return list;
     }
 
 }
