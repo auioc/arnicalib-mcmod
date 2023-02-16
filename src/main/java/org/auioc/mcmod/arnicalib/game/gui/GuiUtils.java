@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.locale.Language;
@@ -68,6 +69,34 @@ public class GuiUtils {
 
     public static int drawTextWarp(PoseStack poseStack, Font font, FormattedText text, int x, int y, int width, int color) {
         return drawCharSequence(poseStack, font, font.split(text, width), x, y, font.lineHeight, color);
+    }
+
+    // ============================================================================================================== //
+
+    public static final int SLOT_SIZE = 18;
+    public static final int SLOT_BACKGROUND_COLOR = 0xFF8B8B8B;
+    public static final int SLOT_LEFT_BORDER_COLOR = 0xFF373737;
+    public static final int SLOT_RIGHT_BORDER_COLOR = 0xFFFFFFFF;
+
+    public static void drawSlot(PoseStack poseStack, int x, int y, int width, int height) {
+        int x2 = x + width;
+        int y2 = y + height;
+        GuiComponent.fill(poseStack, x, y, x2, y2, SLOT_BACKGROUND_COLOR);
+        GuiComponent.fill(poseStack, x, y, x2 - 1, y2 - 1, SLOT_LEFT_BORDER_COLOR);
+        GuiComponent.fill(poseStack, x + 1, y + 1, x2, y2, SLOT_RIGHT_BORDER_COLOR);
+        GuiComponent.fill(poseStack, x + 1, y + 1, x2 - 1, y2 - 1, SLOT_BACKGROUND_COLOR);
+    }
+
+    public static void drawSlot(PoseStack poseStack, int x, int y) {
+        drawSlot(poseStack, x, y, SLOT_SIZE, SLOT_SIZE);
+    }
+
+    public static void drawSlots(PoseStack poseStack, int x, int y, int rows, int cols) {
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                drawSlot(poseStack, (x + c * SLOT_SIZE), (y + r * SLOT_SIZE));
+            }
+        }
     }
 
 }
