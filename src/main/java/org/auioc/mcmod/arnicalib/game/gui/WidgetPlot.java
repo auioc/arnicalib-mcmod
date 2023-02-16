@@ -3,6 +3,11 @@ package org.auioc.mcmod.arnicalib.game.gui;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+/**
+ * @deprecated Use {@link net.minecraft.client.renderer.Rect2i} instead
+ *             (by LainIO24)
+ */
+@Deprecated(since = "5.7.3", forRemoval = true)
 @OnlyIn(Dist.CLIENT)
 public class WidgetPlot {
 
