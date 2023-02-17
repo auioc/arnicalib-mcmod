@@ -40,7 +40,7 @@ public final class ClientInitialization {
 
     private static void clientTestHandler(ClientChatReceivedEvent event) {
         if (event.getMessage().getString().equals("<Dev> .test")) {
-            ReflectionUtils.invokeStatic("org.auioc.mcmod.arnicalib.mod.client.TestHandlerClient", "test");
+            ReflectionUtils.invokeStatic("org.auioc.mcmod.arnicalib.mod.test.TestHandlerClient", "test");
         }
     }
 

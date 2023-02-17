@@ -32,13 +32,7 @@ public final class AHServerCommands {
     private static void addTestNode(CommandNode<CommandSourceStack> node) {
         node.addChild(
             literal("test")
-                .executes(
-                    (ctx) -> DynamicCommandHandler.run(
-                        "org.auioc.mcmod.arnicalib.mod.server.command.TestCommandHandler",
-                        "run",
-                        ctx
-                    )
-                )
+                .executes((ctx) -> DynamicCommandHandler.run("org.auioc.mcmod.arnicalib.mod.test.TestHandlerCommand", "run", ctx))
                 .build()
         );
     }
