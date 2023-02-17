@@ -1,8 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.gui.screen;
 
+import java.awt.Rectangle;
+import java.util.function.IntUnaryOperator;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.game.gui.component.CloseButton;
+import org.auioc.mcmod.arnicalib.game.resource.ResourceUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Widget;
@@ -10,10 +12,10 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 
 @OnlyIn(Dist.CLIENT)
 public class SimpleScreen extends HScreen {
@@ -21,41 +23,49 @@ public class SimpleScreen extends HScreen {
     private static final ResourceLocation TEXTURE = ArnicaLib.id("textures/gui/simple_screen.png");
     private static final int TEXTURE_SIZE = 16;
 
-    private static final int CORNER_SIZE = 4;
-    private static final int TOP_LEFT_CORNER_U_OFFSET = 0;
-    private static final int TOP_LEFT_CORNER_V_OFFSET = 0;
-    private static final int TOP_RIGHT_CORNER_U_OFFSET = 5;
-    private static final int TOP_RIGHT_CORNER_V_OFFSET = 0;
-    private static final int BOTTOM_LEFT_CORNER_U_OFFSET = 0;
-    private static final int BOTTOM_LEFT_CORNER_V_OFFSET = 5;
-    private static final int BOTTOM_RIGHT_CORNER_U_OFFSET = 5;
-    private static final int BOTTOM_RIGHT_CORNER_V_OFFSET = 5;
+    protected static final int DEFAULT_BOX_WIDTH = 248;
+    protected static final int DEFAULT_BOX_HEIGHT = 166;
 
-    protected static final int COLOR_BLACK = adjustColor(0x000000);
-    protected static final int COLOR_WHITE = adjustColor(0xFFFFFF);
-    protected static final int COLOR_GRAY = adjustColor(0x555555);
-    protected static final int COLOR_BACKGROUND = adjustColor(0xC6C6C6);
+    private static final int CLOSE_BUTTON_PADDING = 3;
+    private static final int BORDER_SIZE = 4;
+    private static final int BORDER_1_SIZE = 1;
+    private static final int BORDER_2_SIZE = 3;
+    private static final int LEFT_CORNER_U = 0;
+    private static final int TOP_CORNER_V = 0;
+    private static final int RIGHT_CORNER_U = 4;
+    private static final int BOTTOM_CORNER_V = 4;
 
-    protected final int divWidth;
-    protected final int divHeight;
+    private static final IntUnaryOperator COLOR_MAP_U = (w) -> 0;
+    private static final IntUnaryOperator COLOR_MAP_V = (h) -> h - 1;
+    private static final int COLOR_MAP_WIDTH = 4;
+    private static final int COLOR_MAP_HEIGHT = 1;
+    protected static int colorFF = 0xFFFFFFFF;
+    protected static int colorC6 = 0xFFC6C6C6;
+    protected static int color55 = 0xFF555555;
+    protected static int color00 = 0xFF000000;
+
+    protected final int boxWidth;
+    protected final int boxHeight;
     protected final boolean hasCloseButton;
 
-    protected int divX;
-    protected int divY;
+    protected int boxX1;
+    protected int boxX2;
+    protected int boxY1;
+    protected int boxY2;
 
-    public SimpleScreen(Component title, int divWidth, int divHeight, boolean hasCloseButton) {
+    public SimpleScreen(Component title, int boxWidth, int boxHeight, boolean hasCloseButton) {
         super(title);
-        this.divWidth = divWidth;
-        this.divHeight = divHeight;
+        this.boxWidth = boxWidth;
+        this.boxHeight = boxHeight;
         this.hasCloseButton = hasCloseButton;
     }
 
-    public SimpleScreen(Component title, int divWidth, int divHeight) {
-        this(title, divWidth, divHeight, false);
+    public SimpleScreen(Component title, int boxWidth, int boxHeight) {
+        this(title, boxWidth, boxHeight, false);
     }
 
     public SimpleScreen(Component title, boolean hasCloseButton) {
-        this(title, 176, 166, hasCloseButton);
+        this(title, DEFAULT_BOX_WIDTH, DEFAULT_BOX_HEIGHT, hasCloseButton);
     }
 
     public SimpleScreen(Component title) {
@@ -63,7 +73,7 @@ public class SimpleScreen extends HScreen {
     }
 
     public SimpleScreen() {
-        this(TextUtils.literal("SimpleScreen"));
+        this(new TextComponent(SimpleScreen.class.getSimpleName()));
     }
 
     @Override
@@ -71,10 +81,15 @@ public class SimpleScreen extends HScreen {
 
     @Override
     protected final void init() {
-        this.divX = center(this.width, this.divWidth);
-        this.divY = center(this.height, this.divHeight);
+        calcBoxVertices();
         if (this.hasCloseButton) {
-            renderableWidget(new CloseButton<Screen>(this.divX + divWidth - CloseButton.CROSS_SIZE - 3, this.divY + 3, this));
+            renderableWidget(
+                new CloseButton<Screen>(
+                    boxX2 - CloseButton.CROSS_SIZE - CLOSE_BUTTON_PADDING,
+                    boxY1 + CLOSE_BUTTON_PADDING,
+                    this
+                )
+            );
         }
         subInit();
     }
@@ -83,117 +98,74 @@ public class SimpleScreen extends HScreen {
 
     @Override
     public final void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        this.divX = center(this.width, this.divWidth);
-        this.divY = center(this.height, this.divHeight);
-
-        this.renderBackground(poseStack);
-
-        this.renderBorderEdge(poseStack);
-        this.renderBorderCorner(poseStack);
-
-        this.subRender(poseStack, mouseX, mouseY, partialTick);
-
+        calcBoxVertices();
+        renderBackground(poseStack);
+        subRender(poseStack, mouseX, mouseY, partialTick);
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
 
     protected void subRender(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {}
 
-    protected <T extends GuiEventListener & Widget & NarratableEntry> T renderableWidget(T _widget) {
-        addRenderableWidget(_widget);
-        return _widget;
+    protected <T extends GuiEventListener & Widget & NarratableEntry> T renderableWidget(T widget) {
+        addRenderableWidget(widget);
+        return widget;
+    }
+
+    private void calcBoxVertices() {
+        boxX1 = center(width, boxWidth);
+        boxX2 = boxX1 + boxWidth;
+        boxY1 = center(height, boxHeight);
+        boxY2 = boxY1 + boxHeight;
     }
 
     public final void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
-
-        fill(
-            poseStack,
-            this.divX, this.divY,
-            this.divX + this.divWidth, this.divY + this.divHeight,
-            COLOR_BACKGROUND
-        );
+        renderBorderEdge(poseStack);
+        renderBorderCorner(poseStack);
+        fill(poseStack, boxX1, boxY1, boxX2, boxY2, colorC6);
     }
 
     private void renderBorderEdge(PoseStack poseStack) {
-        drawBorderEdge(
-            poseStack,
-            this.divX, this.divY,
-            this.divX + this.divWidth, this.divY,
-            false, false
-        );
-        drawBorderEdge(
-            poseStack,
-            this.divX, this.divY + this.divHeight,
-            this.divX + this.divWidth, this.divY + this.divHeight,
-            false, true
-        );
-        drawBorderEdge(
-            poseStack,
-            this.divX, this.divY,
-            this.divX, this.divY + this.divHeight,
-            true, false
-        );
-        drawBorderEdge(
-            poseStack,
-            this.divX + this.divWidth, this.divY,
-            this.divX + this.divWidth, this.divY + this.divHeight,
-            true, true
-        );
+        //@formatter:off
+        fill(poseStack, boxX1 - BORDER_SIZE,   boxY1,                 boxX2 + BORDER_SIZE,   boxY2,                 color00);
+        fill(poseStack, boxX1,                 boxY1 - BORDER_SIZE,   boxX2,                 boxY2 + BORDER_SIZE,   color00);
+        fill(poseStack, boxX1,                 boxY1,                 boxX2 + BORDER_2_SIZE, boxY2 + BORDER_2_SIZE, color55);
+        fill(poseStack, boxX1 - BORDER_2_SIZE, boxY1 - BORDER_2_SIZE, boxX2,                 boxY2,                 colorFF);
+        fill(poseStack, boxX1 - BORDER_1_SIZE, boxY1 - BORDER_1_SIZE, boxX2 + BORDER_1_SIZE, boxY2 + BORDER_1_SIZE, colorC6);
+        //@formatter:on
     }
 
     private void renderBorderCorner(PoseStack poseStack) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-
-        blitBorderCorner(
-            poseStack,
-            this.divX - CORNER_SIZE, this.divY - CORNER_SIZE,
-            TOP_LEFT_CORNER_U_OFFSET, TOP_LEFT_CORNER_V_OFFSET
-
-        );
-        blitBorderCorner(
-            poseStack,
-            this.divX + this.divWidth, this.divY - CORNER_SIZE,
-            TOP_RIGHT_CORNER_U_OFFSET, TOP_RIGHT_CORNER_V_OFFSET
-
-        );
-        blitBorderCorner(
-            poseStack,
-            this.divX - CORNER_SIZE, this.divY + this.divHeight,
-            BOTTOM_LEFT_CORNER_U_OFFSET, BOTTOM_LEFT_CORNER_V_OFFSET
-
-        );
-        blitBorderCorner(
-            poseStack,
-            this.divX + this.divWidth, this.divY + this.divHeight,
-            BOTTOM_RIGHT_CORNER_U_OFFSET, BOTTOM_RIGHT_CORNER_V_OFFSET
-        );
+        //@formatter:off
+        blitBorderCorner(poseStack, boxX1 - BORDER_SIZE, boxY1 - BORDER_SIZE, LEFT_CORNER_U,  TOP_CORNER_V);
+        blitBorderCorner(poseStack, boxX2,               boxY1 - BORDER_SIZE, RIGHT_CORNER_U, TOP_CORNER_V);
+        blitBorderCorner(poseStack, boxX1 - BORDER_SIZE, boxY2,               LEFT_CORNER_U,  BOTTOM_CORNER_V);
+        blitBorderCorner(poseStack, boxX2,               boxY2,               RIGHT_CORNER_U, BOTTOM_CORNER_V);
+        //@formatter:on
     }
 
-    private static void drawBorderEdge(PoseStack poseStack, int x1, int y1, int x2, int y2, boolean isVertical, boolean isPositive) {
-        int p = isPositive ? 1 : -1;
-        fill(
-            poseStack,
-            x1 + (isVertical ? 4 * p : 0), y1 + (isVertical ? 0 : 4 * p),
-            x2 + (isVertical ? 3 * p : 0), y2 + (isVertical ? 0 : 3 * p),
-            COLOR_BLACK
-        );
-        fill(
-            poseStack,
-            x1 + (isVertical ? 3 * p : 0), y1 + (isVertical ? 0 : 3 * p),
-            x2 + (isVertical ? 1 * p : 0), y2 + (isVertical ? 0 : 1 * p),
-            isPositive ? COLOR_GRAY : COLOR_WHITE
-        );
-        fill(
-            poseStack,
-            x1 + (isVertical ? p : 0), y1 + (isVertical ? 0 : p),
-            x2, y2,
-            COLOR_BACKGROUND
-        );
-    }
+    // ====================================================================== //
 
     private static void blitBorderCorner(PoseStack poseStack, int x, int y, int u, int v) {
-        blitSquare(poseStack, x, y, u, v, CORNER_SIZE, TEXTURE_SIZE);
+        blitSquare(poseStack, x, y, u, v, BORDER_SIZE, TEXTURE_SIZE);
+    }
+
+    // ====================================================================== //
+
+    public static void reloadColors() {
+        var colors = ResourceUtils.getARGBColorsFromTexture(
+            TEXTURE, (w, h) -> new Rectangle(
+                COLOR_MAP_U.applyAsInt(w), COLOR_MAP_V.applyAsInt(h),
+                COLOR_MAP_WIDTH, COLOR_MAP_HEIGHT
+            )
+        );
+        boolean flag = (colors != null) && (colors.length == 4);
+        colorFF = flag ? colors[0] : 0xFFFFFFFF;
+        colorC6 = flag ? colors[1] : 0xFFC6C6C6;
+        color55 = flag ? colors[2] : 0xFF555555;
+        color00 = flag ? colors[3] : 0xFF000000;
     }
 
 }
