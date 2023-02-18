@@ -62,11 +62,4 @@ public class CloseButton<T extends Screen> extends AbstractButton {
         narrationElementOutput.add(NarratedElementType.HINT, getMessage());
     }
 
-    // ====================================================================== //
-
-    @Deprecated(since = "5.7.2", forRemoval = true)
-    public static CloseButton<Screen> topLeft(int x, int y, Screen parentScreen) {
-        return new CloseButton<Screen>(x - CROSS_SIZE - 3, y + 3, parentScreen);
-    }
-
 }
