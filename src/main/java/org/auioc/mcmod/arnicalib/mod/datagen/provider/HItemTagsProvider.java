@@ -43,6 +43,9 @@ public class HItemTagsProvider extends ItemTagsProvider implements IHTagsProvide
         addFromRegistry(tag(FOOD_MEAT), (item) -> item.isEdible() && item.getFoodProperties().isMeat());
         addFromRegistry(tag(FOOD_FAST), (item) -> item.isEdible() && item.getFoodProperties().isFastFood());
         addFromRegistry(tag(FOOD_ALWAYS_EDIBLE), (item) -> item.isEdible() && item.getFoodProperties().canAlwaysEat());
+
+        addFromRegistry(tag(FIRE_RESISTANT_ITEMS), (item) -> item.isFireResistant());
+        addFromRegistry(tag(DAMAGEABLE_ITEMS), (item) -> item.getMaxDamage() > 0);
     }
 
 }

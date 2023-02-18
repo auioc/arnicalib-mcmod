@@ -19,6 +19,9 @@ public class HItemTags {
 
     public static final TagKey<Item> BRICKS = create("bricks");
 
+    public static final TagKey<Item> FIRE_RESISTANT_ITEMS = create("fire_resistant_items");
+    public static final TagKey<Item> DAMAGEABLE_ITEMS = create("damageable_items");
+
     // ====================================================================== //
 
     public static void init() {}
