@@ -2,6 +2,8 @@ package org.auioc.mcmod.arnicalib.base.tuple;
 
 public record IntTriple(int x, int y, int z) {
 
+    // TODO mutable
+
     @Override
     public String toString() {
         return "(" + x + "," + y + "," + z + ")";

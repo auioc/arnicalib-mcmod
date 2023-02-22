@@ -2,6 +2,8 @@ package org.auioc.mcmod.arnicalib.base.tuple;
 
 public record IntPair(int x, int y) {
 
+    // TODO mutable
+
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
