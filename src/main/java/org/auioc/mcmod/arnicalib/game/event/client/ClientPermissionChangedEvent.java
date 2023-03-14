@@ -5,12 +5,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientPermissionsChangedEvent extends ClientPlayerEvent {
+public class ClientPermissionChangedEvent extends ClientPlayerEvent {
 
     private final int oldLevel;
     private final int newLevel;
 
-    public ClientPermissionsChangedEvent(LocalPlayer player, int oldLevel, int newLevel) {
+    public ClientPermissionChangedEvent(LocalPlayer player, int oldLevel, int newLevel) {
         super(player);
         this.oldLevel = oldLevel;
         this.newLevel = newLevel;

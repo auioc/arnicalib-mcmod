@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.mod.client.event;
 import java.util.List;
 import java.util.Map;
 import org.auioc.mcmod.arnicalib.game.event.client.ClientLanguageLoadEvent;
-import org.auioc.mcmod.arnicalib.game.event.client.ClientPermissionsChangedEvent;
+import org.auioc.mcmod.arnicalib.game.event.client.ClientPermissionChangedEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -19,7 +19,7 @@ public final class AHClientEventFactory {
      * @see org.auioc.mcmod.arnicalib.mod.mixin.client.MixinLocalPlayer#setPermissionLevel
      */
     public static void onPermissionChanged(LocalPlayer player, int oldLevel, int newLevel) {
-        MinecraftForge.EVENT_BUS.post(new ClientPermissionsChangedEvent(player, oldLevel, newLevel));
+        MinecraftForge.EVENT_BUS.post(new ClientPermissionChangedEvent(player, oldLevel, newLevel));
     }
 
     /**
