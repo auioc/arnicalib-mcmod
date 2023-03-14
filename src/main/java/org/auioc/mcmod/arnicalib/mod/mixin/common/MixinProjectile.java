@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.mod.mixin.common;
 
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.game.entity.projectile.IHProjectile;
 import org.auioc.mcmod.arnicalib.game.nbt.NbtUtils;
-import org.auioc.mcmod.arnicalib.mod.mixinapi.common.IMixinProjectile;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 
 @Mixin(value = Projectile.class)
-public class MixinProjectile implements IMixinProjectile {
+public class MixinProjectile implements IHProjectile {
 
     @Shadow
     private boolean hasBeenShot;
