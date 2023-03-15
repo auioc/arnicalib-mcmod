@@ -8,6 +8,7 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -32,6 +33,8 @@ public class HItemTagsProvider extends ItemTagsProvider implements IHTagsProvide
     @SuppressWarnings("deprecation")
     protected void addTags() {
         tag(BRICKS).add(Items.BRICK, Items.NETHER_BRICK);
+        tag(MAPS).add(Items.MAP, Items.FILLED_MAP);
+        addFromRegistry(tag(SPAWN_EGGS), (item) -> item instanceof SpawnEggItem);
 
         tag(AXES).add(Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE);
         tag(HOES).add(Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE);
