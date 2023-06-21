@@ -1,10 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.world.position;
 
 import java.util.Optional;
-import java.util.Random;
 import org.auioc.mcmod.arnicalib.game.entity.EntityUtils;
 import org.auioc.mcmod.arnicalib.game.world.phys.AABBUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class RandomTeleporter {
 
-    public static Optional<BlockPos> findSafePosition(Level level, BlockPos center, int radius, boolean surface, AABB aabb, Random random) {
+    public static Optional<BlockPos> findSafePosition(Level level, BlockPos center, int radius, boolean surface, AABB aabb, RandomSource random) {
         var pos = PositionUtils.random(center, radius, random).mutable();
         if (PositionUtils.isInWorldBounds(pos, level)) {
             var y = surface
@@ -31,7 +31,7 @@ public class RandomTeleporter {
     }
 
     public static Optional<BlockPos> findSafePosition(LivingEntity living, BlockPos center, int radius, boolean surface) {
-        return findSafePosition(living.getLevel(), center, radius, surface, living.getBoundingBox(), living.getRandom());
+        return findSafePosition(living.level(), center, radius, surface, living.getBoundingBox(), living.getRandom());
     }
 
     public static Optional<BlockPos> findSafePosition(LivingEntity living, BlockPos center, int radius, boolean surface, int maxTries) {
@@ -43,7 +43,7 @@ public class RandomTeleporter {
     }
 
     public static boolean teleport(LivingEntity living, BlockPos center, int radius, boolean surface, int maxTries) {
-        if (living.level.isClientSide) return false;
+        if (living.level().isClientSide()) return false;
 
         var pos = findSafePosition(living, center, radius, surface, maxTries);
         if (pos.isPresent()) {

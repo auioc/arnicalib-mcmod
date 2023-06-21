@@ -1,18 +1,27 @@
 package org.auioc.mcmod.arnicalib.game.effect;
 
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.game.item.ItemRegistry;
+import org.auioc.mcmod.arnicalib.game.item.ItemUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 
 public class MobEffectInstanceSerializer {
+
+    private static final Marker MARKER = LogUtil.getMarker(MobEffectInstanceSerializer.class);
 
     public static MobEffectInstance fromJson(JsonObject json) {
         String id = GsonHelper.getAsString(json, "id");
@@ -36,7 +45,12 @@ public class MobEffectInstanceSerializer {
             hiddenEffect = fromJson(hiddenEffectJson);
         }
 
-        MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect);
+        Optional<MobEffectInstance.FactorData> factorData =
+            (json.has("FactorCalculationData"))
+                ? MobEffectInstance.FactorData.CODEC.parse(new Dynamic<>(JsonOps.INSTANCE, json.get("FactorCalculationData"))).resultOrPartial((error) -> LOGGER.error(MARKER, error))
+                : Optional.empty();
+
+        MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect, factorData);
 
         if (json.has("curative_items")) {
             JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items");
@@ -52,7 +66,7 @@ public class MobEffectInstanceSerializer {
     }
 
     public static void toJson(MobEffectInstance instance, JsonObject json) {
-        json.addProperty("id", instance.getEffect().getRegistryName().toString());
+        json.addProperty("id", MobEffectUtils.registryName(instance.getEffect()).toString());
         json.addProperty("duration", instance.getDuration());
         json.addProperty("amplifier", instance.getAmplifier());
         json.addProperty("ambient", instance.isAmbient());
@@ -61,7 +75,7 @@ public class MobEffectInstanceSerializer {
 
         JsonArray curativeItems = new JsonArray();
         for (ItemStack itemStack : instance.getCurativeItems()) {
-            curativeItems.add(itemStack.getItem().getRegistryName().toString());
+            curativeItems.add(ItemUtils.registryName(itemStack.getItem()).toString());
         }
         json.add("curative_items", curativeItems);
 
@@ -70,6 +84,12 @@ public class MobEffectInstanceSerializer {
             toJson(((IHMobEffectInstance) instance).getHiddenEffect(), hiddenEffect);
             json.add("hidden_effect", hiddenEffect);
         }
+
+        instance.getFactorData().ifPresent((data) -> {
+            MobEffectInstance.FactorData.CODEC.encodeStart(JsonOps.INSTANCE, data)
+                .resultOrPartial((error) -> LOGGER.error(MARKER, error))
+                .ifPresent((d) -> json.add("FactorCalculationData", d));
+        });
     }
 
     public static JsonObject toJson(MobEffectInstance instance) {

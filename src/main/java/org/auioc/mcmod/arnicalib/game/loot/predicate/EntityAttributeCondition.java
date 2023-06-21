@@ -92,7 +92,7 @@ public class EntityAttributeCondition implements LootItemCondition {
         private static RangedAttribute castToRangedAttribute(AttributeInstance instance) {
             var attr = instance.getAttribute();
             if (attr instanceof RangedAttribute rangeAttr) return rangeAttr;
-            throw new IllegalArgumentException("Attribute '" + attr.getRegistryName() + "' is not a RangedAttribute");
+            throw new IllegalArgumentException("Attribute '" + attr.getDescriptionId() + "' is not a RangedAttribute");
         }
 
     }
@@ -103,7 +103,7 @@ public class EntityAttributeCondition implements LootItemCondition {
 
         @Override
         public void serialize(JsonObject json, EntityAttributeCondition instance, JsonSerializationContext ctx) {
-            json.addProperty("attribute", instance.attribute.getRegistryName().toString());
+            json.addProperty("attribute", ForgeRegistries.ATTRIBUTES.getKey(instance.attribute).toString());
             json.addProperty("type", instance.valueType.getName());
             json.add("value", instance.value.serializeToJson());
             json.add("entity", ctx.serialize(instance.entityTarget));

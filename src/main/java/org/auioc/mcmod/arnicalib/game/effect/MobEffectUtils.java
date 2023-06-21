@@ -2,13 +2,14 @@ package org.auioc.mcmod.arnicalib.game.effect;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class MobEffectUtils {
 
@@ -42,16 +43,20 @@ public class MobEffectUtils {
     }
 
     public static Component getDisplayString(MobEffect effect, int amplifier, int duration) {
-        return TextUtils.empty()
+        return Component.empty()
             .append(effect.getDisplayName())
             .append(" ")
-            .append(TextUtils.translatable("enchantment.level." + (amplifier + 1)))
+            .append(Component.translatable("enchantment.level." + (amplifier + 1)))
             .append(" ")
             .append(StringUtil.formatTickDuration(duration));
     }
 
     public static Component getDisplayString(MobEffectInstance instance) {
         return getDisplayString(instance.getEffect(), instance.getAmplifier(), instance.getDuration());
+    }
+
+    public static ResourceLocation registryName(MobEffect effect) {
+        return ForgeRegistries.MOB_EFFECTS.getKey(effect);
     }
 
 }

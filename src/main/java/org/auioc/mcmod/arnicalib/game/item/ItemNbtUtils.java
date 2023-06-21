@@ -20,8 +20,8 @@ public class ItemNbtUtils {
             var nbt = itemStack.getTag();
             if (nbt.contains("Variant", 99)) {
                 int i = nbt.getInt("Variant");
-                if (i >= 0 && i < Axolotl.Variant.BY_ID.length) {
-                    return Optional.of(Axolotl.Variant.BY_ID[i]);
+                if (i >= 0) {
+                    return Optional.of(Axolotl.Variant.byId(i));
                 }
             }
         }

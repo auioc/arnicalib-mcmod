@@ -4,7 +4,6 @@ import net.minecraft.core.Position;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 
 public class AABBUtils {
@@ -33,12 +32,14 @@ public class AABBUtils {
         return level.getBlockStates(aabb).allMatch(BlockState::isAir);
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean containsSolid(AABB aabb, Level level) {
-        return level.getBlockStates(aabb).map(BlockState::getMaterial).anyMatch(Material::isSolid);
+        return level.getBlockStates(aabb).anyMatch(BlockState::isSolid);
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean containsLiquid(AABB aabb, Level level) {
-        return level.getBlockStates(aabb).map(BlockState::getMaterial).anyMatch(Material::isLiquid);
+        return level.getBlockStates(aabb).anyMatch(BlockState::liquid);
     }
 
     public static double[][] getEdges(AABB aabb) {

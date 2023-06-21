@@ -2,21 +2,21 @@ package org.auioc.mcmod.arnicalib.game.datagen.tag;
 
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider.IntrinsicTagAppender;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public interface IHTagsProvider<T extends IForgeRegistryEntry<T>> {
+public interface IHTagsProvider<V> {
 
     @Nullable
-    default IForgeRegistry<T> getRegistry() {
+    default IForgeRegistry<V> getRegistry() {
         return null;
     }
 
-    default TagAppender<T> addFromRegistry(TagAppender<T> appender, Predicate<T> predicate) {
+    default TagAppender<V> addFromRegistry(IntrinsicTagAppender<V> appender, Predicate<V> predicate) {
         var registry = this.getRegistry();
         if (registry == null) throw new UnsupportedOperationException("'addFromRegistry' method should not be called unless a registry is specified");
-        for (var value : registry.getValues()) {
+        for (V value : registry.getValues()) {
             if (predicate.test(value)) {
                 appender.add(value);
             }

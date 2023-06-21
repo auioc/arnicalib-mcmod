@@ -22,7 +22,7 @@ public class AddrUtils {
 
     @Nullable
     public static String getPlayerIp(ServerPlayer player) {
-        return getIp(player.connection.getConnection());
+        return getIp(player.connection.connection);
     }
 
 

@@ -3,7 +3,7 @@ package org.auioc.mcmod.arnicalib.game.language;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Optional;
-import java.util.SortedSet;
+import java.util.SortedMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.client.resources.language.LanguageInfo;
@@ -13,9 +13,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class LanguageUtils {
 
-    public static final LanguageInfo DEFAULT_LANGUAGE_INFO = new LanguageInfo("en_us", "US", "English", false);
+    public static final String DEFAULT_LANGUAGE_CODE = "en_us";
+    public static final LanguageInfo DEFAULT_LANGUAGE = new LanguageInfo("US", "English", false);
 
-    public static final String[] VANILLA_LANGUAGES = new String[] {
+    public static final String[] VANILLA_LANGUAGES = new String[] { // TODO
         "af_za", "ar_sa", "ast_es", "az_az", "ba_ru", "bar", "be_by", "bg_bg", "br_fr", "brb", "bs_ba", "ca_es",
         "cs_cz", "cy_gb", "da_dk", "de_at", "de_ch", "de_de", "el_gr", "en_au", "en_ca", "en_gb", "en_nz", "en_pt",
         "en_ud", "en_us", "enp", "enws", "eo_uy", "es_ar", "es_cl", "es_ec", "es_es", "es_mx", "es_uy", "es_ve", "esan",
@@ -30,29 +31,29 @@ public class LanguageUtils {
     };
 
 
-    public static SortedSet<LanguageInfo> getInfo() {
+    public static SortedMap<String, LanguageInfo> getAll() {
         return Minecraft.getInstance().getLanguageManager().getLanguages();
     }
 
-    public static Optional<LanguageInfo> getInfo(String code) {
+    public static Optional<LanguageInfo> get(String code) {
         return Optional.ofNullable(Minecraft.getInstance().getLanguageManager().getLanguage(code));
     }
 
-    public static LanguageInfo getCurrentInfo() {
-        return Minecraft.getInstance().getLanguageManager().getSelected();
+    public static LanguageInfo current() {
+        return get(Minecraft.getInstance().getLanguageManager().getSelected()).get();
     }
 
-    public static String[] getInfoCodes() {
-        return getInfo().stream().map(LanguageInfo::getCode).toArray(String[]::new);
+    public static String[] codes() {
+        return getAll().keySet().toArray(String[]::new);
     }
 
 
-    public static ClientLanguage get(LanguageInfo langInfo) {
-        return ClientLanguage.loadFrom(Minecraft.getInstance().getResourceManager(), List.of(langInfo));
-    }
-
-    public static ClientLanguage get(String langCode) {
-        return get(getInfo(langCode).orElse(DEFAULT_LANGUAGE_INFO));
+    public static ClientLanguage getClientLanguage(String code) {
+        return ClientLanguage.loadFrom(
+            Minecraft.getInstance().getResourceManager(),
+            List.of(code),
+            get(code).orElse(DEFAULT_LANGUAGE).bidirectional()
+        );
     }
 
 

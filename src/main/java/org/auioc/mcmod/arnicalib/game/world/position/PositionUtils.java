@@ -4,10 +4,12 @@ import java.util.Optional;
 import java.util.Random;
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
 import org.auioc.mcmod.arnicalib.game.block.BlockUtils;
+import org.auioc.mcmod.arnicalib.game.random.GameRandomUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -45,6 +47,9 @@ public class PositionUtils {
         return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
     }
 
+    /*================================================================================================================*/
+    // #region Random
+
     public static Vec3i random(Vec3i center, int radius, Random random) {
         radius += 1;
         return new Vec3i(
@@ -66,5 +71,29 @@ public class PositionUtils {
     public static BlockPos random(BlockPos center, int radius, Random random) {
         return new BlockPos(random((Vec3i) center, radius, random));
     }
+
+    public static Vec3i random(Vec3i center, int radius, RandomSource random) {
+        radius += 1;
+        return new Vec3i(
+            center.getX() + GameRandomUtils.offset(radius, random),
+            center.getY() + GameRandomUtils.offset(radius, random),
+            center.getZ() + GameRandomUtils.offset(radius, random)
+        );
+    }
+
+    public static Vec3 random(Vec3 center, double radius, RandomSource random) {
+        radius += 1.0D;
+        return new Vec3(
+            center.x + GameRandomUtils.offset(radius, random),
+            center.y + GameRandomUtils.offset(radius, random),
+            center.z + GameRandomUtils.offset(radius, random)
+        );
+    }
+
+    public static BlockPos random(BlockPos center, int radius, RandomSource random) {
+        return new BlockPos(random((Vec3i) center, radius, random));
+    }
+
+    // #endregion Random
 
 }

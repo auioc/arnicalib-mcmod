@@ -29,7 +29,7 @@ public class RayTraceUtils {
     public static BlockHitResult getBlockHitResult(Entity entity, double rayLength, ClipContext.Block blockMode, ClipContext.Fluid fluidMode) {
         var viewRay = getViewRay(entity, rayLength);
         var rayCtx = new ClipContext(viewRay.from, viewRay.to, blockMode, fluidMode, entity);
-        return entity.level.clip(rayCtx);
+        return entity.level().clip(rayCtx);
     }
 
     @Nullable
@@ -54,7 +54,7 @@ public class RayTraceUtils {
 
     @Nullable
     public static EntityHitResult getEntityHitResult(Entity entity, Vec3 from, Vec3 to, Predicate<Entity> predicate, float pickRadiusOffset) {
-        return getEntityHitResult(entity.level, entity, from, to, (new AABB(from, to)).inflate(1.0D), predicate, pickRadiusOffset);
+        return getEntityHitResult(entity.level(), entity, from, to, (new AABB(from, to)).inflate(1.0D), predicate, pickRadiusOffset);
     }
 
     // ====================================================================== //

@@ -1,6 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.entity;
 
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.game.world.LevelUtils;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -45,12 +44,12 @@ public class EntityUtils {
     public static Component getFacing8WindDirection(Entity entity) {
         float yaw = Mth.wrapDegrees(entity.getYRot());
         int d8 = (int) Math.floor((yaw - 180.0F) / 45.0F + 0.5F) & 7;
-        return TextUtils.translatable("direction.8wind." + d8);
+        return Component.translatable("direction.8wind." + d8);
     }
 
 
     public static Component getAxolotlVariantName(Axolotl.Variant variant) {
-        return TextUtils.translatable("entity.minecraft.axolotl.variant." + variant.getName());
+        return Component.translatable("entity.minecraft.axolotl.variant." + variant.getName());
     }
 
 }

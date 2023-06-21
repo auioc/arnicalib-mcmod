@@ -2,18 +2,16 @@ package org.auioc.mcmod.arnicalib.mod.server.loot;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.loot.modifier.LootTableInjector;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import com.mojang.serialization.Codec;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class AHGlobalLootModifiers {
 
-    @SubscribeEvent
-    public static void registerModifierSerializer(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        IForgeRegistry<GlobalLootModifierSerializer<?>> registry = event.getRegistry();
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ArnicaLib.MOD_ID);
 
-        registry.register((new LootTableInjector.Serializer()).setRegistryName(ArnicaLib.id("loot_table_injector")));
-    }
+    public static final RegistryObject<Codec<LootTableInjector>> LOOT_TABLE_INJECTOR = GLOBAL_LOOT_MODIFIERS.register("loot_table_injector", LootTableInjector.CODEC);
 
 }

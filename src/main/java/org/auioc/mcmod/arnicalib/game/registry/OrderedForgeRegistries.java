@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 
 
@@ -39,11 +38,11 @@ public class OrderedForgeRegistries {
     public static final LazyObjectHolder<List<Entry<ResourceLocation, MobEffect>>> MOB_EFFECTS = new LazyObjectHolder<>(() -> create(ForgeRegistries.MOB_EFFECTS));
     public static final LazyObjectHolder<List<Entry<ResourceLocation, Potion>>> POTIONS = new LazyObjectHolder<>(() -> create(ForgeRegistries.POTIONS));
     public static final LazyObjectHolder<List<Entry<ResourceLocation, Enchantment>>> ENCHANTMENTS = new LazyObjectHolder<>(() -> create(ForgeRegistries.ENCHANTMENTS));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, EntityType<?>>>> ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.ENTITIES));
-    public static final LazyObjectHolder<List<Entry<ResourceLocation, BlockEntityType<?>>>> BLOCK_ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.BLOCK_ENTITIES));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, EntityType<?>>>> ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.ENTITY_TYPES));
+    public static final LazyObjectHolder<List<Entry<ResourceLocation, BlockEntityType<?>>>> BLOCK_ENTITIES = new LazyObjectHolder<>(() -> create(ForgeRegistries.BLOCK_ENTITY_TYPES));
     public static final LazyObjectHolder<List<Entry<ResourceLocation, ParticleType<?>>>> PARTICLE_TYPES = new LazyObjectHolder<>(() -> create(ForgeRegistries.PARTICLE_TYPES));
 
-    private static <V extends IForgeRegistryEntry<V>> List<Entry<ResourceLocation, V>> create(IForgeRegistry<V> iRegistry) {
+    private static <V> List<Entry<ResourceLocation, V>> create(IForgeRegistry<V> iRegistry) {
         Validate.isTrue(iRegistry instanceof IForgeRegistryModifiable, "Only supports IForgeRegistryModifiable");
 
         IForgeRegistryModifiable<V> registry = (IForgeRegistryModifiable<V>) iRegistry;

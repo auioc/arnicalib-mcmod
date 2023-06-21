@@ -40,7 +40,7 @@ public class ItemStackSerializer {
     }
 
     public static void toJson(ItemStack itemStack, JsonObject json) {
-        json.addProperty("id", itemStack.getItem().getRegistryName().toString());
+        json.addProperty("id", ItemUtils.registryName(itemStack.getItem()).toString());
         json.addProperty("count", itemStack.getCount());
         if (itemStack.hasTag()) {
             json.addProperty("nbt", itemStack.getTag().toString());

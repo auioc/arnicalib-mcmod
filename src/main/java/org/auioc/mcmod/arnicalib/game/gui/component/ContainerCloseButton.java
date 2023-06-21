@@ -17,12 +17,12 @@ public class ContainerCloseButton extends CloseButton<AbstractContainerScreen<?>
     }
 
     @Override
-    protected int getX() {
+    protected int overrideX() {
         return this.parentScreen.getGuiLeft() + this.parentScreen.getXSize() - this.paddingX - this.width;
     }
 
     @Override
-    protected int getY() {
+    protected int overrideY() {
         return this.parentScreen.getGuiTop() + this.paddingY;
     }
 

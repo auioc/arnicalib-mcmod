@@ -1,9 +1,9 @@
 package org.auioc.mcmod.arnicalib.game.render;
 
 import javax.annotation.Nullable;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderUtils {
@@ -27,19 +27,20 @@ public class RenderUtils {
     }
 
     public static void translate(PoseStack poseStack, float x, float y, float z) {
-        poseStack.last().pose().multiplyWithTranslation(x, y, z);
+        poseStack.last().pose().translate(x, y, z);
     }
 
     public static void translate(PoseStack poseStack, Vector3f translation) {
         translate(poseStack, translation.x(), translation.y(), translation.z());
     }
 
-    public static void rotate(PoseStack poseStack, Quaternion rotation) {
+    public static void rotate(PoseStack poseStack, Quaternionf rotation) {
         poseStack.mulPose(rotation);
     }
 
     public static void rotate(PoseStack poseStack, float x, float y, float z) {
-        poseStack.mulPose(new Quaternion(x, y, z, true));
+        // new Quaternionf().rotateX
+        // poseStack.mulPose(new Quaternionf(x, y, z, true)); // TODO
     }
 
     public static void rotate(PoseStack poseStack, Vector3f rotation) {
@@ -49,15 +50,15 @@ public class RenderUtils {
     // ============================================================================================================== //
 
     public static void renderSingleBlock(
-        @Nullable BlockState blockState, BakedModel model, IModelData modelData,
+        @Nullable BlockState blockState, BakedModel model, ModelData modelData,
         BlockRenderDispatcher blockRenderer, RenderType renderType,
         PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay
     ) {
-        blockRenderer.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(renderType), blockState, model, 1.0F, 1.0F, 1.0F, combinedLight, combinedOverlay, modelData);
+        blockRenderer.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(renderType), blockState, model, 1.0F, 1.0F, 1.0F, combinedLight, combinedOverlay, modelData, renderType);
     }
 
     public static void renderSingleBlock(
-        BlockState blockState, BakedModel model, IModelData modelData,
+        BlockState blockState, BakedModel model, ModelData modelData,
         BlockRenderDispatcher blockRenderer,
         PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay
     ) {

@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.nbt;
 
 import java.util.function.Supplier;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.FloatTag;

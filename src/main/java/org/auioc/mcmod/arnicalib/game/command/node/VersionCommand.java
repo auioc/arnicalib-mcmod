@@ -14,6 +14,7 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public class VersionCommand {
@@ -31,9 +32,9 @@ public class VersionCommand {
     }
 
     public static int getModVersion(CommandContext<CommandSourceStack> ctx, String mainVersion, String fullVersion, String modName) {
-        MutableComponent message = TextUtils.empty();
+        MutableComponent message = Component.empty();
 
-        message.append(TextUtils.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA));
+        message.append(Component.literal("[" + modName + "] ").withStyle(ChatFormatting.AQUA));
 
         if (mainVersion.equals("0") && fullVersion.equals("0")) {
             message.append(i18n("failure.zero"));
@@ -41,7 +42,7 @@ public class VersionCommand {
             message.append(i18n("success", mainVersion, fullVersion));
         }
 
-        ctx.getSource().sendSuccess(message, false);
+        ctx.getSource().sendSuccess(() -> message, false);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -61,7 +62,7 @@ public class VersionCommand {
     }
 
     private static MutableComponent i18n(String key, Object... args) {
-        return TextUtils.translatable(ArnicaLib.i18n("command.version." + key), args);
+        return Component.translatable(ArnicaLib.i18n("command.version." + key), args);
     }
 
     private static MutableComponent i18n(String key) {

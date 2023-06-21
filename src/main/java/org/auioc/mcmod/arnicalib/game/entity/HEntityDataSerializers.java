@@ -1,7 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.entity;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.phys.Vec3;
@@ -40,20 +40,20 @@ public class HEntityDataSerializers {
         }
     };
 
-    public static final EntityDataSerializer<Quaternion> QUATERNION = new EntityDataSerializer<Quaternion>() {
-        public void write(FriendlyByteBuf buffer, Quaternion quaternion) {
-            buffer.writeFloat(quaternion.i());
-            buffer.writeFloat(quaternion.j());
-            buffer.writeFloat(quaternion.k());
-            buffer.writeFloat(quaternion.r());
+    public static final EntityDataSerializer<Quaternionf> QUATERNION_F = new EntityDataSerializer<Quaternionf>() {
+        public void write(FriendlyByteBuf buffer, Quaternionf quaternion) {
+            buffer.writeFloat(quaternion.x());
+            buffer.writeFloat(quaternion.y());
+            buffer.writeFloat(quaternion.z());
+            buffer.writeFloat(quaternion.w());
         }
 
-        public Quaternion read(FriendlyByteBuf buffer) {
-            return new Quaternion(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
+        public Quaternionf read(FriendlyByteBuf buffer) {
+            return new Quaternionf(buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
         }
 
-        public Quaternion copy(Quaternion quaternion) {
-            return new Quaternion(quaternion);
+        public Quaternionf copy(Quaternionf quaternion) {
+            return new Quaternionf(quaternion);
         }
     };
 

@@ -21,7 +21,11 @@ public class ResourceUtils {
 
     public static ResourceLocation modelIdOrElse(String modelId, ResourceLocation other) {
         try {
-            return modelId.contains("#") ? new ModelResourceLocation(modelId) : new ResourceLocation(modelId);
+            if (modelId.contains("#")) {
+                var split = modelId.split("#");
+                return new ModelResourceLocation(new ResourceLocation(split[0]), split[1]);
+            }
+            return new ResourceLocation(modelId);
         } catch (ResourceLocationException e) {
             return other;
         }
@@ -34,16 +38,7 @@ public class ResourceUtils {
     // ====================================================================== //
 
     public static boolean isValidModelId(String modelId) {
-        try {
-            if (modelId.contains("#")) {
-                new ModelResourceLocation(modelId);
-            } else {
-                new ResourceLocation(modelId);
-            }
-            return true;
-        } catch (ResourceLocationException e) {
-            return false;
-        }
+        return modelIdOrElse(modelId, null) != null;
     }
 
     // ====================================================================== //
@@ -59,7 +54,7 @@ public class ResourceUtils {
     // ====================================================================== //
 
     public static BufferedImage getImage(ResourceLocation id) throws IOException {
-        return ImageIO.read(Minecraft.getInstance().getResourceManager().getResource(id).getInputStream());
+        return ImageIO.read(Minecraft.getInstance().getResourceManager().getResourceOrThrow(id).open());
     }
 
     public static int getARGBColorFromTexture(ResourceLocation id, int x, int y) {

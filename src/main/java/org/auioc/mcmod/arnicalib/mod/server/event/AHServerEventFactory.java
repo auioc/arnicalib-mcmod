@@ -3,9 +3,9 @@ package org.auioc.mcmod.arnicalib.mod.server.event;
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,7 +25,7 @@ public final class AHServerEventFactory {
         ServerLoginEvent event = new ServerLoginEvent(packet, manager);
         boolean cancelled = BUS.post(event);
         if (cancelled) {
-            var message = TextUtils.literal(event.getMessage());
+            var message = Component.literal(event.getMessage());
             manager.send(new ClientboundLoginDisconnectPacket(message));
             manager.disconnect(message);
             LOGGER.info(

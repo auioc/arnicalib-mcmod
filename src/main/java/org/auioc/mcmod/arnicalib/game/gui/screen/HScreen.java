@@ -1,9 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.gui.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,21 +25,21 @@ public class HScreen extends Screen {
         return (a - b) / 2;
     }
 
-    public static void blitSquare(PoseStack poseStack, int x, int y, int size) {
+    public static void blitSquare(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int size) {
         //              X, Y, U, V, W,    H,    TW,   TH
-        blit(poseStack, x, y, 0, 0, size, size, DEFAULT_TEXTURE_SIZE, DEFAULT_TEXTURE_SIZE);
+        guiGraphics.blit(texture, x, y, 0, 0, size, size, DEFAULT_TEXTURE_SIZE, DEFAULT_TEXTURE_SIZE);
     }
 
-    public static void blitSquare(PoseStack poseStack, int x, int y, int size, int textureSize) {
-        blit(poseStack, x, y, 0, 0, size, size, textureSize, textureSize);
+    public static void blitSquare(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int size, int textureSize) {
+        guiGraphics.blit(texture, x, y, 0, 0, size, size, textureSize, textureSize);
     }
 
-    public static void blitSquare(PoseStack poseStack, int x, int y, int u, int v, int size, int textureSize) {
-        blit(poseStack, x, y, u, v, size, size, textureSize, textureSize);
+    public static void blitSquare(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int u, int v, int size, int textureSize) {
+        guiGraphics.blit(texture, x, y, u, v, size, size, textureSize, textureSize);
     }
 
-    public static void blit(PoseStack poseStack, int x, int y, int u, int v, int w, int h, int textureSize) {
-        blit(poseStack, x, y, u, v, w, h, textureSize, textureSize);
+    public static void blit(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int u, int v, int w, int h, int textureSize) {
+        guiGraphics.blit(texture, x, y, u, v, w, h, textureSize, textureSize);
     }
 
     public static int adjustColor(int rgbColor) {

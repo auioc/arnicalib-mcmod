@@ -1,11 +1,12 @@
 package org.auioc.mcmod.arnicalib.game.gui.component;
 
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.Nullable;
 import org.auioc.mcmod.arnicalib.game.gui.GuiUtils;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -38,27 +39,25 @@ public class PlainTextWidget extends AbstractWidget {
     // ====================================================================== //
 
     @Override
-    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        GuiUtils.drawTextWarp(poseStack, font, getMessage(), x, y, width, (0 | Mth.ceil(this.alpha * 255.0F) << 24));
-        if (this.isHoveredOrFocused()) {
-            this.renderToolTip(poseStack, mouseX, mouseY);
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        GuiUtils.drawTextWarp(guiGraphics, font, getMessage(), getX(), getY(), width, (0 | Mth.ceil(this.alpha * 255.0F) << 24));
+        if (this.isHovered()) {
+            this.renderToolTip(guiGraphics, mouseX, mouseY);
         }
     }
 
-    @Override
-    public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
+    public void renderToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         var tooltips = getTooltips();
-        var screen = minecraft.screen;
-        if (tooltips != null && screen != null) {
-            screen.renderComponentTooltip(poseStack, tooltips, mouseX, mouseY);
+        if (tooltips != null) {
+            guiGraphics.renderTooltip(font, tooltips, Optional.empty(), mouseX, mouseY);
         }
     }
 
     // ====================================================================== //
 
     public void update(int x, int y, int width, int height, Component message) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         this.setWidth(width);
         this.setHeight(height);
         this.setMessage(message);
@@ -69,11 +68,11 @@ public class PlainTextWidget extends AbstractWidget {
     }
 
     public void update(int width, Component message) {
-        update(this.x, this.y, width, message);
+        update(getX(), getY(), width, message);
     }
 
     public void update(Component message) {
-        update(this.x, this.y, font.width(message), font.lineHeight, message);
+        update(getX(), getY(), font.width(message), font.lineHeight, message);
     }
 
     // ====================================================================== //
@@ -87,7 +86,7 @@ public class PlainTextWidget extends AbstractWidget {
     // ====================================================================== //
 
     @Override
-    public void updateNarration(NarrationElementOutput narrationElementOutput) {
+    public void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput);
     }
 

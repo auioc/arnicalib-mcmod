@@ -5,12 +5,11 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import org.auioc.mcmod.arnicalib.game.server.ServerUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +26,7 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 public class LevelUtils {
 
     public static ResourceKey<Level> createKey(ResourceLocation id) {
-        return ResourceKey.create(Registry.DIMENSION_REGISTRY, id);
+        return ResourceKey.create(Registries.DIMENSION, id);
     }
 
     public static ServerLevel getLevel(ResourceKey<Level> key) {
@@ -71,16 +70,16 @@ public class LevelUtils {
     // ============================================================================================================== //
 
     public static Component getMoonphaseName(Level level) {
-        return TextUtils.translatable("moonphase." + level.getMoonPhase());
+        return Component.translatable("moonphase." + level.getMoonPhase());
     }
 
     public static Component getDimensionName(Level level) {
-        return TextUtils.translatable(Util.makeDescriptionId("dimension", level.dimension().location()));
+        return Component.translatable(Util.makeDescriptionId("dimension", level.dimension().location()));
     }
 
     public static Component getBiomeName(Level level, BlockPos pos) {
         var id = getBiomeId(level, pos);
-        return (id != null) ? TextUtils.translatable(Util.makeDescriptionId("biome", id)) : TextUtils.empty();
+        return (id != null) ? Component.translatable(Util.makeDescriptionId("biome", id)) : Component.empty();
     }
 
     @Nullable
@@ -93,12 +92,12 @@ public class LevelUtils {
 
     public static Map<ServerPlayer, ServerLevel> getPlayerLevelMap() {
         return ServerUtils.getServer().getPlayerList().getPlayers()
-            .stream().collect(Collectors.toMap(Function.identity(), ServerPlayer::getLevel));
+            .stream().collect(Collectors.toMap(Function.identity(), ServerPlayer::serverLevel));
     }
 
     public static Map<UUID, ResourceLocation> getPlayerDimensionMap() {
         return ServerUtils.getServer().getPlayerList().getPlayers()
-            .stream().collect(Collectors.toMap(ServerPlayer::getUUID, (p) -> p.getLevel().dimension().location()));
+            .stream().collect(Collectors.toMap(ServerPlayer::getUUID, (p) -> p.serverLevel().dimension().location()));
     }
 
     // ============================================================================================================== //

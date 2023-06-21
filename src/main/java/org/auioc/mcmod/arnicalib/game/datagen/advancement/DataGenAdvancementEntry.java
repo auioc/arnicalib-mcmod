@@ -17,8 +17,8 @@ public record DataGenAdvancementEntry(ResourceLocation id, Advancement.Builder b
         this(id, builder.apply(id, Advancement.Builder.advancement()));
     }
 
-    public void accept(Consumer<Advancement> writer, ExistingFileHelper fileHelper) {
-        builder.save(writer, id, fileHelper);
+    public void accept(Consumer<Advancement> saver, ExistingFileHelper fileHelper) {
+        builder.save(saver, id, fileHelper);
     }
 
 }

@@ -8,27 +8,42 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class TextUtils {
 
     public static final Object[] NO_ARGS = new Object[0];
 
-    public static TextComponent empty() {
-        return new TextComponent("");
+    /**
+     * @deprecated Use {@link net.minecraft.network.chat.Component#empty()} instead
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    public static MutableComponent empty() {
+        return Component.empty();
+
     }
 
-    public static TextComponent literal(String text) {
-        return new TextComponent(text);
+    /**
+     * @deprecated Use {@link net.minecraft.network.chat.Component#literal(String)} instead
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    public static MutableComponent literal(String text) {
+        return Component.literal(text);
     }
 
-    public static TranslatableComponent translatable(String key) {
-        return new TranslatableComponent(key);
+    /**
+     * @deprecated Use {@link net.minecraft.network.chat.Component#translatable(String)} instead
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    public static MutableComponent translatable(String key) {
+        return Component.translatable(key);
     }
 
-    public static TranslatableComponent translatable(String key, Object... arguments) {
-        return new TranslatableComponent(key, arguments);
+    /**
+     * @deprecated Use {@link net.minecraft.network.chat.Component#translatable(String,Object...)} instead
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    public static MutableComponent translatable(String key, Object... arguments) {
+        return Component.translatable(key, arguments);
     }
 
 

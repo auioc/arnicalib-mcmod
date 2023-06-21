@@ -14,7 +14,6 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.model.ForgeModelBakery;
 
 /**
  * This is a FAKE resource reload listener, do NOT register it!
@@ -46,12 +45,8 @@ public class CustomModelLoader extends SimpleJsonResourceReloadListener {
             .toList();
     }
 
-    public void load() {
-        list().forEach(ForgeModelBakery::addSpecialModel);
-    }
-
-    public static void load(ResourceManager resourceManager, String path) {
-        new CustomModelLoader(resourceManager, path).load();
+    public static List<ResourceLocation> list(ResourceManager resourceManager, String path) {
+        return new CustomModelLoader(resourceManager, path).list();
     }
 
     // ====================================================================== //

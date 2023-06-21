@@ -34,7 +34,8 @@ public final class Initialization {
 
     private static void modSetup() {
         modEventBus.register(AHGlobalLootModifiers.class);
-        AHEntityDataSerializers.DATA_SERIALIZERS.register(modEventBus);
+        AHEntityDataSerializers.ENTITY_DATA_SERIALIZERS.register(modEventBus);
+        AHGlobalLootModifiers.GLOBAL_LOOT_MODIFIERS.register(modEventBus);
         AHLootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
         AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
         HTags.init();

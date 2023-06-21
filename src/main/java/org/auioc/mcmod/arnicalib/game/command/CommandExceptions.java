@@ -1,10 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.exceptions.BuiltInExceptionProvider;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import net.minecraft.network.chat.Component;
 
 public class CommandExceptions {
 
@@ -17,7 +17,7 @@ public class CommandExceptions {
     public static final SimpleCommandExceptionType GET_REAL_SOURCE_REFLECTION_ERROR = simple("command.failure.get_real_source.reflection");
 
     private static SimpleCommandExceptionType simple(String key) {
-        return new SimpleCommandExceptionType(TextUtils.translatable(ArnicaLib.i18n("command.failure.internal")));
+        return new SimpleCommandExceptionType(Component.translatable(ArnicaLib.i18n("command.failure.internal")));
     }
 
 }

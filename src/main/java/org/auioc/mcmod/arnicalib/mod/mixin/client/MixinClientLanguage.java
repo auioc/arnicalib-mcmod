@@ -9,14 +9,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import net.minecraft.client.resources.language.ClientLanguage;
-import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 @Mixin(value = ClientLanguage.class)
 public class MixinClientLanguage {
 
     @Inject(
-        method = "Lnet/minecraft/client/resources/language/ClientLanguage;loadFrom(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;)Lnet/minecraft/client/resources/language/ClientLanguage;",
+        method = "Lnet/minecraft/client/resources/language/ClientLanguage;loadFrom(Lnet/minecraft/server/packs/resources/ResourceManager;Ljava/util/List;Z)Lnet/minecraft/client/resources/language/ClientLanguage;",
         at = @At(
             value = "NEW",
             target = "(Ljava/util/Map;Z)Lnet/minecraft/client/resources/language/ClientLanguage;"
@@ -26,11 +25,11 @@ public class MixinClientLanguage {
         allow = 1
     )
     private static void loadFrom(
-        ResourceManager p_118917_, List<LanguageInfo> p_118918_,
+        ResourceManager p_265765_, List<String> p_265743_, boolean p_265470_,
         CallbackInfoReturnable<ClientLanguage> cir,
-        Map<String, String> map, boolean flag
+        Map<String, String> map
     ) {
-        AHClientEventFactory.onClientLanguageLoad(p_118917_, p_118918_, map, flag);
+        AHClientEventFactory.onClientLanguageLoad(p_265765_, p_265743_, map, p_265470_);
     }
 
 }

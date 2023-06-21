@@ -58,7 +58,7 @@ public class HPacketHandler implements IHPacketHandler {
 
     @Override
     public <MSG extends IHPacket> void sendToClient(ServerPlayer player, MSG message) {
-        if (!(player instanceof FakePlayer)) CHANNEL.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+        if (!(player instanceof FakePlayer)) CHANNEL.sendTo(message, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     @Override

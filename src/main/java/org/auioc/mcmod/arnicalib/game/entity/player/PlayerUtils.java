@@ -40,7 +40,7 @@ public class PlayerUtils {
                     if (itemEntity != null) itemEntity.makeFakeItem();
                 }
                 if (playSound) {
-                    player.level.playSound(
+                    player.level().playSound(
                         (Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
                         ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F
                     );
@@ -50,7 +50,7 @@ public class PlayerUtils {
                 var itemEntity = player.drop(itemStack, false);
                 if (itemEntity != null) {
                     itemEntity.setNoPickUpDelay();
-                    itemEntity.setOwner(player.getUUID());
+                    itemEntity.setTarget(player.getUUID());
                 }
             }
         }
@@ -70,7 +70,7 @@ public class PlayerUtils {
             player.getName().getString(),
             player.getStringUUID(),
             player.position().toString(),
-            (player.level == null) ? "~NULL~" : player.level.toString()
+            (player.level() == null) ? "~NULL~" : player.level().toString()
         );
     }
 

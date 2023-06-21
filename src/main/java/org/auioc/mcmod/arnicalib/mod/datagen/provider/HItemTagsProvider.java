@@ -1,22 +1,24 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
 import static org.auioc.mcmod.arnicalib.game.tag.HItemTags.*;
+import java.util.concurrent.CompletableFuture;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class HItemTagsProvider extends ItemTagsProvider implements IHTagsProvider<Item> {
 
-    public HItemTagsProvider(DataGenerator generator, BlockTagsProvider blockTags, ExistingFileHelper fileHelper) {
-        super(generator, blockTags, ArnicaLib.MOD_ID, fileHelper);
+    public HItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper fileHelper) {
+        super(output, lookup, blockTags, ArnicaLib.MOD_ID, fileHelper);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class HItemTagsProvider extends ItemTagsProvider implements IHTagsProvide
 
     @Override
     @SuppressWarnings("deprecation")
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider lookup) {
         tag(BRICKS).add(Items.BRICK, Items.NETHER_BRICK);
         tag(MAPS).add(Items.MAP, Items.FILLED_MAP);
         addFromRegistry(tag(SPAWN_EGGS), (item) -> item instanceof SpawnEggItem);

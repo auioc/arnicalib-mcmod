@@ -2,7 +2,6 @@ package org.auioc.mcmod.arnicalib.game.gui.component;
 
 import java.util.List;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -95,7 +94,7 @@ public class CopyableTextWidget extends PlainTextWidget {
 
     @Override
     public List<Component> getTooltips() {
-        return List.of(new TranslatableComponent("chat.copy.click"));
+        return List.of(Component.translatable("chat.copy.click"));
     }
 
 }

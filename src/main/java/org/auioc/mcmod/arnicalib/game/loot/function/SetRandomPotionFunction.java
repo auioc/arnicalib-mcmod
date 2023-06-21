@@ -5,6 +5,7 @@ import java.util.List;
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.game.registry.OrderedForgeRegistries;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemFunctions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -69,7 +70,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
             if (!instance.potions.isEmpty()) {
                 json.addProperty("blacklist", instance.isBlacklist);
                 var potions = new JsonArray(instance.potions.size());
-                instance.potions.stream().map((potion) -> potion.getRegistryName()).map((id) -> id.toString()).forEach(potions::add);;
+                instance.potions.stream().map(RegistryUtils::id).map((id) -> id.toString()).forEach(potions::add);
                 json.add("potions", potions);
             }
         }

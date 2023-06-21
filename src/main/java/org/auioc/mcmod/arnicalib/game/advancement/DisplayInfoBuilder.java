@@ -4,16 +4,14 @@ import javax.annotation.Nullable;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
 public class DisplayInfoBuilder {
 
-    private Component title = new TextComponent("advancement");
-    private Component description = new TextComponent("advancement.description");
+    private Component title = Component.literal("advancement");
+    private Component description = Component.literal("advancement.description");
     private ItemStack icon = ItemStack.EMPTY;
     @Nullable
     private ResourceLocation background = null;
@@ -34,7 +32,7 @@ public class DisplayInfoBuilder {
     }
 
     public DisplayInfoBuilder title(String key) {
-        title(new TranslatableComponent(key));
+        title(Component.translatable(key));
         return this;
     }
 
@@ -44,7 +42,7 @@ public class DisplayInfoBuilder {
     }
 
     public DisplayInfoBuilder description(String key) {
-        description(new TranslatableComponent(key));
+        description(Component.translatable(key));
         return this;
     }
 

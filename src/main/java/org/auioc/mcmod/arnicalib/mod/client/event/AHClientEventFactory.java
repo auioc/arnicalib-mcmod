@@ -5,7 +5,6 @@ import java.util.Map;
 import org.auioc.mcmod.arnicalib.game.event.client.ClientLanguageLoadEvent;
 import org.auioc.mcmod.arnicalib.game.event.client.ClientPermissionChangedEvent;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,8 +24,8 @@ public final class AHClientEventFactory {
     /**
      * @see org.auioc.mcmod.arnicalib.mod.mixin.client.MixinClientLanguage#loadFrom
      */
-    public static void onClientLanguageLoad(ResourceManager resourceManager, List<LanguageInfo> languageInfo, Map<String, String> storage, boolean defaultRightToLeft) {
-        ModLoader.get().postEvent(new ClientLanguageLoadEvent(resourceManager, languageInfo, storage, defaultRightToLeft));
+    public static void onClientLanguageLoad(ResourceManager resourceManager, List<String> languageCodes, Map<String, String> storage, boolean defaultRightToLeft) {
+        ModLoader.get().postEvent(new ClientLanguageLoadEvent(resourceManager, languageCodes, storage, defaultRightToLeft));
     }
 
 }

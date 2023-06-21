@@ -1,11 +1,13 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
 import static org.auioc.mcmod.arnicalib.game.tag.HEntityTypeTags.*;
+import java.util.concurrent.CompletableFuture;
 import javax.annotation.Nonnull;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
 import org.auioc.mcmod.arnicalib.game.entity.EntityTypePredicates;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -14,8 +16,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements IHTagsProvider<EntityType<?>> {
 
-    public HEntityTypeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-        super(generator, ArnicaLib.MOD_ID, fileHelper);
+    public HEntityTypeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup, ExistingFileHelper fileHelper) {
+        super(output, lookup, ArnicaLib.MOD_ID, fileHelper);
     }
 
     @Override
@@ -26,11 +28,11 @@ public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements I
     @Nonnull
     @Override
     public IForgeRegistry<EntityType<?>> getRegistry() {
-        return ForgeRegistries.ENTITIES;
+        return ForgeRegistries.ENTITY_TYPES;
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider lookup) {
         tag(UNDEFINED_MOBS);
         tag(UNDEAD_MOBS).add(
             EntityType.DROWNED, EntityType.HUSK, EntityType.PHANTOM,
