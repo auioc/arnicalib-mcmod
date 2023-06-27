@@ -3,14 +3,17 @@ buildscript {
         mavenCentral()
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/maven' }
+        maven { url = 'https://maven.parchmentmc.org' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7.+'
+        classpath 'org.parchmentmc.librarian.forgegradle:org.parchmentmc.librarian.forgegradle.gradle.plugin:1.+'
     }
 }
 apply plugin: 'eclipse'
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
