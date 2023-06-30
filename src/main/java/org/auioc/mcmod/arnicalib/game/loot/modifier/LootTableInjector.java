@@ -1,5 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.loot.modifier;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
@@ -9,99 +10,62 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 
 public class LootTableInjector extends LootModifier {
 
-    private final Map<ResourceLocation, ResourceLocation> injectors; // targetTableId, sourceTableId
+    private final Map<ResourceLocation, List<ResourceLocation>> injectors; // targetTableId, sourceTableId[]
     private final boolean strictParameter;
 
-    protected LootTableInjector(LootItemCondition[] conditions, Map<ResourceLocation, ResourceLocation> injectors, boolean strictParameter) {
+    protected LootTableInjector(LootItemCondition[] conditions, Map<ResourceLocation, List<ResourceLocation>> injectors, boolean strictParameter) {
         super(conditions);
-        this.injectors = injectors; // TODO multi inject
-        this.strictParameter = strictParameter; // TODO Re-impl strictParameter
+        this.injectors = injectors;
+        this.strictParameter = strictParameter; // TODO Re-impl? strictParameter
     }
 
-    private ObjectArrayList<ItemStack> getItemStacks(LootContext ctx, ResourceLocation targetId) {
-        ResourceLocation sourceId = this.injectors.get(targetId);
-        LootTable sourceTable = ctx.getResolver().getLootTable(sourceId);
-        return sourceTable.getRandomItems(ctx.params); //~ AccessTransformer
+    private ObjectArrayList<ItemStack> getLoot(LootContext ctx, ResourceLocation targetId) {
+        var loot = new ObjectArrayList<ItemStack>();
+        for (var sourceId : this.injectors.get(targetId)) {
+            var sourceTable = ctx.getResolver().getLootTable(sourceId);
+            var items = sourceTable.getRandomItems(ctx.params); //~ AccessTransformer L-1
+            loot.addAll(items);
+        }
+        return loot;
     }
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext ctx) {
         // TODO Entity drodps missing? Collects drops in LivingEntity#dropFromLootTable using mixin
-        ResourceLocation id = ctx.getQueriedLootTableId();
-
+        var id = ctx.getQueriedLootTableId();
         if (!this.injectors.containsKey(id)) {
             return generatedLoot;
         }
-
-        generatedLoot.addAll(getItemStacks(ctx, id));
+        generatedLoot.addAll(getLoot(ctx, id));
         return generatedLoot;
     }
 
+    // ============================================================================================================== //
 
     public static final Supplier<Codec<LootTableInjector>> CODEC = Suppliers.memoize(
         () -> RecordCodecBuilder.create(
-            inst -> codecStart(inst)
+            instance -> codecStart(instance)
                 .and(
-                    inst.group(
-                        Codec.unboundedMap(ResourceLocation.CODEC, ResourceLocation.CODEC).optionalFieldOf("injectors", Map.of()).forGetter(m -> m.injectors),
-                        Codec.BOOL.optionalFieldOf("strict_parameter", false).forGetter((m) -> m.strictParameter)
+                    instance.group(
+                        Codec.unboundedMap(ResourceLocation.CODEC, Codec.list(ResourceLocation.CODEC))
+                            .optionalFieldOf("injectors", Map.of())
+                            .forGetter((o) -> o.injectors),
+                        Codec.BOOL
+                            .optionalFieldOf("strict_parameter", false)
+                            .forGetter((o) -> o.strictParameter)
                     )
                 )
-                .apply(inst, LootTableInjector::new)
+                .apply(instance, LootTableInjector::new)
         )
     );
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
-        return CODEC.get();
-    }
-
-    // public static class Serializer extends GlobalLootModifierSerializer<LootTableInjector> {
-
-    //     @Override
-    //     public LootTableInjector read(ResourceLocation location, JsonObject json, LootItemCondition[] conditions) {
-    //         HashMap<ResourceLocation, ResourceLocation> injectors = new HashMap<>();
-    //         boolean strictParameter;
-
-    //         JsonArray injectorsJson = GsonHelper.getAsJsonArray(json, "injectors");
-    //         for (JsonElement element : injectorsJson) {
-    //             JsonObject injectorJson = GsonHelper.convertToJsonObject(element, "injector");
-    //             injectors.put(
-    //                 new ResourceLocation(GsonHelper.getAsString(injectorJson, "target")),
-    //                 new ResourceLocation(GsonHelper.getAsString(injectorJson, "source"))
-    //             );
-    //         }
-
-    //         strictParameter = GsonHelper.getAsBoolean(json, "strict_parameter", true);
-
-    //         return new LootTableInjector(conditions, injectors, strictParameter);
-    //     }
-
-    //     @Override
-    //     public JsonObject write(LootTableInjector instance) {
-    //         final var json = makeConditions(instance.conditions);
-    //         json.addProperty("strict_parameter", instance.strictParameter);
-    //         var injectors = new JsonArray(instance.injectors.size());
-    //         instance.injectors
-    //             .entrySet().stream()
-    //             .map((entry) -> {
-    //                 var injector = new JsonObject();
-    //                 injector.addProperty("target", entry.getKey().toString());
-    //                 injector.addProperty("source", entry.getValue().toString());
-    //                 return injector;
-    //             })
-    //             .forEach(injectors::add);
-    //         json.add("injectors", injectors);
-    //         return json;
-    //     }
-
-    // }
+    public Codec<? extends IGlobalLootModifier> codec() { return CODEC.get(); }
 
 }
