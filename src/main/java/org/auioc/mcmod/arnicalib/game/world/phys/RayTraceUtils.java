@@ -15,6 +15,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * @deprecated Moved to {@link RayCastUtils}.
+ */
+@Deprecated(since = "6.0.0", forRemoval = true)
 public class RayTraceUtils {
 
     public static ViewRay getViewRay(Entity entity, double rayLength) {
