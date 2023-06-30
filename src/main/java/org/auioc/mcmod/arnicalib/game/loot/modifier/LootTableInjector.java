@@ -37,7 +37,6 @@ public class LootTableInjector extends LootModifier {
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext ctx) {
-        // TODO Entity drodps missing? Collects drops in LivingEntity#dropFromLootTable using mixin
         var id = ctx.getQueriedLootTableId();
         if (!this.injectors.containsKey(id)) {
             return generatedLoot;
