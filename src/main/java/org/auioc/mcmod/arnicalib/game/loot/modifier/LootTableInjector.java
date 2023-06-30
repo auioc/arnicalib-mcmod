@@ -2,7 +2,6 @@ package org.auioc.mcmod.arnicalib.game.loot.modifier;
 
 import java.util.Map;
 import java.util.function.Supplier;
-import org.auioc.mcmod.arnicalib.base.reflection.ReflectionUtils;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -10,7 +9,6 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -30,13 +28,7 @@ public class LootTableInjector extends LootModifier {
     private ObjectArrayList<ItemStack> getItemStacks(LootContext ctx, ResourceLocation targetId) {
         ResourceLocation sourceId = this.injectors.get(targetId);
         LootTable sourceTable = ctx.getResolver().getLootTable(sourceId);
-        try { // TODO AT or MixinAccessor
-            var param = ReflectionUtils.getFieldValue(ctx, LootContext.class.getDeclaredField("params"), LootParams.class).get();
-            return sourceTable.getRandomItems(param);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ObjectArrayList.of();
-        }
+        return sourceTable.getRandomItems(ctx.params); //~ AccessTransformer
     }
 
     @Override
