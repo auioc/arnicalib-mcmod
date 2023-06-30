@@ -46,9 +46,9 @@ public class MixinProjectile implements IHProjectile {
         require = 1,
         allow = 1
     )
-    private void readAdditionalSaveData(CompoundTag p_37262_, CallbackInfo ci) {
-        if (p_37262_.contains("ShootingPosition", 6)) {
-            this.shootingPosition = NbtUtils.readVec3(p_37262_.getList("ShootingPosition", 6));
+    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+        if (nbt.contains("ShootingPosition", 6)) {
+            this.shootingPosition = NbtUtils.readVec3(nbt.getList("ShootingPosition", 6));
         }
     }
 
@@ -58,9 +58,9 @@ public class MixinProjectile implements IHProjectile {
         require = 1,
         allow = 1
     )
-    private void addAdditionalSaveData(CompoundTag p_37265_, CallbackInfo ci) {
+    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (this.shootingPosition != null) {
-            p_37265_.put("ShootingPosition", NbtUtils.writeVec3(this.shootingPosition));
+            nbt.put("ShootingPosition", NbtUtils.writeVec3(this.shootingPosition));
         }
     }
 

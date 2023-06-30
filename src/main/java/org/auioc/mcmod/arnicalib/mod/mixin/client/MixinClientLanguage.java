@@ -25,11 +25,11 @@ public class MixinClientLanguage {
         allow = 1
     )
     private static void loadFrom(
-        ResourceManager p_265765_, List<String> p_265743_, boolean p_265470_,
+        ResourceManager resourceManager, List<String> languageCodes, boolean defaultRightToLeft,
         CallbackInfoReturnable<ClientLanguage> cir,
         Map<String, String> map
     ) {
-        AHClientEventFactory.onClientLanguageLoad(p_265765_, p_265743_, map, p_265470_);
+        AHClientEventFactory.onClientLanguageLoad(resourceManager, languageCodes, map, defaultRightToLeft);
     }
 
 }

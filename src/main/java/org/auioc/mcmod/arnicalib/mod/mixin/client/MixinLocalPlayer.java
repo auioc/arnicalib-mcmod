@@ -20,8 +20,8 @@ public class MixinLocalPlayer {
         require = 1,
         allow = 1
     )
-    private void setPermissionLevel(int p_108649_, CallbackInfo ci) {
-        AHClientEventFactory.onPermissionChanged(((LocalPlayer) (Object) this), this.permissionLevel, p_108649_);
+    private void setPermissionLevel(int pPermissionLevel, CallbackInfo ci) {
+        AHClientEventFactory.onPermissionChanged(((LocalPlayer) (Object) this), this.permissionLevel, pPermissionLevel);
     }
 
 }
