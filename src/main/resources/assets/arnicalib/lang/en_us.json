@@ -8,7 +8,6 @@
     "arnicalib.command.failure.internal.loggable": "An internal error occurred trying to execute that command, please check the log for details",
     "arnicalib.command.failure.not_server": "This command must be executed by the server",
     "arnicalib.command.failure.not_dedicated_server": "This command must be executed by the dedicated server",
-    "arnicalib.command.failure.get_real_source.reflection": "Failed while using reflection to get real command source",
 
     "arnicalib.argument.language_info.unknown": "Unknown language \"%s\"",
     "arnicalib.argument.language.unknown": "Unknown language \"%s\"",
