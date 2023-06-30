@@ -1,7 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.function.Predicate;
-import org.auioc.mcmod.arnicalib.mod.mixin.common.MixinAccessorCommandSourceStack;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
@@ -21,11 +20,15 @@ public class CommandSourceUtils {
     public static final Predicate<CommandSourceStack> PERMISSION_LEVEL_4 = (sourceStack) -> sourceStack.hasPermission(4);
 
     public static final Predicate<CommandSourceStack> IS_PLAYER = (sourceStack) -> sourceStack.getEntity() instanceof Player;
-    public static final Predicate<CommandSourceStack> IS_COMMAND_BLOCK = (sourceStack) -> getRealSource(sourceStack) instanceof BaseCommandBlock;
-    public static final Predicate<CommandSourceStack> IS_DEDICATED_SERVER = (sourceStack) -> getRealSource(sourceStack) instanceof DedicatedServer;
+    public static final Predicate<CommandSourceStack> IS_COMMAND_BLOCK = (sourceStack) -> sourceStack.source instanceof BaseCommandBlock;
+    public static final Predicate<CommandSourceStack> IS_DEDICATED_SERVER = (sourceStack) -> sourceStack.source instanceof DedicatedServer;
 
+    /**
+     * @deprecated The field {@link CommandSourceStack#source} is now public.
+     */
+    @Deprecated(since = "6.0.0")
     public static CommandSource getRealSource(CommandSourceStack sourceStack) {
-        return ((MixinAccessorCommandSourceStack) sourceStack).getSource();
+        return sourceStack.source;
     }
 
     @OnlyIn(Dist.CLIENT)

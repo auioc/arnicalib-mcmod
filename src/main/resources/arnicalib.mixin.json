@@ -3,7 +3,6 @@
     "package": "org.auioc.mcmod.arnicalib.mod.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "common.MixinAccessorCommandSourceStack",
         "common.MixinAccessorEnchantment",
         "common.MixinAccessorMobEffectInstance",
         "common.MixinAccessorArrow",
