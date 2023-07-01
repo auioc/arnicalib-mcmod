@@ -53,7 +53,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
             JsonArray effectsJson = GsonHelper.getAsJsonArray(json, "effects");
             Validate.isTrue(!effectsJson.isEmpty(), "The mob effect instance list must be not empty");
             for (JsonElement element : effectsJson) {
-                effects.add(MobEffectInstanceSerializer.fromJson(GsonHelper.convertToJsonObject(element, "mobEffectInstance")));
+                effects.add(MobEffectInstanceSerializer.fromJson(element));
             }
 
             return new SetCustomEffectsFunction(conditions, effects);
