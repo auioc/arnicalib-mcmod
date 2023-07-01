@@ -10,19 +10,77 @@ import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.game.item.ItemRegistry;
 import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class MobEffectInstanceSerializer {
 
     private static final Marker MARKER = LogUtil.getMarker(MobEffectInstanceSerializer.class);
 
+    public static final Codec<MobEffectInstance> CODEC = // TODO Test
+        ExtraCodecs.lazyInitializedCodec(
+            () -> RecordCodecBuilder.create(
+                instance -> instance.group(
+                    ForgeRegistries.MOB_EFFECTS.getCodec().fieldOf("id").forGetter(MobEffectInstance::getEffect),
+                    Codec.INT.optionalFieldOf("duration", 0).forGetter(MobEffectInstance::getDuration),
+                    ExtraCodecs.intRange(0, 255).optionalFieldOf("amplifier", 0).forGetter(MobEffectInstance::getAmplifier),
+                    Codec.BOOL.optionalFieldOf("ambient", false).forGetter(MobEffectInstance::isAmbient),
+                    Codec.BOOL.optionalFieldOf("show_particles", true).forGetter(MobEffectInstance::isVisible),
+                    Codec.BOOL.optionalFieldOf("show_icon", true).forGetter(MobEffectInstance::showIcon),
+                    MobEffectInstanceSerializer.CODEC.optionalFieldOf("hidden_effect").forGetter((e) -> Optional.ofNullable(((IHMobEffectInstance) e).getHiddenEffect())),
+                    MobEffectInstance.FactorData.CODEC.optionalFieldOf("factor_calculation_data").forGetter(MobEffectInstance::getFactorData),
+                    Codec.list(ForgeRegistries.ITEMS.getCodec()).optionalFieldOf("curative_items", List.of(Items.MILK_BUCKET)).forGetter((e) -> e.getCurativeItems().stream().map(ItemStack::getItem).toList())
+                ).apply(instance, MobEffectInstanceSerializer::createInstance)
+            )
+        );
+
+    public static JsonObject toJson(MobEffectInstance instance) {
+        return GsonHelper.convertToJsonObject(
+            MobEffectInstanceSerializer.CODEC
+                .encodeStart(JsonOps.INSTANCE, instance)
+                .getOrThrow(false, (error) -> LOGGER.error(MARKER, error)),
+            "MobEffectInstance"
+        );
+    }
+
+    public static MobEffectInstance fromJson(JsonElement json) {
+        return MobEffectInstanceSerializer.CODEC
+            .parse(new Dynamic<>(JsonOps.INSTANCE, json))
+            .getOrThrow(false, (error) -> LOGGER.error(MARKER, error));
+    }
+
+    // ====================================================================== //
+
+    private static MobEffectInstance createInstance(
+        MobEffect effect, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon,
+        Optional<MobEffectInstance> hiddenEffect, Optional<MobEffectInstance.FactorData> factorData,
+        List<Item> curativeItems
+    ) {
+        var instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect.orElse(null), Optional.empty());
+        instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).toList());
+        return instance;
+    }
+
+    // ============================================================================================================== //
+
+
+    /**
+     * @deprecated Use {@link MobEffectInstanceSerializer#fromJson(JsonElement)} instead.
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
     public static MobEffectInstance fromJson(JsonObject json) {
         String id = GsonHelper.getAsString(json, "id");
         MobEffect effect = MobEffectRegistry.getOrElseThrow(id);
@@ -65,6 +123,10 @@ public class MobEffectInstanceSerializer {
         return instance;
     }
 
+    /**
+     * @deprecated Use {@link MobEffectInstanceSerializer#toJson} instead.
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
     public static void toJson(MobEffectInstance instance, JsonObject json) {
         json.addProperty("id", RegistryUtils.id(instance.getEffect()).toString());
         json.addProperty("duration", instance.getDuration());
@@ -90,12 +152,6 @@ public class MobEffectInstanceSerializer {
                 .resultOrPartial((error) -> LOGGER.error(MARKER, error))
                 .ifPresent((d) -> json.add("FactorCalculationData", d));
         });
-    }
-
-    public static JsonObject toJson(MobEffectInstance instance) {
-        JsonObject json = new JsonObject();
-        toJson(instance, json);
-        return json;
     }
 
 }
