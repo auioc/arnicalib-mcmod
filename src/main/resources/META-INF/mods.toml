@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/auioc/arnicalib-mcmod/issues"
 [[mods]]
 modId="arnicalib"
 version="${file.jarVersion}"
-updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.18.2.json"
+updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.20.1.json"
 displayName="ArnicaLib"
 displayURL="http://hi.auioc.org/arnicalib-mcmod/"
 credits="AUIOC"
