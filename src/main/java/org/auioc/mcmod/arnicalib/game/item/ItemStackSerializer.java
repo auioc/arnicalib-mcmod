@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.item;
 
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -40,7 +41,7 @@ public class ItemStackSerializer {
     }
 
     public static void toJson(ItemStack itemStack, JsonObject json) {
-        json.addProperty("id", ItemUtils.registryName(itemStack.getItem()).toString());
+        json.addProperty("id", RegistryUtils.id(itemStack.getItem()).toString());
         json.addProperty("count", itemStack.getCount());
         if (itemStack.hasTag()) {
             json.addProperty("nbt", itemStack.getTag().toString());

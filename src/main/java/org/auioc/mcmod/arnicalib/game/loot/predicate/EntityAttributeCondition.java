@@ -3,6 +3,7 @@ package org.auioc.mcmod.arnicalib.game.loot.predicate;
 import java.util.Set;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
@@ -103,7 +104,7 @@ public class EntityAttributeCondition implements LootItemCondition {
 
         @Override
         public void serialize(JsonObject json, EntityAttributeCondition instance, JsonSerializationContext ctx) {
-            json.addProperty("attribute", ForgeRegistries.ATTRIBUTES.getKey(instance.attribute).toString());
+            json.addProperty("attribute", RegistryUtils.id(instance.attribute).toString());
             json.addProperty("type", instance.valueType.getName());
             json.add("value", instance.value.serializeToJson());
             json.add("entity", ctx.serialize(instance.entityTarget));

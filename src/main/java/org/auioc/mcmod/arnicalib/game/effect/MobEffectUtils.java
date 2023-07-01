@@ -3,13 +3,11 @@ package org.auioc.mcmod.arnicalib.game.effect;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class MobEffectUtils {
 
@@ -53,10 +51,6 @@ public class MobEffectUtils {
 
     public static Component getDisplayString(MobEffectInstance instance) {
         return getDisplayString(instance.getEffect(), instance.getAmplifier(), instance.getDuration());
-    }
-
-    public static ResourceLocation registryName(MobEffect effect) {
-        return ForgeRegistries.MOB_EFFECTS.getKey(effect);
     }
 
 }

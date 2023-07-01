@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import org.auioc.mcmod.arnicalib.game.item.ItemRegistry;
-import org.auioc.mcmod.arnicalib.game.item.ItemUtils;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -66,7 +66,7 @@ public class MobEffectInstanceSerializer {
     }
 
     public static void toJson(MobEffectInstance instance, JsonObject json) {
-        json.addProperty("id", MobEffectUtils.registryName(instance.getEffect()).toString());
+        json.addProperty("id", RegistryUtils.id(instance.getEffect()).toString());
         json.addProperty("duration", instance.getDuration());
         json.addProperty("amplifier", instance.getAmplifier());
         json.addProperty("ambient", instance.isAmbient());
@@ -75,7 +75,7 @@ public class MobEffectInstanceSerializer {
 
         JsonArray curativeItems = new JsonArray();
         for (ItemStack itemStack : instance.getCurativeItems()) {
-            curativeItems.add(ItemUtils.registryName(itemStack.getItem()).toString());
+            curativeItems.add(RegistryUtils.id(itemStack.getItem()).toString());
         }
         json.add("curative_items", curativeItems);
 

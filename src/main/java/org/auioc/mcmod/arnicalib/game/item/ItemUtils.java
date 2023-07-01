@@ -1,12 +1,11 @@
 package org.auioc.mcmod.arnicalib.game.item;
 
 import javax.annotation.Nullable;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemUtils {
 
@@ -41,11 +40,7 @@ public class ItemUtils {
     }
 
     public static String toString(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item).toString();
-    }
-
-    public static ResourceLocation registryName(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
+        return RegistryUtils.id(item).toString();
     }
 
 }
