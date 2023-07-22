@@ -7,8 +7,7 @@
         "common.MixinAccessorMobEffectInstance",
         "common.MixinAccessorArrow",
         "common.MixinProjectile",
-        "server.MixinServerLifecycleHooks",
-        "server.MixinLivingEntity"
+        "server.MixinServerLifecycleHooks"
     ],
     "client": ["client.MixinLocalPlayer", "client.MixinClientLanguage"],
     "server": [],
