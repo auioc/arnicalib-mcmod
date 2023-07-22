@@ -15,6 +15,7 @@
         "defaultRequire": 1,
         "maxShiftBy": 2
     },
+    "setSourceFile": true,
     "refmap": "arnicalib.mixin-refmap.json",
     "plugin": "org.auioc.mcmod.arnicalib.mod.mixin.MixinConfigPlugin",
     "minVersion": "0.8"

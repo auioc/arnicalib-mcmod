@@ -8,12 +8,14 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7.+'
-        classpath 'org.parchmentmc.librarian.forgegradle:org.parchmentmc.librarian.forgegradle.gradle.plugin:1.+'
+        // classpath 'org.parchmentmc.librarian.forgegradle:org.parchmentmc.librarian.forgegradle.gradle.plugin:1.+'
     }
 }
 apply plugin: 'eclipse'
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
+// apply plugin: 'org.parchmentmc.librarian.forgegradle'
+
+// TODO use newer plugins applying method
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 

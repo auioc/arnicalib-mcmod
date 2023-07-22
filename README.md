@@ -10,7 +10,7 @@ Shared library for AH's Minecraft mods.
 <br/>
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.20.1&color=00aa00&style=flat-square)
 [![Forge](https://img.shields.io/static/v1?label=Forge&message=47.1.0&color=e04e14&logo=Conda-Forge&style=flat-square)](http://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html)
-[![Parchment](https://img.shields.io/static/v1?label=Parchment&message=2023.07.16&color=00aa00&style=flat-square)](https://github.com/ParchmentMC/Parchment/tree/versions/1.20.x)
+![Mappings](https://img.shields.io/static/v1?label=Mappings&message=official&color=00aa00&style=flat-square)
 <br/>
 ![OpenJDK](https://img.shields.io/static/v1?label=OpenJDK&message=17&color=brightgreen&logo=java&style=flat-square)
 [![Gradle](https://img.shields.io/static/v1?label=Gradle&message=8.1.1&color=brightgreen&logo=gradle&style=flat-square)](https://docs.gradle.org/8.1.1/release-notes.html)
