@@ -22,15 +22,15 @@ import net.minecraftforge.client.gui.overlay.NamedGuiOverlay;
 @OnlyIn(Dist.CLIENT)
 public class OverlayArgument implements ArgumentType<NamedGuiOverlay> {
 
-    private static final DynamicCommandExceptionType UNKNOWN_OVERLAY = new DynamicCommandExceptionType(
+    private static final DynamicCommandExceptionType ERROR_UNKNOWN_OVERLAY = new DynamicCommandExceptionType(
         (id) -> Component.translatable(ArnicaLib.i18n("argument.overlay.unknown"), id)
     );
 
-    public static OverlayArgument overlay() {
+    public static OverlayArgument create() {
         return new OverlayArgument();
     }
 
-    public static NamedGuiOverlay getOverlay(CommandContext<CommandSourceStack> ctx, String argument) {
+    public static NamedGuiOverlay get(CommandContext<CommandSourceStack> ctx, String argument) {
         return ctx.getArgument(argument, NamedGuiOverlay.class);
     }
 
@@ -39,7 +39,7 @@ public class OverlayArgument implements ArgumentType<NamedGuiOverlay> {
         var id = new ResourceLocation(reader.readString());
         var overlay = GuiOverlayManager.findOverlay(id);
         if (overlay != null) return overlay;
-        throw UNKNOWN_OVERLAY.create(id);
+        throw ERROR_UNKNOWN_OVERLAY.create(id);
     }
 
     @Override

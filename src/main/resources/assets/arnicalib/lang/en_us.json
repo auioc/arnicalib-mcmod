@@ -9,7 +9,7 @@
     "arnicalib.command.failure.not_server": "This command must be executed by the server",
     "arnicalib.command.failure.not_dedicated_server": "This command must be executed by the dedicated server",
 
-    "arnicalib.argument.language_info.unknown": "Unknown language \"%s\"",
+    "arnicalib.argument.creative_mode_tab.unknown": "Unknown creative mod tab \"%s\"",
     "arnicalib.argument.language.unknown": "Unknown language \"%s\"",
     "arnicalib.argument.overlay.unknown": "Unknown overlay \"%s\"",
 

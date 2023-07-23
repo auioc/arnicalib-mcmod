@@ -20,22 +20,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class LanguageArgument implements ArgumentType<LanguageInfo> {
 
-    private static final DynamicCommandExceptionType UNKNOWN_LANGUAGE = new DynamicCommandExceptionType(
+    private static final DynamicCommandExceptionType ERROR_UNKNOWN_LANGUAGE = new DynamicCommandExceptionType(
         (code) -> Component.translatable(ArnicaLib.i18n("argument.language.unknown"), code)
     );
 
-    public static LanguageArgument language() {
+    public static LanguageArgument create() {
         return new LanguageArgument();
     }
 
-    public static LanguageInfo getLanguage(CommandContext<CommandSourceStack> ctx, String argument) {
+    public static LanguageInfo get(CommandContext<CommandSourceStack> ctx, String argument) {
         return ctx.getArgument(argument, LanguageInfo.class);
     }
 
     @Override
     public LanguageInfo parse(StringReader reader) throws CommandSyntaxException {
         String code = reader.readString();
-        return LanguageUtils.get(code).orElseThrow(() -> UNKNOWN_LANGUAGE.create(code));
+        return LanguageUtils.get(code).orElseThrow(() -> ERROR_UNKNOWN_LANGUAGE.create(code));
     }
 
     @Override

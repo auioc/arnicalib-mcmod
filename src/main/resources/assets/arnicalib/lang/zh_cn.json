@@ -9,7 +9,7 @@
     "arnicalib.command.failure.not_server": "此命令必须由服务器执行",
     "arnicalib.command.failure.not_dedicated_server": "此命令必须由专用服务器执行",
 
-    "arnicalib.argument.language_info.unknown": "未知的语言\"%s\"",
+    "arnicalib.argument.creative_mode_tab.unknown": "未知的创造模式物品栏标签\"%s\"",
     "arnicalib.argument.language.unknown": "未知的语言\"%s\"",
     "arnicalib.argument.overlay.unknown": "未知的叠加层\"%s\"",
 
