@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
@@ -12,6 +13,19 @@ import net.minecraft.commands.CommandSourceStack;
 public class DynamicCommandHandler {
 
     private static final Marker MARKER = LogUtil.getMarker(DynamicCommandHandler.class);
+
+    @SuppressWarnings("unchecked")
+    public static LiteralArgumentBuilder<CommandSourceStack> createBuilder(String className, String methodName, LiteralArgumentBuilder<CommandSourceStack> builder) {
+        try {
+            var method = Class.forName(className).getMethod(methodName, LiteralArgumentBuilder.class);
+            return (LiteralArgumentBuilder<CommandSourceStack>) method.invoke(null, builder);
+        } catch (Exception e) {
+            LOGGER.error(MARKER, "Failed to create builder", e);
+        }
+        return builder;
+    }
+
+    // ============================================================================================================== //
 
     public static int run(String className, String methodName, CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         try {
@@ -44,6 +58,8 @@ public class DynamicCommandHandler {
             rethrow(e.getTargetException(), "Command handler throws an exception that is not a CommandSyntaxException");
         }
     }
+
+    // ============================================================================================================== //
 
     private static void rethrow(Throwable throwable, String message) throws Throwable {
         LOGGER.error(MARKER, message, throwable);
