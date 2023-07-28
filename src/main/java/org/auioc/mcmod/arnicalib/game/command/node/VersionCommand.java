@@ -6,6 +6,7 @@ import java.util.function.Function;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import org.auioc.mcmod.arnicalib.base.version.HVersion;
 import org.auioc.mcmod.arnicalib.game.chat.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -48,10 +49,9 @@ public class VersionCommand {
 
     public static int getModVersion(CommandContext<CommandSourceStack> ctx, Class<?> modClazz) throws CommandSyntaxException {
         try {
+            var hVersion = (HVersion) modClazz.getField("VERSION").get(modClazz);
             return getModVersion(
-                ctx,
-                (String) modClazz.getField("MAIN_VERSION").get(modClazz),
-                (String) modClazz.getField("FULL_VERSION").get(modClazz),
+                ctx, hVersion.main, hVersion.full,
                 (String) modClazz.getField("MOD_NAME").get(modClazz)
             );
         } catch (Exception e) {
@@ -60,6 +60,8 @@ public class VersionCommand {
             throw commandException;
         }
     }
+
+    // ====================================================================== //
 
     private static MutableComponent i18n(String key, Object... args) {
         return Component.translatable(ArnicaLib.i18n("command.version." + key), args);

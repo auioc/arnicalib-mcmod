@@ -14,23 +14,11 @@ public final class ArnicaLib implements IHMod {
 
     public static final String MOD_ID = "arnicalib";
     public static final String MOD_NAME = "ArnicaLib";
-
     public static final Logger LOGGER = LogUtil.getLogger(MOD_NAME);
-
-    public static final HVersion VERSION;
-    @Deprecated(forRemoval = true)
-    public static final String MAIN_VERSION;
-    @Deprecated(forRemoval = true)
-    public static final String FULL_VERSION;
+    public static final HVersion VERSION = HModUtil.getVersion(ArnicaLib.class, LOGGER);
 
     public ArnicaLib() {
         Initialization.init();
-    }
-
-    static {
-        VERSION = HModUtil.getVersion(ArnicaLib.class, LOGGER);
-        MAIN_VERSION = VERSION.main;
-        FULL_VERSION = VERSION.full;
     }
 
     public static ResourceLocation id(String path) {
