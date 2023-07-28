@@ -1,9 +1,6 @@
 {
     "arnicalib.title": "ArnicaLib",
 
-    "arnicalib.advanced_tooltip.nbt": "NBT：",
-    "arnicalib.advanced_tooltip.tag": "标签：",
-
     "arnicalib.command.failure.internal": "试图执行该命令时出现内部错误",
     "arnicalib.command.failure.internal.loggable": "试图执行该命令时出现内部错误，详情请查看日志",
     "arnicalib.command.failure.not_server": "此命令必须由服务器执行",
