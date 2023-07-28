@@ -3,6 +3,7 @@ package org.auioc.mcmod.arnicalib.mod.server.command;
 import static net.minecraft.commands.Commands.literal;
 import java.util.List;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.base.version.HVersion;
 import org.auioc.mcmod.arnicalib.game.command.DynamicCommandHandler;
 import org.auioc.mcmod.arnicalib.game.command.node.VersionCommand;
 import org.auioc.mcmod.arnicalib.game.mod.EnvironmentUtils;
@@ -16,7 +17,7 @@ public final class AHServerCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         VersionCommand.addVersionNode(NODE, ArnicaLib.class);
-        if (EnvironmentUtils.IS_DEV) addTestNode(NODE);
+        addTestNode(NODE);
 
         getAHNode(dispatcher).addChild(NODE);
     }
@@ -31,13 +32,15 @@ public final class AHServerCommands {
 
 
     private static void addTestNode(CommandNode<CommandSourceStack> node) {
-        node.addChild(
-            DynamicCommandHandler.createBuilder(
-                "org.auioc.mcmod.arnicalib.mod.test.TestHandlerCommand",
-                "create",
-                literal("test")
-            ).build()
-        );
+        if (EnvironmentUtils.IS_DEV && ArnicaLib.VERSION.equals(HVersion.DEFAULT)) {
+            node.addChild(
+                DynamicCommandHandler.createBuilder(
+                    "org.auioc.mcmod.arnicalib.mod.test.TestHandlerCommand",
+                    "create",
+                    literal("test")
+                ).build()
+            );
+        }
     }
 
 }
