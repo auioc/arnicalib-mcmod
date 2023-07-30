@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.random;
 
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
+import org.auioc.mcmod.arnicalib.base.validate.Validate;
 import net.minecraft.util.RandomSource;
 
 public class GameRandomUtils extends RandomUtils {
@@ -22,6 +23,16 @@ public class GameRandomUtils extends RandomUtils {
 
     public static double offset(double bound, RandomSource random) {
         return nextDouble(random, bound) * nextSignum(random);
+    }
+
+    public static boolean percentageChance(int chance, RandomSource random) {
+        Validate.isInCloseInterval(0, 100, chance);
+        return random.nextInt(100) < chance;
+    }
+
+    public static boolean fractionChance(int numerator, int denominator, RandomSource random) {
+        Validate.isFractionChance(numerator, denominator);
+        return random.nextInt(denominator) < numerator;
     }
 
 }
