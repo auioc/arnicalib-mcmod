@@ -7,6 +7,7 @@ import cpw.mods.modlauncher.api.IEnvironment;
 public class EnvironmentUtils {
 
     public static final boolean IS_DEV = isDev();
+    public static final boolean IS_DATA = isData();
 
     public static String getLaunchTarget() {
         return Launcher.INSTANCE
@@ -16,9 +17,11 @@ public class EnvironmentUtils {
     }
 
     public static boolean isDev() {
-        return getLaunchTarget()
-            .toLowerCase(Locale.ROOT)
-            .contains("dev");
+        return getLaunchTarget().toLowerCase(Locale.ROOT).contains("dev");
+    }
+
+    public static boolean isData() {
+        return getLaunchTarget().toLowerCase(Locale.ROOT).startsWith("forgedata");
     }
 
 }

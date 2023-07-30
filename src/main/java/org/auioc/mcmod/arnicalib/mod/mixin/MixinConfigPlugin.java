@@ -13,7 +13,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
-        this.runData = EnvironmentUtils.getLaunchTarget().toLowerCase().startsWith("forgedata");
+        this.runData = EnvironmentUtils.IS_DATA;
     }
 
     @Override
