@@ -1,29 +1,29 @@
-modLoader="javafml"
-loaderVersion="[47,)"
-license="GNU GPLv3"
-issueTrackerURL="https://github.com/auioc/arnicalib-mcmod/issues"
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "GNU GPLv3"
+issueTrackerURL = "https://github.com/auioc/arnicalib-mcmod/issues"
 
 [[mods]]
-modId="arnicalib"
-version="${file.jarVersion}"
-updateJSONURL="https://hi.auioc.org/arnicalib-mcmod/update/1.20.1.json"
-displayName="ArnicaLib"
-displayURL="http://hi.auioc.org/arnicalib-mcmod/"
-credits="AUIOC"
-authors="WakelssSloth56, LainIO24"
-description='''
+    modId = "arnicalib"
+    version = "${file.jarVersion}"
+    updateJSONURL = "https://hi.auioc.org/arnicalib-mcmod/update/1.20.1.json"
+    displayName = "ArnicaLib"
+    displayURL = "http://hi.auioc.org/arnicalib-mcmod/"
+    credits = "AUIOC"
+    authors = "WakelssSloth56, LainIO24"
+    description = '''
 Shared library for AH's Minecraft mods.
 '''
 
 [[dependencies.arnicalib]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
+    modId = "forge"
+    mandatory = true
+    versionRange = "[47,)"
+    ordering = "NONE"
+    side = "BOTH"
 [[dependencies.arnicalib]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1,1.21)"
-    ordering="NONE"
-    side="BOTH"
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.20.1,1.21)"
+    ordering = "NONE"
+    side = "BOTH"
