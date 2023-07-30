@@ -34,7 +34,7 @@ public class HBlockTagsProvider extends BlockTagsProvider implements IHTagsProvi
     @SuppressWarnings("deprecation")
     protected void addTags(HolderLookup.Provider lookup) {
         addFromRegistry(tag(HBlockTags.INSTABREAKABLE), (b) -> b.defaultDestroyTime() == 0.0F);
-        addFromRegistry(tag(HBlockTags.RANDOMLY_TICKABLE), (b) -> b.defaultBlockState().isRandomlyTicking());
+        addFromRegistry(tag(HBlockTags.RANDOMLY_TICKABLE), (b) -> b.isRandomlyTicking(b.defaultBlockState()));
         addFromRegistry(tag(HBlockTags.LIGHT), (b) -> b.defaultBlockState().getLightEmission() > 0);
     }
 
