@@ -30,7 +30,7 @@ public class MessageHelper {
     }
 
     public MutableComponent create(String key, Object[] args, boolean withPrefix) {
-        return create(Component.translatable(this.i18n.applyAsString(key), args), withPrefix);
+        return create(Component.translatable(this.i18n.apply(key), args), withPrefix);
     }
 
     public MutableComponent create(String key, boolean withPrefix) {
