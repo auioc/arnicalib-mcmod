@@ -1,8 +1,18 @@
 package org.auioc.mcmod.arnicalib.base.function;
 
-@FunctionalInterface
-public interface TriConsumer<K, V, S> {
+import java.util.Objects;
 
-    void accept(K k, V v, S s);
+@FunctionalInterface
+public interface TriConsumer<T, U, V> {
+
+    void accept(T t, U u, V v);
+
+    default TriConsumer<T, U, V> andThen(TriConsumer<? super T, ? super U, ? super V> after) {
+        Objects.requireNonNull(after);
+        return (t, u, v) -> {
+            accept(t, u, v);
+            after.accept(t, u, v);
+        };
+    }
 
 }

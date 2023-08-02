@@ -9,16 +9,16 @@ public interface FailableTriPredicate<T, U, V, E extends Throwable> {
 
     default FailableTriPredicate<T, U, V, E> and(FailableTriPredicate<? super T, ? super U, ? super V, E> other) {
         Objects.requireNonNull(other);
-        return (T t, U u, V v) -> test(t, u, v) && other.test(t, u, v);
+        return (t, u, v) -> test(t, u, v) && other.test(t, u, v);
     }
 
     default FailableTriPredicate<T, U, V, E> negate() {
-        return (T t, U u, V v) -> !test(t, u, v);
+        return (t, u, v) -> !test(t, u, v);
     }
 
     default FailableTriPredicate<T, U, V, E> or(FailableTriPredicate<? super T, ? super U, ? super V, E> other) {
         Objects.requireNonNull(other);
-        return (T t, U u, V v) -> test(t, u, v) || other.test(t, u, v);
+        return (t, u, v) -> test(t, u, v) || other.test(t, u, v);
     }
 
 }
