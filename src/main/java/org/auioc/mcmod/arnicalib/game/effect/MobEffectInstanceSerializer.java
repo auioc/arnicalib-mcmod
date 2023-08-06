@@ -35,8 +35,8 @@ public class MobEffectInstanceSerializer {
             () -> RecordCodecBuilder.create(
                 instance -> instance.group(
                     ForgeRegistries.MOB_EFFECTS.getCodec().fieldOf("id").forGetter(MobEffectInstance::getEffect),
-                    Codec.INT.optionalFieldOf("duration", 0).forGetter(MobEffectInstance::getDuration),
-                    ExtraCodecs.intRange(0, 255).optionalFieldOf("amplifier", 0).forGetter(MobEffectInstance::getAmplifier),
+                    ExtraCodecs.intRange(0, Integer.MAX_VALUE).fieldOf("duration").forGetter(MobEffectInstance::getDuration),
+                    ExtraCodecs.intRange(0, 255).fieldOf("amplifier").forGetter(MobEffectInstance::getAmplifier),
                     Codec.BOOL.optionalFieldOf("ambient", false).forGetter(MobEffectInstance::isAmbient),
                     Codec.BOOL.optionalFieldOf("show_particles", true).forGetter(MobEffectInstance::isVisible),
                     Codec.BOOL.optionalFieldOf("show_icon", true).forGetter(MobEffectInstance::showIcon),
