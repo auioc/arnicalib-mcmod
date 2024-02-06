@@ -33,14 +33,19 @@ jobs:
             packages: write
 
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v4
 
             -   name: Set up JDK 17
-                uses: actions/setup-java@v3
+                uses: actions/setup-java@v4
                 with:
                     java-version: '17'
                     distribution: 'temurin'
                     architecture: 'x64'
+
+            -   name: Set up Gradle
+                uses: gradle/gradle-build-action@v3
+                with:
+                    cache-disabled: true
 
             -   name: Build and publish with Gradle
                 env:
@@ -52,7 +57,8 @@ jobs:
                     AUIOC_MAVEN_TOKEN: ${{secrets.AUIOC_MAVEN_TOKEN}}
                 run: |
                     chmod +x ./gradlew
-                    ./gradlew runData build publish generateUpdateJson
+                    ./gradlew runData
+                    ./gradlew build publish generateUpdateJson
                     mkdir ./pages
                     cp "./build/tmp/${{env.MINECRAFT_VERSION}}.json" ./pages
 
