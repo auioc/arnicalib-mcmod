@@ -1,8 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.resource.model;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
+
 import java.util.List;
 import java.util.Map;
+
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import com.google.gson.Gson;
@@ -12,8 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * This is a FAKE resource reload listener, do NOT register it!
@@ -52,6 +54,6 @@ public class CustomModelLoader extends SimpleJsonResourceReloadListener {
     // ====================================================================== //
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {}
+    protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) { }
 
 }

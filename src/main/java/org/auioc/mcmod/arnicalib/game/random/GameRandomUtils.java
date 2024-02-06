@@ -1,10 +1,15 @@
 package org.auioc.mcmod.arnicalib.game.random;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
 import org.auioc.mcmod.arnicalib.base.validate.Validate;
-import net.minecraft.util.RandomSource;
 
 public class GameRandomUtils extends RandomUtils {
+
+    public static RandomSource create() {
+        return new XoroshiroRandomSource(RandomUtils.uniqueSeed());
+    }
 
     public static double nextDouble(RandomSource random, double bound) {
         double r = random.nextDouble();
@@ -34,5 +39,6 @@ public class GameRandomUtils extends RandomUtils {
         Validate.isFractionChance(numerator, denominator);
         return random.nextInt(denominator) < numerator;
     }
+
 
 }

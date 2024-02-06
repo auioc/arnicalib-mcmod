@@ -4,7 +4,7 @@ import com.google.common.collect.Range;
 
 public class Validate extends org.apache.commons.lang3.Validate {
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region ThrowException
 
     public static void throwException(String message) {
@@ -17,7 +17,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     // #endregion ThrowException
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region CompareToZero
 
     private static final String NOT_POSITIVE_MESSAGE = "The value must be positive: %s";
@@ -97,7 +97,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
 
     // #endregion CompareToZero
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region Interval
 
     private static final String INVALID_INTERVAL_MESSAGE = "The left bound must be less than the right bound";
@@ -291,7 +291,7 @@ public class Validate extends org.apache.commons.lang3.Validate {
      * @param value the value to validate
      * @see #isInUnboundedInterval(double)
      */
-    public static void isInUnboundedInterval(long value) {}
+    public static void isInUnboundedInterval(long value) { }
 
     /*========================================================================*/
 
@@ -374,11 +374,11 @@ public class Validate extends org.apache.commons.lang3.Validate {
     /**
      * @see #isInUnboundedInterval(long)
      */
-    public static void isInUnboundedInterval(double value) {}
+    public static void isInUnboundedInterval(double value) { }
 
     // #endregion Interval
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region Fraction
 
     private static final String INVALID_FRACTION_MESSAGE = "The denominator must not be zero";

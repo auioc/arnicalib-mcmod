@@ -1,14 +1,12 @@
 package org.auioc.mcmod.arnicalib.game.loot.predicate;
 
-import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import net.minecraft.util.GsonHelper;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
+import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 
 public class ModLoadedCondition implements LootItemCondition {
 
@@ -30,18 +28,13 @@ public class ModLoadedCondition implements LootItemCondition {
 
     // ============================================================================================================== //
 
-    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<ModLoadedCondition> {
-
-        @Override
-        public void serialize(JsonObject json, ModLoadedCondition instance, JsonSerializationContext ctx) {
-            json.addProperty("mod", instance.modId);
-        }
-
-        @Override
-        public ModLoadedCondition deserialize(JsonObject json, JsonDeserializationContext ctx) {
-            return new ModLoadedCondition(GsonHelper.getAsString(json, "mod"));
-        }
-
-    }
+    public static final Codec<ModLoadedCondition> CODEC =
+        RecordCodecBuilder.create(
+            instance -> instance
+                .group(
+                    Codec.STRING.fieldOf("mod").forGetter(o -> o.modId)
+                )
+                .apply(instance, ModLoadedCondition::new)
+        );
 
 }

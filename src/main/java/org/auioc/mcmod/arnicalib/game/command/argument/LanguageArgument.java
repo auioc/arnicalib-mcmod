@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.command.argument;
 
 import java.util.concurrent.CompletableFuture;
+
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.language.LanguageUtils;
 import com.mojang.brigadier.StringReader;
@@ -14,8 +15,8 @@ import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LanguageArgument implements ArgumentType<LanguageInfo> {

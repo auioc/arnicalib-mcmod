@@ -1,11 +1,11 @@
 package org.auioc.mcmod.arnicalib.mod.datagen;
 
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.auioc.mcmod.arnicalib.mod.datagen.provider.HBlockTagsProvider;
 import org.auioc.mcmod.arnicalib.mod.datagen.provider.HEntityTypeTagsProvider;
 import org.auioc.mcmod.arnicalib.mod.datagen.provider.HItemTagsProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AHDataGenerators {

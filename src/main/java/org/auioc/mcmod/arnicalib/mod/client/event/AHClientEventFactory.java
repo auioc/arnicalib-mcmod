@@ -1,15 +1,16 @@
 package org.auioc.mcmod.arnicalib.mod.client.event;
 
-import java.util.List;
-import java.util.Map;
-import org.auioc.mcmod.arnicalib.game.event.client.ClientLanguageLoadEvent;
-import org.auioc.mcmod.arnicalib.game.event.client.ClientPermissionChangedEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.ModLoader;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.ModLoader;
+import net.neoforged.neoforge.common.NeoForge;
+import org.auioc.mcmod.arnicalib.game.event.client.ClientLanguageLoadEvent;
+import org.auioc.mcmod.arnicalib.game.event.client.ClientPermissionChangedEvent;
+
+import java.util.List;
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public final class AHClientEventFactory {
@@ -18,7 +19,7 @@ public final class AHClientEventFactory {
      * @see org.auioc.mcmod.arnicalib.mod.mixin.client.MixinLocalPlayer#setPermissionLevel
      */
     public static void onPermissionChanged(LocalPlayer player, int oldLevel, int newLevel) {
-        MinecraftForge.EVENT_BUS.post(new ClientPermissionChangedEvent(player, oldLevel, newLevel));
+        NeoForge.EVENT_BUS.post(new ClientPermissionChangedEvent(player, oldLevel, newLevel));
     }
 
     /**

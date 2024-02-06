@@ -1,6 +1,7 @@
 package org.auioc.mcmod.arnicalib.game.command;
 
 import java.util.function.Predicate;
+
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSource;
@@ -8,8 +9,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BaseCommandBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class CommandSourceUtils {
 

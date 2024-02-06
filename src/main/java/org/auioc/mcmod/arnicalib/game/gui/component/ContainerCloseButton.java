@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.game.gui.component;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ContainerCloseButton extends CloseButton<AbstractContainerScreen<?>> {

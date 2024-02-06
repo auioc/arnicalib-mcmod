@@ -2,7 +2,7 @@ package org.auioc.mcmod.arnicalib.game.event.common;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
 public abstract class FoodDataEvent extends LivingEvent {
 

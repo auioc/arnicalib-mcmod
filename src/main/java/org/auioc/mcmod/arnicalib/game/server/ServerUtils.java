@@ -1,20 +1,18 @@
 package org.auioc.mcmod.arnicalib.game.server;
 
-import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
-@SuppressWarnings("resource")
 public class ServerUtils {
 
-    private static final Pair<Double, Double> UNLOADED_LEVEL_TICK = Pair.of(-1.0D, -1.0D);
+    private static final TpsRecord UNLOADED_LEVEL_TICK = new TpsRecord(-1.0D, -1.0D);
 
     public static MinecraftServer getServer() {
         return ServerLifecycleHooks.getCurrentServer();
     }
 
-    public static Pair<Double, Double> calcTpsMspt(long[] tickArray) {
+    public static TpsRecord calc(long[] tickArray) {
         if (tickArray == null) return UNLOADED_LEVEL_TICK;
 
         long sum = 0L;
@@ -23,15 +21,15 @@ public class ServerUtils {
         double mspt = (sum / tickArray.length) * 1.0E-006D;
         double tps = Math.min(1000.0D / mspt, 20.0D);
 
-        return Pair.of(tps, mspt);
+        return new TpsRecord(mspt, tps);
     }
 
-    public static Pair<Double, Double> getTpsMspt() {
-        return calcTpsMspt(getServer().tickTimes);
+    public static TpsRecord getTpsMspt() {
+        return calc(getServer().getTickTimesNanos());
     }
 
-    public static Pair<Double, Double> getTpsMspt(ServerLevel level) {
-        return calcTpsMspt(getServer().getTickTime(level.dimension()));
+    public static TpsRecord getTpsMspt(ServerLevel level) {
+        return calc(getServer().getTickTime(level.dimension()));
     }
 
 }

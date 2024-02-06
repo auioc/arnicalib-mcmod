@@ -1,29 +1,27 @@
+# eclipse
 bin
 *.launch
 .settings
 .metadata
 .classpath
 .project
-.factorypath
-.vscode
-tmp
 
+# idea
 out
 *.ipr
 *.iws
 *.iml
 .idea
 
+# gradle
 build
 .gradle
 
+# other
+src/generated
 eclipse
 run
+runs
+run-data
 
-forge*changelog.txt
-
-test*.*
-
-mcmodsrepo
-
-src/generated
+repo

@@ -1,8 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.command.argument;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -14,10 +11,14 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
-import net.minecraftforge.client.gui.overlay.NamedGuiOverlay;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.gui.overlay.GuiOverlayManager;
+import net.neoforged.neoforge.client.gui.overlay.NamedGuiOverlay;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @OnlyIn(Dist.CLIENT)
 public class OverlayArgument implements ArgumentType<NamedGuiOverlay> {

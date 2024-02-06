@@ -1,10 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.world.position;
 
-import java.util.Optional;
-import java.util.Random;
-import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
-import org.auioc.mcmod.arnicalib.game.block.BlockUtils;
-import org.auioc.mcmod.arnicalib.game.random.GameRandomUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +7,12 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.auioc.mcmod.arnicalib.base.random.RandomUtils;
+import org.auioc.mcmod.arnicalib.game.block.BlockUtils;
+import org.auioc.mcmod.arnicalib.game.random.GameRandomUtils;
+
+import java.util.Optional;
+import java.util.Random;
 
 
 public class PositionUtils {
@@ -47,8 +48,7 @@ public class PositionUtils {
         return findStandableY(level, x, z, level.getMinBuildHeight(), level.getMaxBuildHeight() - 1);
     }
 
-    /*================================================================================================================*/
-    // #region Random
+    // ============================================================================================================== //
 
     public static Vec3i random(Vec3i center, int radius, Random random) {
         radius += 1;
@@ -93,7 +93,5 @@ public class PositionUtils {
     public static BlockPos random(BlockPos center, int radius, RandomSource random) {
         return new BlockPos(random((Vec3i) center, radius, random));
     }
-
-    // #endregion Random
 
 }

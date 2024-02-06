@@ -1,8 +1,8 @@
 package org.auioc.mcmod.arnicalib.game.event.client;
 
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientPermissionChangedEvent extends ClientPlayerEvent {
@@ -23,4 +23,5 @@ public class ClientPermissionChangedEvent extends ClientPlayerEvent {
     public int getNewLevel() {
         return newLevel;
     }
+
 }

@@ -1,9 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.gui.component;
 
 import java.util.List;
+
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CopyableTextWidget extends PlainTextWidget {

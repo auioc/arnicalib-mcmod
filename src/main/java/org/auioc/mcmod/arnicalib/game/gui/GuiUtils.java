@@ -1,20 +1,21 @@
 package org.auioc.mcmod.arnicalib.game.gui;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ScreenEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
 public class GuiUtils {
@@ -42,7 +43,7 @@ public class GuiUtils {
             var contents = button.getMessage().getContents();
             String message;
             if (contents instanceof TranslatableContents t) message = t.getKey();
-            else if (contents instanceof LiteralContents t) message = t.text();
+            else if (contents instanceof PlainTextContents t) message = t.text();
             else message = button.getMessage().getString();
             return message.equals(messageString);
         });

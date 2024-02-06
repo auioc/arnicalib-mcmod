@@ -1,17 +1,37 @@
 package org.auioc.mcmod.arnicalib.base.random;
 
+import org.auioc.mcmod.arnicalib.base.validate.Validate;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import org.auioc.mcmod.arnicalib.base.validate.Validate;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
+public class RandomUtils {
+
+    private static final AtomicLong seedUniquifier = new AtomicLong(9311145141919810L);
+
+    private static long seedUniquifier() {
+        for (; ; ) {
+            long current = seedUniquifier.get();
+            long next = current * 1181783497276652981L;
+            if (seedUniquifier.compareAndSet(current, next)) {
+                return next;
+            }
+        }
+    }
+
+    public static long uniqueSeed() {
+        return seedUniquifier() ^ System.nanoTime();
+    }
+
+    // ============================================================================================================== //
 
     public static final Random RANDOM = new Random();
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region PickFromCollection
 
     public static <T> T pickOneFromCollection(Collection<T> collection) {
@@ -83,7 +103,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     // #endregion PickFromCollection
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region Chance
 
     public static boolean percentageChance(int chance) {
@@ -118,7 +138,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     // #endregion Chance
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region Signum
 
     public static int nextSignum() {
@@ -131,7 +151,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
     // #endregion Signum
 
-    /*================================================================================================================*/
+    // ============================================================================================================== //
     // #region Offset
 
     public static int offset(int bound, Random random) {

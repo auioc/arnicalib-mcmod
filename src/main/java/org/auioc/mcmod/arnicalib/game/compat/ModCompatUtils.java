@@ -1,6 +1,6 @@
 package org.auioc.mcmod.arnicalib.game.compat;
 
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class ModCompatUtils {
 

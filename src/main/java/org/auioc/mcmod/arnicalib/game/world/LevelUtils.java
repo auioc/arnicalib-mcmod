@@ -1,11 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.world;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import javax.annotation.Nullable;
-import org.auioc.mcmod.arnicalib.game.server.ServerUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -20,8 +14,15 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.neoforged.neoforge.common.util.ITeleporter;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import org.auioc.mcmod.arnicalib.game.server.ServerUtils;
+
+import javax.annotation.Nullable;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class LevelUtils {
 

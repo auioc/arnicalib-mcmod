@@ -1,16 +1,17 @@
 package org.auioc.mcmod.arnicalib.game.codec;
 
-import java.util.Arrays;
-import java.util.function.IntFunction;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import org.auioc.mcmod.arnicalib.base.function.StringFunction;
-import org.auioc.mcmod.arnicalib.base.function.ToStringFunction;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import net.minecraft.util.ExtraCodecs;
+import org.auioc.mcmod.arnicalib.base.function.StringFunction;
+import org.auioc.mcmod.arnicalib.base.function.ToStringFunction;
+
+import java.util.Arrays;
+import java.util.function.IntFunction;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class EnumCodec<E extends Enum<E>> implements Codec<E> {
 
@@ -75,6 +76,10 @@ public class EnumCodec<E extends Enum<E>> implements Codec<E> {
     public static <E extends Enum<E>> EnumCodec<E> nameLowercaseWithCache(Class<E> enumClass, boolean large) {
         ToStringFunction<E> encoder = (e) -> e.name().toLowerCase();
         return large ? stringWithMapCache(enumClass, encoder) : stringWithArrayCache(enumClass, encoder);
+    }
+
+    public static <E extends Enum<E>> EnumCodec<E> nameLowercaseWithCache(Class<E> enumClass) {
+        return nameLowercaseWithCache(enumClass, enumClass.getEnumConstants().length > 8);
     }
 
 }

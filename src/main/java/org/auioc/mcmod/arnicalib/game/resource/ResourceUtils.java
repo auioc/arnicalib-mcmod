@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
+
 import org.auioc.mcmod.arnicalib.base.awt.ImageUtils;
 import org.auioc.mcmod.arnicalib.base.function.BiIntFunction;
 import net.minecraft.ResourceLocationException;
@@ -13,8 +14,8 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ResourceUtils {

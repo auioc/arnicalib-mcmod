@@ -1,15 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.effect;
 
-import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.apache.logging.log4j.Marker;
-import org.auioc.mcmod.arnicalib.base.log.LogUtil;
-import org.auioc.mcmod.arnicalib.base.validate.Validate;
-import org.auioc.mcmod.arnicalib.game.item.ItemRegistry;
-import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -17,14 +7,21 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.EffectCure;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import org.auioc.mcmod.arnicalib.base.validate.Validate;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
 public class MobEffectInstanceSerializer {
 
@@ -34,7 +31,7 @@ public class MobEffectInstanceSerializer {
         ExtraCodecs.lazyInitializedCodec(
             () -> RecordCodecBuilder.create(
                 instance -> instance.group(
-                    ForgeRegistries.MOB_EFFECTS.getCodec().fieldOf("id").forGetter(MobEffectInstance::getEffect),
+                    BuiltInRegistries.MOB_EFFECT.byNameCodec().fieldOf("id").forGetter(MobEffectInstance::getEffect),
                     ExtraCodecs.intRange(0, Integer.MAX_VALUE).fieldOf("duration").forGetter(MobEffectInstance::getDuration),
                     ExtraCodecs.intRange(0, 255).fieldOf("amplifier").forGetter(MobEffectInstance::getAmplifier),
                     Codec.BOOL.optionalFieldOf("ambient", false).forGetter(MobEffectInstance::isAmbient),
@@ -42,7 +39,10 @@ public class MobEffectInstanceSerializer {
                     Codec.BOOL.optionalFieldOf("show_icon", true).forGetter(MobEffectInstance::showIcon),
                     MobEffectInstanceSerializer.CODEC.optionalFieldOf("hidden_effect").forGetter((e) -> Optional.ofNullable(((IHMobEffectInstance) e).getHiddenEffect())),
                     MobEffectInstance.FactorData.CODEC.optionalFieldOf("factor_calculation_data").forGetter(MobEffectInstance::getFactorData),
-                    Codec.list(ForgeRegistries.ITEMS.getCodec()).optionalFieldOf("curative_items", List.of(Items.MILK_BUCKET)).forGetter((e) -> e.getCurativeItems().stream().map(ItemStack::getItem).toList())
+                    EffectCure.CODEC.listOf().optionalFieldOf("cures").forGetter((o) -> {
+                        var cures = o.getCures();
+                        return cures.isEmpty() ? Optional.empty() : Optional.of(List.copyOf(cures));
+                    })
                 ).apply(instance, MobEffectInstanceSerializer::createInstance)
             )
         );
@@ -67,10 +67,11 @@ public class MobEffectInstanceSerializer {
     private static MobEffectInstance createInstance(
         MobEffect effect, int duration, int amplifier, boolean ambient, boolean visible, boolean showIcon,
         Optional<MobEffectInstance> hiddenEffect, Optional<MobEffectInstance.FactorData> factorData,
-        List<Item> curativeItems
+        Optional<List<EffectCure>> cures
     ) {
         var instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect.orElse(null), Optional.empty());
-        instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).toList());
+        instance.getCures().clear();
+        cures.ifPresent(effectCures -> instance.getCures().addAll(effectCures));
         return instance;
     }
 
@@ -105,20 +106,20 @@ public class MobEffectInstanceSerializer {
 
         Optional<MobEffectInstance.FactorData> factorData =
             (json.has("FactorCalculationData"))
-                ? MobEffectInstance.FactorData.CODEC.parse(new Dynamic<>(JsonOps.INSTANCE, json.get("FactorCalculationData"))).resultOrPartial((error) -> LOGGER.error(MARKER, error))
-                : Optional.empty();
+            ? MobEffectInstance.FactorData.CODEC.parse(new Dynamic<>(JsonOps.INSTANCE, json.get("FactorCalculationData"))).resultOrPartial((error) -> LOGGER.error(MARKER, error))
+            : Optional.empty();
 
         MobEffectInstance instance = new MobEffectInstance(effect, duration, amplifier, ambient, visible, showIcon, hiddenEffect, factorData);
 
-        if (json.has("curative_items")) {
-            JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items");
-            List<ItemStack> curativeItems = new ArrayList<ItemStack>();
-            for (var element : curativeItemsJson) {
-                var curativeItemId = GsonHelper.convertToString(element, "curative_item");
-                curativeItems.add(new ItemStack(ItemRegistry.getOrElseThrow(curativeItemId)));
-            }
-            instance.setCurativeItems(curativeItems);
-        }
+        //        if (json.has("curative_items")) {
+        //            JsonArray curativeItemsJson = GsonHelper.getAsJsonArray(json, "curative_items");
+        //            List<ItemStack> curativeItems = new ArrayList<ItemStack>();
+        //            for (var element : curativeItemsJson) {
+        //                var curativeItemId = GsonHelper.convertToString(element, "curative_item");
+        //                curativeItems.add(new ItemStack(ItemRegistry.getOrElseThrow(curativeItemId)));
+        //            }
+        //            instance.setCurativeItems(curativeItems);
+        //        }
 
         return instance;
     }
@@ -135,11 +136,11 @@ public class MobEffectInstanceSerializer {
         json.addProperty("visible", instance.isVisible());
         json.addProperty("show_icon", instance.showIcon());
 
-        JsonArray curativeItems = new JsonArray();
-        for (ItemStack itemStack : instance.getCurativeItems()) {
-            curativeItems.add(RegistryUtils.id(itemStack.getItem()).toString());
-        }
-        json.add("curative_items", curativeItems);
+        //        JsonArray curativeItems = new JsonArray();
+        //        for (ItemStack itemStack : instance.getCurativeItems()) {
+        //            curativeItems.add(RegistryUtils.id(itemStack.getItem()).toString());
+        //        }
+        //        json.add("curative_items", curativeItems);
 
         if (((IHMobEffectInstance) instance).getHiddenEffect() != null) {
             JsonObject hiddenEffect = new JsonObject();

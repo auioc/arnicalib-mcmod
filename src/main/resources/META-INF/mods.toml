@@ -1,29 +1,33 @@
-modLoader = "javafml"
-loaderVersion = "[47,)"
-license = "GNU GPLv3"
-issueTrackerURL = "https://github.com/auioc/arnicalib-mcmod/issues"
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="https://github.com/${mod_repository}/issues"
 
 [[mods]]
-    modId = "arnicalib"
-    version = "${file.jarVersion}"
-    updateJSONURL = "https://hi.auioc.org/arnicalib-mcmod/update/1.20.1.json"
-    displayName = "ArnicaLib"
-    displayURL = "http://hi.auioc.org/arnicalib-mcmod/"
-    credits = "AUIOC"
-    authors = "WakelssSloth56, LainIO24"
-    description = '''
-Shared library for AH's Minecraft mods.
-'''
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+updateJSONURL = "https://hi.auioc.org/arnicalib-mcmod/update/1.20.4.json"
+displayURL = "http://hi.auioc.org/arnicalib-mcmod/"
+credits="${mod_credits}"
+authors="${mod_authors}"
+description='''${mod_description}'''
 
-[[dependencies.arnicalib]]
-    modId = "forge"
-    mandatory = true
-    versionRange = "[47,)"
-    ordering = "NONE"
-    side = "BOTH"
-[[dependencies.arnicalib]]
-    modId = "minecraft"
-    mandatory = true
-    versionRange = "[1.20.1,1.21)"
-    ordering = "NONE"
-    side = "BOTH"
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
+[[mixins]]
+config="arnicalib.mixin.json"
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"

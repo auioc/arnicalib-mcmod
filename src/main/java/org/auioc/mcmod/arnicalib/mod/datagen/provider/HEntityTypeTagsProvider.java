@@ -1,18 +1,20 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
-import static org.auioc.mcmod.arnicalib.game.tag.HEntityTypeTags.*;
-import java.util.concurrent.CompletableFuture;
-import javax.annotation.Nonnull;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
-import org.auioc.mcmod.arnicalib.game.entity.EntityTypePredicates;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
+import org.auioc.mcmod.arnicalib.game.entity.EntityTypePredicates;
+
+import javax.annotation.Nonnull;
+import java.util.concurrent.CompletableFuture;
+
+import static org.auioc.mcmod.arnicalib.game.tag.HEntityTypeTags.*;
 
 public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements IHTagsProvider<EntityType<?>> {
 
@@ -27,8 +29,8 @@ public class HEntityTypeTagsProvider extends EntityTypeTagsProvider implements I
 
     @Nonnull
     @Override
-    public IForgeRegistry<EntityType<?>> getRegistry() {
-        return ForgeRegistries.ENTITY_TYPES;
+    public Registry<EntityType<?>> getRegistry() {
+        return BuiltInRegistries.ENTITY_TYPE;
     }
 
     @Override

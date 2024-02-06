@@ -1,10 +1,9 @@
 package org.auioc.mcmod.arnicalib.game.mod;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.network.NetworkConstants;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.IExtensionPoint.DisplayTest;
+import net.neoforged.fml.ModLoadingContext;
 
 public class ExtensionPointUtils {
 
@@ -14,7 +13,7 @@ public class ExtensionPointUtils {
     }
 
     public static void serverOnly() {
-        ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (s, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> DisplayTest.IGNORESERVERONLY, (s, b) -> true));
     }
 
 }

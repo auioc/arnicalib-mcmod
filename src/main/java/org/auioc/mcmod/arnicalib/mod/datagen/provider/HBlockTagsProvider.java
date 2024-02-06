@@ -1,17 +1,19 @@
 package org.auioc.mcmod.arnicalib.mod.datagen.provider;
 
-import java.util.concurrent.CompletableFuture;
-import javax.annotation.Nonnull;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.datagen.tag.IHTagsProvider;
 import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
+
+import javax.annotation.Nonnull;
+import java.util.concurrent.CompletableFuture;
+
 
 public class HBlockTagsProvider extends BlockTagsProvider implements IHTagsProvider<Block> {
 
@@ -26,8 +28,8 @@ public class HBlockTagsProvider extends BlockTagsProvider implements IHTagsProvi
 
     @Nonnull
     @Override
-    public IForgeRegistry<Block> getRegistry() {
-        return ForgeRegistries.BLOCKS;
+    public Registry<Block> getRegistry() {
+        return BuiltInRegistries.BLOCK;
     }
 
     @Override

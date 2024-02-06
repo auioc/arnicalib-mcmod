@@ -1,9 +1,10 @@
 package org.auioc.mcmod.arnicalib.game.input;
 
 import java.util.function.BooleanSupplier;
+
 import org.auioc.mcmod.arnicalib.base.function.VoidPredicate;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public enum KeyDownRule implements VoidPredicate, BooleanSupplier {

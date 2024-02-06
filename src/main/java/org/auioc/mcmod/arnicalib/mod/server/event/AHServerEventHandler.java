@@ -1,13 +1,14 @@
 package org.auioc.mcmod.arnicalib.mod.server.event;
 
-import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
+import net.minecraft.network.protocol.handshake.ClientIntent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.mod.server.command.AHServerCommands;
-import net.minecraft.network.ConnectionProtocol;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
 public final class AHServerEventHandler {
 
@@ -24,7 +25,7 @@ public final class AHServerEventHandler {
 
     @SubscribeEvent
     public static void onServerLogin(final ServerLoginEvent event) {
-        if (event.getPacket().getIntention() == ConnectionProtocol.STATUS) {
+        if (event.getPacket().intention() == ClientIntent.STATUS) {
             LOGGER.debug(
                 SLP_MARKER,
                 String.format("[%s] <-> InitialHandler has pinged", event.getNetworkManager().getRemoteAddress())

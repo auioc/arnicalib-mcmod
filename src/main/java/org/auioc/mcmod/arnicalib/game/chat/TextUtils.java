@@ -1,15 +1,20 @@
 package org.auioc.mcmod.arnicalib.game.chat;
 
-import java.util.List;
-import javax.annotation.Nullable;
 import com.google.gson.JsonElement;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.network.chat.*;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
 public class TextUtils {
+
+    private static final Marker MARKER = LogUtil.getMarker(TextUtils.class);
 
     public static final Object[] NO_ARGS = new Object[0];
 
@@ -39,7 +44,7 @@ public class TextUtils {
     }
 
     /**
-     * @deprecated Use {@link net.minecraft.network.chat.Component#translatable(String,Object...)} instead
+     * @deprecated Use {@link net.minecraft.network.chat.Component#translatable(String, Object...)} instead
      */
     @Deprecated(since = "6.0.0", forRemoval = true)
     public static MutableComponent translatable(String key, Object... arguments) {
@@ -77,12 +82,11 @@ public class TextUtils {
         return join(texts, literal(", "));
     }
 
-
-    private static final Style.Serializer STYLE_SERIALIZER = new Style.Serializer();
-
     @Nullable
     public static Style deserializeStyle(JsonElement json) {
-        return STYLE_SERIALIZER.deserialize(json, null, null);
+        return Style.Serializer.CODEC
+            .parse(new Dynamic<>(JsonOps.INSTANCE, json))
+            .getOrThrow(false, (error) -> LOGGER.error(MARKER, error));
     }
 
 }

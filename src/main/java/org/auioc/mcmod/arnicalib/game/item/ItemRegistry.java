@@ -1,18 +1,19 @@
 package org.auioc.mcmod.arnicalib.game.item;
 
-import java.util.List;
-import java.util.Optional;
-import javax.annotation.Nonnull;
-import org.auioc.mcmod.arnicalib.game.registry.RegistryEntryException;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryEntryException;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Optional;
 
 public class ItemRegistry {
 
     @Nonnull
     public static Optional<Item> get(ResourceLocation id) {
-        return Optional.ofNullable(ForgeRegistries.ITEMS.containsKey(id) ? ForgeRegistries.ITEMS.getValue(id) : null);
+        return Optional.ofNullable(BuiltInRegistries.ITEM.containsKey(id) ? BuiltInRegistries.ITEM.get(id) : null);
     }
 
     @Nonnull
@@ -27,7 +28,7 @@ public class ItemRegistry {
 
     @Nonnull
     public static Item getOrElseThrow(String id) {
-        return get(id).orElseThrow(RegistryEntryException.UNKNOWN_ITEM.create(id.toString()));
+        return get(id).orElseThrow(RegistryEntryException.UNKNOWN_ITEM.create(id));
     }
 
     public static List<Item> getItems(List<String> idList) {

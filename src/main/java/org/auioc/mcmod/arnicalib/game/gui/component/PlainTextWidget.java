@@ -3,6 +3,7 @@ package org.auioc.mcmod.arnicalib.game.gui.component;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
+
 import org.auioc.mcmod.arnicalib.game.gui.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -11,8 +12,8 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class PlainTextWidget extends AbstractWidget {
@@ -78,7 +79,7 @@ public class PlainTextWidget extends AbstractWidget {
     // ====================================================================== //
 
     @Override
-    public void onClick(double mouseX, double mouseY) {}
+    public void onClick(double mouseX, double mouseY) { }
 
     @Nullable
     public List<Component> getTooltips() { return null; }

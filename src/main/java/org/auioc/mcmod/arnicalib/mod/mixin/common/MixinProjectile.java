@@ -1,6 +1,8 @@
 package org.auioc.mcmod.arnicalib.mod.mixin.common;
 
-import javax.annotation.Nullable;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.phys.Vec3;
 import org.auioc.mcmod.arnicalib.game.entity.projectile.IHProjectile;
 import org.auioc.mcmod.arnicalib.game.nbt.NbtUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,9 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
 
 @Mixin(value = Projectile.class)
 public class MixinProjectile implements IHProjectile {

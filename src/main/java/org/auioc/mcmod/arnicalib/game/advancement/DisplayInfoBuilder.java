@@ -1,12 +1,14 @@
 package org.auioc.mcmod.arnicalib.game.advancement;
 
-import javax.annotation.Nullable;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
-import net.minecraft.advancements.FrameType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class DisplayInfoBuilder {
 
@@ -15,15 +17,15 @@ public class DisplayInfoBuilder {
     private ItemStack icon = ItemStack.EMPTY;
     @Nullable
     private ResourceLocation background = null;
-    private FrameType frame = FrameType.TASK;
+    private AdvancementType frame = AdvancementType.TASK;
     private boolean showToast = false;
     private boolean announceChat = false;
     private boolean hidden = false;
 
-    public DisplayInfoBuilder() {}
+    public DisplayInfoBuilder() { }
 
     public DisplayInfo build() {
-        return new DisplayInfo(icon, title, description, background, frame, showToast, hidden, announceChat);
+        return new DisplayInfo(icon, title, description, Optional.ofNullable(background), frame, showToast, hidden, announceChat);
     }
 
     public DisplayInfoBuilder title(Component title) {
@@ -72,23 +74,23 @@ public class DisplayInfoBuilder {
         return this;
     }
 
-    public DisplayInfoBuilder frame(FrameType frame) {
+    public DisplayInfoBuilder frame(AdvancementType frame) {
         this.frame = frame;
         return this;
     }
 
     public DisplayInfoBuilder taskFrame() {
-        frame(FrameType.TASK);
+        frame(AdvancementType.TASK);
         return this;
     }
 
     public DisplayInfoBuilder challengeFrame() {
-        frame(FrameType.CHALLENGE);
+        frame(AdvancementType.CHALLENGE);
         return this;
     }
 
     public DisplayInfoBuilder goalFrame() {
-        frame(FrameType.GOAL);
+        frame(AdvancementType.GOAL);
         return this;
     }
 

@@ -1,13 +1,14 @@
 package org.auioc.mcmod.arnicalib.game.event.client;
 
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.event.IModBusEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientLanguageLoadEvent extends Event implements IModBusEvent {

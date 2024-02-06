@@ -2,11 +2,10 @@ package org.auioc.mcmod.arnicalib.game.event.server;
 
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
-import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.ICancellableEvent;
 
-@Cancelable
-public class ServerLoginEvent extends Event {
+public class ServerLoginEvent extends Event implements ICancellableEvent {
 
     private final ClientIntentionPacket packet;
     private final Connection manager;

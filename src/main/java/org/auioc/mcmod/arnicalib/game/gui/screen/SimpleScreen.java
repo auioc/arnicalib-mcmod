@@ -1,10 +1,5 @@
 package org.auioc.mcmod.arnicalib.game.gui.screen;
 
-import java.awt.Rectangle;
-import java.util.function.IntUnaryOperator;
-import org.auioc.mcmod.arnicalib.ArnicaLib;
-import org.auioc.mcmod.arnicalib.game.gui.component.CloseButton;
-import org.auioc.mcmod.arnicalib.game.resource.ResourceUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -12,8 +7,14 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.game.gui.component.CloseButton;
+import org.auioc.mcmod.arnicalib.game.resource.ResourceUtils;
+
+import java.awt.*;
+import java.util.function.IntUnaryOperator;
 
 @OnlyIn(Dist.CLIENT)
 public class SimpleScreen extends HScreen {
@@ -92,17 +93,17 @@ public class SimpleScreen extends HScreen {
         subInit();
     }
 
-    protected void subInit() {}
+    protected void subInit() { }
 
     @Override
     public final void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         calcBoxVertices();
-        renderBackground(guiGraphics);
+        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         subRender(guiGraphics, mouseX, mouseY, partialTick);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 
-    protected void subRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {}
+    protected void subRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) { }
 
     protected <T extends GuiEventListener & Renderable & NarratableEntry> T renderableWidget(T widget) {
         addRenderableWidget(widget);
@@ -116,8 +117,8 @@ public class SimpleScreen extends HScreen {
         boxY2 = boxY1 + boxHeight;
     }
 
-    public final void renderBackground(GuiGraphics guiGraphics) {
-        super.renderBackground(guiGraphics);
+    public final void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         renderBorderEdge(guiGraphics);
         renderBorderCorner(guiGraphics);
         guiGraphics.fill(boxX1, boxY1, boxX2, boxY2, colorC6);
