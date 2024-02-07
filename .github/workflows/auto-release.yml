@@ -42,11 +42,6 @@ jobs:
                     distribution: 'temurin'
                     architecture: 'x64'
 
-            -   name: Set up Gradle
-                uses: gradle/gradle-build-action@v3
-                with:
-                    cache-disabled: true
-
             -   name: Build and publish with Gradle
                 env:
                     IS_RELEASE: true
