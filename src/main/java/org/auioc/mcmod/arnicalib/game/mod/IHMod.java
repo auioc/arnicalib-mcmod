@@ -19,11 +19,18 @@
 
 package org.auioc.mcmod.arnicalib.game.mod;
 
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 
 public interface IHMod {
 
-    Marker COREMARKER = LogUtil.getMarker("CORE");
+    Marker MARKER = LogUtil.getMarker("CORE");
+
+    static void validateVersion(BuildInfo buildInfo, Logger logger) {
+        logger.info(MARKER, "Version: " + buildInfo.version() + " (" + buildInfo + ")");
+        if (!buildInfo.isRelease()) { logger.warn(MARKER, "Mod is a development version"); }
+        if (buildInfo.isDirty()) { logger.warn(MARKER, "Mod is a dirty build"); }
+    }
 
 }
