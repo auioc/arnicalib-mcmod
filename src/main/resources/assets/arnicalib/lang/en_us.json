@@ -10,9 +10,8 @@
     "arnicalib.argument.language.unknown": "Unknown language \"%s\"",
     "arnicalib.argument.overlay.unknown": "Unknown overlay \"%s\"",
 
-    "arnicalib.command.version.success": "Version: %s (%s)",
-    "arnicalib.command.version.failure.zero": "§eCould not read the mod version. §7If this is a development environment you can ignore this message",
-    "arnicalib.command.version.failure.reflection": "Failed while using reflection to get mod version",
+    "arnicalib.command.version.success": "Version: %1$s (%2$s)",
+    "arnicalib.command.version.failure": "Failed to get mod build info: %s",
 
     "direction.8wind.0": "North",
     "direction.8wind.1": "Northeast",
