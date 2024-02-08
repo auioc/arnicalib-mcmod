@@ -122,7 +122,7 @@ public class EntityAttributeCondition implements LootItemCondition {
             instance -> instance
                 .group(
                     BuiltInRegistries.ATTRIBUTE.byNameCodec().fieldOf("attribute").forGetter(o -> o.attribute),
-                    EnumCodec.nameLowercaseWithCache(AttributeValueType.class).fieldOf("valueType").forGetter((o -> o.valueType)),
+                    EnumCodec.byNameLowerCase(AttributeValueType.class).fieldOf("valueType").forGetter((o -> o.valueType)),
                     MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter((o -> o.value)),
                     EntityTarget.CODEC.fieldOf("").forGetter((o -> o.entityTarget))
                 )

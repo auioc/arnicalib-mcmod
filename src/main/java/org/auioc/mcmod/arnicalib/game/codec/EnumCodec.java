@@ -29,14 +29,13 @@ import org.auioc.mcmod.arnicalib.base.function.ToStringFunction;
 
 import java.util.Arrays;
 import java.util.function.IntFunction;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class EnumCodec<E extends Enum<E>> implements Codec<E> {
 
     private final Codec<E> codec;
 
-    public EnumCodec(Codec<E> codec) {
+    private EnumCodec(Codec<E> codec) {
         this.codec = codec;
     }
 
@@ -52,53 +51,55 @@ public class EnumCodec<E extends Enum<E>> implements Codec<E> {
 
     // ============================================================================================================== //
 
-    public static <E extends Enum<E>> EnumCodec<E> of(ToStringFunction<E> encoder, StringFunction<E> decoder) {
-        return new EnumCodec<>(ExtraCodecs.stringResolverCodec(encoder, (s) -> (s != null) ? decoder.apply(s) : null));
-    }
-
-    public static <E extends Enum<E>> EnumCodec<E> of(IntFunction<E> decoder) {
+    private static <E extends Enum<E>> EnumCodec<E> of(IntFunction<E> decoder) {
         return new EnumCodec<>(ExtraCodecs.idResolverCodec(Enum::ordinal, decoder, -1));
     }
 
-    // ====================================================================== //
-
-    public static <E extends Enum<E>> EnumCodec<E> ordinalWithCache(Class<E> enumClass) {
-        var values = enumClass.getEnumConstants();
-        return of((i) -> (i >= 0 && i < values.length) ? values[i] : null);
+    private static <E extends Enum<E>> EnumCodec<E> of(ToStringFunction<E> encoder, StringFunction<E> decoder) {
+        return new EnumCodec<>(ExtraCodecs.stringResolverCodec(encoder, (s) -> (s != null) ? decoder.apply(s) : null));
     }
 
-    // ====================================================================== //
-
-    public static <E extends Enum<E>> EnumCodec<E> stringWithMapCache(Supplier<E[]> values, ToStringFunction<E> encoder) {
-        var map = Arrays.stream(values.get()).collect(Collectors.toMap(encoder, (e) -> e));
-        return of(encoder, map::get);
-    }
-
-    public static <E extends Enum<E>> EnumCodec<E> stringWithMapCache(Class<E> enumClass, ToStringFunction<E> encoder) {
-        return stringWithMapCache(enumClass::getEnumConstants, encoder);
-    }
-
-    public static <E extends Enum<E>> EnumCodec<E> stringWithArrayCache(Supplier<E[]> values, ToStringFunction<E> encoder) {
-        var _values = values.get();
+    private static <E extends Enum<E>> EnumCodec<E> of(E[] values, ToStringFunction<E> encoder, int threshold) {
+        if (values.length > threshold) {
+            var map = Arrays.stream(values)
+                .collect(Collectors.toMap(encoder, (e) -> e));
+            return of(encoder, map::get);
+        }
         return of(encoder, (s) -> {
-            for (E e : _values) if (encoder.apply(e).equals(s)) return e;
+            for (E e : values) if (encoder.apply(e).equals(s)) return e;
             return null;
         });
     }
 
-    public static <E extends Enum<E>> EnumCodec<E> stringWithArrayCache(Class<E> enumClass, ToStringFunction<E> encoder) {
-        return stringWithArrayCache(enumClass::getEnumConstants, encoder);
+    private static final int THRESHOLD = 8;
+
+    // ====================================================================== //
+
+    public static <E extends Enum<E>> EnumCodec<E> byString(Class<E> enumClass, ToStringFunction<E> encoder, int threshold) {
+        return of(enumClass.getEnumConstants(), encoder, threshold);
+    }
+
+    public static <E extends Enum<E>> EnumCodec<E> byString(Class<E> enumClass, ToStringFunction<E> encoder) {
+        return byString(enumClass, encoder, THRESHOLD);
+    }
+
+    public static <E extends Enum<E>> EnumCodec<E> byName(Class<E> enumClass) {
+        return byString(enumClass, E::name, THRESHOLD);
+    }
+
+    public static <E extends Enum<E>> EnumCodec<E> byNameLowerCase(Class<E> enumClass) {
+        return byString(enumClass, (e) -> e.name().toLowerCase(), THRESHOLD);
+    }
+
+    public static <E extends Enum<E>> EnumCodec<E> byNameUpperCase(Class<E> enumClass) {
+        return byString(enumClass, (e) -> e.name().toUpperCase(), THRESHOLD);
     }
 
     // ====================================================================== //
 
-    public static <E extends Enum<E>> EnumCodec<E> nameLowercaseWithCache(Class<E> enumClass, boolean large) {
-        ToStringFunction<E> encoder = (e) -> e.name().toLowerCase();
-        return large ? stringWithMapCache(enumClass, encoder) : stringWithArrayCache(enumClass, encoder);
-    }
-
-    public static <E extends Enum<E>> EnumCodec<E> nameLowercaseWithCache(Class<E> enumClass) {
-        return nameLowercaseWithCache(enumClass, enumClass.getEnumConstants().length > 8);
+    public static <E extends Enum<E>> EnumCodec<E> byOrdinal(Class<E> enumClass) {
+        var values = enumClass.getEnumConstants();
+        return of((i) -> (i >= 0 && i < values.length) ? values[i] : null);
     }
 
 }
