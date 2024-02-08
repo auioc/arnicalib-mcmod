@@ -55,7 +55,7 @@ public final class AHServerCommands {
         if (EnvironmentUtils.IS_DEV) {
             node.addChild(
                 DynamicCommandHandler.createBuilder(
-                    "org.auioc.mcmod.arnicalib.mod.test.TestHandlerCommand",
+                    "org.auioc.mcmod.arnicalib.mod.test.DevTestHandlerCommand",
                     "create",
                     literal("test")
                 ).build()

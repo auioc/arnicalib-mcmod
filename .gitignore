@@ -21,6 +21,7 @@ build
 .gradle
 
 # other
+**/test/DevTest*.java
 src/generated
 eclipse
 run
