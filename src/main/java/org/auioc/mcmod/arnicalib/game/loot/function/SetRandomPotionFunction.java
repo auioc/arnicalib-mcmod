@@ -82,7 +82,7 @@ public class SetRandomPotionFunction extends LootItemConditionalFunction {
             instance -> commonFields(instance)
                 .and(
                     instance.group(
-                        BuiltInRegistries.POTION.byNameCodec().listOf().fieldOf("potions").forGetter(o -> o.potions),
+                        BuiltInRegistries.POTION.byNameCodec().listOf().optionalFieldOf("potions", List.of()).forGetter(o -> o.potions),
                         Codec.BOOL.optionalFieldOf("blacklist", Boolean.TRUE).forGetter(o -> o.isBlacklist)
                     )
                 )
