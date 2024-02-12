@@ -25,9 +25,7 @@ jobs:
                     java-version: '17'
                     distribution: 'temurin'
                     architecture: 'x64'
-
-            -   name: Set up Gradle
-                uses: gradle/gradle-build-action@v3
+                    cache: 'gradle'
 
             -   name: Build with Gradle
                 run: |
