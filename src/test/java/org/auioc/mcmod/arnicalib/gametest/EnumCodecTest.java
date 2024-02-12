@@ -99,7 +99,7 @@ public class EnumCodecTest {
         decodeTest("byString", BY_STRING, new JsonPrimitive("N:A"), TestEnum.A);
         decodeTest("byNameLowerCase", BY_NAME_L, new JsonPrimitive("b_s"), TestEnum.B_S);
         decodeTest("byNameUpperCase", BY_NAME_U, new JsonPrimitive("C_S"), TestEnum.c_s);
-        decodeTest("byName", BY_NAME, new JsonPrimitive("D_s"), TestEnum.A);
+        decodeTest("byName", BY_NAME, new JsonPrimitive("D_s"), TestEnum.D_s);
         helper.succeed();
     }
 
