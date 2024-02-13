@@ -6,6 +6,7 @@
         "common.MixinAccessorArrow",
         "common.MixinAccessorEnchantment",
         "common.MixinAccessorMobEffectInstance",
+        "common.MixinPistonBaseBlock",
         "common.MixinProjectile",
         "server.MixinBowItem",
         "server.MixinMemoryServerHandshakePacketListenerImpl",
