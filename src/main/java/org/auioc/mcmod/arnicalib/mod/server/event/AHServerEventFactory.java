@@ -73,7 +73,9 @@ public final class AHServerEventFactory {
         BUS.post(new ProjectileWeaponReleaseEvent(living, weapon, projectile));
     }
 
-
+    /**
+     * @see <code>coremod: arnicalib.fishing_rod_item.use<code/>
+     */
     public static FishingRodCastEvent preFishingRodCast(Player player, ItemStack fishingRod, int speedBonus, int luckBonus) {
         var event = new FishingRodCastEvent((ServerPlayer) player, fishingRod, speedBonus, luckBonus);
         return BUS.post(event);

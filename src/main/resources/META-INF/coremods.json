@@ -1,3 +1,4 @@
 {
-    "arnicalib.cross_bow_item.shoot_projectile": "coremods/cross_bow_item.shoot_projectile.js"
+    "arnicalib.cross_bow_item.shoot_projectile": "coremods/cross_bow_item.shoot_projectile.js",
+    "arnicalib.fishing_rod_item.use": "coremods/fishing_rod_item.use.js"
 }
