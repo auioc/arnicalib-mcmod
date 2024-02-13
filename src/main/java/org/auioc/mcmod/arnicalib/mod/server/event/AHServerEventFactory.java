@@ -32,7 +32,6 @@ import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.event.server.ProjectileWeaponReleaseEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
-import org.auioc.mcmod.arnicalib.mod.mixin.server.MixinServerHandshakePacketListenerImpl;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
@@ -42,10 +41,8 @@ public final class AHServerEventFactory {
 
     private static final IEventBus BUS = NeoForge.EVENT_BUS;
 
-    // Return true if the event was Cancelable cancelled
-
     /**
-     * @see MixinServerHandshakePacketListenerImpl#handleServerLogin
+     * @see org.auioc.mcmod.arnicalib.mod.mixin.server.MixinServerHandshakePacketListenerImpl#handleServerLogin
      */
     public static boolean onServerLogin(final ClientIntentionPacket packet, final Connection connection) {
         var event = new ServerLoginEvent(packet, connection);
@@ -65,8 +62,12 @@ public final class AHServerEventFactory {
         return false;
     }
 
-    public static void preProjectileWeaponRelease(LivingEntity player, ItemStack weapon, Projectile projectile) {
-        BUS.post(new ProjectileWeaponReleaseEvent(player, weapon, projectile));
+    /**
+     * @see org.auioc.mcmod.arnicalib.mod.mixin.server.MixinBowItem#releaseUsing
+     * @see <code>coremod: arnicalib.cross_bow_item.shoot_projectile<code/>
+     */
+    public static void preProjectileWeaponRelease(LivingEntity living, ItemStack weapon, Projectile projectile) {
+        BUS.post(new ProjectileWeaponReleaseEvent(living, weapon, projectile));
     }
 
 }

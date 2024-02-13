@@ -47,7 +47,7 @@ public class MixinBowItem {
         require = 1,
         allow = 1
     )
-    public void releaseUsing(
+    private void releaseUsing(
         ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft,
         CallbackInfo ci,
         Player player, boolean flag, ItemStack itemstack, int i, float f, boolean flag1, ArrowItem arrowitem, AbstractArrow abstractarrow, int j, int k
