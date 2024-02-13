@@ -19,6 +19,8 @@
 
 package org.auioc.mcmod.arnicalib.mod.coremod;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -27,6 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.auioc.mcmod.arnicalib.game.event.server.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory;
+
+import javax.annotation.Nullable;
 
 public class AHCoreModHandler {
 
@@ -49,6 +53,13 @@ public class AHCoreModHandler {
      */
     public static boolean checkPistonInteractivity(BlockState blockState) {
         return blockState.is(HBlockTags.PISTON_NONINTERACTIVE);
+    }
+
+    /**
+     * @see <code>coremod: arnicalib.item_stack.hurt<code/>
+     */
+    public static int onItemHurt(ItemStack itemStack, int damage, RandomSource random, @Nullable ServerPlayer player) {
+        return AHServerEventFactory.onItemHurt(itemStack, damage, random, player).getDamage();
     }
 
 }
