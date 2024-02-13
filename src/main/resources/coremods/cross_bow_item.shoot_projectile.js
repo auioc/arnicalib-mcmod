@@ -11,7 +11,7 @@ function initializeCoreMod() {
                 type: 'METHOD',
                 class: 'net.minecraft.world.item.CrossbowItem',
                 methodName: 'shootProjectile',
-                methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;FZFFF)V',
+                methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;FZFFF)V'
             },
             transformer: function (methodNode) {
                 var toInject = new InsnList();
@@ -22,8 +22,8 @@ function initializeCoreMod() {
                     toInject.add(
                         new MethodInsnNode(
                             Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/server/event/AHServerEventFactory',
-                            'preProjectileWeaponRelease',
+                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
+                            'preCrossbowRelease',
                             '(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/Projectile;)V',
                             false
                         )
@@ -45,8 +45,8 @@ function initializeCoreMod() {
 
                 // print(ASMAPI.methodNodeToString(methodNode));
                 return methodNode;
-            },
-        },
+            }
+        }
     };
 }
 
@@ -68,7 +68,7 @@ function initializeCoreMod() {
             //_...
             Projectile projectile;
             //_...
-+           org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory.preProjectileWeaponRelease(pShooter, pCrossbowStack, projectile);
++           org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.preCrossbowRelease(pShooter, pCrossbowStack, projectile);
             pLevel.addFreshEntity(projectile);
             //_...
         }
@@ -80,7 +80,7 @@ function initializeCoreMod() {
 +       ALOAD 1
 +       ALOAD 3
 +       ALOAD 11
-+       INVOKESTATIC org/auioc/mcmod/arnicalib/mod/server/event/AHServerEventFactory.preCrossbowRelease (Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/Projectile;)V
++       INVOKESTATIC org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler.preCrossbowRelease (Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/Projectile;)V
         ALOAD 0
         ALOAD 11
         INVOKEVIRTUAL net/minecraft/world/level/Level.addFreshEntity (Lnet/minecraft/world/entity/Entity;)Z

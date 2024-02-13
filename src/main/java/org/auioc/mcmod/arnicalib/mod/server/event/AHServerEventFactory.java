@@ -35,6 +35,7 @@ import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.event.server.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ProjectileWeaponReleaseEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
+import org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
@@ -67,14 +68,14 @@ public final class AHServerEventFactory {
 
     /**
      * @see org.auioc.mcmod.arnicalib.mod.mixin.server.MixinBowItem#releaseUsing
-     * @see <code>coremod: arnicalib.cross_bow_item.shoot_projectile<code/>
+     * @see AHCoreModHandler#preCrossbowRelease
      */
     public static void preProjectileWeaponRelease(LivingEntity living, ItemStack weapon, Projectile projectile) {
         BUS.post(new ProjectileWeaponReleaseEvent(living, weapon, projectile));
     }
 
     /**
-     * @see <code>coremod: arnicalib.fishing_rod_item.use<code/>
+     * @see AHCoreModHandler#preFishingRodCast
      */
     public static FishingRodCastEvent preFishingRodCast(Player player, ItemStack fishingRod, int speedBonus, int luckBonus) {
         var event = new FishingRodCastEvent((ServerPlayer) player, fishingRod, speedBonus, luckBonus);

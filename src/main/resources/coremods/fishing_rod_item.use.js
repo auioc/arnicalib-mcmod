@@ -13,7 +13,7 @@ function initializeCoreMod() {
                 type: 'METHOD',
                 class: 'net.minecraft.world.item.FishingRodItem',
                 methodName: 'use',
-                methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;',
+                methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;'
             },
             transformer: function (methodNode) {
                 var toInject = new InsnList();
@@ -40,7 +40,7 @@ function initializeCoreMod() {
                     toInject.add(
                         new MethodInsnNode(
                             Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/server/event/AHServerEventFactory',
+                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
                             'preFishingRodCast',
                             '(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;',
                             false
@@ -87,8 +87,8 @@ function initializeCoreMod() {
 
                 // print(ASMAPI.methodNodeToString(methodNode));
                 return methodNode;
-            },
-        },
+            }
+        }
     };
 }
 
@@ -114,7 +114,7 @@ function initializeCoreMod() {
             if (!pLevel.isClientSide) {
                 int k = EnchantmentHelper.getFishingSpeedBonus(itemstack);
                 int j = EnchantmentHelper.getFishingLuckBonus(itemstack);
-+               var event = org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory.preFishingRodCast(pPlayer, itemstack, k, j);
++               var event = org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.preFishingRodCast(pPlayer, itemstack, k, j);
 +               k = event.getSpeedBonus();
 +               j = event.getLuckBonus();
                 pLevel.addFreshEntity(new FishingHook(pPlayer, pLevel, j, k));
@@ -142,7 +142,7 @@ function initializeCoreMod() {
 +       ALOAD 4
 +       ILOAD 5
 +       ILOAD 6
-+       INVOKESTATIC org/auioc/mcmod/arnicalib/mod/server/event/AHServerEventFactory.preFishingRodCast (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;
++       INVOKESTATIC org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler.preFishingRodCast (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;
 +       ASTORE 7
 +       ALOAD 7
 +       INVOKEVIRTUAL org/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent.getSpeedBonus ()I
