@@ -23,7 +23,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import org.auioc.mcmod.arnicalib.game.event.server.FishingRodCastEvent;
+import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory;
 
 public class AHCoreModHandler {
@@ -42,5 +44,11 @@ public class AHCoreModHandler {
         return AHServerEventFactory.preFishingRodCast(player, fishingRod, speedBonus, luckBonus);
     }
 
+    /**
+     * @see <code>coremod: arnicalib.piston_base_block.is_pushable<code/>
+     */
+    public static boolean checkPistonInteractivity(BlockState blockState) {
+        return blockState.is(HBlockTags.PISTON_NONINTERACTIVE);
+    }
 
 }
