@@ -23,13 +23,16 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import org.auioc.mcmod.arnicalib.game.event.server.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ProjectileWeaponReleaseEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 
@@ -68,6 +71,12 @@ public final class AHServerEventFactory {
      */
     public static void preProjectileWeaponRelease(LivingEntity living, ItemStack weapon, Projectile projectile) {
         BUS.post(new ProjectileWeaponReleaseEvent(living, weapon, projectile));
+    }
+
+
+    public static FishingRodCastEvent preFishingRodCast(Player player, ItemStack fishingRod, int speedBonus, int luckBonus) {
+        var event = new FishingRodCastEvent((ServerPlayer) player, fishingRod, speedBonus, luckBonus);
+        return BUS.post(event);
     }
 
 }
