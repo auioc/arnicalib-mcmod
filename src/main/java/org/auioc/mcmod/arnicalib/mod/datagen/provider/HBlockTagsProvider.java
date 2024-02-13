@@ -24,6 +24,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
@@ -57,7 +58,7 @@ public class HBlockTagsProvider extends BlockTagsProvider implements IHTagsProvi
         addFromRegistry(tag(HBlockTags.INSTABREAKABLE), (b) -> b.defaultDestroyTime() == 0.0F);
         addFromRegistry(tag(HBlockTags.RANDOMLY_TICKABLE), (b) -> b.isRandomlyTicking(b.defaultBlockState()));
         addFromRegistry(tag(HBlockTags.LIGHT), (b) -> b.defaultBlockState().getLightEmission() > 0);
+        tag(HBlockTags.PISTON_NONINTERACTIVE).add(Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN, Blocks.RESPAWN_ANCHOR, Blocks.REINFORCED_DEEPSLATE);
     }
 
 }
-
