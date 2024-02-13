@@ -23,9 +23,14 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import org.auioc.mcmod.arnicalib.game.event.server.ProjectileWeaponReleaseEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.mod.mixin.server.MixinServerHandshakePacketListenerImpl;
 
@@ -35,6 +40,8 @@ public final class AHServerEventFactory {
 
     private static final Marker MARKER = LogUtil.getMarker("ServerHooks");
 
+    private static final IEventBus BUS = NeoForge.EVENT_BUS;
+
     // Return true if the event was Cancelable cancelled
 
     /**
@@ -42,7 +49,7 @@ public final class AHServerEventFactory {
      */
     public static boolean onServerLogin(final ClientIntentionPacket packet, final Connection connection) {
         var event = new ServerLoginEvent(packet, connection);
-        boolean cancelled = NeoForge.EVENT_BUS.post(event).isCanceled();
+        boolean cancelled = BUS.post(event).isCanceled();
         if (cancelled) {
             var message = Component.literal(event.getMessage());
             connection.send(new ClientboundLoginDisconnectPacket(message));
@@ -56,6 +63,10 @@ public final class AHServerEventFactory {
             return true;
         }
         return false;
+    }
+
+    public static void preProjectileWeaponRelease(LivingEntity player, ItemStack weapon, Projectile projectile) {
+        BUS.post(new ProjectileWeaponReleaseEvent(player, weapon, projectile));
     }
 
 }
