@@ -17,7 +17,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.auioc.mcmod.arnicalib.mod.common.tag;
+package org.auioc.mcmod.arnicalib.mod.server.tag;
 
 import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
 import org.auioc.mcmod.arnicalib.game.tag.HEntityTypeTags;
