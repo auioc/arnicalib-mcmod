@@ -25,6 +25,7 @@ import net.minecraft.network.protocol.handshake.ClientIntentionPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -35,11 +36,13 @@ import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 import org.auioc.mcmod.arnicalib.game.event.server.FishingRodCastEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ItemHurtEvent;
+import org.auioc.mcmod.arnicalib.game.event.server.LivingFoodEffectEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ProjectileWeaponReleaseEvent;
 import org.auioc.mcmod.arnicalib.game.event.server.ServerLoginEvent;
 import org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
@@ -92,6 +95,15 @@ public final class AHServerEventFactory {
     public static ItemHurtEvent onItemHurt(ItemStack itemStack, int damage, RandomSource random, @Nullable ServerPlayer player) {
         var event = new ItemHurtEvent(itemStack, damage, random, player);
         return BUS.post(event);
+    }
+
+    public static List<MobEffectInstance> onLivingEatAddEffect(LivingEntity living, ItemStack food, List<MobEffectInstance> effects) {
+        var event = new LivingFoodEffectEvent(living, food, effects);
+        BUS.post(event);
+        if (event.isCanceled()) {
+            event.getEffects().clear();
+        }
+        return event.getEffects();
     }
 
 }
