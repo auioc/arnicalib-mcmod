@@ -97,6 +97,9 @@ public final class AHServerEventFactory {
         return BUS.post(event);
     }
 
+    /**
+     * @see AHCoreModHandler#onLivingEatAddEffect
+     */
     public static List<MobEffectInstance> onLivingEatAddEffect(LivingEntity living, ItemStack food, List<MobEffectInstance> effects) {
         var event = new LivingFoodEffectEvent(living, food, effects);
         BUS.post(event);

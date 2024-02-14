@@ -21,6 +21,7 @@ package org.auioc.mcmod.arnicalib.mod.coremod;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -31,6 +32,7 @@ import org.auioc.mcmod.arnicalib.game.tag.HBlockTags;
 import org.auioc.mcmod.arnicalib.mod.server.event.AHServerEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class AHCoreModHandler {
 
@@ -60,6 +62,16 @@ public class AHCoreModHandler {
      */
     public static int onItemHurt(ItemStack itemStack, int damage, RandomSource random, @Nullable ServerPlayer player) {
         return AHServerEventFactory.onItemHurt(itemStack, damage, random, player).getDamage();
+    }
+
+    /**
+     * @see <code>coremod: arnicalib.living_entity.add_eat_effect<code/>
+     */
+    public static void onLivingEatAddEffect(LivingEntity living, ItemStack food, List<MobEffectInstance> effects) {
+        var newEffects = AHServerEventFactory.onLivingEatAddEffect(living, food, effects);
+        for (var effect : newEffects) {
+            living.addEffect(effect);
+        }
     }
 
 }
