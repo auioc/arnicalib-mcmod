@@ -1,94 +1,7 @@
 function initializeCoreMod() {
-    var ASMAPI = Java.type('net.neoforged.coremod.api.ASMAPI');
-    var Opcodes = Java.type('org.objectweb.asm.Opcodes');
-    var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
-    var InsnNode = Java.type('org.objectweb.asm.tree.InsnNode');
     var LabelNode = Java.type('org.objectweb.asm.tree.LabelNode');
-    var FrameNode = Java.type('org.objectweb.asm.tree.FrameNode');
-    var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-    var JumpInsnNode = Java.type('org.objectweb.asm.tree.JumpInsnNode');
-    var TypeInsnNode = Java.type('org.objectweb.asm.tree.TypeInsnNode');
-    var FieldInsnNode = Java.type('org.objectweb.asm.tree.FieldInsnNode');
-    var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
-    var LocalVariableNode = Java.type('org.objectweb.asm.tree.LocalVariableNode');
 
-    function findEndLabelNode(instructions) {
-        for (var i = instructions.size() - 1; i > -1; i--) {
-            var node = instructions.get(i);
-            if (
-                node instanceof InsnNode
-                && node.getOpcode() === Opcodes.RETURN
-            ) {
-                return instructions.get(i - 3);
-            }
-        }
-    }
-
-    function findInsertAfterNode(instructions) {
-        for (var i = 0; i < instructions.size(); i++) {
-            var node = instructions.get(i);
-            if (
-                node instanceof MethodInsnNode
-                && node.owner === 'net/minecraft/world/item/Item'
-                && node.name === 'isEdible'
-            ) {
-                return instructions.get(i + 1);
-            }
-        }
-    }
-
-    function findInsertisClient(instructions) {
-        for (var i = instructions.size() - 1; i > -1; i--) {
-            var node = instructions.get(i);
-            if (
-                node instanceof FieldInsnNode
-                && node.getOpcode() === Opcodes.GETFIELD
-                && node.owner === 'net/minecraft/world/level/Level'
-                && node.name === 'isClientSide'
-            ) {
-                return [instructions.get(i - 1), node, instructions.get(i + 1)];
-            }
-        }
-    }
-
-    function findVarAload3(instructions) {
-        for (var i = instructions.size() - 1; i > -1; i--) {
-            var node = instructions.get(i);
-            if (
-                node instanceof VarInsnNode
-                && node.getOpcode() === Opcodes.ALOAD
-                && node.var === 3
-            ) {
-                return node;
-            }
-        }
-    }
-
-    function findLoopEndJump(instructions) {
-        for (var i = 0; i < instructions.size(); i++) {
-            var node = instructions.get(i);
-            if (
-                node instanceof MethodInsnNode
-                && node.owner === 'java/util/Iterator'
-                && node.name === 'hasNext'
-            ) {
-                return instructions.get(i + 1);
-            }
-        }
-    }
-
-    function findInvokeAddEffect(instructions) {
-        for (var i = instructions.size() - 1; i > -1; i--) {
-            var node = instructions.get(i);
-            if (
-                node instanceof MethodInsnNode
-                && node.owner === 'net/minecraft/world/entity/LivingEntity'
-                && node.name === 'addEffect'
-            ) {
-                return node;
-            }
-        }
-    }
+    Java.type('net.neoforged.coremod.api.ASMAPI').loadFile('coremods/util/utils.js');
 
     return {
         'LivingEntity#addEatEffect': {
@@ -99,108 +12,88 @@ function initializeCoreMod() {
                 methodDesc: '(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;)V'
             },
             transformer: function (methodNode) {
-                var instructions = methodNode.instructions;
+                var insns = methodNode.instructions;
 
-
-                var toRemove = findInsertisClient(instructions);
-                toRemove.forEach(function (node) {
-                    instructions.remove(node);
-                });
+                {
+                    var toRemove = findNodesByR(insns,
+                        isFieldGet('net/minecraft/world/level/Level', 'isClientSide'),
+                        [-1, 0, 1]);
+                    toRemove.forEach(function (node) {
+                        insns.remove(node);
+                    });
+                }
 
                 var startLabel = new LabelNode();
-                var endLabel = findEndLabelNode(instructions);
+                var endLabel = findNodeByR(insns, isReturn(), -3);
 
-                methodNode.localVariables.add(
-                    new LocalVariableNode(
-                        'effects',
-                        'Ljava/util/ArrayList;',
-                        'Ljava/util/ArrayList<Lnet/minecraft/world/effect/MobEffectInstance;>;',
-                        startLabel,
-                        endLabel,
-                        7
-                    )
+                addLocalVariable(methodNode,
+                    'effects', 'Ljava/util/ArrayList;',
+                    'Ljava/util/ArrayList<Lnet/minecraft/world/effect/MobEffectInstance;>;',
+                    startLabel, endLabel, 7
                 );
 
-                var insnList1 = new InsnList();
                 {
-                    insnList1.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                    insnList1.add(
-                        new FieldInsnNode(
-                            Opcodes.GETFIELD,
-                            'net/minecraft/world/level/Level',
-                            'isClientSide',
-                            'Z'
-                        )
-                    );
-                    insnList1.add(new JumpInsnNode(Opcodes.IFNE, endLabel));
-                    insnList1.add(startLabel);
-                    insnList1.add(
-                        new TypeInsnNode(
-                            Opcodes.NEW,
-                            'java/util/ArrayList'
-                        )
-                    );
-                    insnList1.add(new InsnNode(Opcodes.DUP));
-                    insnList1.add(new MethodInsnNode(
-                            Opcodes.INVOKESPECIAL,
-                            'java/util/ArrayList',
-                            '<init>',
-                            '()V',
-                            false
-                        )
-                    );
-                    insnList1.add(new VarInsnNode(Opcodes.ASTORE, 7));
+                    var toInsns1 = [
+                        aLoad(2),
+                        getField('net/minecraft/world/level/Level', 'isClientSide', 'Z'),
+                        ifNotEqual(endLabel),
+                        startLabel,
+                        newObject('java/util/ArrayList'),
+                        dup(),
+                        invokeSpecial('java/util/ArrayList', '<init>', '()V'),
+                        aStore(7)
+                    ];
+                    var insertAfter = findNodeBy(insns,
+                        isInvoke('net/minecraft/world/item/Item', 'isEdible', '()Z'),
+                        1);
+                    insns.insert(insertAfter, toInsnList(toInsns1));
                 }
-                var insertAfter = findInsertAfterNode(instructions);
-                methodNode.instructions.insert(insertAfter, insnList1);
 
-                var aload3 = findVarAload3(instructions);
-                instructions.set(
-                    aload3,
-                    new VarInsnNode(Opcodes.ALOAD, 7)
-                );
+                {
+                    var aload3 = findNodeByR(insns, isALoad(3), 0);
+                    insns.set(aload3, aLoad(7));
+                }
 
-                var invokeAddEffect = findInvokeAddEffect(instructions);
-                instructions.set(
-                    invokeAddEffect,
-                    new MethodInsnNode(
-                        Opcodes.INVOKEVIRTUAL,
-                        'java/util/ArrayList',
-                        'add',
-                        '(Ljava/lang/Object;)Z',
-                        false
-                    )
-                );
+                {
+                    var invokeAddEffect = findNodeByR(insns,
+                        isInvoke(
+                            'net/minecraft/world/entity/LivingEntity', 'addEffect',
+                            '(Lnet/minecraft/world/effect/MobEffectInstance;)Z'
+                        ),
+                        0);
+                    insns.set(
+                        invokeAddEffect,
+                        invokeVirtual('java/util/ArrayList', 'add', '(Ljava/lang/Object;)Z')
+                    );
+                }
 
                 var loopEndLabel = new LabelNode();
 
-                var loopEndJump = findLoopEndJump(instructions);
-                instructions.set(
-                    loopEndJump,
-                    new JumpInsnNode(Opcodes.IFEQ, loopEndLabel)
-                );
-
-                var insnList2 = new InsnList();
                 {
-                    insnList2.add(loopEndLabel);
-                    insnList2.add(new FrameNode(Opcodes.F_CHOP, 1, null, 0, null));
-                    insnList2.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                    insnList2.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                    insnList2.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                    insnList2.add(new MethodInsnNode(
-                            Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
-                            'onLivingEatAddEffect',
-                            '(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Ljava/util/List;)V',
-                            false
-                        )
-                    );
+                    var loopEndJump = findNodeBy(insns,
+                        isInvoke('java/util/Iterator', 'hasNext', '()Z'),
+                        1);
+                    insns.set(loopEndJump, ifEqual(loopEndLabel));
                 }
-                methodNode.instructions.insertBefore(endLabel, insnList2);
 
-                methodNode.visitMaxs(4, 8);
+                {
+                    var toInsns2 = [
+                        loopEndLabel,
+                        frameChop(),
+                        aLoad(3),
+                        aLoad(1),
+                        aLoad(7),
+                        invokeStatic(
+                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler', 'onLivingEatAddEffect',
+                            '(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Ljava/util/List;)V'
+                        )
+                    ];
+                    insns.insertBefore(endLabel, toInsnList(toInsns2));
+                }
 
-                print(ASMAPI.methodNodeToString(methodNode));
+                setMaxLocals(methodNode, 7);
+
+                // printMethodNode(methodNode);
                 return methodNode;
             }
         }

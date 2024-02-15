@@ -1,9 +1,5 @@
 function initializeCoreMod() {
-    var ASMAPI = Java.type('net.neoforged.coremod.api.ASMAPI');
-    var Opcodes = Java.type('org.objectweb.asm.Opcodes');
-    var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
-    var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-    var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
+    Java.type('net.neoforged.coremod.api.ASMAPI').loadFile('coremods/util/utils.js');
 
     return {
         'CrossbowItem#shootProjectile': {
@@ -14,36 +10,27 @@ function initializeCoreMod() {
                 methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;FZFFF)V'
             },
             transformer: function (methodNode) {
-                var toInject = new InsnList();
-                {
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 11));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
-                            'preCrossbowRelease',
-                            '(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/Projectile;)V',
-                            false
-                        )
-                    );
-                }
+                var insns = methodNode.instructions;
 
-                var at = methodNode.instructions.get(
-                    methodNode.instructions.indexOf(
-                        ASMAPI.findFirstMethodCall(
-                            methodNode,
-                            ASMAPI.MethodType.VIRTUAL,
-                            'net/minecraft/world/level/Level',
-                            'addFreshEntity',
-                            '(Lnet/minecraft/world/entity/Entity;)Z'
-                        )
-                    ) - 2
-                );
-                methodNode.instructions.insertBefore(at, toInject);
+                var injects = [
+                    aLoad(1),
+                    aLoad(3),
+                    aLoad(11),
+                    invokeStatic(
+                        'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler', 'preCrossbowRelease',
+                        '(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/Projectile;)V'
+                    )
+                ];
 
-                // print(ASMAPI.methodNodeToString(methodNode));
+                var at = findNodeByR(insns,
+                    isInvoke(
+                        'net/minecraft/world/level/Level', 'addFreshEntity',
+                        '(Lnet/minecraft/world/entity/Entity;)Z'
+                    ),
+                    -2);
+                insns.insertBefore(at, toInsnList(injects));
+
+                // printMethodNode(methodNode);
                 return methodNode;
             }
         }
@@ -68,7 +55,7 @@ function initializeCoreMod() {
             //_...
             Projectile projectile;
             //_...
-+           org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.preCrossbowRelease(pShooter, pCrossbowStack, projectile);
++           AHCoreModHandler.preCrossbowRelease(pShooter, pCrossbowStack, projectile);
             pLevel.addFreshEntity(projectile);
             //_...
         }

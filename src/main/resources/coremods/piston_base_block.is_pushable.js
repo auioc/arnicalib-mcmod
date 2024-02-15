@@ -1,10 +1,7 @@
 function initializeCoreMod() {
-    var ASMAPI = Java.type('net.neoforged.coremod.api.ASMAPI');
     var Opcodes = Java.type('org.objectweb.asm.Opcodes');
-    var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
-    var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-    var JumpInsnNode = Java.type('org.objectweb.asm.tree.JumpInsnNode');
-    var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
+
+    Java.type('net.neoforged.coremod.api.ASMAPI').loadFile('coremods/util/utils.js');
 
     return {
         'PistonBaseBlock#isPushable': {
@@ -15,19 +12,19 @@ function initializeCoreMod() {
                 methodDesc: '(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;ZLnet/minecraft/core/Direction;)Z'
             },
             transformer: function (methodNode) {
-                var instructions = methodNode.instructions;
+                var insns = methodNode.instructions;
 
                 var label7 = null;
                 var insertBefore = null;
-                for (var i = 0; i < instructions.size(); i++) {
-                    var node = instructions.get(i);
+                for (var i = 0; i < insns.size(); i++) {
+                    var node = insns.get(i);
                     if (
-                        node instanceof MethodInsnNode &&
-                        node.owner === 'net/minecraft/world/level/block/state/BlockState' &&
-                        node.name === 'is' &&
-                        node.desc === '(Lnet/minecraft/world/level/block/Block;)Z'
+                        isInvoke(
+                            'net/minecraft/world/level/block/state/BlockState', 'is',
+                            '(Lnet/minecraft/world/level/block/Block;)Z'
+                        )(node)
                     ) {
-                        var nextNode = instructions.get(i + 1);
+                        var nextNode = insns.get(i + 1);
                         var nextOpcode = nextNode.getOpcode();
                         if (nextOpcode === Opcodes.IFNE) {
                             label7 = nextNode.label;
@@ -41,24 +38,17 @@ function initializeCoreMod() {
                     }
                 }
 
-                var toInject = new InsnList();
-                {
-                    toInject.add(new JumpInsnNode(Opcodes.IFNE, label7));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
-                            'checkPistonInteractivity',
-                            '(Lnet/minecraft/world/level/block/state/BlockState;)Z',
-                            false
-                        )
-                    );
-                }
+                var injects = [
+                    ifNotEqual(label7),
+                    aLoad(0),
+                    invokeStatic(
+                        'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler', 'checkPistonInteractivity',
+                        '(Lnet/minecraft/world/level/block/state/BlockState;)Z'
+                    )
+                ];
+                insns.insertBefore(insertBefore, toInsnList(injects));
 
-                methodNode.instructions.insertBefore(insertBefore, toInject);
-
-                // print(ASMAPI.methodNodeToString(methodNode));
+                // printMethodNode(methodNode);
                 return methodNode;
             }
         }
@@ -80,7 +70,7 @@ function initializeCoreMod() {
             || pState.is(Blocks.CRYING_OBSIDIAN)
             || pState.is(Blocks.RESPAWN_ANCHOR)
             || pState.is(Blocks.REINFORCED_DEEPSLATE)
-+           || org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.checkPistonInteractivity(pState)
++           || AHCoreModHandler.checkPistonInteractivity(pState)
             ) {
             return false;
         } else if (pMovementDirection == Direction.DOWN && pPos.getY() == pLevel.getMinBuildHeight()) {

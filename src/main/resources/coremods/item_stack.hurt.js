@@ -1,9 +1,5 @@
 function initializeCoreMod() {
-    var ASMAPI = Java.type('net.neoforged.coremod.api.ASMAPI');
-    var Opcodes = Java.type('org.objectweb.asm.Opcodes');
-    var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
-    var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-    var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
+    Java.type('net.neoforged.coremod.api.ASMAPI').loadFile('coremods/util/utils.js');
 
     return {
         'ItemStack#hurt': {
@@ -14,30 +10,26 @@ function initializeCoreMod() {
                 methodDesc: '(ILnet/minecraft/util/RandomSource;Lnet/minecraft/server/level/ServerPlayer;)Z'
             },
             transformer: function (methodNode) {
-                var toInject = new InsnList();
-                {
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    toInject.add(new VarInsnNode(Opcodes.ILOAD, 1));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
-                            'onItemHurt',
-                            '(Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/util/RandomSource;Lnet/minecraft/server/level/ServerPlayer;)I',
-                            false
-                        )
-                    );
-                    toInject.add(new VarInsnNode(Opcodes.ISTORE, 1));
-                }
+                var insns = methodNode.instructions;
 
-                var at = ASMAPI.findFirstInstructionAfter(methodNode, Opcodes.ILOAD, 0);
-                methodNode.instructions.insertBefore(at, toInject);
+                var injects = [
+                    aLoad(0),
+                    iLoad(1),
+                    aLoad(2),
+                    aLoad(3),
+                    invokeStatic(
+                        'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler', 'onItemHurt',
+                        '(Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/util/RandomSource;Lnet/minecraft/server/level/ServerPlayer;)I'
+                    ),
+                    iStore(1)
 
-                methodNode.visitMaxs(6, 7);
+                ];
+                var at = findNodeBy(insns, isILoad(1), 0);
+                insns.insertBefore(at, toInsnList(injects));
 
-                // print(ASMAPI.methodNodeToString(methodNode));
+                setMaxLocals(methodNode, 7);
+
+                // printMethodNode(methodNode);
                 return methodNode;
             }
         }
@@ -60,7 +52,7 @@ function initializeCoreMod() {
         if (!this.isDamageableItem()) {
             return false;
         } else {
-+           pAmount = org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.onItemHurt(this, pAmount, pRandom, pUser);
++           pAmount = AHCoreModHandler.onItemHurt(this, pAmount, pRandom, pUser);
             if (pAmount > 0) {
                 //_ ...
             }
@@ -71,12 +63,12 @@ function initializeCoreMod() {
     //_ ...
     L1
         LINENUMBER 406 L1
-        ALOAD 0
-        ILOAD 1
-        ALOAD 2
-        ALOAD 3
-        INVOKESTATIC org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler.onItemHurt (Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/util/RandomSource;Lnet/minecraft/server/level/ServerPlayer;)I
-        ISTORE 1
++       ALOAD 0
++       ILOAD 1
++       ALOAD 2
++       ALOAD 3
++       INVOKESTATIC org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler.onItemHurt (Lnet/minecraft/world/item/ItemStack;ILnet/minecraft/util/RandomSource;Lnet/minecraft/server/level/ServerPlayer;)I
++       ISTORE 1
         ILOAD 1
         IFLE L3
     L4

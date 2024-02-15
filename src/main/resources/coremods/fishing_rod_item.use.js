@@ -1,11 +1,7 @@
 function initializeCoreMod() {
-    var ASMAPI = Java.type('net.neoforged.coremod.api.ASMAPI');
-    var Opcodes = Java.type('org.objectweb.asm.Opcodes');
-    var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
-    var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-    var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
     var LabelNode = Java.type('org.objectweb.asm.tree.LabelNode');
-    var LocalVariableNode = Java.type('org.objectweb.asm.tree.LocalVariableNode');
+
+    Java.type('net.neoforged.coremod.api.ASMAPI').loadFile('coremods/util/utils.js');
 
     return {
         'FishingRodItem#use': {
@@ -16,76 +12,48 @@ function initializeCoreMod() {
                 methodDesc: '(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/InteractionResultHolder;'
             },
             transformer: function (methodNode) {
-                var toInject = new InsnList();
-                {
-                    var fn_start = new LabelNode();
-                    var fn_end = new LabelNode();
+                var insns = methodNode.instructions;
 
-                    methodNode.localVariables.add(
-                        new LocalVariableNode(
-                            'event',
-                            'Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;',
-                            null,
-                            fn_start,
-                            fn_end,
-                            7
-                        )
-                    );
+                var startLabel = new LabelNode();
+                var endLabel = new LabelNode();
 
-                    toInject.add(fn_start);
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                    toInject.add(new VarInsnNode(Opcodes.ILOAD, 5));
-                    toInject.add(new VarInsnNode(Opcodes.ILOAD, 6));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKESTATIC,
-                            'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler',
-                            'preFishingRodCast',
-                            '(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;',
-                            false
-                        )
-                    );
-                    toInject.add(new VarInsnNode(Opcodes.ASTORE, 7));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKEVIRTUAL,
-                            'org/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent',
-                            'getSpeedBonus',
-                            '()I',
-                            false
-                        )
-                    );
-                    toInject.add(new VarInsnNode(Opcodes.ISTORE, 5));
-                    toInject.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                    toInject.add(
-                        new MethodInsnNode(
-                            Opcodes.INVOKEVIRTUAL,
-                            'org/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent',
-                            'getLuckBonus',
-                            '()I',
-                            false
-                        )
-                    );
-                    toInject.add(new VarInsnNode(Opcodes.ISTORE, 6));
-                    toInject.add(fn_end);
-                }
-
-                var at = methodNode.instructions.get(
-                    methodNode.instructions.indexOf(
-                        ASMAPI.findFirstInstructionBefore(
-                            methodNode,
-                            Opcodes.NEW,
-                            0
-                        )
-                    ) - 1
+                addLocalVariable(methodNode,
+                    'event', 'Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;', null,
+                    startLabel, endLabel, 7
                 );
-                methodNode.instructions.insertBefore(at, toInject);
 
-                methodNode.visitMaxs(14, 8);
+                var injects = [
+                    startLabel,
+                    aLoad(2),
+                    aLoad(4),
+                    iLoad(5),
+                    iLoad(6),
+                    invokeStatic(
+                        'org/auioc/mcmod/arnicalib/mod/coremod/AHCoreModHandler', 'preFishingRodCast',
+                        '(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;II)Lorg/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent;'
+                    ),
+                    aStore(7),
+                    aLoad(7),
+                    invokeVirtual(
+                        'org/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent', 'getSpeedBonus',
+                        '()I'
+                    ),
+                    iStore(5),
+                    aLoad(7),
+                    invokeVirtual(
+                        'org/auioc/mcmod/arnicalib/game/event/server/FishingRodCastEvent', 'getLuckBonus',
+                        '()I'
+                    ),
+                    iStore(6),
+                    endLabel
+                ];
 
-                // print(ASMAPI.methodNodeToString(methodNode));
+                var at = findNodeByR(insns, isNewObject('net/minecraft/world/entity/projectile/FishingHook'), -1);
+                insns.insertBefore(at, toInsnList(injects));
+
+                setMaxLocals(methodNode, 8);
+
+                // printMethodNode(methodNode);
                 return methodNode;
             }
         }
@@ -114,7 +82,7 @@ function initializeCoreMod() {
             if (!pLevel.isClientSide) {
                 int k = EnchantmentHelper.getFishingSpeedBonus(itemstack);
                 int j = EnchantmentHelper.getFishingLuckBonus(itemstack);
-+               var event = org.auioc.mcmod.arnicalib.mod.coremod.AHCoreModHandler.preFishingRodCast(pPlayer, itemstack, k, j);
++               var event = AHCoreModHandler.preFishingRodCast(pPlayer, itemstack, k, j);
 +               k = event.getSpeedBonus();
 +               j = event.getLuckBonus();
                 pLevel.addFreshEntity(new FishingHook(pPlayer, pLevel, j, k));
