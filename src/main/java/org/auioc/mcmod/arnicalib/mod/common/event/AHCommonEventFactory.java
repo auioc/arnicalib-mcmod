@@ -22,6 +22,7 @@ package org.auioc.mcmod.arnicalib.mod.common.event;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,6 +30,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import org.auioc.mcmod.arnicalib.game.event.common.ItemInventoryTickEvent;
 import org.auioc.mcmod.arnicalib.game.event.common.PistonPushableEvent;
+import org.auioc.mcmod.arnicalib.game.event.common.PlayerEatEvent;
 
 public class AHCommonEventFactory {
 
@@ -46,6 +48,14 @@ public class AHCommonEventFactory {
      */
     public static boolean onItemInventoryTick(Player player, Level level, ItemStack itemStack, int index, boolean selected) {
         return BUS.post(new ItemInventoryTickEvent(player, level, itemStack, index, selected)).isCanceled();
+    }
+
+    /**
+     * @see org.auioc.mcmod.arnicalib.mod.mixin.common.MixinFoodData#eat
+     */
+    public static PlayerEatEvent onPlayerEat(Player player, ItemStack food, FoodData foodData) {
+        var event = new PlayerEatEvent(player, food, foodData);
+        return BUS.post(event);
     }
 
 }
