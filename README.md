@@ -59,20 +59,20 @@ Add any of the following maven repository to the `repositories` section:
 Add the following to the `dependencies` section:
 
 ```groovy
-implementation "org.auioc.mcmod:arnicalib:<MINECRAFT_VERSION>-<ARNICALIB_VERSION>:deobf"
+implementation "org.auioc.mcmod:arnicalib:<MINECRAFT_VERSION>-<ARNICALIB_VERSION>"
 ```
 
 ### Local JAR File
 
 If you do not want to or can not use the maven repository:
 
-1. Download the deobf jar of the version you want from [Releases](https://github.com/auioc/arnicalib-mcmod/releases),
+1. Download the jar file of the version you want from [Releases](https://github.com/auioc/arnicalib-mcmod/releases),
    then put them into `libs` folder.
 
 2. Add the following to the `dependencies` section in your `build.gradle`:
 
     ```groovy
-    implementation files("libs/arnicalib-<VERSION>-deobf.jar")
+    implementation files("libs/arnicalib-<VERSION>.jar")
     ```
 
 ## Maintainers
