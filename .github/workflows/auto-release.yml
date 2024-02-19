@@ -14,13 +14,12 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v4
 
             -   run: |
                     prop() { grep -P "^\s*[^#]?${1}=.*$" './gradle.properties' | cut -d'=' -f2; }
                     echo "GIT_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
                     echo "MOD_VERSION=`echo $(prop "mod_version")`" >> $GITHUB_ENV
-                    echo "MINECRAFT_VERSION=`echo $(prop "minecraft_version")`" >> $GITHUB_ENV
 
             -   run: if [ "${{env.GIT_TAG}}" != "v${{env.MOD_VERSION}}" ];then exit 1;fi
 
@@ -41,6 +40,7 @@ jobs:
                     java-version: '17'
                     distribution: 'temurin'
                     architecture: 'x64'
+                    cache: 'gradle'
 
             -   name: Build and publish with Gradle
                 env:
@@ -55,7 +55,7 @@ jobs:
                     ./gradlew runData
                     ./gradlew build publish generateUpdateJson
                     mkdir ./pages
-                    cp "./build/tmp/${{env.MINECRAFT_VERSION}}.json" ./pages
+                    cp -r ./build/tmp/update/. ./pages/
 
             -   name: Update update JSON
                 uses: JamesIves/github-pages-deploy-action@v4
