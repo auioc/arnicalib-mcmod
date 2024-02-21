@@ -32,6 +32,8 @@ import org.auioc.mcmod.arnicalib.game.random.GameRandomUtils;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 
 public class PositionUtils {
@@ -40,6 +42,28 @@ public class PositionUtils {
         return level.getWorldBorder().isWithinBounds(pos)
             && pos.getY() < level.getMaxBuildHeight()
             && pos.getY() >= level.getMinBuildHeight();
+    }
+
+    public static void iterateY(int x, int z, int minY, int maxY, Consumer<BlockPos> consumer) {
+        var pos = new MutableBlockPos(x, maxY, z);
+        while (pos.getY() >= minY) {
+            consumer.accept(pos);
+            pos.move(Direction.DOWN);
+        }
+    }
+
+    /**
+     * @param predicate return false to break loop
+     */
+    public static boolean iterateY(int x, int z, int minY, int maxY, Predicate<BlockPos> predicate) {
+        var pos = new MutableBlockPos(x, maxY, z);
+        while (pos.getY() >= minY) {
+            if (!predicate.test(pos)) {
+                return false;
+            }
+            pos.move(Direction.DOWN);
+        }
+        return true;
     }
 
     public static boolean canStandOn(BlockPos pos, Level level) {
