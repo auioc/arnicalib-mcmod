@@ -28,8 +28,6 @@ public interface IValidSlotsVisibleEnchantment {
         return new EquipmentSlot[] {};
     }
 
-    ;
-
     default boolean isValidSlot(EquipmentSlot slot) {
         return ArrayUtils.contains(getValidSlots(), slot);
     }

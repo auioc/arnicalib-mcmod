@@ -19,9 +19,6 @@
 
 package org.auioc.mcmod.arnicalib.game.entity.player;
 
-import javax.annotation.Nullable;
-
-import org.auioc.mcmod.arnicalib.game.item.ItemUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -30,6 +27,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.auioc.mcmod.arnicalib.game.item.ItemUtils;
+
+import javax.annotation.Nullable;
 
 public class PlayerUtils {
 
@@ -88,7 +88,7 @@ public class PlayerUtils {
             "%s(%s) at %s in %s",
             player.getName().getString(),
             player.getStringUUID(),
-            player.position().toString(),
+            player.position(),
             (player.level() == null) ? "~NULL~" : player.level().toString()
         );
     }

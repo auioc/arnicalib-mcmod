@@ -39,7 +39,7 @@ import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 /**
  * This is a FAKE resource reload listener, do NOT register it!
  *
- * @see org.auioc.mcmod.arnicalib.mod.client.event.AHClientModEventHandler#onModelRegister
+ * @see org.auioc.mcmod.arnicalib.mod.client.event.AHClientModEventHandler#onRegisterAdditionalModel
  */
 @OnlyIn(Dist.CLIENT)
 public class CustomModelLoader extends SimpleJsonResourceReloadListener {

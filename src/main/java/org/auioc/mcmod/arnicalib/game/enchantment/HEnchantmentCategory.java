@@ -32,19 +32,19 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class HEnchantmentCategory {
 
-    public static final EnchantmentCategory HOE = EnchantmentCategory.create("HOE", (item) -> item instanceof HoeItem);
-    public static final EnchantmentCategory AXE = EnchantmentCategory.create("AXE", (item) -> item instanceof AxeItem);
-    public static final EnchantmentCategory SHOVEL = EnchantmentCategory.create("SHOVEL", (item) -> item instanceof ShovelItem);
-    public static final EnchantmentCategory PICKAXE = EnchantmentCategory.create("PICKAXE", (item) -> item instanceof PickaxeItem);
+    public static final EnchantmentCategory HOE = EnchantmentCategory.create("HOE", HoeItem.class::isInstance);
+    public static final EnchantmentCategory AXE = EnchantmentCategory.create("AXE", AxeItem.class::isInstance);
+    public static final EnchantmentCategory SHOVEL = EnchantmentCategory.create("SHOVEL", ShovelItem.class::isInstance);
+    public static final EnchantmentCategory PICKAXE = EnchantmentCategory.create("PICKAXE", PickaxeItem.class::isInstance);
 
-    public static final EnchantmentCategory SHIELD = EnchantmentCategory.create("SHIELD", (item) -> item instanceof ShieldItem);
+    public static final EnchantmentCategory SHIELD = EnchantmentCategory.create("SHIELD", ShieldItem.class::isInstance);
 
-    public static final EnchantmentCategory ELYTRA = EnchantmentCategory.create("ELYTRA", (item) -> item instanceof ElytraItem);
+    public static final EnchantmentCategory ELYTRA = EnchantmentCategory.create("ELYTRA", ElytraItem.class::isInstance);
 
-    public static final EnchantmentCategory FOOD_ON_A_STACK = EnchantmentCategory.create("FOOD_ON_A_STACK", (item) -> item instanceof FoodOnAStickItem);
+    public static final EnchantmentCategory FOOD_ON_A_STACK = EnchantmentCategory.create("FOOD_ON_A_STACK", FoodOnAStickItem.class::isInstance);
 
-    public static final EnchantmentCategory FLINT_AND_STEEL = EnchantmentCategory.create("FLINT_AND_STEEL", (item) -> item instanceof FlintAndSteelItem);
+    public static final EnchantmentCategory FLINT_AND_STEEL = EnchantmentCategory.create("FLINT_AND_STEEL", FlintAndSteelItem.class::isInstance);
 
-    public static final EnchantmentCategory SPYGLASS = EnchantmentCategory.create("SPYGLASS", (item) -> item instanceof SpyglassItem);
+    public static final EnchantmentCategory SPYGLASS = EnchantmentCategory.create("SPYGLASS", SpyglassItem.class::isInstance);
 
 }

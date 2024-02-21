@@ -19,15 +19,16 @@
 
 package org.auioc.mcmod.arnicalib.base.file;
 
-import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
+import org.apache.logging.log4j.Marker;
+import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-import org.apache.logging.log4j.Marker;
-import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
 public class FileUtils extends org.apache.commons.io.FileUtils {
 
@@ -69,7 +70,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @since 5.1.4
      */
     public static String readFileToString(final File file) throws IOException {
-        return readFileToString(file, Charset.forName("utf8"));
+        return readFileToString(file, StandardCharsets.UTF_8);
     }
 
     /**
@@ -82,7 +83,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
      * @since 5.1.4
      */
     public static void writeStringToFile(final File file, final String data) throws IOException {
-        writeStringToFile(file, data, Charset.forName("utf8"), false);
+        writeStringToFile(file, data, StandardCharsets.UTF_8, false);
     }
 
     // ====================================================================== //

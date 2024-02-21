@@ -19,11 +19,6 @@
 
 package org.auioc.mcmod.arnicalib.game.world.phys;
 
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.function.ToIntFunction;
-import javax.annotation.Nullable;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.level.ClipContext;
@@ -33,6 +28,11 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
+
 public class RayCastUtils { // TODO Test
 
     public static final float DEFAULT_PICK_INFLATION = 0.3F;
@@ -41,7 +41,7 @@ public class RayCastUtils { // TODO Test
     // ============================================================================================================== //
 
 
-    public static record Ray(Vec3 from, Vec3 to) { }
+    public record Ray(Vec3 from, Vec3 to) { }
 
     // ============================================================================================================== //
 

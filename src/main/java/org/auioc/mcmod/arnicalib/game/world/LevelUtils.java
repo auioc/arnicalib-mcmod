@@ -105,7 +105,7 @@ public class LevelUtils {
     @Nullable
     public static ResourceLocation getBiomeId(Level level, BlockPos pos) {
         var b = level.getBiome(pos).unwrapKey();
-        return (b.isPresent()) ? b.get().location() : null;
+        return b.map(ResourceKey::location).orElse(null);
     }
 
     // ============================================================================================================== //

@@ -19,11 +19,11 @@
 
 package org.auioc.mcmod.arnicalib.game.input;
 
-import java.util.function.BooleanSupplier;
-
-import org.auioc.mcmod.arnicalib.base.function.VoidPredicate;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.auioc.mcmod.arnicalib.base.function.VoidPredicate;
+
+import java.util.function.BooleanSupplier;
 
 @OnlyIn(Dist.CLIENT)
 public enum KeyDownRule implements VoidPredicate, BooleanSupplier {
@@ -36,7 +36,7 @@ public enum KeyDownRule implements VoidPredicate, BooleanSupplier {
 
     private final BooleanSupplier delegate;
 
-    private KeyDownRule(BooleanSupplier predicate) {
+    KeyDownRule(BooleanSupplier predicate) {
         this.delegate = predicate;
     }
 

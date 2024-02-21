@@ -19,11 +19,6 @@
 
 package org.auioc.mcmod.arnicalib.game.world.phys;
 
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.function.ToIntFunction;
-import javax.annotation.Nullable;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,6 +29,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 /**
  * @deprecated Moved to {@link RayCastUtils}.
@@ -156,16 +156,6 @@ public class RayTraceUtils {
     // ============================================================================================================== //
 
 
-    private static class ViewRay {
-
-        public final Vec3 from;
-        public final Vec3 to;
-
-        public ViewRay(Vec3 from, Vec3 to) {
-            this.from = from;
-            this.to = to;
-        }
-
-    }
+    public record ViewRay(Vec3 from, Vec3 to) { }
 
 }

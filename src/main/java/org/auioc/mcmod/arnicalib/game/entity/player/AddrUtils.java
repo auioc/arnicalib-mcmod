@@ -19,13 +19,13 @@
 
 package org.auioc.mcmod.arnicalib.game.entity.player;
 
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import javax.annotation.Nullable;
-
 import io.netty.channel.local.LocalAddress;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
+
+import javax.annotation.Nullable;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 public class AddrUtils {
 
@@ -35,7 +35,7 @@ public class AddrUtils {
         if (addr instanceof InetSocketAddress) {
             return ((InetSocketAddress) addr).getAddress().getHostAddress();
         } else if (addr instanceof LocalAddress) {
-            return ((LocalAddress) addr).toString();
+            return addr.toString();
         }
         return null;
     }

@@ -30,12 +30,12 @@ public class SoundPlayer {
         player.playNotifySound(sound, source, volume, pitch);
     }
 
-    public static void play(Player player, SoundEvent sound) {
-        play(player, sound, SoundSource.MASTER, 1, 1);
-    }
-
     public static void play(Player player, SoundEvent sound, float volume, float pitch) {
         play(player, sound, SoundSource.MASTER, volume, pitch);
+    }
+
+    public static void play(Player player, SoundEvent sound) {
+        play(player, sound, SoundSource.MASTER, 1, 1);
     }
 
 
@@ -43,12 +43,12 @@ public class SoundPlayer {
         play(player, SoundEventRegistry.getOrElseThrow(id), source, volume, pitch);
     }
 
-    public static void play(Player player, ResourceLocation id) {
-        play(player, id);
+    public static void play(Player player, ResourceLocation id, float volume, float pitch) {
+        play(player, id, SoundSource.MASTER, volume, pitch);
     }
 
-    public static void play(Player player, ResourceLocation id, float volume, float pitch) {
-        play(player, id, volume, pitch);
+    public static void play(Player player, ResourceLocation id) {
+        play(player, id, 1, 1);
     }
 
 
@@ -56,12 +56,12 @@ public class SoundPlayer {
         play(player, new ResourceLocation(id), source, volume, pitch);
     }
 
-    public static void play(Player player, String id) {
-        play(player, new ResourceLocation(id));
-    }
-
     public static void play(Player player, String id, float volume, float pitch) {
         play(player, new ResourceLocation(id), volume, pitch);
+    }
+
+    public static void play(Player player, String id) {
+        play(player, new ResourceLocation(id));
     }
 
 }

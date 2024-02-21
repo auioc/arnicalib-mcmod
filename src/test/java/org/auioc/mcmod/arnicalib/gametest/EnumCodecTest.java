@@ -49,7 +49,7 @@ public class EnumCodecTest {
 
         private final String n;
 
-        private TestEnum(String n) { this.n = n; }
+        TestEnum(String n) { this.n = n; }
 
         public String getCustomStringLookup() { return n; }
     }

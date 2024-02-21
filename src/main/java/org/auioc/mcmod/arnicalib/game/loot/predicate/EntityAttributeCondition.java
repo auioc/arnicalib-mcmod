@@ -82,7 +82,7 @@ public class EntityAttributeCondition implements LootItemCondition {
     // ============================================================================================================== //
 
 
-    public static enum AttributeValueType {
+    public enum AttributeValueType {
 
         DEFAULT_VALUE("default_value", (i) -> i.getAttribute().getDefaultValue()),
         BASE_VALUE("base_value", AttributeInstance::getBaseValue),
@@ -93,7 +93,7 @@ public class EntityAttributeCondition implements LootItemCondition {
         private final String name;
         private final FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter;
 
-        private AttributeValueType(String name, FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
+        AttributeValueType(String name, FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
             this.name = name;
             this.getter = getter;
         }

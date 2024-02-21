@@ -19,18 +19,18 @@
 
 package org.auioc.mcmod.arnicalib.base.network;
 
-import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import javax.annotation.Nullable;
-
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
 
+import javax.annotation.Nullable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
+
 public interface AddressUtils {
 
-    static Marker MARKER = LogUtil.getMarker(AddressUtils.class);
+    Marker MARKER = LogUtil.getMarker(AddressUtils.class);
 
     @Nullable
     static InetAddress toInetAddress(String addr) {

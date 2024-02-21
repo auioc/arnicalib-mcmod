@@ -31,7 +31,7 @@ public enum SpeedUnit {
     private final String symbol;
     private final DoubleUnaryOperator converter;
 
-    private SpeedUnit(String name, String symbol, DoubleUnaryOperator converter) {
+    SpeedUnit(String name, String symbol, DoubleUnaryOperator converter) {
         this.name = name;
         this.symbol = symbol;
         this.converter = converter;

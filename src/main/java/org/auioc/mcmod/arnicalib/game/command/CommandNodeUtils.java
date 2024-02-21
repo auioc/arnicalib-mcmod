@@ -39,10 +39,9 @@ public class CommandNodeUtils {
     }
 
     /**
-     * @param nodeList           List of {@link ParsedCommandNode}s, from {@link CommandContext#getNodes()}
+     * @param nodeList  List of {@link ParsedCommandNode}s, from {@link CommandContext#getNodes()}
      * @param fromIndex
      * @param toIndex
-     * @param conventToSnakeCase
      * @return String that concatenates the literals (or in its snake case) of all (or some of) {@link LiteralCommandNode}s in the {@link ParsedCommandNode} list, separated by dots
      * @since 5.1.1
      */
@@ -51,21 +50,21 @@ public class CommandNodeUtils {
             .subList(fromIndex, toIndex)
             .stream()
             .map(ParsedCommandNode::getNode)
-            .filter((node) -> node instanceof LiteralCommandNode)
+            .filter(LiteralCommandNode.class::isInstance)
             .map((node) -> (LiteralCommandNode<CommandSourceStack>) node)
             .map(LiteralCommandNode::getLiteral)
             .collect(Collectors.joining("."));
     }
 
     /**
-     * @see {@link #joinLiteralNodes(List, int, int, boolean)}
+     * @see #joinLiteralNodes(List, int, int)
      */
     public static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes, int fromIndex) {
         return joinLiteralNodes(nodes, fromIndex, nodes.size());
     }
 
     /**
-     * @see {@link #joinLiteralNodes(List, int, int, boolean)}
+     * @see #joinLiteralNodes(List, int, int)
      */
     public static String joinLiteralNodes(List<ParsedCommandNode<CommandSourceStack>> nodes) {
         return joinLiteralNodes(nodes, 0, nodes.size());

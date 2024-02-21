@@ -140,14 +140,14 @@ public class Validate extends org.apache.commons.lang3.Validate {
      * @see #isInInterval(Range, double, String)
      */
     public static void isInInterval(Range<Long> interval, long value, String message) {
-        isTrue(interval.contains(value), message + String.format(NOT_IN_INTERVAL_MESSAGE, value, interval.toString()));
+        isTrue(interval.contains(value), message + String.format(NOT_IN_INTERVAL_MESSAGE, value, interval));
     }
 
     /**
      * @see #isInInterval(Range, long, String)
      */
     public static void isInInterval(Range<Double> interval, double value, String message) {
-        isTrue(interval.contains(value), message + String.format(NOT_IN_INTERVAL_MESSAGE, value, interval.toString()));
+        isTrue(interval.contains(value), message + String.format(NOT_IN_INTERVAL_MESSAGE, value, interval));
     }
 
     /*========================================================================*/
