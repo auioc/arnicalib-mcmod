@@ -19,12 +19,12 @@
 
 package org.auioc.mcmod.arnicalib.base.collection;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
-
-import org.apache.commons.lang3.Validate;
 
 public class ListUtils {
 
@@ -70,7 +70,7 @@ public class ListUtils {
         return lastIndexOf(list, predicate, 0);
     }
 
-    public <T> int[] allIndexesOf(List<T> list, Predicate<T> predicate) {
+    public static <T> int[] allIndexesOf(List<T> list, Predicate<T> predicate) {
         return IntStream
             .range(0, list.size())
             .filter((i) -> predicate.test(list.get(i)))
