@@ -55,6 +55,15 @@ public class ItemUtils {
         );
     }
 
+    /**
+     * AccessTransformer
+     *
+     * @see ItemStack#getHideFlags
+     */
+    public static boolean shouldShowInTooltip(ItemStack itemStack, ItemStack.TooltipPart part) {
+        return (itemStack.getHideFlags() & part.getMask()) == 0;
+    }
+
     public static String toString(ItemStack itemStack) {
         return String.format(
             "%s%s * %d",
