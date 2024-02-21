@@ -19,13 +19,13 @@
 
 package org.auioc.mcmod.arnicalib.game.item;
 
-import javax.annotation.Nullable;
-
-import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.auioc.mcmod.arnicalib.game.registry.RegistryUtils;
+
+import javax.annotation.Nullable;
 
 public class ItemUtils {
 
@@ -56,7 +56,12 @@ public class ItemUtils {
     }
 
     public static String toString(ItemStack itemStack) {
-        return String.format("%s%s * %d", toString(itemStack), (itemStack.hasTag()) ? itemStack.getTag() : "{}", itemStack.getCount());
+        return String.format(
+            "%s%s * %d",
+            toString(itemStack.getItem()),
+            itemStack.hasTag() ? itemStack.getTag() : "{}",
+            itemStack.getCount()
+        );
     }
 
     public static String toString(Item item) {
