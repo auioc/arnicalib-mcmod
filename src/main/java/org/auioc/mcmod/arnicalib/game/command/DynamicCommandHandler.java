@@ -26,6 +26,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import org.apache.logging.log4j.Marker;
 import org.auioc.mcmod.arnicalib.base.log.LogUtil;
+import org.auioc.mcmod.arnicalib.game.mod.EnvironmentUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -41,6 +42,9 @@ public class DynamicCommandHandler {
             var method = Class.forName(className).getMethod(methodName, LiteralArgumentBuilder.class);
             return (LiteralArgumentBuilder<CommandSourceStack>) method.invoke(null, builder);
         } catch (Exception e) {
+            if (EnvironmentUtils.IS_DEV && e instanceof ClassNotFoundException) {
+                LOGGER.debug(MARKER, "ClassNotFoundException: {}", e.getMessage());
+            }
             LOGGER.error(MARKER, "Failed to create builder", e);
         }
         return builder;
