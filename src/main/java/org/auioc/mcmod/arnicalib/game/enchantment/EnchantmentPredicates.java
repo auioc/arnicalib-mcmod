@@ -30,10 +30,10 @@ public class EnchantmentPredicates {
 
     public static final Predicate<Enchantment> IS_VANILLA = (e) -> VanillaPredicates.ID.test(RegistryUtils.id(e));
 
-    public static final Predicate<Enchantment> IS_TREASURE_ONLY = (e) -> e.isTreasureOnly();
-    public static final Predicate<Enchantment> IS_CURSE = (e) -> e.isCurse();
-    public static final Predicate<Enchantment> IS_TRADEABLE = (e) -> e.isTradeable();
-    public static final Predicate<Enchantment> IS_DISCOVERABLE = (e) -> e.isDiscoverable();
+    public static final Predicate<Enchantment> IS_TREASURE_ONLY = Enchantment::isTreasureOnly;
+    public static final Predicate<Enchantment> IS_CURSE = Enchantment::isCurse;
+    public static final Predicate<Enchantment> IS_TRADEABLE = Enchantment::isTradeable;
+    public static final Predicate<Enchantment> IS_DISCOVERABLE = Enchantment::isDiscoverable;
 
     public static final Predicate<Enchantment> IS_COMMON = (e) -> e.getRarity() == Rarity.COMMON;
     public static final Predicate<Enchantment> IS_UNCOMMON = (e) -> e.getRarity() == Rarity.UNCOMMON;
