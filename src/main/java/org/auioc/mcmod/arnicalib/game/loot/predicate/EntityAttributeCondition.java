@@ -43,11 +43,11 @@ import java.util.Set;
 public class EntityAttributeCondition implements LootItemCondition {
 
     private final Attribute attribute;
-    private final AttributeValueType valueType;
+    private final ValueType valueType;
     private final MinMaxBounds.Doubles value;
     private final EntityTarget entityTarget;
 
-    public EntityAttributeCondition(Attribute attribute, AttributeValueType valueType, MinMaxBounds.Doubles value, EntityTarget entityTarget) {
+    public EntityAttributeCondition(Attribute attribute, ValueType valueType, MinMaxBounds.Doubles value, EntityTarget entityTarget) {
         this.attribute = attribute;
         this.valueType = valueType;
         this.value = value;
@@ -82,30 +82,20 @@ public class EntityAttributeCondition implements LootItemCondition {
     // ============================================================================================================== //
 
 
-    public enum AttributeValueType {
+    public enum ValueType {
 
-        DEFAULT_VALUE("default_value", (i) -> i.getAttribute().getDefaultValue()),
-        BASE_VALUE("base_value", AttributeInstance::getBaseValue),
-        CURRENT_VALUE("current_value", AttributeInstance::getValue),
-        MAX_VALUE("max_value", (i) -> castToRangedAttribute(i).getMaxValue()),
-        MIN_VALUE("min_value", (i) -> castToRangedAttribute(i).getMinValue());
-
-        private final String name;
+        DEFAULT((i) -> i.getAttribute().getDefaultValue()),
+        BASE(AttributeInstance::getBaseValue),
+        CURRENT(AttributeInstance::getValue),
+        MAX((i) -> castToRangedAttribute(i).getMaxValue()),
+        MIN((i) -> castToRangedAttribute(i).getMinValue());
         private final FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter;
 
-        AttributeValueType(String name, FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
-            this.name = name;
+        ValueType(FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
             this.getter = getter;
         }
 
-        public String getName() { return this.name; }
-
         public double getValue(AttributeInstance instance) { return this.getter.applyAsDouble(instance); }
-
-        public static AttributeValueType getByName(String name) {
-            for (var target : values()) if (target.name.equals(name)) return target;
-            throw new IllegalArgumentException("Invalid attribute value type '" + name + "'");
-        }
 
         private static RangedAttribute castToRangedAttribute(AttributeInstance instance) {
             var attr = instance.getAttribute();
@@ -122,9 +112,9 @@ public class EntityAttributeCondition implements LootItemCondition {
             instance -> instance
                 .group(
                     BuiltInRegistries.ATTRIBUTE.byNameCodec().fieldOf("attribute").forGetter(o -> o.attribute),
-                    EnumCodec.byNameLowerCase(AttributeValueType.class).fieldOf("valueType").forGetter((o -> o.valueType)),
+                    EnumCodec.byNameLowerCase(ValueType.class).fieldOf("type").forGetter((o -> o.valueType)),
                     MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter((o -> o.value)),
-                    EntityTarget.CODEC.fieldOf("").forGetter((o -> o.entityTarget))
+                    EntityTarget.CODEC.fieldOf("entity").forGetter((o -> o.entityTarget))
                 )
                 .apply(instance, EntityAttributeCondition::new)
         );
