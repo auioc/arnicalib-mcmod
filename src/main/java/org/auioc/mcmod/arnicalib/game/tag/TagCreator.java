@@ -43,14 +43,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
 
 public class TagCreator {
+
+    // TODO instance
 
     public static <T> TagKey<T> tag(ResourceKey<? extends Registry<T>> registryKey, ResourceLocation tag) {
         return TagKey.create(registryKey, tag);
     }
 
+    // ============================================================================================================== //
 
     public static TagKey<Attribute> attribute(ResourceLocation tag) {
         return tag(Registries.ATTRIBUTE, tag);
@@ -134,6 +138,10 @@ public class TagCreator {
 
     public static TagKey<VillagerType> villagerType(ResourceLocation tag) {
         return tag(Registries.VILLAGER_TYPE, tag);
+    }
+
+    public static TagKey<Structure> structure(ResourceLocation tag) {
+        return tag(Registries.STRUCTURE, tag);
     }
 
 }
