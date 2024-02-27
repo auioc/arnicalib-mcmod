@@ -57,7 +57,7 @@ public class SetCustomEffectsFunction extends LootItemConditionalFunction {
     public static final Codec<SetCustomEffectsFunction> CODEC =
         RecordCodecBuilder.create(
             instance -> commonFields(instance)
-                .and(MobEffectInstanceSerializer.CODEC.listOf().fieldOf("").forGetter(o -> o.effects))
+                .and(MobEffectInstanceSerializer.CODEC.listOf().fieldOf("effects").forGetter(o -> o.effects))
                 .apply(instance, SetCustomEffectsFunction::new)
         );
 
