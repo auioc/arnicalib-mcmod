@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2024 AUIOC.ORG
+ * Copyright (C) 2022-2025 AUIOC.ORG
  *
  * This file is part of ArnicaLib, a mod made for Minecraft.
  *
@@ -19,53 +19,51 @@
 
 package org.auioc.mcmod.arnicalib.game.loot.predicate;
 
-import com.google.common.collect.ImmutableSet;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.auioc.mcmod.arnicalib.game.codec.EnumCodec;
-import org.auioc.mcmod.arnicalib.mod.server.loot.AHLootItemConditions;
 
 import java.util.Set;
 
-public class EntityAttributeCondition implements LootItemCondition {
+public record EntityAttributeCondition(
+    Holder<Attribute> attribute,
+    ValueType valueType,
+    MinMaxBounds.Doubles value,
+    LootContext.EntityTarget entityTarget
+) implements LootItemCondition {
 
-    private final Attribute attribute;
-    private final ValueType valueType;
-    private final MinMaxBounds.Doubles value;
-    private final EntityTarget entityTarget;
+    public static MapCodec<EntityAttributeCondition> CODEC = RecordCodecBuilder.mapCodec(
+        instance -> instance.group(
+            Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
+            EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.valueType),
+            MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value),
+            LootContext.EntityTarget.CODEC.fieldOf("entity").forGetter(o -> o.entityTarget)
+        ).apply(instance, EntityAttributeCondition::new));
 
-    public EntityAttributeCondition(Attribute attribute, ValueType valueType, MinMaxBounds.Doubles value, EntityTarget entityTarget) {
-        this.attribute = attribute;
-        this.valueType = valueType;
-        this.value = value;
-        this.entityTarget = entityTarget;
+    public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
+
+    @Override
+    public LootItemConditionType getType() { return TYPE; }
+
+    @Override
+    public Set<ContextKey<?>> getReferencedContextParams() {
+        return Set.of(this.entityTarget.getParam());
     }
 
     @Override
-    public LootItemConditionType getType() {
-        return AHLootItemConditions.ENTITY_ATTRIBUTE.get();
-    }
-
-    public Set<LootContextParam<?>> getReferencedContextParams() {
-        return ImmutableSet.of(LootContextParams.ORIGIN, this.entityTarget.getParam());
-    }
-
-    @Override
-    public boolean test(LootContext ctx) {
-        var entity = ctx.getParamOrNull(this.entityTarget.getParam());
+    public boolean test(LootContext context) {
+        var entity = context.getOptionalParameter(this.entityTarget.getParam());
         if (entity instanceof LivingEntity living) {
             var instance = living.getAttribute(this.attribute);
             if (instance != null) {
@@ -81,17 +79,19 @@ public class EntityAttributeCondition implements LootItemCondition {
 
     // ============================================================================================================== //
 
-
     public enum ValueType {
 
-        DEFAULT((i) -> i.getAttribute().getDefaultValue()),
-        BASE(AttributeInstance::getBaseValue),
-        CURRENT(AttributeInstance::getValue),
-        MAX((i) -> castToRangedAttribute(i).getMaxValue()),
-        MIN((i) -> castToRangedAttribute(i).getMinValue());
+        DEFAULT("default", (i) -> i.getAttribute().value().getDefaultValue()),
+        BASE("base", AttributeInstance::getBaseValue),
+        CURRENT("current", AttributeInstance::getValue),
+        MAX("max", (i) -> castToRangedAttribute(i).getMaxValue()),
+        MIN("min", (i) -> castToRangedAttribute(i).getMinValue());
+
+        private final String name;
         private final FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter;
 
-        ValueType(FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
+        ValueType(String name, FailableToDoubleFunction<AttributeInstance, IllegalArgumentException> getter) {
+            this.name = name;
             this.getter = getter;
         }
 
@@ -99,24 +99,11 @@ public class EntityAttributeCondition implements LootItemCondition {
 
         private static RangedAttribute castToRangedAttribute(AttributeInstance instance) {
             var attr = instance.getAttribute();
-            if (attr instanceof RangedAttribute rangeAttr) return rangeAttr;
-            throw new IllegalArgumentException("Attribute '" + attr.getDescriptionId() + "' is not a RangedAttribute");
+            if (attr.value() instanceof RangedAttribute rangeAttr) return rangeAttr;
+            throw new IllegalArgumentException("Attribute '" + attr.getRegisteredName() + "' is not a RangedAttribute");
         }
 
     }
 
-    // ============================================================================================================== //
-
-    public static final Codec<EntityAttributeCondition> CODEC =
-        RecordCodecBuilder.create(
-            instance -> instance
-                .group(
-                    BuiltInRegistries.ATTRIBUTE.byNameCodec().fieldOf("attribute").forGetter(o -> o.attribute),
-                    EnumCodec.byNameLowerCase(ValueType.class).fieldOf("type").forGetter((o -> o.valueType)),
-                    MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter((o -> o.value)),
-                    EntityTarget.CODEC.fieldOf("entity").forGetter((o -> o.entityTarget))
-                )
-                .apply(instance, EntityAttributeCondition::new)
-        );
 
 }
