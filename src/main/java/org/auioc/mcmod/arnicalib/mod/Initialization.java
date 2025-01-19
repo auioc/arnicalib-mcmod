@@ -24,6 +24,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.mod.enchantment.AHLevelBasedValues;
 import org.auioc.mcmod.arnicalib.mod.loot.AHLootItemConditions;
 
 public class Initialization {
@@ -43,6 +44,7 @@ public class Initialization {
 
     private static void modSetup() {
         AHLootItemConditions.TYPES.register(modEventBus);
+        AHLevelBasedValues.TYPES.register(modEventBus);
         //        AHGlobalLootModifiers.GLOBAL_LOOT_MODIFIERS.register(modEventBus);
         //        AHLootItemFunctions.LOOT_FUNCTION_TYPES.register(modEventBus);
         //        HTags.init();
