@@ -19,7 +19,10 @@
 
 package org.auioc.mcmod.arnicalib.game.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 
 import java.util.function.Consumer;
@@ -32,6 +35,16 @@ public record TagRecord<T>(TagKey<T> tag, Consumer<TagsProvider.TagAppender<T>> 
 
     public void build(Function<TagKey<T>, TagsProvider.TagAppender<T>> builder) {
         appender.accept(builder.apply(tag));
+    }
+
+    // ============================================================================================================== //
+
+    public static <T> TagRecord<T> of(TagKey<T> tag, Consumer<TagsProvider.TagAppender<T>> appender) {
+        return new TagRecord<>(tag, appender);
+    }
+
+    public static <T> TagRecord<T> of(ResourceKey<? extends Registry<T>> registry, ResourceLocation id, Consumer<TagsProvider.TagAppender<T>> appender) {
+        return new TagRecord<>(TagKey.create(registry, id), appender);
     }
 
 }
