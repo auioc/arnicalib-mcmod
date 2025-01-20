@@ -17,7 +17,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.auioc.mcmod.arnicalib.mod.enchantment;
+package org.auioc.mcmod.arnicalib.mod.registry;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;

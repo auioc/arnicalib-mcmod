@@ -17,7 +17,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.auioc.mcmod.arnicalib.mod.loot;
+package org.auioc.mcmod.arnicalib.mod.registry;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
