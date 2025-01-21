@@ -56,6 +56,7 @@ jobs:
             -   name: Github release
                 uses: softprops/action-gh-release@v1
                 with:
+                    prerelease: ${{ env.IS_PRERELEASE == 'true' }}
                     files: |
                         build/libs/*.jar
                         build/libs/*.asc
