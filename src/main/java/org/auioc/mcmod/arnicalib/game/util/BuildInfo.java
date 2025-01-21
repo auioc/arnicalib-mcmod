@@ -20,11 +20,13 @@
 package org.auioc.mcmod.arnicalib.game.util;
 
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.base.util.SemVer;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 public record BuildInfo(
+    SemVer semver,
     String version,
     String reversion,
     int buildNumber,
@@ -40,16 +42,13 @@ public record BuildInfo(
 
     @Override
     public String toString() {
-        return String.format(
-            "%s-%s-rev.%s-build.%d%s%s",
-            minecraftVersion, version, shortReversion(), buildNumber,
-            isRelease ? "" : "-dev", isDirty ? "-dirty" : ""
-        );
+        return semver.toString();
     }
 
     public void log(Logger logger, Marker marker) {
-        logger.info(marker, "Version: " + this.version + " (" + this + ")");
-        if (!this.isRelease) { logger.warn(marker, "Mod is a development version"); }
+        logger.info(marker, "Version: " + semver.core() + " (" + this + ")");
+        if (!isRelease) { logger.warn(marker, "Mod is a development version"); }
+        if (semver.isPrerelease()) { logger.warn(marker, "Mod is a pre-release version"); }
         if (this.isDirty) { logger.warn(marker, "Mod is a dirty build"); }
     }
 
@@ -61,6 +60,13 @@ public record BuildInfo(
     public static BuildInfo fromClass(Class<?> clazz) {
         try {
             var b = new BuildInfo(
+                new SemVer(
+                    clazz.getField("SEMVER_MAJOR").getInt(null),
+                    clazz.getField("SEMVER_MINOR").getInt(null),
+                    clazz.getField("SEMVER_PATCH").getInt(null),
+                    (String) clazz.getField("SEMVER_PRERELEASE").get(null),
+                    (String) clazz.getField("SEMVER_BUILD").get(null)
+                ),
                 clazz.getField("VERSION").get(null).toString(),
                 clazz.getField("REVERSION").get(null).toString(),
                 clazz.getField("BUILD_NUMBER").getInt(null),
