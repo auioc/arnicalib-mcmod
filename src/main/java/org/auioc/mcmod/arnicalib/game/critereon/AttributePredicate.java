@@ -51,12 +51,11 @@ public record AttributePredicate(
 
     private static final Marker MARKER = MarkerFactory.getMarker("AttributePredicate");
 
-    public static MapCodec<AttributePredicate> CODEC = RecordCodecBuilder.mapCodec(
-        instance -> instance.group(
-            Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
-            EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.type),
-            MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value)
-        ).apply(instance, AttributePredicate::new));
+    public static MapCodec<AttributePredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
+        EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.type),
+        MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value)
+    ).apply(instance, AttributePredicate::new));
 
     @Override
     public MapCodec<AttributePredicate> codec() { return CODEC; }

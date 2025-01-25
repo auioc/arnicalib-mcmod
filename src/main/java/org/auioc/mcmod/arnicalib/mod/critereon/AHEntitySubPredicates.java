@@ -27,6 +27,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.critereon.AttributePredicate;
 import org.auioc.mcmod.arnicalib.game.critereon.FrozenPredicate;
+import org.auioc.mcmod.arnicalib.game.critereon.HealthPredicate;
 
 public class AHEntitySubPredicates {
 
@@ -35,5 +36,7 @@ public class AHEntitySubPredicates {
     public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<FrozenPredicate>> FROZEN = CODECS.register("frozen", () -> FrozenPredicate.CODEC);
 
     public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<AttributePredicate>> ATTRIBUTE = CODECS.register("attribute", () -> AttributePredicate.CODEC);
+
+    public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<HealthPredicate>> HEALTH = CODECS.register("health", () -> HealthPredicate.CODEC);
 
 }

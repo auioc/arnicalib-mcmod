@@ -25,41 +25,46 @@ import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * @since 7.0.0
+ * @since 7.0.1
  */
-public record FrozenPredicate(MinMaxBounds.Ints ticks, MinMaxBounds.Doubles percent) implements EntitySubPredicate {
+public record HealthPredicate(MinMaxBounds.Doubles current, MinMaxBounds.Doubles percent) implements EntitySubPredicate {
 
-    public static final MapCodec<FrozenPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        MinMaxBounds.Ints.CODEC.optionalFieldOf("ticks", MinMaxBounds.Ints.ANY).forGetter(o -> o.ticks),
+    public static MapCodec<HealthPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        MinMaxBounds.Doubles.CODEC.optionalFieldOf("current", MinMaxBounds.Doubles.ANY).forGetter(o -> o.current),
         MinMaxBounds.Doubles.CODEC.optionalFieldOf("percent", MinMaxBounds.Doubles.ANY).forGetter(o -> o.percent)
-    ).apply(instance, FrozenPredicate::new));
+    ).apply(instance, HealthPredicate::new));
 
     @Override
-    public MapCodec<? extends EntitySubPredicate> codec() { return CODEC; }
+    public MapCodec<HealthPredicate> codec() { return CODEC; }
 
     @Override
     public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position) {
-        if (!ticks.matches(entity.getTicksFrozen())) {
-            return false;
+        if (entity instanceof LivingEntity living) {
+            if (!current.matches(living.getHealth())) {
+                return false;
+            }
+            if (!percent.matches(living.getHealth() / living.getMaxHealth())) {
+                return false;
+            }
+            return true;
         }
-        if (!percent.matches(entity.getPercentFrozen())) {
-            return false;
-        }
-        return true;
+        return false;
     }
+
 
     // ============================================================================================================== //
 
-    public static FrozenPredicate ticks(MinMaxBounds.Ints value) {
-        return new FrozenPredicate(value, MinMaxBounds.Doubles.ANY);
+    public static HealthPredicate current(MinMaxBounds.Doubles value) {
+        return new HealthPredicate(value, MinMaxBounds.Doubles.ANY);
     }
 
-    public static FrozenPredicate percent(MinMaxBounds.Doubles value) {
-        return new FrozenPredicate(MinMaxBounds.Ints.ANY, value);
+    public static HealthPredicate percent(MinMaxBounds.Doubles value) {
+        return new HealthPredicate(MinMaxBounds.Doubles.ANY, value);
     }
 
 }
