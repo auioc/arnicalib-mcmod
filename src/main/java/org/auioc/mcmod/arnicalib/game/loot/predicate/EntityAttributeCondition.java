@@ -49,13 +49,12 @@ public record EntityAttributeCondition(
     LootContext.EntityTarget entityTarget
 ) implements LootItemCondition {
 
-    public static MapCodec<EntityAttributeCondition> CODEC = RecordCodecBuilder.mapCodec(
-        instance -> instance.group(
-            Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
-            EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.valueType),
-            MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value),
-            LootContext.EntityTarget.CODEC.fieldOf("entity").forGetter(o -> o.entityTarget)
-        ).apply(instance, EntityAttributeCondition::new));
+    public static MapCodec<EntityAttributeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
+        EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.valueType),
+        MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value),
+        LootContext.EntityTarget.CODEC.fieldOf("entity").forGetter(o -> o.entityTarget)
+    ).apply(instance, EntityAttributeCondition::new));
 
     public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
 

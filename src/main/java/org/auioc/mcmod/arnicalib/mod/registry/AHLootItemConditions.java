@@ -25,6 +25,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.BlockStateCondition;
+import org.auioc.mcmod.arnicalib.game.loot.predicate.EnchantmentLevelCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.EntityAttributeCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.ExtraLocationCheck;
 
@@ -35,5 +36,6 @@ public class AHLootItemConditions {
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> ENTITY_ATTRIBUTE = TYPES.register("entity_attribute", () -> EntityAttributeCondition.TYPE);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> BLOCK_STATE = TYPES.register("block_state", () -> BlockStateCondition.TYPE);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> LOCATION_CHECK = TYPES.register("location_check", () -> ExtraLocationCheck.TYPE);
+    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> ENCHANTMENT_LEVEL = TYPES.register("enchantment_level", () -> EnchantmentLevelCondition.TYPE);
 
 }

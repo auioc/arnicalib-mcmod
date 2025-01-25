@@ -39,11 +39,10 @@ import java.util.Set;
  */
 public record ExtraLocationCheck(Optional<LocationCheck> location, Optional<BiomePredicate> biome) implements LootItemCondition {
 
-    public static MapCodec<ExtraLocationCheck> CODEC = RecordCodecBuilder.mapCodec(
-        instance -> instance.group(
-            LocationCheck.CODEC.codec().optionalFieldOf("location").forGetter(o -> o.location),
-            BiomePredicate.CODEC.optionalFieldOf("biome").forGetter(o -> o.biome)
-        ).apply(instance, ExtraLocationCheck::new));
+    public static MapCodec<ExtraLocationCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        LocationCheck.CODEC.codec().optionalFieldOf("location").forGetter(o -> o.location),
+        BiomePredicate.CODEC.optionalFieldOf("biome").forGetter(o -> o.biome)
+    ).apply(instance, ExtraLocationCheck::new));
 
     public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
 

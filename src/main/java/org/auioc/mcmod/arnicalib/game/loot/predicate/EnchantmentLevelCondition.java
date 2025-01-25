@@ -21,11 +21,8 @@ package org.auioc.mcmod.arnicalib.game.loot.predicate;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.util.context.ContextKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -34,13 +31,13 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import java.util.Set;
 
 /**
- * @since 7.0.0
+ * @since 7.0.1
  */
-public record BlockStateCondition(HolderSet<Block> block) implements LootItemCondition {
+public record EnchantmentLevelCondition(MinMaxBounds.Ints level) implements LootItemCondition {
 
-    public static MapCodec<BlockStateCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("block").forGetter(o -> o.block)
-    ).apply(instance, BlockStateCondition::new));
+    public static MapCodec<EnchantmentLevelCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        MinMaxBounds.Ints.CODEC.optionalFieldOf("level", MinMaxBounds.Ints.ANY).forGetter(o -> o.level)
+    ).apply(instance, EnchantmentLevelCondition::new));
 
     public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
 
@@ -49,13 +46,19 @@ public record BlockStateCondition(HolderSet<Block> block) implements LootItemCon
 
     @Override
     public Set<ContextKey<?>> getReferencedContextParams() {
-        return Set.of(LootContextParams.BLOCK_STATE);
+        return Set.of(LootContextParams.ENCHANTMENT_LEVEL);
     }
 
     @Override
     public boolean test(LootContext context) {
-        var state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
-        return state != null && state.is(this.block);
+        var lvl = context.getParameter(LootContextParams.ENCHANTMENT_LEVEL);
+        return level.matches(lvl);
+    }
+
+    // ============================================================================================================== //
+
+    public static LootItemCondition.Builder of(MinMaxBounds.Ints level) {
+        return () -> new EnchantmentLevelCondition(level);
     }
 
 }
