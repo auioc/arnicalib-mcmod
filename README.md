@@ -6,7 +6,7 @@ Shared library for Minecraft mods.
 
 [![GitHub license](https://img.shields.io/github/license/auioc/arnicalib-mcmod?style=flat-square)](/LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/auioc/arnicalib-mcmod?style=flat-square)](https://github.com/auioc/arnicalib-mcmod/releases/latest)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/auioc/arnicalib-mcmod/dev-build.yml?branch=1.20-forge&label=dev%20build&style=flat-square)](https://github.com/auioc/arnicalib-mcmod/actions/workflows/dev-build.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/auioc/arnicalib-mcmod/dev-build.yml?branch=1.21-neo&label=dev%20build&style=flat-square)](https://github.com/auioc/arnicalib-mcmod/actions/workflows/dev-build.yml)
 <br/>
 ![Minecraft](https://img.shields.io/static/v1?label=Minecraft&message=1.21.4&color=00aa00&style=flat-square)
 [![NeoForge](https://img.shields.io/static/v1?label=NeoForge&message=21.4.50-beta&color=e04e14&style=flat-square)](https://neoforged.net/)
