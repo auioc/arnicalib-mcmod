@@ -25,6 +25,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
+import org.auioc.mcmod.arnicalib.game.critereon.AttributePredicate;
 import org.auioc.mcmod.arnicalib.game.critereon.FrozenPredicate;
 
 public class AHEntitySubPredicates {
@@ -32,5 +33,7 @@ public class AHEntitySubPredicates {
     public static final DeferredRegister<MapCodec<? extends EntitySubPredicate>> CODECS = DeferredRegister.create(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, ArnicaLib.MOD_ID);
 
     public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<FrozenPredicate>> FROZEN = CODECS.register("frozen", () -> FrozenPredicate.CODEC);
+
+    public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<AttributePredicate>> ATTRIBUTE = CODECS.register("attribute", () -> AttributePredicate.CODEC);
 
 }

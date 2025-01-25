@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2025 AUIOC.ORG
+ * Copyright (C) 2025 AUIOC.ORG
  *
  * This file is part of ArnicaLib, a mod made for Minecraft.
  *
@@ -17,66 +17,61 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.auioc.mcmod.arnicalib.game.loot.predicate;
+package org.auioc.mcmod.arnicalib.game.critereon;
+
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.Holder;
-import net.minecraft.util.context.ContextKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.function.FailableToDoubleFunction;
 import org.auioc.mcmod.arnicalib.game.codec.EnumCodec;
-import org.auioc.mcmod.arnicalib.game.critereon.AttributePredicate;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
-import java.util.Set;
+import static org.auioc.mcmod.arnicalib.ArnicaLib.LOGGER;
 
 /**
- * @deprecated Recommended to use {@link LootItemEntityPropertyCondition} with {@link AttributePredicate} instead
+ * @since 7.0.1
  */
-@Deprecated(since = "7.0.1")
-public record EntityAttributeCondition(
+public record AttributePredicate(
     Holder<Attribute> attribute,
-    ValueType valueType,
-    MinMaxBounds.Doubles value,
-    LootContext.EntityTarget entityTarget
-) implements LootItemCondition {
+    ValueType type,
+    MinMaxBounds.Doubles value
+) implements EntitySubPredicate {
 
-    public static MapCodec<EntityAttributeCondition> CODEC = RecordCodecBuilder.mapCodec(
+    private static final Marker MARKER = MarkerFactory.getMarker("AttributePredicate");
+
+    public static MapCodec<AttributePredicate> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             Attribute.CODEC.fieldOf("attribute").forGetter(o -> o.attribute),
-            EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.valueType),
-            MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value),
-            LootContext.EntityTarget.CODEC.fieldOf("entity").forGetter(o -> o.entityTarget)
-        ).apply(instance, EntityAttributeCondition::new));
-
-    public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
+            EnumCodec.byString(ValueType.class, e -> e.name).fieldOf("type").forGetter(o -> o.type),
+            MinMaxBounds.Doubles.CODEC.fieldOf("value").forGetter(o -> o.value)
+        ).apply(instance, AttributePredicate::new));
 
     @Override
-    public LootItemConditionType getType() { return TYPE; }
+    public MapCodec<AttributePredicate> codec() { return CODEC; }
 
     @Override
-    public Set<ContextKey<?>> getReferencedContextParams() {
-        return Set.of(this.entityTarget.getParam());
-    }
-
-    @Override
-    public boolean test(LootContext context) {
-        var entity = context.getOptionalParameter(this.entityTarget.getParam());
+    public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position) {
         if (entity instanceof LivingEntity living) {
-            var instance = living.getAttribute(this.attribute);
+            var instance = living.getAttribute(attribute);
             if (instance != null) {
                 try {
-                    double value = this.valueType.getValue(instance);
+                    double value = type.getValue(instance);
                     return this.value.matches(value);
-                } catch (IllegalArgumentException ignored) {
+                } catch (Exception e) {
+                    LOGGER.warn(MARKER, "An error occurred while matching, return false", e);
+                    return false;
                 }
             }
         }
@@ -105,11 +100,12 @@ public record EntityAttributeCondition(
 
         private static RangedAttribute castToRangedAttribute(AttributeInstance instance) {
             var attr = instance.getAttribute();
-            if (attr.value() instanceof RangedAttribute rangeAttr) return rangeAttr;
+            if (attr.value() instanceof RangedAttribute ranged) {
+                return ranged;
+            }
             throw new IllegalArgumentException("Attribute '" + attr.getRegisteredName() + "' is not a RangedAttribute");
         }
 
     }
-
 
 }
