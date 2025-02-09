@@ -21,21 +21,24 @@ package org.auioc.mcmod.arnicalib.mod.registry;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.auioc.mcmod.arnicalib.ArnicaLib;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.BlockStateCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.EnchantmentLevelCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.EntityAttributeCondition;
 import org.auioc.mcmod.arnicalib.game.loot.predicate.ExtraLocationCheck;
+import org.auioc.mcmod.arnicalib.game.loot.predicate.ToolCorrectCheck;
+
+import java.util.function.Supplier;
 
 public class AHLootItemConditions {
 
     public static final DeferredRegister<LootItemConditionType> TYPES = DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, ArnicaLib.MOD_ID);
 
-    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> ENTITY_ATTRIBUTE = TYPES.register("entity_attribute", () -> EntityAttributeCondition.TYPE);
-    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> BLOCK_STATE = TYPES.register("block_state", () -> BlockStateCondition.TYPE);
-    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> LOCATION_CHECK = TYPES.register("location_check", () -> ExtraLocationCheck.TYPE);
-    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> ENCHANTMENT_LEVEL = TYPES.register("enchantment_level", () -> EnchantmentLevelCondition.TYPE);
+    public static final Supplier<LootItemConditionType> ENTITY_ATTRIBUTE = TYPES.register("entity_attribute", () -> EntityAttributeCondition.TYPE);
+    public static final Supplier<LootItemConditionType> BLOCK_STATE = TYPES.register("block_state", () -> BlockStateCondition.TYPE);
+    public static final Supplier<LootItemConditionType> LOCATION_CHECK = TYPES.register("location_check", () -> ExtraLocationCheck.TYPE);
+    public static final Supplier<LootItemConditionType> ENCHANTMENT_LEVEL = TYPES.register("enchantment_level", () -> EnchantmentLevelCondition.TYPE);
+    public static final Supplier<LootItemConditionType> TOOL_CORRECT_CHECK = TYPES.register("tool_correct_check", () -> ToolCorrectCheck.TYPE);
 
 }
