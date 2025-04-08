@@ -22,6 +22,7 @@ package org.auioc.mcmod.arnicalib.game.advancement;
 
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +37,7 @@ public class DisplayInfoBuilder {
     private Component description = Component.literal("advancement.description");
     private ItemStack icon = ItemStack.EMPTY;
     @Nullable
-    private ResourceLocation background = null;
+    private ClientAsset background = null;
     private AdvancementType frame = AdvancementType.TASK;
     private boolean showToast = false;
     private boolean announceChat = false;
@@ -85,6 +86,11 @@ public class DisplayInfoBuilder {
     }
 
     public DisplayInfoBuilder background(ResourceLocation background) {
+        this.background = new ClientAsset(background);
+        return this;
+    }
+
+    public DisplayInfoBuilder background(ClientAsset background) {
         this.background = background;
         return this;
     }
